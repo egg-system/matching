@@ -1,0 +1,46 @@
+version: '3'
+services:
+  laravel:
+    build: 
+      context: .
+      dockerfile: './dev/Dockerfile'
+    container_name: match-app
+    volumes:
+      - ./src:/var/www/html
+    image: match-app
+    depends_on:
+      - mysql
+      - base
+
+  base:
+    build:
+      context: .
+      dockerfile: './Dockerfile'
+    container_name: match-app-base
+    image: match-app-base
+
+  nginx:
+    image: nginx:latest
+    container_name: match-nginx
+    volumes:
+      - ./src/public:/var/www/html/public
+      - ./dev:/etc/nginx/conf.d
+    ports:
+      - 90:80
+    depends_on:
+      - laravel
+
+  mysql:
+    image: mysql:5.7
+    container_name: match-mysql
+    ports:
+      - 6033:3306
+    volumes:
+      - match-mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=matching
+      - MYSQL_ROOT_PASSWORD=password
+
+volumes:
+  match-mysql-data:
+    driver: local
