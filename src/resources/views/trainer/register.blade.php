@@ -140,12 +140,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <span for="agree" class="col-md-4 col-form-label text-md-right">
+                                <a href="{{ route('serviceRule') }}" target="_blank">利用規約</a>の同意</span>
                             <div class="col-md-3">
-                                <input id="hope_work_time" type="checkbox"
-                                    class="form-control @error('hope_work_time.time') is-invalid @enderror"
-                                    name="hope_work_time['time']" value="{{ old('hope_work_time.time') }}"
-                                    autocomplete="hope_work_time" autofocus>
-                                @error('hope_work_time.time')
+                                <input id="agree" type="checkbox"
+                                    class="custom-checkbox @error('agree') is-invalid @enderror" name="agree" value="1"
+                                    autofocus>
+                                @error('agree')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

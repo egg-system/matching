@@ -33,6 +33,7 @@ class RegisterRequest extends FormRequest
             'hope_price.max' => 'nullable|integer',
             'hope_work_time.week' => 'nullable|in:月,火,水,木,金,土,日',
             'hope_work_time.time' => 'nullable|date_format:H:i',
+            'agree' => 'accepted'
         ];
     }
 
@@ -46,6 +47,7 @@ class RegisterRequest extends FormRequest
             'pr_comment' => 'PRのコメント',
             'hope_price' => '支払い単価',
             'hope_work_time' => '希望する曜日や時間帯',
+            'agree' => '利用規約'
         ];
     }
 }
