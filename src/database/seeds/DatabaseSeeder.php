@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        DB::transaction(function () {
+            $this->call(
+                [
+                    AreasTableSeeder::class,
+                    OccupationsTableSeeder::class,
+                    TrainersTableSeeder::class,
+                    GymsTableSeeder::class,
+                ]
+            );
+        });
     }
 }
