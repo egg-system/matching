@@ -2,17 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
+    Route::get('regsiter/{id}', 'Trainer\RegisterController@showForm')->middleware('signed')->name('register');
+    Route::post('regsiter/{id}', 'Trainer\RegisterController@register')->middleware('signed');
 });
+
+Auth::routes(['verify' => true]);
+
+Route::view('/sendEmail', 'auth.sendVerifyEmail')->name('sendVerifyEmail');
+
+Route::view('/', 'lp')->name('top');
