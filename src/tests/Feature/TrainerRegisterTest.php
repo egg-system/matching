@@ -7,6 +7,7 @@ use App\Models\Trainer;
 use App\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\URL;
 use ReflectionClass;
 use Tests\TestCase;
 
@@ -53,8 +54,8 @@ class TrainerRegisterTest extends TestCase
         // 署名ルートにアクセス
         $this->get($url)->assertStatus(200);
         // 登録データ作成
-        $data = factory(Trainer::class)->make();
-        $response = $this->post($url, $data->toArray());
+        $data = factory(Trainer::class)->make(['agree' => 1]);
+        $response = $this->post(URL::signedRoute('trainer.store', ['id' => $login->id]), $data->toArray());
         // 登録後リダイレクト
         $response->assertSessionHasNoErrors()->assertStatus(302);
         // トレーナー登録

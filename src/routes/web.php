@@ -2,12 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Auth::routes(['verify' => true]);
-
-Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
-    Route::get('regsiter/{id}', 'Trainer\RegisterController@showForm')->middleware('signed')->name('register');
-    Route::post('regsiter/{id}', 'Trainer\RegisterController@register')->middleware('signed');
-});
+Route::resource('trainer', 'TrainerController')->only(['create', 'store']);
 
 Auth::routes(['verify' => true]);
 

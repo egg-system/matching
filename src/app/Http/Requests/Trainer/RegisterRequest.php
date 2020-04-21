@@ -24,6 +24,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'required',
             'name' => 'required',
             'tel' => 'nullable',
             'occupation_id' => 'required|exists:occupations,id',

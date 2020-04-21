@@ -15,9 +15,9 @@ abstract class BaseSeeder extends Seeder
      */
     public function run()
     {
-        if (App::environment('local')) {
+        if (App::isLocal('local')) {
             $this->dev();
-        } else if (App::environment('production')) {
+        } else {
             $this->production();
         }
     }

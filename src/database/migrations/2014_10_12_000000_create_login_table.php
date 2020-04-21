@@ -20,11 +20,12 @@ class CreateLoginTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string("user_type")->nullable();
-            $table->unsignedBigInteger("user_id")->nullable()->index();
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->rememberToken();
             $table->timestamps();
 
             $table->unique(['email', 'user_type']);
+            $table->index(["user_type", "user_id"]);
         });
     }
 

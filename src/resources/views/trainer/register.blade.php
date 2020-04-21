@@ -8,8 +8,7 @@
                 <div class="card-header">トレーナー登録</div>
 
                 <div class="card-body">
-                    <form method="POST"
-                        action="{{ route('trainer.register',['id' => request()->id,'signature' => request()->signature]) }}">
+                    <form method="POST" action="{{ URL::signedRoute('trainer.store', ['id' => request()->id ]) }}">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">氏名</label>

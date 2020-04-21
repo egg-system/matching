@@ -4,8 +4,6 @@ use App\Models\Area;
 
 class AreasTableSeeder extends BaseSeeder
 {
-    private $table = 'areas';
-
     /**
      * 開発環境用
      */

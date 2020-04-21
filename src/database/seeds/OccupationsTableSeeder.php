@@ -1,30 +1,17 @@
 <?php
 
+use App\Models\Occupation;
 use Illuminate\Support\Facades\DB;
 
 class OccupationsTableSeeder extends BaseSeeder
 {
-    private $table = 'occupations';
 
     /**
      * 開発環境用
      */
     public function dev()
     {
-        DB::table($this->table)->insert([
-            [
-                'name' => 'パーソナル'
-            ],
-            [
-                'name' => 'ボクシング'
-            ],
-            [
-                'name' => 'フィットネス'
-            ],
-            [
-                'neme' => 'etc'
-            ]
-        ]);
+        $this->production();
     }
 
     /**
@@ -32,7 +19,20 @@ class OccupationsTableSeeder extends BaseSeeder
      */
     public function production()
     {
-        DB::table($this->table)->insert(
+        $datas = $this->dataList();
+        foreach ($datas as $data) {
+            Occupation::firstOrCreate($data);
+        }
+    }
+
+    /**
+     * 挿入データ定義
+     *
+     * @return array
+     */
+    private function dataList()
+    {
+        return [
             [
                 'name' => 'パーソナル'
             ],
@@ -43,8 +43,8 @@ class OccupationsTableSeeder extends BaseSeeder
                 'name' => 'フィットネス'
             ],
             [
-                'neme' => 'etc'
+                'name' => 'etc'
             ]
-        );
+        ];
     }
 }

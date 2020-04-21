@@ -67,7 +67,7 @@ class VerifyEmail extends Notification
     protected function verificationUrl($notifiable)
     {
         return url()->signedRoute(
-            'trainer.register',
+            'trainer.create',
             ['id' => $notifiable->getKey()]
         );
     }
