@@ -16,9 +16,6 @@ class OccupationsTableSeeder extends Seeder
         ],
         [
             'name' => 'フィットネス'
-        ],
-        [
-            'name' => 'etc'
         ]
     ];
 

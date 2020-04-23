@@ -33,7 +33,7 @@ class TrainerController extends Controller
     public function store(RegisterRequest $request)
     {
         // すでにLoginと紐付いていた場合
-        if (Login::find($request->id)->user) {
+        if (Login::find($request->id)->user_id) {
             return redirect()->route('top');
         }
         $registered_trainer = Trainer::create($request->validated());
