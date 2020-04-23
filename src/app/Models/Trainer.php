@@ -25,4 +25,16 @@ class Trainer extends Model
     {
         return $this->morphOne('App\Models\Login', 'user');
     }
+
+    /**
+     * トレーナーとログインを関連付ける
+     * @param int $id
+     * @return \App\Models\Login
+     */
+    public function associateToTrainer(int $login_id)
+    {
+        $login = Login::find($login_id);
+        $login->email_verified_at = now();
+        return $this->login()->save($login);
+    }
 }

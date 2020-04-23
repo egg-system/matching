@@ -9,4 +9,4 @@ Auth::routes(['verify' => true]);
 Route::view('/sendEmail', 'auth.sendVerifyEmail')->name('sendVerifyEmail');
 Route::view('/serviceRule', 'common.serviceRule')->name('serviceRule');
 
-Route::view('/', 'lp')->name('top');
+Route::view('/', 'landingPage')->name('top');

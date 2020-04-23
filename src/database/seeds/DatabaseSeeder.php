@@ -1,10 +1,23 @@
 <?php
 
+use Database\Seeds\Local;
+use Database\Seeds\Production;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
+    const LOCAL = [
+        Local\AreasTableSeeder::class,
+        Local\GymsTableSeeder::class,
+        Local\OccupationsTableSeeder::class,
+        Local\TrainersTableSeeder::class
+    ];
+
+    const PROD = [
+        Production\OccupationsTableSeeder::class
+    ];
+
     /**
      * Seed the application's database.
      *
@@ -13,22 +26,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::transaction(function () {
-            $this->call($this->seederList());
+            $this->call(App::isLocal() ? self::LOCAL : self::PROD);
         });
-    }
-
-    /**
-     * 実行するSeederの定義
-     *
-     * @return array
-     */
-    private function seederList()
-    {
-        return [
-            AreasTableSeeder::class,
-            OccupationsTableSeeder::class,
-            TrainersTableSeeder::class,
-            GymsTableSeeder::class,
-        ];
     }
 }

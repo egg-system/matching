@@ -55,7 +55,7 @@
                                     <option></option>
                                     @foreach ($occupations as $occupation)
                                     <option value="{{ $occupation->id }}"
-                                        {{ old('occupation_id') === $occupation->id ? 'selected' :''}}>
+                                        {{ old('occupation_id') === (string)$occupation->id ? 'selected' :''}}>
                                         {{ $occupation->name }}</option>
                                     @endforeach
                                 </select>
@@ -72,7 +72,8 @@
                                 <select name="area_id" class="form-control" id="areas">
                                     <option></option>
                                     @foreach ($areas as $area)
-                                    <option value="{{ $area->id }}" {{ old('area_id') === $area->id ? 'selected' :''}}>
+                                    <option value="{{ $area->id }}"
+                                        {{ old('area_id') === (string)$area->id ? 'selected' :''}}>
                                         {{ $area->name }}</option>
                                     @endforeach
                                 </select>
@@ -144,7 +145,7 @@
                             <div class="col-md-3">
                                 <input id="agree" type="checkbox"
                                     class="custom-checkbox @error('agree') is-invalid @enderror" name="agree" value="1"
-                                    autofocus>
+                                    autofocus {{ old('agree') ? 'checked' : '' }}>
                                 @error('agree')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>

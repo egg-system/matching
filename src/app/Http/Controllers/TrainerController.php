@@ -32,44 +32,17 @@ class TrainerController extends Controller
      */
     public function store(RegisterRequest $request)
     {
-        $registered_trainer = $this->register($request);
+        // すでにLoginと紐付いていた場合
+        if (Login::find($request->id)->user) {
+            return redirect()->route('top');
+        }
+        $registered_trainer = Trainer::create($request->validated());
         if (!$registered_trainer) {
             return redirect()->back();
         }
-        $login = $this->associateToTrainer($registered_trainer, $request->id);
+        $login = $registered_trainer->associateToTrainer($request->id);
         auth()->login($login);
 
         return redirect()->route('top');
-    }
-
-    /**
-     * トレーナーの登録を行う
-     * @param RegisterRequest $request
-     * @return \App\Models\Trainer
-     */
-    private function register(RegisterRequest $request)
-    {
-        return Trainer::create([
-            'name' => $request->name,
-            'tel' => $request->tel,
-            'pr_comment' => $request->pr_comment,
-            'occupation_id' => $request->occupation_id,
-            'area_id' => $request->area_id,
-            'hope_price' => $request->hope_price,
-            'hope_work_time' => $request->hope_work_time,
-        ]);
-    }
-
-    /**
-     * トレーナーとログインを関連付ける
-     * @param \App\Models\Trainer $trainer
-     * @param int $id
-     * @return \App\Models\Login
-     */
-    private function associateToTrainer(Trainer $trainer, int $login_id)
-    {
-        $login = Login::find($login_id);
-        $login->email_verified_at = now();
-        return $trainer->login()->save($login);
     }
 }
