@@ -11,12 +11,6 @@ use App\Models\Trainer;
 
 class TrainerController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('signed')
-            ->only(['create', 'store']);
-    }
-
     /**
      * トレーナー本登録画面表示
      */
