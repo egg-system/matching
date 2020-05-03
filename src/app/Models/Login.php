@@ -49,4 +49,12 @@ class Login extends Authenticatable implements MustVerifyEmail
     {
         return $this->morphTo('user');
     }
+
+    /**
+     * パスワードのハッシュ化
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

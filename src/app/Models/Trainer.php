@@ -27,10 +27,11 @@ class Trainer extends Model
      * @param int $id
      * @return \App\Models\Login
      */
-    public function associateToTrainer(int $login_id)
+    public function associateToTrainer(int $login_id, array $update_column = [])
     {
         $login = Login::find($login_id);
-        $login->email_verified_at = now();
-        return $this->login()->save($login);
+        // 更新するカラムとマージ
+        $attr = array_merge($login->getAttributes(), $update_column);
+        return $this->login()->save($login->fill($attr));
     }
 }

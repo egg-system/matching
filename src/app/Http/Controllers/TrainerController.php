@@ -8,6 +8,7 @@ use App\Models\Area;
 use App\Models\Login;
 use App\Models\Occupation;
 use App\Models\Trainer;
+use Illuminate\Support\Facades\DB;
 
 class TrainerController extends Controller
 {
@@ -26,15 +27,25 @@ class TrainerController extends Controller
      */
     public function store(RegisterRequest $request)
     {
+        $login_id = $request->id;
         // すでにLoginと紐付いていた場合
-        if (Login::find($request->id)->user_id) {
+        if (Login::find($login_id)->user_id) {
             return redirect()->route('top');
         }
-        $registered_trainer = Trainer::create($request->validated());
-        if (!$registered_trainer) {
-            return redirect()->back();
-        }
-        $login = $registered_trainer->associateToTrainer($request->id);
+        // トレーナー作成処理
+        $login = DB::transaction(function () use ($request, $login_id) {
+            $validated = $request->validated();
+            // トレーナー登録
+            $registered_trainer = Trainer::create($validated);
+            // matchingConditionと紐付け
+            $registered_trainer->matchingCondition()->create($validated);
+            // トレーナーとログインの紐付けて、カラムの更新
+            return $registered_trainer->associateToTrainer($login_id, [
+                'email_verified_at' => now(),
+                'password' => $request->password
+            ]);
+        });
+
         auth()->login($login);
 
         return redirect()->route('top');

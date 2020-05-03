@@ -25,6 +25,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'id' => 'required',
+            'password' => 'required|min:6|max:255|confirmed',
             'name' => 'required',
             'tel' => 'nullable',
             'occupation_id' => 'required|exists:occupations,id',
@@ -41,6 +42,7 @@ class RegisterRequest extends FormRequest
     public function attributes()
     {
         return [
+            'password' => 'パスワード',
             'name' => '氏名',
             'tel' => '電話番号',
             'occupation_id' => '種類',
