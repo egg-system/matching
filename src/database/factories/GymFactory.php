@@ -12,16 +12,8 @@ $factory->define(Gym::class, function (Faker $faker) {
         'name' =>  $faker->company,
         'president_name' => $faker->name,
         'tel' => $faker->phoneNumber,
-        'occupation_id' => function () {
-            return factory(Occupation::class)->create()->id;
-        },
-        'area_id' => function () {
-            return factory(Area::class)->create()->id;
-        },
         'staff_count' => $faker->numberBetween(),
         'customer_count' => $faker->numberBetween(),
         'requirements' => [],
-        'price' => [],
-        'work_time' => [],
     ];
 });
