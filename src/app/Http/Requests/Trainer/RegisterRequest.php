@@ -31,10 +31,12 @@ class RegisterRequest extends FormRequest
             'occupation_id' => 'required|exists:occupations,id',
             'area_id' => 'required|exists:areas,id',
             'pr_comment' => 'nullable|string',
-            'hope_price.min' => 'nullable|integer|lt:hope_price.max',
-            'hope_price.max' => 'nullable|integer',
-            'hope_work_time.week' => 'nullable|in:月,火,水,木,金,土,日',
-            'hope_work_time.time' => 'nullable|date_format:H:i',
+            'price' => 'nullable|array',
+            'price.min' => 'nullable|integer|lt:price.max',
+            'price.max' => 'nullable|integer',
+            'work_time' => 'nullable|array',
+            'work_time.week' => 'nullable|in:月,火,水,木,金,土,日',
+            'work_time.time' => 'nullable|date_format:H:i',
             'agree' => 'accepted'
         ];
     }
@@ -48,8 +50,8 @@ class RegisterRequest extends FormRequest
             'occupation_id' => '種類',
             'area_id' => '場所／エリア',
             'pr_comment' => 'PRのコメント',
-            'hope_price' => '支払い単価',
-            'hope_work_time' => '希望する曜日や時間帯',
+            'price' => '支払い単価',
+            'work_time' => '希望する曜日や時間帯',
             'agree' => '利用規約'
         ];
     }
