@@ -22,4 +22,25 @@ class MatchingCondition extends Model
     {
         return $this->morphTo('user');
     }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
+
+    public function occupation()
+    {
+        return $this->belongsTo(Occupation::class);
+    }
+
+    /**
+     * トレーナーだけに限定するクエリスコープ
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTrainer($query)
+    {
+        return $query->where('user_type', Trainer::class);
+    }
 }

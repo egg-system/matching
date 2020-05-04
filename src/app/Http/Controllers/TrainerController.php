@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\Trainer\RegisterRequest;
 use App\Models\Area;
 use App\Models\Login;
 use App\Models\Occupation;
 use App\Models\Trainer;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class TrainerController extends Controller
 {
@@ -49,5 +51,22 @@ class TrainerController extends Controller
         auth()->login($login);
 
         return redirect()->route('top');
+    }
+
+    /**
+     * トレーナーのログイン
+     */
+    public function login(LoginRequest $request)
+    {
+        $credentials = array_merge($request->only('email', 'password'), ['user_type' => Trainer::class]);
+
+        // 認証失敗
+        if (!auth()->attempt($credentials)) {
+            throw ValidationException::withMessages([
+                'email' => [trans('auth.failed')],
+            ]);
+        }
+
+        return redirect()->intended(route('top'));
     }
 }

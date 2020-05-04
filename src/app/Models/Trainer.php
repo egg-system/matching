@@ -14,12 +14,12 @@ class Trainer extends Model
 
     public function login()
     {
-        return $this->morphOne('App\Models\Login', 'user');
+        return $this->morphOne(Login::class, 'user');
     }
 
     public function matchingCondition()
     {
-        return $this->morphOne('App\Models\MatchingCondition', 'user');
+        return $this->morphOne(MatchingCondition::class, 'user');
     }
 
     /**
