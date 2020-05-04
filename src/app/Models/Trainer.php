@@ -27,11 +27,10 @@ class Trainer extends Model
      * @param int $id
      * @return \App\Models\Login
      */
-    public function associateToTrainer(int $login_id, array $update_column = [])
+    public function associateToTrainer(int $login_id, array $update_columns = [])
     {
         $login = Login::find($login_id);
         // 更新するカラムとマージ
-        $attr = array_merge($login->getAttributes(), $update_column);
-        return $this->login()->save($login->fill($attr));
+        return $this->login()->save($login->fillUpdateColumns($update_columns));
     }
 }

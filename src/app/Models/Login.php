@@ -57,4 +57,15 @@ class Login extends Authenticatable implements MustVerifyEmail
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    /**
+     * 更新するカラムで属性を上書きしたモデルを取得
+     * @param array $update_columns = []
+     * @return \App\Modes\Login
+     */
+    public function fillUpdateColumns(array $update_columns = [])
+    {
+        $attr = array_merge($this->getAttributes(), $update_columns);
+        return $this->fill($attr);
+    }
 }
