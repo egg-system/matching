@@ -24,7 +24,7 @@ class GymController extends Controller
     {
         $validated = $request->validated();
         if ($request->anyFilled(array_keys($validated))) {
-            $conditions = MatchingCondition::with(['area', 'occupation'])->strictSearch($validated)->onlyTrainer()->get();
+            $conditions = MatchingCondition::with(['area', 'occupation'])->search($validated)->onlyTrainer()->get();
         } else {
             $conditions = MatchingCondition::with(['area', 'occupation'])->onlyTrainer()->get();
         }
