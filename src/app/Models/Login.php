@@ -18,7 +18,7 @@ class Login extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'email', 'password',
+        'email', 'password', 'email_verified_at'
     ];
 
     /**
@@ -48,5 +48,24 @@ class Login extends Authenticatable implements MustVerifyEmail
     public function user()
     {
         return $this->morphTo('user');
+    }
+
+    /**
+     * パスワードのハッシュ化
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * 更新するカラムで属性を上書きしたモデルを取得
+     * @param array $update_columns = []
+     * @return \App\Modes\Login
+     */
+    public function fillUpdateColumns(array $update_columns = [])
+    {
+        $attr = array_merge($this->getAttributes(), $update_columns);
+        return $this->fill($attr);
     }
 }

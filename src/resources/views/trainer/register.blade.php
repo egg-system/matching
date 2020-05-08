@@ -11,6 +11,30 @@
                     <form method="POST" action="{{ URL::signedRoute('trainer.store', ['id' => request()->id ]) }}">
                         @csrf
                         <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">パスワード</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    value="{{ old('password') }}" required autocomplete="password" autofocus>
+
+                                @error('password')
+                                <span class="text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password-confirm"
+                                class="col-md-4 col-form-label text-md-right">パスワード（確認用）</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">氏名</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -85,13 +109,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="hope_price" class="col-md-4 col-form-label text-md-right">希望単価</label>
+                            <label for="price" class="col-md-4 col-form-label text-md-right">希望単価</label>
                             <div class="col-md-3">
-                                <input id="hope_price" type="number"
-                                    class="form-control @error('hope_price.min') is-invalid @enderror"
-                                    name="hope_price['min']" value="{{ old('hope_price.min') }}"
-                                    autocomplete="hope_price" autofocus>
-                                @error('hope_price.min')
+                                <input id="price" type="number"
+                                    class="form-control @error('price.min') is-invalid @enderror" name="price[min]"
+                                    value="{{ old('price.min') }}" autocomplete="price" autofocus>
+                                @error('price.min')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -99,12 +122,11 @@
                             </div>
                             <span>~</span>
                             <div class="col-md-3">
-                                <input id="hope_price" type="number"
-                                    class="form-control @error('hope_price.max') is-invalid @enderror"
-                                    name="hope_price['max']" value="{{ old('hope_price.max') }}"
-                                    autocomplete="hope_price" autofocus>
+                                <input id="price" type="number"
+                                    class="form-control @error('price.max') is-invalid @enderror" name="price[max]"
+                                    value="{{ old('price.max') }}" autocomplete="price" autofocus>
 
-                                @error('hope_price.max')
+                                @error('price.max')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -112,13 +134,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="hope_work_time" class="col-md-4 col-form-label text-md-right">希望曜日</label>
+                            <label for="work_time" class="col-md-4 col-form-label text-md-right">希望曜日</label>
                             <div class="col-md-3">
-                                <input id="hope_work_time" type="text"
-                                    class="form-control @error('hope_work_time.week') is-invalid @enderror"
-                                    name="hope_work_time['week']" value="{{ old('hope_work_time.week') }}"
-                                    autocomplete="hope_work_time" autofocus>
-                                @error('hope_work_time.week')
+                                <input id="work_time" type="text"
+                                    class="form-control @error('work_time.week') is-invalid @enderror"
+                                    name="work_time[week]" value="{{ old('work_time.week') }}" autocomplete="work_time"
+                                    autofocus>
+                                @error('work_time.week')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -126,13 +148,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="hope_work_time" class="col-md-4 col-form-label text-md-right">希望時間帯</label>
+                            <label for="work_time" class="col-md-4 col-form-label text-md-right">希望時間帯</label>
                             <div class="col-md-3">
-                                <input id="hope_work_time" type="time"
-                                    class="form-control @error('hope_work_time.time') is-invalid @enderror"
-                                    name="hope_work_time['time']" value="{{ old('hope_work_time.time') }}"
-                                    autocomplete="hope_work_time" autofocus>
-                                @error('hope_work_time.time')
+                                <input id="work_time" type="time"
+                                    class="form-control @error('work_time.time') is-invalid @enderror"
+                                    name="work_time[time]" value="{{ old('work_time.time') }}" autocomplete="work_time"
+                                    autofocus>
+                                @error('work_time.time')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
