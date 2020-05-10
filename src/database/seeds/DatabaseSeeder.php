@@ -10,6 +10,8 @@ class DatabaseSeeder extends Seeder
     const LOCAL = [
         Local\AreasTableSeeder::class,
         Local\GymsTableSeeder::class,
+        Local\LoginTableSeeder::class,
+        Local\MatchingConditionsTableSeeder::class,
         Local\OccupationsTableSeeder::class,
         Local\TrainersTableSeeder::class
     ];
