@@ -15,7 +15,7 @@ class LoginTableSeeder extends Seeder
         Login::create([
             'email' => 'test@test.co.jp',
             'email_verified_at' => Carbon::now(),
-            'password' => bcrypt('password'),
+            'password' => 'password',
             'user_type' => 'App\Models\Trainer',
             'user_id' => 1,
         ]);
