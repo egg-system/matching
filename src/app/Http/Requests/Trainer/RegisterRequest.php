@@ -24,11 +24,11 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         $day_of_week_role = join(',', config('const.day_of_week'));
-        
+
         return [
             'id' => 'required',
             'password' => 'required|min:6|max:255|confirmed',
-            'name' => 'nullable',
+            'name' => 'required',
             'tel' => 'nullable',
             'occupation_id' => 'required|exists:occupations,id',
             'area_id' => 'required|exists:areas,id',

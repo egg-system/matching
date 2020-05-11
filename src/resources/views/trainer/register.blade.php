@@ -38,7 +38,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">氏名</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
+                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                 <span class="text-danger" role="alert">
@@ -93,7 +93,7 @@
                             <label for="areas" class="col-md-4 col-form-label text-md-right">場所／エリア</label>
                             <div class="col-md-6">
                                 <select name="area_id" class="form-control" id="areas">
-                                    <option></option>
+                                    <option>-- 選択してください --</option>
                                     @foreach ($areas as $area)
                                     <option value="{{ $area->id }}"
                                         {{ old('area_id') === (string)$area->id ? 'selected' :''}}>
