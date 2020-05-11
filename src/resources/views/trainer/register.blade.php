@@ -76,7 +76,6 @@
                             <label for="occupations" class="col-md-4 col-form-label text-md-right">種類</label>
                             <div class="col-md-6">
                                 <select name="occupation_id" class="form-control" id="occupations">
-                                    <option></option>
                                     @foreach ($occupations as $occupation)
                                     <option value="{{ $occupation->id }}"
                                         {{ old('occupation_id') === (string)$occupation->id ? 'selected' :''}}>
