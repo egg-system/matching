@@ -23,10 +23,12 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
+        $day_of_week_role = join(',', config('const.day_of_week'));
+        
         return [
             'id' => 'required',
             'password' => 'required|min:6|max:255|confirmed',
-            'name' => 'required',
+            'name' => 'nullable',
             'tel' => 'nullable',
             'occupation_id' => 'required|exists:occupations,id',
             'area_id' => 'required|exists:areas,id',
@@ -35,7 +37,7 @@ class RegisterRequest extends FormRequest
             'price.min' => 'nullable|integer|lt:price.max',
             'price.max' => 'nullable|integer',
             'work_time' => 'nullable|array',
-            'work_time.week' => 'nullable|in:月,火,水,木,金,土,日',
+            'work_time.week' => "nullable|in:{$day_of_week_role}",
             'work_time.time' => 'nullable|date_format:H:i',
             'agree' => 'accepted'
         ];

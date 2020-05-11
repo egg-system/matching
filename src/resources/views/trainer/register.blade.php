@@ -38,7 +38,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">氏名</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    name="name" value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                 @error('name')
                                 <span class="text-danger" role="alert">
@@ -136,10 +136,14 @@
                         <div class="form-group row">
                             <label for="work_time" class="col-md-4 col-form-label text-md-right">希望曜日</label>
                             <div class="col-md-3">
-                                <input id="work_time" type="text"
-                                    class="form-control @error('work_time.week') is-invalid @enderror"
-                                    name="work_time[week]" value="{{ old('work_time.week') }}" autocomplete="work_time"
-                                    autofocus>
+                                <select name="work_time[week]" class="form-control" id="work_time">
+                                    <option></option>
+                                    @foreach (config('const.day_of_week') as $day_of_week)
+                                    <option value="{{ $day_of_week }}"
+                                        {{ old('work_time[week]') === $day_of_week ? 'selected' :''}}>
+                                        {{ $day_of_week }}</option>
+                                    @endforeach
+                                </select>
                                 @error('work_time.week')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
