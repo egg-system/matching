@@ -12,14 +12,7 @@ class MatchingConditionsTableSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
 
-        MatchingCondition::create([
-            'user_type' => 'App\Models\Trainer',
-            'user_id' => 1,
-            'occupation_id' => 1,
-            'area_id' => 1,
-            'price' => json_decode('{"max": "20000", "min": "10000"}'),
-            'work_time' => json_decode('{"time": "18:00", "week": "月"}'),
-        ]);
+        factory(MatchingCondition::class, 1)->create();
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }

@@ -144,4 +144,10 @@ return [
 
     ],
 
+    'seeds' => [
+        'default' => [
+            'email' => 'test@test.co.jp',
+            'password' => 'password',
+        ]
+    ]
 ];
