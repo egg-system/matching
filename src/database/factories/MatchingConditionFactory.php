@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 $factory->define(MatchingCondition::class, function (Faker $faker) {
     return [
         'user_type' => 'App\Models\Trainer',
-        'user_id' => 1, // MatchingConditionsTableSeederで必ず上書きする
+        'user_id' => 1, // create時に上書きする
         'occupation_id' => 1,
         'area_id' => 1,
         'price' => ['max' => "{$faker->numberBetween(6, 10)}0000", 'min' => "{$faker->numberBetween(1, 5)}0000"],
