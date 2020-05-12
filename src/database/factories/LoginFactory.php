@@ -15,7 +15,7 @@ $factory->define(Login::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => Carbon::now(),
-        'password' => config('database.seeds.default.password', Str::random(10)),
+        'password' => config('test.seeds.default.password', Str::random(10)),
         'user_type' => 'App\Models\Trainer',
         'user_id' => $user_id++,
         'remember_token' => Str::random(10),
