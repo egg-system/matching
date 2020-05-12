@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
         Local\AreasTableSeeder::class,
         Local\GymsTableSeeder::class,
         Local\LoginTableSeeder::class,
-        Local\MatchingConditionsTableSeeder::class,
         Local\OccupationsTableSeeder::class,
         Local\TrainersTableSeeder::class
     ];
