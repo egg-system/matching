@@ -42,7 +42,7 @@
         <select name="occupation_id" class="form-control" id="occupations">
             @foreach ($occupations as $occupation)
             <option value="{{ $occupation->id }}"
-                {{ ((string)$matching_condition->occupation_id ?? old('occupation_id')) === (string)$occupation->id ? 'selected' :''}}>
+                {{ (isset($matching_condition->occupation_id) ? (string)$matching_condition->occupation_id : old('occupation_id')) === (string)$occupation->id ? 'selected' : '' }}>
                 {{ $occupation->name }}</option>
             @endforeach
         </select>
@@ -60,7 +60,7 @@
             <option>-- 選択してください --</option>
             @foreach ($areas as $area)
             <option value="{{ $area->id }}"
-                {{ ((string)$matching_condition->area_id ?? old('area_id')) === (string)$area->id ? 'selected' : '' }}>
+                {{ (isset($matching_condition->area_id) ? (string)$matching_condition->area_id : old('area_id')) === (string)$area->id ? 'selected' : '' }}>
                 {{ $area->name }}</option>
             @endforeach
         </select>
@@ -76,7 +76,7 @@
     <div class="col-md-3">
         <input id="price" type="number"
             class="form-control @error('price.min') is-invalid @enderror" name="price[min]"
-            value="{{ $matching_condition->price['min'] ?? old('price.min') }}" autocomplete="price" autofocus>
+            value="{{ isset($matching_condition->price['min']) ? $matching_condition->price['min'] : old('price.min') }}" autocomplete="price" autofocus>
         @error('price.min')
         <span class="text-danger" role="alert">
             <strong>{{ $message }}</strong>
@@ -87,7 +87,7 @@
     <div class="col-md-3">
         <input id="price" type="number"
             class="form-control @error('price.max') is-invalid @enderror" name="price[max]"
-            value="{{ $matching_condition->price['max'] ?? old('price.max') }}" autocomplete="price" autofocus>
+            value="{{ isset($matching_condition->price['max']) ? $matching_condition->price['max'] : old('price.max') }}" autocomplete="price" autofocus>
 
         @error('price.max')
         <span class="text-danger" role="alert">
@@ -103,7 +103,7 @@
             <option></option>
             @foreach (config('const.day_of_week') as $day_of_week)
             <option value="{{ $day_of_week }}"
-                {{ $matching_condition->work_time['week'] ?? old('work_time[week]') === $day_of_week ? 'selected' :''}}>
+                {{ isset($matching_condition->work_time['week']) ? $matching_condition->work_time['week'] : old('work_time.week') === $day_of_week ? 'selected' : '' }}>
                 {{ $day_of_week }}</option>
             @endforeach
         </select>
@@ -119,7 +119,7 @@
     <div class="col-md-3">
         <input id="work_time" type="time"
             class="form-control @error('work_time.time') is-invalid @enderror"
-            name="work_time[time]" value="{{ $matching_condition->work_time['time'] ?? old('work_time.time') }}" autocomplete="work_time"
+            name="work_time[time]" value="{{ isset($matching_condition->work_time['time']) ? $matching_condition->work_time['time'] : old('work_time.time') }}" autocomplete="work_time"
             autofocus>
         @error('work_time.time')
         <span class="text-danger" role="alert">
