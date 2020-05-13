@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\Trainer\RegisterRequest;
+use App\Http\Requests\Trainer\UpdateRequest;
 use App\Models\Area;
 use App\Models\Login;
+use App\Models\MatchingCondition;
 use App\Models\Occupation;
 use App\Models\Trainer;
 use Illuminate\Support\Facades\DB;
@@ -68,5 +70,26 @@ class TrainerController extends Controller
         }
 
         return redirect()->intended(route('top'));
+    }
+
+    public function edit(Trainer $trainer)
+    {
+        $occupations = Occupation::all();
+        $areas = Area::all();
+        $matching_condition = MatchingCondition::where('user_id', $trainer->id)->first();
+        return view('trainer.edit', compact('trainer', 'occupations', 'areas', 'matching_condition'));
+    }
+
+    public function update(UpdateRequest $request, Trainer $trainer)
+    {
+        $login = DB::transaction(function () use ($request, $trainer) {
+            $validated = $request->validated();
+            // トレーナー更新
+            Trainer::find($trainer->id)->update($validated);
+            // matchingCondition更新
+            MatchingCondition::where('user_id', $trainer->id)->first()->update($validated);
+        });
+
+        return redirect()->route('top');
     }
 }
