@@ -7,7 +7,7 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
     // 認証
     Route::view('login', 'trainer.login')->middleware('guest')->name('login');
     Route::post('login', 'TrainerController@login')->middleware('guest')->name('login');
-    Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['auth', 'only.trainer']);
+    Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['auth', 'only.trainer', 'can:edit,trainer']);
     /**
      * createとstoreのみにsignedを適用するため、使用しないものと分離
      * Route::resource('', 'TrainerController')->except(['create', 'store']);

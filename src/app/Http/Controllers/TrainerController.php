@@ -74,8 +74,6 @@ class TrainerController extends Controller
 
     public function edit(Trainer $trainer)
     {
-        $this->authorize('edit', $trainer);
-
         $occupations = Occupation::all();
         $areas = Area::all();
         $matching_condition = MatchingCondition::where('user_id', $trainer->id)->first();
@@ -84,8 +82,6 @@ class TrainerController extends Controller
 
     public function update(UpdateRequest $request, Trainer $trainer)
     {
-        $this->authorize('edit', $trainer);
-
         $login = DB::transaction(function () use ($request, $trainer) {
             $validated = $request->validated();
             // トレーナー更新
