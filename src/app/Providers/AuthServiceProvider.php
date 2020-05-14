@@ -29,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // トレーナーのみ許可
+        Gate::define('trainer-only', function ($login) {
+            return optional($login)->user_type === Trainer::class;
+        });
     }
 }
