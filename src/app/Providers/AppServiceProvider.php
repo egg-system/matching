@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Area;
+use App\Models\Occupation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer(['gymowner.trainerList', 'trainer.form'], function($view) {
+            $view->with([
+                'areas' => Area::all(),
+                'occupations' => Occupation::all(),
+            ]);
+        });
     }
 }

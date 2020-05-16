@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Gym\TrainerSearchRequest;
 use App\Http\Requests\LoginRequest;
-use App\Models\Area;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
-use App\Models\Occupation;
 use App\Services\AuthService;
 use Illuminate\Validation\ValidationException;
 
@@ -34,9 +32,7 @@ class GymController extends Controller
             $matching_condition = $matching_condition->search($validated);
         }
         $conditions = $matching_condition->get();
-        $areas = Area::all();
-        $occupations = Occupation::all();
-        return view('gymowner.trainerList', compact('conditions', 'areas', 'occupations'));
+        return view('gymowner.trainerList', compact('conditions'));
     }
 
     /**
