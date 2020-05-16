@@ -4,20 +4,20 @@ namespace App\Http\Middleware;
 
 use App\Models\Gym;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class OnlyGymOwner
 {
     /**
-     * トレーナーのみアクセス可能
+     * ジムオーナーのみアクセス可能
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = null)
     {
-        $login = $request->user();
-        if (optional($login)->user_type === Gym::class) {
+        if (Auth::guard($guard)->user()->user_type === Gym::class) {
             return $next($request);
         }
         abort(403, __('Unauthorized'));
