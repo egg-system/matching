@@ -3,7 +3,10 @@
 return [
     'seeds' => [
         'default' => [
-            'email' => 'test@test.co.jp',
+            'email' => [
+                'trainer' => 'test-trainer@test.co.jp',
+                'gym' => 'test-gym@test.co.jp',
+            ],
             'password' => env('TEST_SEEDER_DEFAULT_PASSWORD', 'password'),
         ],
     ],
