@@ -11,11 +11,17 @@ use App\Models\Login;
 use App\Models\MatchingCondition;
 use App\Models\Occupation;
 use App\Models\Trainer;
+use App\Services\AuthService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class TrainerController extends Controller
 {
+    public function __construct(AuthService $auth_service)
+    {
+        $this->auth_service = $auth_service;
+    }
+
     /**
      * トレーナー本登録画面表示
      */
@@ -60,16 +66,7 @@ class TrainerController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $credentials = array_merge($request->only('email', 'password'), ['user_type' => Trainer::class]);
-
-        // 認証失敗
-        if (!auth()->attempt($credentials)) {
-            throw ValidationException::withMessages([
-                'email' => [trans('auth.failed')],
-            ]);
-        }
-
-        return redirect()->intended(route('top'));
+        return $this->auth_service->login($request, Trainer::class, route('top'));
     }
 
     public function edit(Trainer $trainer)

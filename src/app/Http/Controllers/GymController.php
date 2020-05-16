@@ -8,10 +8,16 @@ use App\Models\Area;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Models\Occupation;
+use App\Services\AuthService;
 use Illuminate\Validation\ValidationException;
 
 class GymController extends Controller
 {
+    public function __construct(AuthService $auth_service)
+    {
+        $this->auth_service = $auth_service;
+    }
+
     public function index()
     {
         return view('gymowner.index');
@@ -23,11 +29,11 @@ class GymController extends Controller
     public function trainerList(TrainerSearchRequest $request)
     {
         $validated = $request->validated();
-        $matchingCondition = MatchingCondition::with(['area', 'occupation'])->onlyTrainer();
+        $matching_condition = MatchingCondition::with(['area', 'occupation'])->onlyTrainer();
         if ($request->anyFilled(array_keys($validated))) {
-            $matchingCondition = $matchingCondition->search($validated);
+            $matching_condition = $matching_condition->search($validated);
         }
-        $conditions = $matchingCondition->get();
+        $conditions = $matching_condition->get();
         $areas = Area::all();
         $occupations = Occupation::all();
         return view('gymowner.trainerList', compact('conditions', 'areas', 'occupations'));
@@ -38,15 +44,6 @@ class GymController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $credentials = array_merge($request->only('email', 'password'), ['user_type' => Gym::class]);
-
-        // 認証失敗
-        if (!auth()->attempt($credentials)) {
-            throw ValidationException::withMessages([
-                'email' => [trans('auth.failed')],
-            ]);
-        }
-
-        return redirect()->intended(route('gymowner.index'));
+        return $this->auth_service->login($request, Gym::class, route('gymowner.index'));
     }
 }
