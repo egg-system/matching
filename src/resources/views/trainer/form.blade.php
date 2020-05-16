@@ -101,9 +101,9 @@
     <div class="col-md-3">
         <select name="work_time[week]" class="form-control" id="work_time">
             <option></option>
-            @foreach (config('const.day_of_week') as $day_of_week)
+            @foreach (trans('search.day_of_week') as $day_of_week)
             <option value="{{ $day_of_week }}"
-                {{ isset($matching_condition->work_time['week']) ? $matching_condition->work_time['week'] : old('work_time.week') === $day_of_week ? 'selected' : '' }}>
+                {{ (isset($matching_condition->work_time['week']) ? $matching_condition->work_time['week'] : old('work_time.week')) === $day_of_week ? 'selected' : '' }}>
                 {{ $day_of_week }}</option>
             @endforeach
         </select>

@@ -23,7 +23,7 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $day_of_week_role = join(',', config('const.day_of_week'));
+        $day_of_week_role = join(',', trans('search.day_of_week'));
 
         return [
             'name' => 'required',
