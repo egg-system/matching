@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('trainer.layouts.app')
 
 @section('content')
 <div class="container">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         
-                        @include('trainer.form')
+                        @include('trainer._form')
 
                         <div class="form-group row">
                             <span for="agree" class="col-md-4 col-form-label text-md-right">

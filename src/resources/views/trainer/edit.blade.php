@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('trainer.layouts.app')
 
 @section('content')
 <div class="container">
@@ -12,7 +12,7 @@
                         @method('PUT')
                         @csrf
                         
-                        @include('trainer.form')
+                        @include('trainer._form')
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

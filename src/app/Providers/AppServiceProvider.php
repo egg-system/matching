@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer(['gymowner.trainerList', 'trainer.form'], function($view) {
+        view()->composer(['gymowner.trainerList', 'trainer._form'], function($view) {
             $view->with([
                 'areas' => Area::all(),
                 'occupations' => Occupation::all(),
