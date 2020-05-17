@@ -19,8 +19,13 @@ Route::group(['prefix' => 'gymowner', 'as' => 'gymowner.'], function () {
     // 認証
     Route::view('login', 'gymowner.login')->middleware('guest')->name('login');
     Route::post('login', 'GymController@login')->middleware('guest')->name('login');
-    Route::get('trainerList', 'GymController@trainerList')->middleware(['auth', 'only.gymowner'])->name('trainerList');
-    Route::resource('', 'GymController')->only(['index'])->middleware(['auth', 'only.gymowner']);
+    Route::middleware(['auth', 'only.gymowner'])->group(function () {
+        Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
+        Route::resource('', 'GymController')->only(['index']);
+    });
+});
+Route::group(['prefix' => 'offer', 'as' => 'offer.', 'middleware' => ['auth', 'only.gymowner']], function () {
+    Route::post('{trainer_id}', 'OfferController@store')->name('store');
 });
 
 // メール送信済

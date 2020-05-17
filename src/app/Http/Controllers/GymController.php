@@ -23,11 +23,11 @@ class GymController extends Controller
     public function trainerList(TrainerSearchRequest $request)
     {
         $validated = $request->validated();
+        $matching_condition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
         if ($request->anyFilled(array_keys($validated))) {
-            $conditions = MatchingCondition::with(['area', 'occupation'])->search($validated)->onlyTrainer()->get();
-        } else {
-            $conditions = MatchingCondition::with(['area', 'occupation'])->onlyTrainer()->get();
+            $matching_condition = $matching_condition->search($validated);
         }
+        $conditions = $matching_condition->get();
         $areas = Area::all();
         $occupations = Occupation::all();
         return view('gymowner.trainerList', compact('conditions', 'areas', 'occupations'));
