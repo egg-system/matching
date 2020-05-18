@@ -23,7 +23,7 @@ class TrainerPolicy
     /**
      * ログインユーザーのみ編集を認可
      */
-    public function edit(Login $login, Trainer $trainer)
+    public function update(Login $login, Trainer $trainer)
     {
         return $login->user_id == $trainer->id;
     }

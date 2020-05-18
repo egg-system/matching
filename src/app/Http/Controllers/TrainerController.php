@@ -67,7 +67,7 @@ class TrainerController extends Controller
 
     public function edit(Trainer $trainer)
     {
-        $matching_condition = MatchingCondition::where('user_id', $trainer->id)->first();
+        $matching_condition = $trainer->matchingCondition;
         return view('trainer.edit', compact('trainer', 'matching_condition'));
     }
 
@@ -78,7 +78,7 @@ class TrainerController extends Controller
             // トレーナー更新
             Trainer::find($trainer->id)->update($validated);
             // matchingCondition更新
-            MatchingCondition::where('user_id', $trainer->id)->first()->update($validated);
+            $trainer->matchingCondition->update($validated);
         });
 
         return redirect()->route('top');
