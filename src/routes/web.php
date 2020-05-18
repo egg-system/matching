@@ -15,7 +15,7 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
 
     // トレーナーのみ
     Route::group(['middleware' => ['auth', 'can:trainer-only']], function () {
-        Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:edit,trainer']);
+        Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:update,trainer']);
     });
 });
 
