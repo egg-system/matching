@@ -91,7 +91,7 @@
         </form>
     </div>
 </div>
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -99,6 +99,7 @@
             <th scope="col">場所／エリア</th>
             <th scope="col">単価</th>
             <th scope="col">働ける曜日や時間帯</th>
+            <th scope="col">オファー状況</th>
         </tr>
     </thead>
     <tbody>
@@ -109,6 +110,17 @@
             <td>{{ optional($condition->area)->name }}</td>
             <td>{{ implode(',',$condition->price ?? []) }}</td>
             <td>{{ implode(',',$condition->work_time ?? []) }}</td>
+            <td>
+                {{-- トレーナにオファーしていない場合ボタン表示 --}}
+                @php
+                $offer = $offers->whereStrict('offer_to_id', optional($condition->user->login)->id)->first();
+                @endphp
+                @if(!$offer)
+                @include('gymowner.offerModalForm', compact('condition'))
+                @else
+                {{ optional($offer->state)->name }}
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>

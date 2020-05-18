@@ -12,6 +12,8 @@ class Trainer extends Model
         'pr_comment',
     ];
 
+    protected $with = ['login'];
+
     public function login()
     {
         return $this->morphOne(Login::class, 'user');

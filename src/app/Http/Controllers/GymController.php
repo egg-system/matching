@@ -27,7 +27,7 @@ class GymController extends Controller
     public function trainerList(TrainerSearchRequest $request)
     {
         $validated = $request->validated();
-        $matching_condition = MatchingCondition::with(['area', 'occupation'])->onlyTrainer();
+        $matching_condition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
         if ($request->anyFilled(array_keys($validated))) {
             $matching_condition = $matching_condition->search($validated);
         }
