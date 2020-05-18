@@ -2,7 +2,7 @@
     オファーする
 </button>
 {{-- モーダル --}}
-<form action="{{ route('offer.store', ['trainer_id' => $condition->user->id]) }}" method="post">
+<form action="{{ route('offer.store', ['login_id' => $condition->user->login->id]) }}" method="post">
     @csrf
     <x-modal>
         <x-slot name="modal_id">

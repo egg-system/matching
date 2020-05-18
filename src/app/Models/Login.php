@@ -81,11 +81,8 @@ class Login extends Authenticatable implements MustVerifyEmail
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOnlyTrainer(Builder $query, int $user_id = null)
+    public function scopeOnlyTrainer(Builder $query)
     {
-        return $query->where('user_type', Trainer::class)
-            ->when($user_id, function ($builder, $user_id) {
-                return $builder->where('user_id', $user_id);
-            });
+        return $query->where('user_type', Trainer::class);
     }
 }
