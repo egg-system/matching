@@ -2,7 +2,7 @@
     オファーする
 </button>
 {{-- モーダル --}}
-<form action="{{ route('offer.store', ['login_id' => $condition->user->login->id]) }}" method="post">
+<form action="{{ route('offer.store') }}" method="post">
     @csrf
     <x-modal>
         <x-slot name="modal_id">
@@ -13,6 +13,7 @@
         </x-slot>
         <x-slot name="modal_body">
             <textarea class="form-control form-control-sm" name="message" id="" cols="30" rows="10"></textarea>
+            <input type="hidden" name="trainer_id" value="{{ $condition->user->login->id }}" />
         </x-slot>
         <x-slot name="modal_footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">

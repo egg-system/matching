@@ -12,14 +12,15 @@ class OfferController extends Controller
     /**
      * オファー作成処理
      */
-    public function store(int $login_id, OfferRequest $request)
+    public function store(OfferRequest $request)
     {
-        $id = auth()->user()->user_id;
+        $owner_id = auth()->user()->user_id;
+        $validated = $request->validated();
         Offer::create([
-            'offer_from_id' => $id,
-            'offer_to_id' => $login_id,
+            'offer_from_id' => $owner_id,
+            'offer_to_id' => $validated['trainer_id'],
             'offer_state' => 1,
-            'message' => $request->message
+            'message' => $validated['message']
         ]);
 
         return redirect()->back();

@@ -24,6 +24,7 @@ class OfferRequest extends FormRequest
     public function rules()
     {
         return [
+            'trainer_id' => 'required',
             'message' => 'required|string'
         ];
     }

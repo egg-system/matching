@@ -30,7 +30,7 @@ Route::group(['prefix' => 'gymowner', 'as' => 'gymowner.'], function () {
     });
 });
 Route::group(['prefix' => 'offer', 'as' => 'offer.', 'middleware' => ['auth', 'only.gymowner']], function () {
-    Route::post('{login_id}', 'OfferController@store')->name('store');
+    Route::resource('', 'OfferController')->only(['store']);
 });
 
 // メール送信済
