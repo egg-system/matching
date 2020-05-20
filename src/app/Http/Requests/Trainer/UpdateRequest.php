@@ -52,4 +52,20 @@ class UpdateRequest extends FormRequest
             'work_time' => '希望する曜日や時間帯',
         ];
     }
+
+    public function getTrainerValidated()
+    {
+        $validated = $this->validated();
+        return array_filter($validated, function($key) {
+            return in_array($key, ['name', 'tel', 'pr_comment']);
+        }, ARRAY_FILTER_USE_KEY);
+    }
+
+    public function getMatchingConditionValidated()
+    {
+        $validated = $this->validated();
+        return array_filter($validated, function($key) {
+            return in_array($key, ['occupation_id', 'area_id', 'price', 'work_time']);
+        }, ARRAY_FILTER_USE_KEY);
+    }
 }

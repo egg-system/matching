@@ -83,11 +83,10 @@ class TrainerController extends Controller
     public function update(UpdateRequest $request, Trainer $trainer)
     {
         DB::transaction(function () use ($request, $trainer) {
-            $validated = $request->validated();
             // トレーナー更新
-            Trainer::find($trainer->id)->update($validated);
+            Trainer::find($trainer->id)->update($request->getTrainerValidated());
             // matchingCondition更新
-            $trainer->matchingCondition->update($validated);
+            $trainer->matchingCondition->update($request->getMatchingConditionValidated());
         });
 
         return redirect()->route('top');
