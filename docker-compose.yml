@@ -3,11 +3,11 @@ services:
   laravel:
     build: 
       context: .
-      dockerfile: './dev/Dockerfile'
-    container_name: match-app
+      dockerfile: './php-fpm/dev.dockerfile'
+    container_name: gym-app
     volumes:
       - ./src:/var/www/html
-    image: match-app
+    image: gym-app
     depends_on:
       - mysql
       - base
@@ -15,16 +15,16 @@ services:
   base:
     build:
       context: .
-      dockerfile: './Dockerfile'
-    container_name: match-app-base
-    image: match-app-base
+      dockerfile: './php-fpm/base.dockerfile'
+    container_name: gym-app-base
+    image: gym-app-base
 
   nginx:
     image: nginx:latest
-    container_name: match-nginx
+    container_name: gym-nginx
     volumes:
       - ./src/public:/var/www/html/public
-      - ./dev:/etc/nginx/conf.d
+      - ./nginx:/etc/nginx/conf.d
     ports:
       - 90:80
     depends_on:
@@ -32,15 +32,15 @@ services:
 
   mysql:
     image: mysql:5.7
-    container_name: match-mysql
+    container_name: gym-mysql
     ports:
       - 6033:3306
     volumes:
-      - match-mysql-data:/var/lib/mysql
+      - gym-data:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=matching
+      - MYSQL_DATABASE=gym
       - MYSQL_ROOT_PASSWORD=password
 
 volumes:
-  match-mysql-data:
+  gym-data:
     driver: local
