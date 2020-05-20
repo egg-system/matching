@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -67,5 +68,21 @@ class Login extends Authenticatable implements MustVerifyEmail
     {
         $attr = array_merge($this->getAttributes(), $update_columns);
         return $this->fill($attr);
+    }
+
+    public function from_offers()
+    {
+        return $this->hasMany(Offer::class, 'offer_from_id', 'id');
+    }
+
+    /**
+     * トレーナーだけに限定するクエリスコープ
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnlyTrainer(Builder $query)
+    {
+        return $query->where('user_type', Trainer::class);
     }
 }
