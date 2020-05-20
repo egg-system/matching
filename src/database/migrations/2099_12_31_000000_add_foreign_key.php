@@ -13,16 +13,15 @@ class AddForeignKey extends Migration
      */
     public function up()
     {
-        // ジムオーナー
-        Schema::table('gyms', function (Blueprint $table) {
+        // matcing_conditions
+        Schema::table('matching_conditions', function (Blueprint $table) {
             $table->foreign('occupation_id')->references('id')->on('occupations');
             $table->foreign('area_id')->references('id')->on('areas');
         });
-
-        // トレーナー
-        Schema::table('trainers', function (Blueprint $table) {
-            $table->foreign('occupation_id')->references('id')->on('occupations');
-            $table->foreign('area_id')->references('id')->on('areas');
+        Schema::table('offers', function (Blueprint $table) {
+            $table->foreign('offer_from_id')->references('id')->on('login');
+            $table->foreign('offer_to_id')->references('id')->on('login');
+            $table->foreign('offer_state')->references('id')->on('offer_states');
         });
     }
 
@@ -33,17 +32,15 @@ class AddForeignKey extends Migration
      */
     public function down()
     {
-        // ジムオーナー
-        Schema::table('gyms', function (Blueprint $table) {
+        // matcing_conditions
+        Schema::table('matching_conditions', function (Blueprint $table) {
             $table->dropForeign('occupations_occupation_id_foreign');
             $table->dropForeign('areas_area_id_foreign');
-            $table->timestamps();
         });
-
-        // トレーナー
-        Schema::table('trainers', function (Blueprint $table) {
-            $table->dropForeign('occupations_occupation_id_foreign');
-            $table->dropForeign('areas_area_id_foreign');
+        Schema::table('offers', function (Blueprint $table) {
+            $table->dropForeign('offers_offer_from_id_foreign');
+            $table->dropForeign('offers_offer_to_id_foreign');
+            $table->dropForeign('offers_offer_state_foreign');
         });
     }
 }

@@ -17,3 +17,9 @@
     - `docker exec -it match-app bash`
 - DBのmigrationとseedを実行する
     - `php artisan migrate --seed`
+
+### 新規アカウント作成
+- Mailtrapのアカウント作成&`.env`ファイルを修正
+    - 参考：https://qiita.com/ubonsa/items/5514fb9c5d5783bcc758
+    - `.env`は`MAIL_USERNAME`・`MAIL_PASSWORD`・`MAIL_FROM_ADDRESS`を修正する（`MAIL_FROM_ADDRESS`はなんでも良い）
+- トップページ（`/`）でメールアドレスを入力し、アカウント作成するとmailtrapに本登録用のURLが送られるのでそこから本登録を行う

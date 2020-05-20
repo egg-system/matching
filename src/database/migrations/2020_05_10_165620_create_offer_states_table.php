@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrainersTable extends Migration
+class CreateOfferStatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTrainersTable extends Migration
      */
     public function up()
     {
-        Schema::create('trainers', function (Blueprint $table) {
+        Schema::create('offer_states', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->comment('氏名');
-            $table->string('tel')->nullable()->comment('電話番号');
-            $table->text('pr_comment')->nullable()->comment('PRのコメント');
+            $table->string('name')->unique()->comment('オファー状況');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTrainersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trainers');
+        Schema::dropIfExists('offer_states');
     }
 }

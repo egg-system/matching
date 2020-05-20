@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Area;
 use App\Models\Login;
+use App\Models\Occupation;
 use App\Models\Trainer;
 use App\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -40,6 +42,7 @@ class TrainerRegisterTest extends TestCase
      */
     public function can_register_trainer_info()
     {
+        $this->withExceptionHandling();
         // login作成
         $login = factory(Login::class)->create();
         // protectedアクセス
@@ -54,8 +57,16 @@ class TrainerRegisterTest extends TestCase
         // 署名ルートにアクセス
         $this->get($url)->assertStatus(200);
         // 登録データ作成
-        $data = factory(Trainer::class)->make(['agree' => 1]);
-        $response = $this->post(URL::signedRoute('trainer.store', ['id' => $login->id]), $data->toArray());
+        $data = factory(Trainer::class)->make([
+            'password' => 'password', 'password_confirmation' => 'password', 'agree' => 1
+        ]);
+        $response = $this->post(
+            URL::signedRoute('trainer.store', ['id' => $login->id]),
+            array_merge($data->toArray(), [
+                'occupation_id' => factory(Occupation::class)->create()->id,
+                'area_id' => factory(Area::class)->create()->id
+            ])
+        );
         // 登録後リダイレクト
         $response->assertSessionHasNoErrors()->assertStatus(302);
         // トレーナー登録

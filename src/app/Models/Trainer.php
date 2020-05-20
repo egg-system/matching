@@ -9,21 +9,19 @@ class Trainer extends Model
     protected $fillable = [
         'name',
         'tel',
-        'occupation_id',
-        'area_id',
         'pr_comment',
-        'hope_price',
-        'hope_work_time',
     ];
 
-    protected $casts = [
-        'hope_price' => 'json',
-        'hope_work_time' => 'json',
-    ];
+    protected $with = ['login'];
 
     public function login()
     {
-        return $this->morphOne('App\Models\Login', 'user');
+        return $this->morphOne(Login::class, 'user');
+    }
+
+    public function matchingCondition()
+    {
+        return $this->morphOne(MatchingCondition::class, 'user');
     }
 
     /**
@@ -31,10 +29,10 @@ class Trainer extends Model
      * @param int $id
      * @return \App\Models\Login
      */
-    public function associateToTrainer(int $login_id)
+    public function associateToTrainer(int $login_id, array $update_columns = [])
     {
         $login = Login::find($login_id);
-        $login->email_verified_at = now();
-        return $this->login()->save($login);
+        // 更新するカラムとマージ
+        return $this->login()->save($login->fillUpdateColumns($update_columns));
     }
 }
