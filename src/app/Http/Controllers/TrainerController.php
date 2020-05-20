@@ -82,7 +82,7 @@ class TrainerController extends Controller
 
     public function update(UpdateRequest $request, Trainer $trainer)
     {
-        $login = DB::transaction(function () use ($request, $trainer) {
+        DB::transaction(function () use ($request, $trainer) {
             $validated = $request->validated();
             // トレーナー更新
             Trainer::find($trainer->id)->update($validated);
