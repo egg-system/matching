@@ -53,19 +53,13 @@ class UpdateRequest extends FormRequest
         ];
     }
 
-    public function getTrainerValidated()
+    public function getTrainerValues()
     {
-        $validated = $this->validated();
-        return array_filter($validated, function($key) {
-            return in_array($key, ['name', 'tel', 'pr_comment']);
-        }, ARRAY_FILTER_USE_KEY);
+        return $this->only(['name', 'tel', 'pr_comment']);
     }
 
-    public function getMatchingConditionValidated()
+    public function getMatchingConditionValues()
     {
-        $validated = $this->validated();
-        return array_filter($validated, function($key) {
-            return in_array($key, ['occupation_id', 'area_id', 'price', 'work_time']);
-        }, ARRAY_FILTER_USE_KEY);
+        return $this->only(['occupation_id', 'area_id', 'price', 'work_time']);
     }
 }

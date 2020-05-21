@@ -84,9 +84,9 @@ class TrainerController extends Controller
     {
         DB::transaction(function () use ($request, $trainer) {
             // トレーナー更新
-            Trainer::find($trainer->id)->update($request->getTrainerValidated());
+            Trainer::find($trainer->id)->update($request->getTrainerValues());
             // matchingCondition更新
-            $trainer->matchingCondition->update($request->getMatchingConditionValidated());
+            $trainer->matchingCondition->update($request->getMatchingConditionValues());
         });
 
         return redirect()->route('top');
