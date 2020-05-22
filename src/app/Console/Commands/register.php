@@ -75,41 +75,35 @@ class register extends Command
     {
       // 対話式で登録内容を入力する
       $email = $this->validateAsk('メールアドレスを入力してください', ['email','email']);
-      $name = $this->validateAsk('屋号、事業名を入力してください',['屋号、事業名','required']);
-      $president_name = $this->validateAsk('代表者氏名を入力してください',['代表者氏名','required']);
-      $occupation_id = $this->validateAsk('種類を入力してください',['種類','required|exists:occupations,id']);
-      $area_id = $this->validateAsk('場所／エリアを入力してください',['場所／エリア','required|exists:areas,id']);
-      $staff_count = $this->validateAsk('スタッフ数を入力してください',['スタッフ数','required|integer']);
+      $name = $this->validateAsk('屋号、事業名を入力してください', ['屋号、事業名','required']);
+      $president_name = $this->validateAsk('代表者氏名を入力してください', ['代表者氏名','required']);
+      $occupation_id = $this->validateAsk('種類を入力してください', ['種類','required|exists:occupations,id']);
+      $area_id = $this->validateAsk('場所／エリアを入力してください', ['場所／エリア','required|exists:areas,id']);
 
       $this->info("メールアドレス : $email");
       $this->info("屋号、事業名 　: $name");
       $this->info("代表者氏名 　　: $president_name");
       $this->info("種類 　　　　　: $occupation_id");
       $this->info("場所／エリア 　: $area_id");
-      $this->info("スタッフ数 　　: $staff_count");
 
       if ($this->confirm('この内容で登録してよろしいですか?',true)) {
+         
           // DBに入力値を登録
-          $gym = new Gym();
-          $gym->create([
+          Gym::create([
                          'name' => $name,
                          'president_name' => $president_name,
                          'occupation_id' => $occupation_id,
-                         'area_id' => $area_id,
-                         'staff_count' => $staff_count
+                         'area_id' => $area_id
           ]);
   
-          $login = new Login();
-          $login->create([
+          Login::create([
           'name' => $name,
           'email' => $email,
           'email_verified_at' => Carbon::now(),
-          'password' => Str::random(50),
+          'password' => Str::random(50)
           ]);
 
           $this->info("登録が完了しました");
-      } else {
-          $this->info('キャンセルしました');
       }
   }
 }
