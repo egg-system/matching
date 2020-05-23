@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         
-                        @include('trainer._registerForm')
+                        @include('trainer._commonForm')
 
                         <div class="form-group row">
                             <span for="agree" class="col-md-4 col-form-label text-md-right">

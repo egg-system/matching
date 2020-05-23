@@ -12,7 +12,7 @@
                         @method('PUT')
                         @csrf
                         
-                        @include('trainer._registerForm')
+                        @include('trainer._commonForm')
 
                         <div class="form-group row">
                             <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号</label>
