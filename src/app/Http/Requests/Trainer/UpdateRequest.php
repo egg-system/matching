@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'tel' => 'nullable',
-            'occupation_id' => 'required|exists:occupations,id',
+            'occupation_id' => 'nullable|exists:occupations,id',
             'area_id' => 'required|exists:areas,id',
             'pr_comment' => 'nullable|string',
             'price' => 'nullable|array',
