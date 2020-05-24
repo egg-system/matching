@@ -12,6 +12,11 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
      * Route::resource('', 'TrainerController')->except(['create', 'store']);
      */
     Route::resource('', 'TrainerController')->only(['create', 'store'])->middleware('signed');
+
+    // トレーナーのみ
+    Route::group(['middleware' => ['auth', 'can:trainer-only']], function () {
+        Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:update,trainer']);
+    });
 });
 
 // ジムオーナー

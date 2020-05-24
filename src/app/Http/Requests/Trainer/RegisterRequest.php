@@ -23,20 +23,13 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
+        $day_of_week_role = join(',', trans('search.day_of_week'));
+
         return [
             'id' => 'required',
             'password' => 'required|min:6|max:255|confirmed',
             'name' => 'required',
-            'tel' => 'nullable',
-            'occupation_id' => 'required|exists:occupations,id',
             'area_id' => 'required|exists:areas,id',
-            'pr_comment' => 'nullable|string',
-            'price' => 'nullable|array',
-            'price.min' => 'nullable|integer|lt:price.max',
-            'price.max' => 'nullable|integer',
-            'work_time' => 'nullable|array',
-            'work_time.week' => 'nullable|in:月,火,水,木,金,土,日',
-            'work_time.time' => 'nullable|date_format:H:i',
             'agree' => 'accepted'
         ];
     }
@@ -46,12 +39,7 @@ class RegisterRequest extends FormRequest
         return [
             'password' => 'パスワード',
             'name' => '氏名',
-            'tel' => '電話番号',
-            'occupation_id' => '種類',
             'area_id' => '場所／エリア',
-            'pr_comment' => 'PRのコメント',
-            'price' => '支払い単価',
-            'work_time' => '希望する曜日や時間帯',
             'agree' => '利用規約'
         ];
     }
