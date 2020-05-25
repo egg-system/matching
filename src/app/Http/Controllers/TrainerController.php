@@ -10,14 +10,18 @@ use App\Models\Login;
 use App\Models\MatchingCondition;
 use App\Models\Trainer;
 use App\Services\AuthService;
+use App\Services\TrainerService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class TrainerController extends Controller
 {
-    public function __construct(AuthService $auth_service)
+    protected $trainerService;
+    
+    public function __construct(AuthService $auth_service, TrainerService $trainer_service)
     {
         $this->auth_service = $auth_service;
+        $this->trainerService = $trainer_service;
     }
 
     /**
@@ -38,19 +42,8 @@ class TrainerController extends Controller
         if (Login::find($login_id)->user_id) {
             return redirect()->route('top');
         }
-        // トレーナー作成処理
-        $login = DB::transaction(function () use ($request, $login_id) {
-            $validated = $request->validated();
-            // トレーナー登録
-            $registered_trainer = Trainer::create($validated);
-            // matchingConditionと紐付け
-            $registered_trainer->matchingCondition()->create($validated);
-            // トレーナーとログインの紐付けて、カラムの更新
-            return $registered_trainer->associateToTrainer($login_id, [
-                'email_verified_at' => now(),
-                'password' => $request->password
-            ]);
-        });
+        
+        $login = $this->trainerService->createModels($request);
 
         auth()->login($login);
 
@@ -73,13 +66,7 @@ class TrainerController extends Controller
 
     public function update(UpdateRequest $request, Trainer $trainer)
     {
-        $login = DB::transaction(function () use ($request, $trainer) {
-            $validated = $request->validated();
-            // トレーナー更新
-            Trainer::find($trainer->id)->update($validated);
-            // matchingCondition更新
-            $trainer->matchingCondition->update($validated);
-        });
+        $this->trainerService->updateModels($request, $trainer);
 
         return redirect()->route('top');
     }

@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'tel' => 'nullable',
-            'occupation_id' => 'required|exists:occupations,id',
+            'occupation_id' => 'nullable|exists:occupations,id',
             'area_id' => 'required|exists:areas,id',
             'pr_comment' => 'nullable|string',
             'price' => 'nullable|array',
@@ -51,5 +51,15 @@ class UpdateRequest extends FormRequest
             'price' => '支払い単価',
             'work_time' => '希望する曜日や時間帯',
         ];
+    }
+
+    public function getTrainerValues()
+    {
+        return $this->only(['name', 'tel', 'pr_comment']);
+    }
+
+    public function getMatchingConditionValues()
+    {
+        return $this->only(['occupation_id', 'area_id', 'price', 'work_time']);
     }
 }
