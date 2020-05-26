@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Gym;
 use App\Models\Trainer;
 use App\Policies\TrainerPolicy;
 
@@ -32,6 +33,10 @@ class AuthServiceProvider extends ServiceProvider
         // トレーナーのみ許可
         Gate::define('trainer-only', function ($login) {
             return optional($login)->user_type === Trainer::class;
+        });
+        // ジムオーナーのみ許可
+        Gate::define('gymowner-only', function ($login) {
+            return optional($login)->user_type === Gym::class;
         });
     }
 }

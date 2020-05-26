@@ -24,12 +24,12 @@ Route::group(['prefix' => 'gymowner', 'as' => 'gymowner.'], function () {
     // 認証
     Route::view('login', 'gymowner.login')->middleware('guest')->name('login');
     Route::post('login', 'GymController@login')->middleware('guest')->name('login');
-    Route::middleware(['auth', 'only.gymowner'])->group(function () {
+    Route::middleware(['auth', 'can:gymowner-only'])->group(function () {
         Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
         Route::resource('', 'GymController')->only(['index']);
     });
 });
-Route::group(['prefix' => 'offer', 'as' => 'offer.', 'middleware' => ['auth', 'only.gymowner']], function () {
+Route::group(['prefix' => 'offer', 'as' => 'offer.', 'middleware' => ['auth', 'can:gymowner-only']], function () {
     Route::post('{login_id}', 'OfferController@store')->name('store');
 });
 
