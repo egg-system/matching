@@ -18,7 +18,7 @@
             <option value="">-- 選択してください --</option>
             @foreach ($areas as $area)
             <option value="{{ $area->id }}"
-                {{ (isset($matching_condition->area_id) ? (string)$matching_condition->area_id : old('area_id')) === (string)$area->id ? 'selected' : '' }}>
+                {{ (isset($matchingCondition->area_id) ? (string)$matchingCondition->area_id : old('area_id')) === (string)$area->id ? 'selected' : '' }}>
                 {{ $area->name }}</option>
             @endforeach
         </select>

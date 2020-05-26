@@ -11,9 +11,9 @@ use Illuminate\Validation\ValidationException;
 
 class GymController extends Controller
 {
-    public function __construct(AuthService $auth_service)
+    public function __construct(AuthService $authService)
     {
-        $this->auth_service = $auth_service;
+        $this->authService = $authService;
     }
 
     public function index()
@@ -27,11 +27,11 @@ class GymController extends Controller
     public function trainerList(TrainerSearchRequest $request)
     {
         $validated = $request->validated();
-        $matching_condition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
+        $matchingCondition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
         if ($request->anyFilled(array_keys($validated))) {
-            $matching_condition = $matching_condition->search($validated);
+            $matchingCondition = $matchingCondition->search($validated);
         }
-        $conditions = $matching_condition->get();
+        $conditions = $matchingCondition->get();
         return view('gymowner.trainerList', compact('conditions'));
     }
 
@@ -40,6 +40,6 @@ class GymController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        return $this->auth_service->login($request, Gym::class, route('gymowner.index'));
+        return $this->authService->login($request, Gym::class, route('gymowner.index'));
     }
 }
