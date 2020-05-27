@@ -3,12 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Gym\OfferRequest;
-use App\Models\Login;
 use App\Models\Offer;
-use Illuminate\Support\Facades\DB;
+use App\Models\OfferState;
+use App\Models\Trainer;
+use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
+    /**
+     * ジム、トレーナー共通オファー処理
+     */
+    public function index(Request $request)
+    {
+        // ログイン者のタイプ
+        $user = auth()->user();
+        $user_type = $user->user_type;
+        // typeで紐付けるオファー元切り替え(自分に来たもの OR 自分が出したもの)
+        $query = $user->user_type === Trainer::class ? $user->to_offers() : $user->from_offers();
+        // 絞り込み
+        $state_id = $request->query('offer_state', OfferState::UNREPLY);
+        $offers = $query->throughTrainerAndGym([$state_id])->get();
+        return view('common.offer.index', compact('offers'));
+    }
+
     /**
      * オファー作成処理
      */

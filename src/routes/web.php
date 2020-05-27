@@ -12,6 +12,9 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
      * Route::resource('', 'TrainerController')->except(['create', 'store']);
      */
     Route::resource('', 'TrainerController')->only(['create', 'store'])->middleware('signed');
+
+    // トレーナーのオファー
+    Route::resource('offer', 'OfferController')->only(['index'])->middleware('auth');
 });
 
 // ジムオーナー
