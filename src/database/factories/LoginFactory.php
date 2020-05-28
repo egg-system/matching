@@ -10,15 +10,13 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Login::class, function (Faker $faker) {
-    static $userId = 1;
-
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => Carbon::now(),
         'password' => config('test.seeds.default.password', Str::random(10)),
         'user_type' => Trainer::class,
-        'user_id' => $userId++,
+        'user_id' => 1, // create時に上書きする
         'remember_token' => Str::random(10),
     ];
 });
