@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Trainer;
+use App\Policies\TrainerPolicy;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        Trainer::class => TrainerPolicy::class,
     ];
 
     /**
@@ -25,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // トレーナーのみ許可
+        Gate::define('trainer-only', function ($login) {
+            return optional($login)->user_type === Trainer::class;
+        });
     }
 }

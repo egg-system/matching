@@ -13,8 +13,13 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
      */
     Route::resource('', 'TrainerController')->only(['create', 'store'])->middleware('signed');
 
-    // トレーナーのオファー
-    Route::resource('offer', 'TrainerOfferController')->only(['index', 'show', 'update'])->middleware('auth');
+
+    // トレーナーのみ
+    Route::group(['middleware' => ['auth', 'can:trainer-only']], function () {
+        Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:update,trainer']);
+        // トレーナーのオファー
+        Route::resource('offer', 'TrainerOfferController')->only(['index', 'show', 'update']);
+    });
 });
 
 // ジムオーナー
