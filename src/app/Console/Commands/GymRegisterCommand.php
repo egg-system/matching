@@ -53,7 +53,7 @@ class GymRegisterCommand extends Command
 
         if ($validator->fails()) {
             $error = $validator->errors();
-            $this->warn($error->first($rules[0]));
+            $this->warn($error->first($rules[self::RULE_NAME]));
             $inputValue = $this->validateAsk($question, $rules, $default);
         }
 
