@@ -1,22 +1,21 @@
 <?php
 
-use Database\Seeds\Local;
-use Database\Seeds\Production;
+use Database\Seeds\Common;
+use Database\Seeds\Testing;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    const LOCAL = [
-        Local\AreasTableSeeder::class,
-        Local\GymsTableSeeder::class,
-        Local\OccupationsTableSeeder::class,
-        Local\TrainersTableSeeder::class,
-        Local\OfferStateSeeder::class,
+    const Testing = [
+        Testing\AreasTableSeeder::class,
+        Testing\GymsTableSeeder::class,
+        Testing\TrainersTableSeeder::class,
+        Testing\OfferStateSeeder::class,
     ];
 
-    const PROD = [
-        Production\OccupationsTableSeeder::class
+    const COMMON = [
+        Common\OccupationsTableSeeder::class
     ];
 
     /**
@@ -27,7 +26,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::transaction(function () {
-            $this->call(App::isLocal() ? self::LOCAL : self::PROD);
+            $this->seed();
         });
+    }
+
+    protected function seed()
+    {
+        // prodのデータは全環境で使用する
+        $this->call(self::COMMON);
+
+        // 本番では実行しない
+        if (App::isProduction()) {
+            return;
+        };
+        $this->call(self::Testing);
     }
 }
