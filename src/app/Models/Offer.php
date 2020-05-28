@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Offer extends Model
 {
+    use Notifiable;
 
     protected $fillable = [
         'offer_from_id',
