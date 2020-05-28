@@ -116,7 +116,7 @@
                 $offer = $offers->whereStrict('offer_to_id', optional($condition->user->login)->id)->first();
                 @endphp
                 @if(!$offer)
-                @include('gymowner.offermodal', compact('condition'))
+                @include('gymowner.offerModalForm', compact('condition'))
                 @else
                 {{ optional($offer->state)->name }}
                 @endif

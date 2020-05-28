@@ -23,7 +23,7 @@ class Offer extends Model
     /**
      * 自分が送ったオファー
      */
-    public function from_user()
+    public function fromUser()
     {
         return $this->belongsTo(Login::class, 'offer_from_id', 'id');
     }
@@ -31,35 +31,16 @@ class Offer extends Model
     /**
      * 自分に来たオファー
      */
-    public function to_user()
+    public function toUser()
     {
         return $this->belongsTo(Login::class, 'offer_to_id', 'id');
     }
 
-    public function scopeThroughTrainerAndGym(Builder $query, array $offer_states = [OfferState::UNREPLY])
+    /**
+     * Loginを経由してTrainerとジムを結合する
+     */
+    public function scopeWhereState(Builder $query, int $offer_state = OfferState::UNREPLY)
     {
-        $query
-            ->addSelect([
-                'offers.id',
-                'offers.message',
-                'offers.offer_from_id',
-                'offers.offer_to_id',
-                'trainers.name as trainer_name',
-                'gyms.name as gym_name',
-                'offer_states.name as state_name',
-                'offers.created_at'
-            ])
-            ->join('offer_states', 'offers.offer_state', '=', 'offer_states.id')
-            ->join('login as t_login', function ($join) {
-                $join->on('t_login.id', '=', 'offer_to_id')
-                    ->where('t_login.user_type', '=', Trainer::class);
-            })
-            ->join('login as g_login', function ($join) {
-                $join->on('g_login.id', '=', 'offer_from_id')
-                    ->where('g_login.user_type', '=', Gym::class);
-            })
-            ->leftJoin('trainers', 't_login.user_id', '=', 'trainers.id')
-            ->leftJoin('gyms', 'g_login.user_id', '=', 'gyms.id')
-            ->whereIn('offer_state', $offer_states);
+        return $query->where('offer_state', $offer_state);
     }
 }

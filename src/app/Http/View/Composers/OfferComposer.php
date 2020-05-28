@@ -23,6 +23,6 @@ class OfferComposer
      */
     public function compose(View $view)
     {
-        $view->with('offers', $this->user->from_offers()->with('state')->get());
+        $view->with('offers', $this->user->fromOffers()->with('state')->get());
     }
 }
