@@ -28,14 +28,14 @@ class ViewServiceProvider extends ServiceProvider
     {
         \View::composer(
             ['trainer.edit', 'trainer._commonForm'],
-            function ($view) use ($masterData) {
+            function ($view) {
                 $view->with($this->getMasterData());
             }
         );
 
         \View::composer(
             'gymowner.trainerList',
-            function ($view) use ($masterData) {
+            function ($view) {
                 $viewData = array_merge($this->getMasterData(), [
                     'offers' => optional(\Auth::user()->from_offers),
                 ]);
