@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Http\View\Composers\OfferComposer;
-use Illuminate\Support\Facades\View;
+use App\Models\Area;
+use App\Models\Occupation;
+
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -25,10 +26,26 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // クラスベースのコンポーザを使用する
-        View::composer(
+        $masterData = [
+            'occupations' => Occupation::all(),
+            'areas' => Area::all(),
+        ];
+
+        \View::composer(
+            ['trainer.edit', 'trainer._commonForm'],
+            function ($view) use ($masterData) {
+                $view->with($masterData);
+            }
+        );
+
+        \View::composer(
             'gymowner.trainerList',
-            OfferComposer::class
+            function ($view) use ($masterData) {
+                $viewData = array_merge($masterData, [
+                    'offers' => optional(\Auth::user()->from_offers),
+                ]);
+                $view->with($viewData);
+            }
         );
     }
 }
