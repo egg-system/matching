@@ -26,26 +26,30 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $masterData = [
-            'occupations' => Occupation::all(),
-            'areas' => Area::all(),
-        ];
-
         \View::composer(
             ['trainer.edit', 'trainer._commonForm'],
-            function ($view) use ($masterData) {
-                $view->with($masterData);
+            function ($view) {
+                $view->with($this->getMasterData());
             }
         );
 
         \View::composer(
             'gymowner.trainerList',
-            function ($view) use ($masterData) {
-                $viewData = array_merge($masterData, [
+            function ($view) {
+                $viewData = array_merge($this->getMasterData(), [
                     'offers' => optional(\Auth::user()->from_offers),
                 ]);
                 $view->with($viewData);
             }
         );
+    }
+
+    // bootのタイミングで、クエリを走らせないため、別メソッドに切り出し
+    protected function getMasterData()
+    {
+        return [
+            'occupations' => Occupation::all(),
+            'areas' => Area::all(),
+        ];
     }
 }
