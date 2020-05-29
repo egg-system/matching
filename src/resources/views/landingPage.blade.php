@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@include('layouts.head')
-@include('layouts.header')
-@include('layouts.script')
-
 @section('content')
 <div class="text-white text-center">
     <div class="container">

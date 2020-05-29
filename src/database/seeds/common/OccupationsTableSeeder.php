@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeds\Production;
+namespace Database\Seeds\Common;
 
 use App\Models\Occupation;
 use Illuminate\Database\Seeder;
