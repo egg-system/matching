@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('trainer.layouts.app')
 
 @section('content')
 <div class="container">
@@ -10,6 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ URL::signedRoute('trainer.store', ['id' => request()->id ]) }}">
                         @csrf
+                        @include('trainer._commonForm')
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">パスワード</label>
 
@@ -34,8 +35,6 @@
                                     name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-                        
-                        @include('trainer._commonForm')
 
                         <div class="form-group row">
                             <span for="agree" class="col-md-4 col-form-label text-md-right">

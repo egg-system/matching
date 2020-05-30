@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeds\Local;
+namespace Database\Seeds\Testing;
 
 use App\Models\Area;
 use Illuminate\Database\Seeder;

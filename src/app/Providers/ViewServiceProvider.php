@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use App\Http\View\Composers\OfferComposer;
 use App\Http\View\Composers\OfferStateComposer;
+use App\Models\Area;
 use App\Models\Login;
+use App\Models\Occupation;
 use App\Models\Trainer;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -29,23 +28,43 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // クラスベースのコンポーザを使用する
-        View::composer(
+        \View::composer(
+            ['trainer.edit', 'trainer._commonForm'],
+            function ($view) {
+                $view->with($this->getMasterData());
+            }
+        );
+
+        \View::composer(
             'gymowner.trainerList',
-            OfferComposer::class
+            function ($view) {
+                $viewData = array_merge($this->getMasterData(), [
+                    'offers' => optional(\Auth::user()->fromOffers),
+                ]);
+                $view->with($viewData);
+            }
         );
 
         // offerstate
-        View::composer(
+        \View::composer(
             'common.offer.index',
             OfferStateComposer::class
         );
 
-        Blade::if('trainer', function ($user) {
+        \Blade::if('trainer', function ($user) {
             if (Login::class === get_class($user)) {
                 return $user->user_type === Trainer::class;
             }
             return $user === Trainer::class;
         });
+    }
+
+    // bootのタイミングで、クエリを走らせないため、別メソッドに切り出し
+    protected function getMasterData()
+    {
+        return [
+            'occupations' => Occupation::all(),
+            'areas' => Area::all(),
+        ];
     }
 }

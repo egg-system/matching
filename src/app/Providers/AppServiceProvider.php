@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('App\Services\AuthService');
         $this->app->bind('App\Services\TrainerService');
     }
 
