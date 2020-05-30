@@ -14,11 +14,11 @@ class OfferController extends Controller
      */
     public function store(OfferRequest $request)
     {
-        $gymowner_id = auth()->user()->user_id;
+        $offer_from_id = auth()->user()->user_id;
         $validated = $request->validated();
         Offer::create([
-            'offer_from_id' => $gymowner_id,
-            'offer_to_id' => $validated['trainer_id'],
+            'offer_from_id' => $offer_from_id,
+            'offer_to_id' => $validated['offer_to_id'],
             'offer_state' => 1,
             'message' => $validated['message']
         ]);
