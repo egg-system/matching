@@ -16,9 +16,9 @@
             <td>{{ $offer->toUser->user->name }}</td>
             <td>{{ $offer->state->name }}</td>
             <td>
-                @trainer(Auth::user())
+                @if(Auth::user()->user_type === App\Models\Trainer::class)
                 <a href="{{ route('trainer.offer.show', $offer->id) }}" class="btn btn-success">詳細</a>
-                @endtrainer
+                @endif
             </td>
         </tr>
         @endforeach

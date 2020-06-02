@@ -53,13 +53,6 @@ class ViewServiceProvider extends ServiceProvider
                 $view->with('states', OfferState::all());
             }
         );
-
-        \Blade::if('trainer', function ($user) {
-            if (Login::class === get_class($user)) {
-                return $user->user_type === Trainer::class;
-            }
-            return $user === Trainer::class;
-        });
     }
 
     // bootのタイミングで、クエリを走らせないため、別メソッドに切り出し
