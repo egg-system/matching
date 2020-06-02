@@ -48,7 +48,7 @@ class ViewServiceProvider extends ServiceProvider
 
         // offerstate
         \View::composer(
-            'common.offer.index',
+            'offer.index',
             function ($view) {
                 $view->with('states', OfferState::all());
             }
