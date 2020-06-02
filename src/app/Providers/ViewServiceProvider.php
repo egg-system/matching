@@ -6,6 +6,7 @@ use App\Http\View\Composers\OfferStateComposer;
 use App\Models\Area;
 use App\Models\Login;
 use App\Models\Occupation;
+use App\Models\OfferState;
 use App\Models\Trainer;
 use Illuminate\Support\ServiceProvider;
 
@@ -48,7 +49,9 @@ class ViewServiceProvider extends ServiceProvider
         // offerstate
         \View::composer(
             'common.offer.index',
-            OfferStateComposer::class
+            function ($view) {
+                $view->with('states', OfferState::all());
+            }
         );
 
         \Blade::if('trainer', function ($user) {
