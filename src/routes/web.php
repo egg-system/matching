@@ -13,12 +13,9 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
      */
     Route::resource('', 'TrainerController')->only(['create', 'store'])->middleware('signed');
 
-
     // トレーナーのみ
     Route::group(['middleware' => ['auth', 'can:trainer-only']], function () {
         Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:update,trainer']);
-        // トレーナーのオファー
-        Route::resource('offer', 'TrainerOfferController')->only(['index', 'show', 'update']);
     });
 });
 
@@ -31,10 +28,9 @@ Route::group(['prefix' => 'gymowner', 'as' => 'gymowner.'], function () {
         Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
         Route::resource('', 'GymController')->only(['index']);
     });
-    Route::group(['prefix' => 'offer', 'as' => 'offer.', 'middleware' => ['auth', 'can:gymowner-only']], function () {
-        Route::resource('', 'GymOfferController')->only(['index']);
-        Route::post('{login_id}', 'GymOfferController@store')->name('store');
-    });
+});
+Route::group(['prefix' => 'offer', 'as' => 'offer.', 'middleware' => ['auth', 'can:gymowner-only']], function () {
+    Route::post('{login_id}', 'OfferController@store')->name('store');
 });
 
 // メール送信済
