@@ -14,7 +14,7 @@ class OfferController extends Controller
      */
     public function store(OfferRequest $request)
     {
-        $offerFromId = auth()->login()->user_id;
+        $offerFromId = auth()->user()->user_id;
         $validated = $request->validated();
         Offer::create([
             'offer_from_id' => $offerFromId,
