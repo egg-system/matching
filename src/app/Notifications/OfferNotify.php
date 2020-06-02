@@ -4,24 +4,23 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use App\Mail\OfferRecieve as Mailable;
-use App\Models\Offer;
+use Illuminate\Mail\Mailable;
 
-class OfferRecieveNotify extends Notification
+class OfferNotify extends Notification
 {
     use Queueable;
 
-    protected $offer;
-    protected $trainer;
+    protected $mail;
+    protected $to;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Offer $offer)
+    public function __construct(Mailable $mail, string $to)
     {
-        $this->offer = $offer;
-        $this->trainer = $offer->toUser;
+        $this->mail = $mail;
+        $this->to = $to;
     }
 
     /**
@@ -43,7 +42,7 @@ class OfferRecieveNotify extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new Mailable($this->offer))->to($this->trainer->email);
+        return ($this->mail)->to($this->to);
     }
 
     /**

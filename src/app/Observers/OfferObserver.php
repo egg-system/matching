@@ -2,9 +2,10 @@
 
 namespace App\Observers;
 
+use App\Mail\OfferRecieve;
+use App\Mail\OfferUpdate;
 use App\Models\Offer;
-use App\Notifications\OfferRecieveNotify;
-use App\Notifications\OfferUpdateNotify;
+use App\Notifications\OfferNotify;
 
 class OfferObserver
 {
@@ -16,7 +17,10 @@ class OfferObserver
      */
     public function created(Offer $offer)
     {
-        $offer->notify(new OfferRecieveNotify($offer));
+        // トレーナーに受信メール送信
+        $trainer = $offer->toUser->email;
+        $mail = new OfferRecieve($offer);
+        $offer->notify(new OfferNotify($mail, $trainer));
     }
 
     /**
@@ -27,6 +31,9 @@ class OfferObserver
      */
     public function updated(Offer $offer)
     {
-        $offer->notify(new OfferUpdateNotify($offer));
+        // オーナーに返答メール送信
+        $owner = $offer->fromUser->email;
+        $mail = new OfferUpdate();
+        $offer->notify(new OfferNotify($mail, $owner));
     }
 }
