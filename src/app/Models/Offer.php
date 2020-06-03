@@ -17,6 +17,8 @@ class Offer extends Model
         'message',
     ];
 
+    protected $with = ['fromUser.user', 'toUser.user', 'state'];
+
     public function state()
     {
         return $this->hasOne(OfferState::class, 'id', 'offer_state');

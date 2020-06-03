@@ -16,8 +16,8 @@ class OfferController extends Controller
         // 絞り込み条件取得
         $stateId = $request->query('offer_state', OfferState::UNREPLY);
         // 自分に関連するオファー取得
-        $recieve = $user->toOffers()->with(['fromUser.user', 'toUser.user', 'state'])->whereState($stateId)->get();
-        $send = $user->fromOffers()->with(['fromUser.user', 'toUser.user', 'state'])->whereState($stateId)->get();
+        $recieve = $user->toOffers()->whereState($stateId)->get();
+        $send = $user->fromOffers()->whereState($stateId)->get();
         // マージ
         $offers = $recieve->merge($send);
 
