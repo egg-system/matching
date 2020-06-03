@@ -26,17 +26,11 @@ class OfferController extends Controller
 
     public function show(Offer $offer)
     {
-        $id = auth()->id();
-        $can = $offer->offer_from_id === $id || $offer->offer_to_id === $id;
-        abort_unless($can, 404);
         return view('offer.show', compact('offer'));
     }
 
     public function update(Offer $offer, UpdateRequest $request)
     {
-        // 受信者のみ更新可能
-        $can = $offer->offer_to_id === auth()->id();
-        abort_unless($can, 404);
         $offer->updateState($request->offer_state);
         return back();
     }
