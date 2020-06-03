@@ -31,7 +31,7 @@ class OfferUpdate extends Mailable
         return $this->subject('オファー返答のお知らせ')
             ->markdown('offer.mail.update')
             ->with([
-                'url' => route('gymowner.offer.index')
+                'url' => route('offer.index')
             ]);
     }
 }

@@ -24,7 +24,8 @@ class OfferRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'required|string'
+            'message' => 'required|string',
+            'to' => 'required|exists:login,id'
         ];
     }
 }

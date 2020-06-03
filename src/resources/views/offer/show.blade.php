@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
-            <a href="{{ route('trainer.offer.index') }}">一覧へ戻る</a>
+            <a href="{{ route('offer.index') }}">一覧へ戻る</a>
             <div class="card">
                 <div class="card-header">
                     From : {{ $offer->fromUser->name }}
@@ -16,8 +16,9 @@
                         {!! nl2br(e($offer->message)) !!}
                     </p>
                     <div class="d-flex flex-row-reverse">
-                        @if($offer->offer_state === App\Models\OfferState::UNREPLY)
-                        <form action="{{ route('trainer.offer.update', $offer->id) }}" method="POST">
+                        @if($offer->offer_to_id === Auth::id() && $offer->offer_state ===
+                        App\Models\OfferState::UNREPLY)
+                        <form action="{{ route('offer.update', $offer->id) }}" method="POST">
                             @method('PATCH')
                             @csrf
                             <label for="radio-1">承諾</label>
@@ -29,7 +30,7 @@
                             <button class="btn-primary" type="submit">送信</button>
                         </form>
                         @else
-                        返答済み
+                        {{ $offer->state->name }}
                         @endif
                     </div>
                 </div>
@@ -40,6 +41,5 @@
         </div>
         <div class="col-2"></div>
     </div>
-
 </div>
 @endsection

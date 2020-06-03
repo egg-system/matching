@@ -39,10 +39,19 @@ class Offer extends Model
     }
 
     /**
-     * Loginを経由してTrainerとジムを結合する
+     * オファーのステータス絞り込み
+     *
+     * @param Illuminate\Database\Eloquent\Builder
+     * @param int $offer_state
+     * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeWhereState(Builder $query, int $offer_state = OfferState::UNREPLY)
     {
         return $query->where('offer_state', $offer_state);
+    }
+
+    public function updateState(int $state)
+    {
+        return $this->update(['offer_state' => $state]);
     }
 }

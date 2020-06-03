@@ -16,6 +16,6 @@
         </div>
     </div>
 
-    @include('common.offer.listTable')
+    @include('offer.listTable')
 </div>
 @endsection

@@ -29,8 +29,9 @@ Route::group(['prefix' => 'gymowner', 'as' => 'gymowner.'], function () {
         Route::resource('', 'GymController')->only(['index']);
     });
 });
-Route::group(['prefix' => 'offer', 'as' => 'offer.', 'middleware' => ['auth', 'can:gymowner-only']], function () {
-    Route::post('{login_id}', 'OfferController@store')->name('store');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('offer', 'OfferController')->only(['index', 'show', 'update']);
+    Route::resource('offer', 'OfferController')->only(['store'])->middleware('can:gymowner-only');
 });
 
 // メール送信済

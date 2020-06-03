@@ -16,9 +16,7 @@
             <td>{{ $offer->toUser->user->name }}</td>
             <td>{{ $offer->state->name }}</td>
             <td>
-                @if(Auth::user()->user_type === App\Models\Trainer::class)
-                <a href="{{ route('trainer.offer.show', $offer->id) }}" class="btn btn-success">詳細</a>
-                @endif
+                <a href="{{ route('offer.show', $offer->id) }}" class="btn btn-success">詳細</a>
             </td>
         </tr>
         @endforeach
