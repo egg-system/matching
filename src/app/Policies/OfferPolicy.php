@@ -11,6 +11,17 @@ class OfferPolicy
     use HandlesAuthorization;
 
     /**
+     * indexメソッドに対する認可
+     *
+     * @param  \App\Models\Login  $user
+     * @return mixed
+     */
+    public function viewAny(Login $user)
+    {
+        return true;
+    }
+
+    /**
      * showメソッドに対する認可
      *
      * @param  \App\Models\Login  $user

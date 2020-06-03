@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Offer::class);
+    }
+
     public function index(Request $request)
     {
         $user = auth()->user();

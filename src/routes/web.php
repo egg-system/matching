@@ -30,7 +30,7 @@ Route::group(['prefix' => 'gymowner', 'as' => 'gymowner.'], function () {
     });
 });
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('offer', 'OfferController')->only(['index', 'show', 'update'])->middleware(['can:view,update']);;
+    Route::resource('offer', 'OfferController')->only(['index', 'show', 'update']);
     Route::resource('offer', 'OfferController')->only(['store'])->middleware('can:gymowner-only');
 });
 
