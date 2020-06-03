@@ -46,4 +46,15 @@ class OfferPolicy
         // 受信者のみ更新可能
         return $offer->offer_to_id === $user->id;
     }
+
+    /**
+     * Determine whether the user can create the model.
+     *
+     * @param  \App\Models\Login  $user
+     * @return mixed
+     */
+    public function create(Login $user)
+    {
+        return true;
+    }
 }
