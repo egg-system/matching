@@ -20,7 +20,6 @@ class OfferPolicy
     public function view(Login $user, Offer $offer)
     {
         $id = $user->id;
-        dd($id);
         return $offer->offer_from_id === $id || $offer->offer_to_id === $id;
     }
 
