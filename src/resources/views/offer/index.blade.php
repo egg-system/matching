@@ -12,6 +12,10 @@
                         value="{{ $state->id }}">{{ $state->name }}</option>
                     @endforeach
                 </select>
+                <select class="form-control" class="w-100" name="type" onchange="submit(this.form)">
+                    <option value="0">送信したオファー</option>
+                    <option value="1">受信したオファー</option>
+                </select>
             </form>
         </div>
     </div>

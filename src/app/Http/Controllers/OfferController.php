@@ -15,12 +15,10 @@ class OfferController extends Controller
         $user = auth()->user();
         // 絞り込み条件取得
         $stateId = $request->query('offer_state', OfferState::UNREPLY);
-        // 自分に関連するオファー取得
-        $recieve = $user->toOffers()->whereState($stateId)->get();
-        $send = $user->fromOffers()->whereState($stateId)->get();
-        // マージ
-        $offers = $recieve->merge($send);
-
+        // デフォルトで送信したオファー取得、指定がある場合受信取得
+        $type = $request->type;
+        $query = $type ? $user->fromOffers() : $user->toOffers();
+        $offers = $query->whereState($stateId)->get();
         return view('offer.index', compact('offers'));
     }
 
