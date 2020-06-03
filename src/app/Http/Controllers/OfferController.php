@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Gym\OfferRequest;
+use App\Http\Requests\Offer\StoreRequest;
 use App\Http\Requests\Offer\UpdateRequest;
 use App\Models\Offer;
 use App\Models\OfferState;
@@ -38,7 +38,7 @@ class OfferController extends Controller
     /**
      * オファー作成処理
      */
-    public function store(OfferRequest $request)
+    public function store(StoreRequest $request)
     {
         $id = auth()->id();
         Offer::create([

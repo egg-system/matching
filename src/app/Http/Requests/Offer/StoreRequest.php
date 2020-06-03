@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Gym;
+namespace App\Http\Requests\Offer;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OfferRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
