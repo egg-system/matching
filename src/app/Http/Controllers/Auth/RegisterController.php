@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\TrainerRegistered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Login;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Str;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Response;
 
 class RegisterController extends Controller
@@ -41,7 +41,7 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        event(new Registered($user = $this->create($request->all())));
+        event(new TrainerRegistered($user = $this->create($request->all())));
 
         if ($response = $this->registered($request, $user)) {
             return $response;
