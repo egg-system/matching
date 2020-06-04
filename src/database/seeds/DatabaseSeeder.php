@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\DB;
 class DatabaseSeeder extends Seeder
 {
     const Testing = [
-        Testing\AreasTableSeeder::class,
         Testing\GymsTableSeeder::class,
         Testing\TrainersTableSeeder::class,
         Testing\OfferStateSeeder::class,
     ];
 
     const COMMON = [
+        Common\AreasTableSeeder::class,
         Common\OccupationsTableSeeder::class
     ];
 
