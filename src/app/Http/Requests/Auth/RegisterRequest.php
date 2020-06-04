@@ -34,11 +34,12 @@ class RegisterRequest extends FormRequest
             $login = Login::where('email', $this->input('email'))->first();
             
             // すでに本登録済みの場合はエラー
-            if ($login !== null && $login->email_verified_at !== null){
-                throw ValidationException::withMessages([
+            throw_if(
+                $login !== null && $login->isRegisteredDefinitive(),
+                ValidationException::withMessages([
                     'email' => [trans('validation.custom.auth.register.unique')],
-                ]);
-            }
+                ]),
+            );
         });
     }
 }
