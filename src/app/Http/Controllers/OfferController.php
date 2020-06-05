@@ -22,7 +22,7 @@ class OfferController extends Controller
         $stateId = $request->query('offer_state', OfferState::UNREPLY);
         // デフォルトで送信したオファー取得、指定がある場合受信取得
         $type = $request->type;
-        $query = $type ? $user->fromOffers() : $user->toOffers();
+        $query = !$type ? $user->fromOffers() : $user->toOffers();
         $offers = $query->whereState($stateId)->get();
         return view('offer.index', compact('offers'));
     }
