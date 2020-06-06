@@ -22,7 +22,7 @@ class OnlyAccessGymOwner extends TestCase
         // 認証済みに
         $this->assertAuthenticatedAs($trainer->login()->save($login), 'auth');
 
-        $response = $this->get(route('gymowner.index'));
+        $response = $this->get(route('gym.index'));
 
         $response->assertStatus(403);
     }

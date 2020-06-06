@@ -1,4 +1,4 @@
-@extends('gymowner.layouts.app')
+@extends('gym.layouts.app')
 
 @section('content')
 <h2>トレーナー一覧</h2>
@@ -116,7 +116,7 @@
                 $offer = $offers->whereStrict('offer_to_id', optional($condition->user->login)->id)->first();
                 @endphp
                 @if(!$offer)
-                @include('gymowner.offerModalForm', compact('condition'))
+                @include('gym.offerModalForm', compact('condition'))
                 @else
                 {{ optional($offer->state)->name }}
                 @endif

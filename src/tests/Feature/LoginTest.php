@@ -37,7 +37,7 @@ class LoginTest extends TestCase
         $owner = factory(Gym::class)->create();
         $owner->login()->save($login);
 
-        $response = $this->post(route('gymowner.login', ['email' => $login->email, 'password' => 'password']));
+        $response = $this->post(route('gym.login', ['email' => $login->email, 'password' => 'password']));
 
         $response->assertStatus(302);
         $this->assertAuthenticated();
