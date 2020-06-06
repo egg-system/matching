@@ -5,7 +5,7 @@
                 <div class="card-header">{{ $isGymOwner ? 'ジムオーナーログイン' : 'トレーナーログイン' }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ $isGymOwner ? route('gymowner.login') : route('trainer.login') }}">
+                    <form method="POST" action="{{ $isGymOwner ? route('gym.login') : route('trainer.login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -60,7 +60,7 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ $isGymOwner ? route('trainer.login') : route('gymowner.login') }}">
+                                <a class="btn btn-link" href="{{ $isGymOwner ? route('trainer.login') : route('gym.login') }}">
                                     {{ $isGymOwner ? 'トレーナーの方はこちら': 'ジムオーナーの方はこちら' }}
                                 </a>
                             </div>

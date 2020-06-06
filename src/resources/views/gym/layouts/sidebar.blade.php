@@ -8,7 +8,7 @@
         </a>
         <ul class="nav navbar-nav text-light" id="accordionSidebar">
             <li class="nav-item" role="presentation">
-                <a class="nav-link" href="{{ route('gymowner.trainerList') }}">
+                <a class="nav-link" href="{{ route('gym.trainerList') }}">
                     <i class="fas fa-home"></i>
                     <span>トレーナー一覧</span>
                 </a>
