@@ -27,12 +27,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="pr_comment" class="col-md-4 col-form-label text-md-right">PRコメント</label>
+                            <label for="areas" class="col-md-4 col-form-label text-md-right">場所／エリア</label>
                             <div class="col-md-6">
-                                <textarea id="pr_comment" class="form-control @error('pr_comment') is-invalid @enderror"
-                                    name="pr_comment" value="{{ $trainer->pr_comment ?? old('pr_comment') }}" autocomplete="pr_comment"
-                                    autofocus>{{ $trainer->pr_comment ?? old('pr_comment') }}</textarea>
-                                @error('pr_comment')
+                                <select name="area_id" class="form-control" id="areas">
+                                    <option value=""></option>
+                                    @foreach ($areas as $area)
+                                    <option value="{{ $area->id }}"
+                                        {{ (isset($matchingCondition->area_id) ? (string)$matchingCondition->area_id : old('area_id')) === (string)$area->id ? 'selected' : '' }}>
+                                        {{ $area->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('area_id')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -40,17 +45,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="occupations" class="col-md-4 col-form-label text-md-right">種類</label>
+                            <label for="pr_comment" class="col-md-4 col-form-label text-md-right">PRコメント</label>
                             <div class="col-md-6">
-                                <select name="occupation_id" class="form-control" id="occupations">
-                                    <option value=""></option>
-                                    @foreach ($occupations as $occupation)
-                                    <option value="{{ $occupation->id }}"
-                                        {{ (isset($matchingCondition->occupation_id) ? (string)$matchingCondition->occupation_id : old('occupation_id')) === (string)$occupation->id ? 'selected' : '' }}>
-                                        {{ $occupation->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('occupation_id')
+                                <textarea id="pr_comment" class="form-control @error('pr_comment') is-invalid @enderror"
+                                    name="pr_comment" value="{{ $trainer->pr_comment ?? old('pr_comment') }}" autocomplete="pr_comment"
+                                    autofocus>{{ $trainer->pr_comment ?? old('pr_comment') }}</textarea>
+                                @error('pr_comment')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

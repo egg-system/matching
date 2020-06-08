@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
             'id' => 'required',
             'password' => 'required|min:6|max:255|confirmed',
             'name' => 'required',
-            'area_id' => 'required|exists:areas,id',
+            'occupation_id' => 'nullable|exists:occupations,id',
             'agree' => 'accepted'
         ];
     }
@@ -39,7 +39,7 @@ class RegisterRequest extends FormRequest
         return [
             'password' => 'パスワード',
             'name' => '氏名',
-            'area_id' => '場所／エリア',
+            'occupation_id' => '種類',
             'agree' => '利用規約'
         ];
     }

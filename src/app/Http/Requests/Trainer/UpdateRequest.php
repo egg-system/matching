@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
             'name' => 'required',
             'tel' => 'nullable',
             'occupation_id' => 'nullable|exists:occupations,id',
-            'area_id' => 'required|exists:areas,id',
+            'area_id' => 'nullable|exists:areas,id',
             'pr_comment' => 'nullable|string',
             'price' => 'nullable|array',
             'price.min' => 'nullable|integer|lt:price.max',
