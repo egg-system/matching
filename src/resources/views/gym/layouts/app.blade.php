@@ -12,7 +12,7 @@
 <body>
     <div class="d-flex" id="app">   
         <div class="">
-            @include('gymowner.layouts.sidebar')
+            @include('gym.layouts.sidebar')
         </div>
         <div class="flex-grow-1">
             @yield('header')

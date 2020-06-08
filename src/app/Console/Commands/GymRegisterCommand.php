@@ -7,8 +7,10 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 use Carbon\Carbon;
+use App\Models\Area;
 use App\Models\Gym;
 use App\Models\Login;
+use App\Models\Occupation;
 
 
 class GymRegisterCommand extends Command
@@ -78,26 +80,30 @@ class GymRegisterCommand extends Command
             ]
         ]);
         $name = $this->validateAsk('屋号、事業名を入力してください', ['屋号、事業名','required']);
-        $president_name = $this->validateAsk('代表者氏名を入力してください', ['代表者氏名','required']);
-        $occupation_id = $this->validateAsk('種類を入力してください', ['種類','required|exists:occupations,id']);
-        $area_id = $this->validateAsk('場所／エリアを入力してください', ['場所／エリア','required|exists:areas,id']);
+        $presidentName = $this->validateAsk('代表者氏名を入力してください', ['代表者氏名','required']);
+        $occupations = Occupation::get(['name'])->pluck('name')->toArray();
+        $occupationName = $this->choice('種類を入力してください', $occupations);
+        $areas = Area::get(['name'])->pluck('name')->toArray();
+        $areaName = $this->choice('場所／エリアを入力してください', $areas);
 
         $this->info("メールアドレス : $email");
         $this->info("屋号、事業名 　: $name");
-        $this->info("代表者氏名 　　: $president_name");
-        $this->info("種類 　　　　　: $occupation_id");
-        $this->info("場所／エリア 　: $area_id");
+        $this->info("代表者氏名 　　: $presidentName");
+        $this->info("種類 　　　　　: $occupationName");
+        $this->info("場所／エリア 　: $areaName");
 
         if (!$this->confirm('この内容で登録してよろしいですか?', false)) {
             return;
         }
 
         // DBに入力値を登録
+        $occupationId = Occupation::where('name', $occupationName)->first()->id;
+        $areaId = Area::where('name', $areaName)->first()->id;
         $gym = Gym::create([
             'name' => $name,
-            'president_name' => $president_name,
-            'occupation_id' => $occupation_id,
-            'area_id' => $area_id
+            'president_name' => $presidentName,
+            'occupation_id' => $occupationId,
+            'area_id' => $areaId
         ]);
 
         $password = Str::random(10);

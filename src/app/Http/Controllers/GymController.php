@@ -18,7 +18,7 @@ class GymController extends Controller
 
     public function index()
     {
-        return view('gymowner.index');
+        return view('gym.index');
     }
 
     /**
@@ -32,7 +32,7 @@ class GymController extends Controller
             $matchingCondition = $matchingCondition->search($validated);
         }
         $conditions = $matchingCondition->get();
-        return view('gymowner.trainerList', compact('conditions'));
+        return view('gym.trainerList', compact('conditions'));
     }
 
     /**
@@ -40,6 +40,6 @@ class GymController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        return $this->authService->login($request, Gym::class, route('gymowner.index'));
+        return $this->authService->login($request, Gym::class, route('gym.index'));
     }
 }

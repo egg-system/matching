@@ -99,4 +99,12 @@ class Login extends Authenticatable implements MustVerifyEmail
     {
         return $query->where('user_type', Trainer::class);
     }
+
+    /**
+     * 本登録済み
+     */
+    public function isRegisteredDefinitive()
+    {
+        return $this->email_verified_at !== null;
+    }
 }

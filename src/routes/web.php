@@ -20,9 +20,9 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
 });
 
 // ジムオーナー
-Route::group(['prefix' => 'gymowner', 'as' => 'gymowner.'], function () {
+Route::group(['prefix' => 'gym', 'as' => 'gym.'], function () {
     // 認証
-    Route::view('login', 'gymowner.login')->middleware('guest')->name('login');
+    Route::view('login', 'gym.login')->middleware('guest')->name('login');
     Route::post('login', 'GymController@login')->middleware('guest')->name('login');
     Route::middleware(['auth', 'can:gymowner-only'])->group(function () {
         Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
