@@ -73,9 +73,20 @@ class Login extends Authenticatable implements MustVerifyEmail
         return $this->fill($attr);
     }
 
-    public function from_offers()
+    /**
+     * 自分が送ったオファー
+     */
+    public function fromOffers()
     {
         return $this->hasMany(Offer::class, 'offer_from_id', 'id');
+    }
+
+    /**
+     * 自分に来たオファー
+     */
+    public function toOffers()
+    {
+        return $this->hasMany(Offer::class, 'offer_to_id', 'id');
     }
 
     /**

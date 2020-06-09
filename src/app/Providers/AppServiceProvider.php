@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Area;
-use App\Models\Occupation;
+use App\Models\Offer;
+use App\Observers\OfferObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        Offer::observe(OfferObserver::class);
     }
 }

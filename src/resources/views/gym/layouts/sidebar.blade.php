@@ -13,6 +13,12 @@
                     <span>トレーナー一覧</span>
                 </a>
             </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" href="{{ route('offer.index') }}">
+                    <i class="fas fa-home"></i>
+                    <span>オファー一覧</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
