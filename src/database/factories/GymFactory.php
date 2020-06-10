@@ -11,7 +11,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Gym::class, function (Faker $faker) {
     return [
-        'name' =>  $faker->company,
         'president_name' => $faker->name,
         'tel' => $faker->phoneNumber,
         'staff_count' => $faker->numberBetween(),
