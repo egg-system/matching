@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
             'id' => 'required',
             'password' => 'required|min:6|max:255|confirmed',
             'name' => 'required',
-            'occupation_id' => 'nullable|exists:occupations,id',
+            'occupation_id' => 'required|exists:occupations,id',
             'agree' => 'accepted'
         ];
     }
