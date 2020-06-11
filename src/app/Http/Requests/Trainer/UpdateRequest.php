@@ -55,7 +55,7 @@ class UpdateRequest extends FormRequest
 
     public function getTrainerValues()
     {
-        return $this->only(['name', 'tel', 'pr_comment']);
+        return $this->only(['tel', 'pr_comment']);
     }
 
     public function getMatchingConditionValues()

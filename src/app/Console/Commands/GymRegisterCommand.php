@@ -100,7 +100,6 @@ class GymRegisterCommand extends Command
         $occupationId = Occupation::where('name', $occupationName)->first()->id;
         $areaId = Area::where('name', $areaName)->first()->id;
         $gym = Gym::create([
-            'name' => $name,
             'president_name' => $presidentName,
             'occupation_id' => $occupationId,
             'area_id' => $areaId

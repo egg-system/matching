@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Gym extends Model
 {
     protected $fillable = [
-        'name',
         'president_name',
         'tel',
         'staff_count',

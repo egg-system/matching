@@ -12,8 +12,8 @@
         @foreach($offers as $offer)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $offer->fromUser->user->name }}</td>
-            <td>{{ $offer->toUser->user->name }}</td>
+            <td>{{ $offer->fromUser->name }}</td>
+            <td>{{ $offer->toUser->name }}</td>
             <td>{{ $offer->state->name }}</td>
             <td>
                 <a href="{{ route('offer.show', $offer->id) }}" class="btn btn-success">詳細</a>
