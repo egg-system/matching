@@ -18,6 +18,7 @@ jobs:
       #
       # - image: redis:2.8.19
 
+    working_directory: ~/src
     steps:
       - checkout
 
