@@ -18,7 +18,6 @@ jobs:
       #
       # - image: redis:2.8.19
 
-    working_directory: ~/src
     steps:
       - checkout
 
@@ -29,22 +28,22 @@ jobs:
       - restore_cache:
           keys:
             # "composer.lock" can be used if it is committed to the repo
-            - v1-dependencies-{{ checksum "composer.lock" }}
+            - v1-dependencies-{{ checksum "src/composer.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
       - run: composer install -n --prefer-dist
 
       - save_cache:
-          key: v1-dependencies-{{ checksum "composer.lock" }}
+          key: v1-dependencies-{{ checksum "src/composer.lock" }}
           paths:
-            - ./vendor
+            - src/vendor
       - restore_cache:
           keys:
-            - node-v1-{{ checksum "package.json" }}
+            - node-v1-{{ checksum "src/package.json" }}
             - node-v1-
       - run: yarn install
       - save_cache:
-          key: node-v1-{{ checksum "package.json" }}
+          key: node-v1-{{ checksum "src/package.json" }}
           paths:
-            - ./node_modules
+            - src/node_modules
