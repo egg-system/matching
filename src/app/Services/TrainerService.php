@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Http\Requests\Trainer\RegisterRequest;
 use App\Http\Requests\Trainer\UpdateRequest;
 use App\Models\Trainer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TrainerService
@@ -19,6 +20,7 @@ class TrainerService
             // トレーナーとログインの紐付けて、カラムの更新
             $login_id = $request->id;
             return $registered_trainer->associateToTrainer($login_id, [
+                'name' => $request->name,
                 'email_verified_at' => now(),
                 'password' => $request->password
             ]);
@@ -32,6 +34,11 @@ class TrainerService
             Trainer::find($trainer->id)->update($request->getTrainerValues());
             // matchingCondition更新
             $trainer->matchingCondition->update($request->getMatchingConditionValues());
+            // トレーナーとログインの紐付けて、カラムの更新
+            $login_id = Auth::id();
+            return $trainer->associateToTrainer($login_id, [
+                'name' => $request->name
+            ]);
         });
     }
 }

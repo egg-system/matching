@@ -12,7 +12,7 @@
                         @method('PUT')
                         @csrf
                         
-                        @include('trainer._commonForm')
+                        @include('trainer._commonForm', ['type' => 'edit'])
 
                         <div class="form-group row">
                             <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号</label>
