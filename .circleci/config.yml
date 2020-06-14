@@ -1,53 +1,33 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
 version: 2
 jobs:
   build:
-    docker:
-      # Specify the version you desire here
-      - image: circleci/php:7.2-node-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
-      # - image: circleci/mysql:5.7-ram
-      #
-      # - image: redis:2.8.19
-
+    machine: true
     steps:
       - checkout
-
-      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
-            # "composer.lock" can be used if it is committed to the repo
-            - v1-dependencies-{{ checksum "src/composer.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run:
-          command: composer install -n --prefer-dist
-          working_directory: src
-
-      - save_cache:
-          key: v1-dependencies-{{ checksum "src/composer.lock" }}
+            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
           paths:
-            - src/vendor
-      - restore_cache:
-          keys:
-            - node-v1-{{ checksum "src/package.json" }}
-            - node-v1-
+            - ~/caches/images.tar
       - run:
-          command: yarn install
-          working_directory: src
+          command: |
+            if [[ -e ~/caches/images.tar ]]; then
+              docker load -i ~/caches/images.tar
+            fi
+          name: docker load
+      - run:
+          command: docker-compose up -d --build
+          name: docker up
+      - run:
+          command: mkdir -p ~/caches
+          name: mkdir -p ~/caches
+      - run:
+          command: |
+            if [[ ! -e ~/caches/images.tar ]]; then
+              docker save -o ~/caches/images.tar $(docker images --filter "dangling=false" --format "{{.Repository}}:{{.Tag}}")
+            fi
+          name: docker save
       - save_cache:
-          key: node-v1-{{ checksum "src/package.json" }}
+          key: docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
           paths:
-            - src/node_modules
+            - ~/caches/images.tar
