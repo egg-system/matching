@@ -32,3 +32,34 @@ jobs:
           key: docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
           paths:
             - ~/caches/images.tar
+  
+  test:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
+          paths:
+            - ~/caches/images.tar
+      - run:
+          command: |
+            if [[ -e ~/caches/images.tar ]]; then
+              docker load -i ~/caches/images.tar
+            fi
+          name: docker load
+      - run:
+          command: docker-compose run laravel dockerize -wait tcp://mysql:3306 -timeout 120s
+          name: wait for db
+      - run: 
+          command: docker-compose run laravel vendor/bin/phpunit
+          name: test
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
