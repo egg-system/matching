@@ -63,6 +63,7 @@ class TrainerRegisterTest extends TestCase
         $response = $this->post(
             URL::signedRoute('trainer.store', ['id' => $login->id]),
             array_merge($data->toArray(), [
+                'name' => $login->name,
                 'occupation_id' => factory(Occupation::class)->create()->id,
                 'area_id' => factory(Area::class)->create()->id
             ])
