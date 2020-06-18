@@ -20,9 +20,6 @@ jobs:
           command: docker-compose up -d --build
           name: docker up
       - run:
-          command: docker-compose run laravel composer install
-          name: composer install
-      - run:
           command: mkdir -p ~/caches
           name: mkdir -p ~/caches
       - run:
@@ -51,6 +48,9 @@ jobs:
               docker load -i ~/caches/images.tar
             fi
           name: docker load
+      - run:
+          command: docker-compose run laravel composer install
+          name: composer install
       - run: 
           command: docker-compose run laravel vendor/bin/phpunit
           name: test
