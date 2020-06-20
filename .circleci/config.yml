@@ -51,6 +51,12 @@ jobs:
       - run:
           command: docker-compose run laravel composer install
           name: composer install
+      - run:
+          command: docker-compose run laravel php artisan key:generate
+          name: generate key
+      - run:
+          command: docker-compose run laravel php artisan config:cache
+          name: clear cache
       - run: 
           command: docker-compose run laravel vendor/bin/phpunit
           name: test
