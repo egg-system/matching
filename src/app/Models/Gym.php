@@ -27,4 +27,15 @@ class Gym extends Model
     {
         return $this->morphOne(MatchingCondition::class, 'user');
     }
+
+    /**
+     * ログインを関連付ける
+     * @param int $id
+     * @return \App\Models\Login
+     */
+    public function associateToLogin(Login $login, array $update_columns = [])
+    {
+        // 更新するカラムとマージ
+        return $this->login()->save($login->fillUpdateColumns($update_columns));
+    }
 }

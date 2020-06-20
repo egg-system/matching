@@ -26,7 +26,7 @@ Route::group(['prefix' => 'gym', 'as' => 'gym.'], function () {
     Route::post('login', 'GymController@login')->middleware('guest')->name('login');
     Route::middleware(['auth', 'can:gymowner-only'])->group(function () {
         Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
-        Route::resource('', 'GymController')->only(['index']);
+        Route::resource('', 'GymController', ['parameters' => ['' => 'gym']])->only(['index', 'edit', 'update']);
     });
 });
 Route::group(['middleware' => ['auth']], function () {
