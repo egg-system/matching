@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ URL::signedRoute('trainer.store', ['id' => request()->id ]) }}">
                         @csrf
-                        @include('trainer._commonForm', ['type' => 'register'])
+                        @include('common._form', ['type' => 'register'])
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">パスワード</label>
 
