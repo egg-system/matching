@@ -20,6 +20,18 @@ jobs:
           command: docker-compose up -d --build
           name: docker up
       - run:
+          command: docker-compose run laravel composer install
+          name: composer install
+      - run:
+          command: docker-compose run laravel cp ./.env.example ./.env
+          name: create env file
+      - run:
+          command: docker-compose run laravel php artisan key:generate
+          name: generate key
+      - run:
+          command: docker-compose run laravel php artisan config:cache
+          name: clear cache
+      - run:
           command: mkdir -p ~/caches
           name: mkdir -p ~/caches
       - run:
@@ -33,7 +45,7 @@ jobs:
           paths:
             - ~/caches/images.tar
   
-  test:
+  phpunit:
     machine: true
     steps:
       - checkout
@@ -48,27 +60,37 @@ jobs:
               docker load -i ~/caches/images.tar
             fi
           name: docker load
-      - run:
-          command: docker-compose run laravel composer install
-          name: composer install
-      - run:
-          command: docker-compose run laravel cp ./.env.example ./.env
-          name: create env file
-      - run:
-          command: docker-compose run laravel php artisan key:generate
-          name: generate key
-      - run:
-          command: docker-compose run laravel php artisan config:cache
-          name: clear cache
       - run: 
           command: docker-compose run laravel vendor/bin/phpunit
-          name: test
+          name: phpunit
+  
+  phpmd:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
+          paths:
+            - ~/caches/images.tar
+      - run:
+          command: |
+            if [[ -e ~/caches/images.tar ]]; then
+              docker load -i ~/caches/images.tar
+            fi
+          name: docker load
+      - run: 
+          command: docker-compose run laravel composer check-phpmd
+          name: phpmd
 
 workflows:
   version: 2
   build-and-test:
     jobs:
       - build
-      - test:
+      - phpunit:
+          requires:
+            - build
+      - phpmd:
           requires:
             - build

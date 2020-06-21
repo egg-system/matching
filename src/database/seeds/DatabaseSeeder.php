@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    const Testing = [
+    const TESTING = [
         Testing\GymsTableSeeder::class,
         Testing\TrainersTableSeeder::class,
         Testing\OfferStateSeeder::class,
@@ -39,6 +39,6 @@ class DatabaseSeeder extends Seeder
         if (App::isProduction()) {
             return;
         };
-        $this->call(self::Testing);
+        $this->call(self::TESTING);
     }
 }
