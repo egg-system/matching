@@ -42,7 +42,7 @@ jobs:
           command: docker-compose run laravel composer install
           name: composer install
       - save_cache:
-          key: composer-v1-{{ checksum "src/composer.lock" }}
+          key: composer-{{ checksum "src/composer.lock" }}
           paths:
             - src/vendor
           name: composer save cache
