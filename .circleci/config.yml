@@ -7,9 +7,10 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
+            - docker-cache-{{ checksum "nginx/Dockerfile" }}
           paths:
             - ~/caches/images.tar
+          name: docker restore cache
       - run:
           command: |
             if [[ -e ~/caches/images.tar ]]; then
@@ -20,18 +21,6 @@ jobs:
           command: docker-compose up -d --build
           name: docker up
       - run:
-          command: docker-compose run laravel composer install
-          name: composer install
-      - run:
-          command: docker-compose run laravel cp ./.env.example ./.env
-          name: create env file
-      - run:
-          command: docker-compose run laravel php artisan key:generate
-          name: generate key
-      - run:
-          command: docker-compose run laravel php artisan config:cache
-          name: clear cache
-      - run:
           command: mkdir -p ~/caches
           name: mkdir -p ~/caches
       - run:
@@ -41,9 +30,22 @@ jobs:
             fi
           name: docker save
       - save_cache:
-          key: docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
+          key: docker-cache-{{ checksum "nginx/Dockerfile" }}
           paths:
             - ~/caches/images.tar
+          name: docker save cache
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "src/composer.lock" }}
+          name: composer restore cache
+      - run:
+          command: docker-compose run laravel composer install
+          name: composer install
+      - save_cache:
+          key: composer-v1-{{ checksum "src/composer.lock" }}
+          paths:
+            - src/vendor
+          name: composer save cache
   
   phpunit:
     machine: true
@@ -60,6 +62,19 @@ jobs:
               docker load -i ~/caches/images.tar
             fi
           name: docker load
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "src/composer.lock" }}
+          name: composer restore cache
+      - run:
+          command: docker-compose run laravel cp ./.env.example ./.env
+          name: create env file
+      - run:
+          command: docker-compose run laravel php artisan key:generate
+          name: generate key
+      - run:
+          command: docker-compose run laravel php artisan config:cache
+          name: clear cache
       - run: 
           command: docker-compose run laravel vendor/bin/phpunit
           name: phpunit
@@ -79,6 +94,10 @@ jobs:
               docker load -i ~/caches/images.tar
             fi
           name: docker load
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "src/composer.lock" }}
+          name: composer restore cache
       - run: 
           command: docker-compose run laravel composer check-phpmd
           name: phpmd
