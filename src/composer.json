@@ -21,6 +21,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",
         "barryvdh/laravel-ide-helper": "^2.6",
+        "brainmaestro/composer-git-hooks": "^2.8",
         "facade/ignition": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.16",
         "fzaninotto/faker": "^1.9.1",
@@ -37,6 +38,12 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "hooks": {
+            "pre-commit": [
+                "composer check-phpmd",
+                "composer fix-php-cs-fixer"
+            ]
         }
     },
     "autoload": {
@@ -67,7 +74,10 @@
             "@php artisan key:generate --ansi"
         ],
         "check-phpmd": [
-            "./vendor/bin/phpmd ./ text phpmd.xml --suffixes php --exclude vendor/*,tests/*"
+            "vendor/bin/phpmd ./ text phpmd.xml --suffixes php --exclude vendor/*,tests/*"
+        ],
+        "fix-php-cs-fixer": [
+            "vendor/bin/php-cs-fixer fix ./"
         ]
     }
 }
