@@ -28,8 +28,7 @@
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^4.1",
         "phpmd/phpmd": "^2.8",
-        "phpunit/phpunit": "^8.5",
-        "suin/php-cs-fixer-rules": "^2.2"
+        "phpunit/phpunit": "^8.5"
     },
     "config": {
         "optimize-autoloader": true,
