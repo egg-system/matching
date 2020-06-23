@@ -42,6 +42,7 @@
         },
         "hooks": {
             "pre-commit": [
+                "echo [pre-commit]phpmd checking...",
                 "src/vendor/bin/phpmd src/ text src/phpmd.xml --suffixes php --exclude vendor/*,tests/*"
             ]
         }

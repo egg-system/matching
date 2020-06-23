@@ -23,3 +23,10 @@
     - 参考：https://qiita.com/ubonsa/items/5514fb9c5d5783bcc758
     - `.env`は`MAIL_USERNAME`・`MAIL_PASSWORD`・`MAIL_FROM_ADDRESS`を修正する（`MAIL_FROM_ADDRESS`はなんでも良い）
 - トップページ（`/`）でメールアドレスを入力し、アカウント作成するとmailtrapに本登録用のURLが送られるのでそこから本登録を行う
+
+### git hooksの反映
+* 環境構築時に以下のコマンドを打つことでcommit時にphpmdでのチェックを走らせるなどの設定を反映（※ hooksの設定を更新した際にも必要）
+    ```
+    $ cd src
+    $ vendor/bin/cghooks update
+    ```
