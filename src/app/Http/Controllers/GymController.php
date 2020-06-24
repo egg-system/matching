@@ -8,16 +8,16 @@ use App\Http\Requests\LoginRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Services\AuthService;
-use App\Services\GymService;
+use App\Services\userService;
 
 class GymController extends Controller
 {
     protected AuthService $authService;
-    protected GymService $gymService;
-    public function __construct(AuthService $authService, GymService $gymService)
+    protected userService $userService;
+    public function __construct(AuthService $authService, userService $userService)
     {
         $this->authService = $authService;
-        $this->gymService = $gymService;
+        $this->userService = $userService;
 
         $this->authorizeResource(Gym::class);
     }
@@ -35,7 +35,7 @@ class GymController extends Controller
 
     public function update(UpdateRequest $request, Gym $gym)
     {
-        $this->gymService->updateModels($request, $gym);
+        $this->userService->updateUser($request, $gym);
 
         return redirect()->route('gym.edit', $gym->id);
     }

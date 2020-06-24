@@ -29,7 +29,7 @@ class Gym extends Model
     }
 
     /**
-     * ログインを関連付ける
+     * ログインと関連付ける
      * @param int $id
      * @return \App\Models\Login
      */

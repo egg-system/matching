@@ -52,14 +52,4 @@ class UpdateRequest extends FormRequest
             'work_time' => '希望する曜日や時間帯',
         ];
     }
-
-    public function getTrainerValues()
-    {
-        return $this->only(['tel', 'pr_comment']);
-    }
-
-    public function getMatchingConditionValues()
-    {
-        return $this->only(['occupation_id', 'area_id', 'price', 'work_time']);
-    }
 }
