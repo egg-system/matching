@@ -8,13 +8,13 @@ use App\Http\Requests\LoginRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Services\AuthService;
-use App\Services\userService;
+use App\Services\UserService;
 
 class GymController extends Controller
 {
     protected AuthService $authService;
-    protected userService $userService;
-    public function __construct(AuthService $authService, userService $userService)
+    protected UserService $userService;
+    public function __construct(AuthService $authService, UserService $userService)
     {
         $this->authService = $authService;
         $this->userService = $userService;
