@@ -1,4 +1,4 @@
-resolve {issue番号}
+resolve #{対応したissue番号}
 
 ## 実装内容
 ### 実装方法
