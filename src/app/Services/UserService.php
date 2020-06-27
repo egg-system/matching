@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Http\Requests\Trainer\RegisterRequest;
+use App\Models\Login;
 use App\Models\MatchingCondition;
+use App\Models\Trainer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +22,7 @@ class UserService
             // matchingConditionと紐付け
             $registered_trainer->matchingCondition()->create($validated);
             // トレーナーとログインの紐付けて、カラムの更新
-            $login_id = $request->id;
-            return $registered_trainer->associateToLogin($login_id, [
+            return $registered_trainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
                 'email_verified_at' => now(),
                 'password' => $request->password

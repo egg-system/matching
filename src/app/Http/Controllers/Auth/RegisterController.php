@@ -43,7 +43,8 @@ class RegisterController extends Controller
     {
         event(new TrainerRegistered($user = $this->create($request->all())));
 
-        if ($response = $this->registered($request, $user)) {
+        $response = $this->registered($request, $user);
+        if (isset($response)) {
             return $response;
         }
 

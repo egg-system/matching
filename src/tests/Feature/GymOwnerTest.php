@@ -15,16 +15,12 @@ use Tests\TestCase;
 class GymOwnerTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    protected Login $login;
-    protected Gym $owner;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->login = factory(Login::class)->create();
         $this->owner = factory(Gym::class)->create();
-        $this->owner->login()->save($this->login);
     }
 
     /**
@@ -47,11 +43,11 @@ class GymOwnerTest extends TestCase
                 ]
             );
         });
-        $response = $this->actingAs($this->login)->get(route('gym.trainerList'));
+        $response = $this->actingAs($this->owner->login)->get(route('gym.trainerList'));
 
         $response->assertStatus(200)->assertSee(100)->assertSee('test');
 
-        $search_response = $this->actingAs($this->login)->get(route('gym.trainerList'), [
+        $search_response = $this->actingAs($this->owner->login)->get(route('gym.trainerList'), [
             'price' => ['min' => 100]
         ]);
 

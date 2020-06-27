@@ -28,9 +28,9 @@ class Trainer extends Model
      * @param int $id
      * @return \App\Models\Login
      */
-    public function associateToLogin(Login $login, array $update_columns = [])
+    public function associateToLogin(Login $login, array $updateColumns = [])
     {
         // 更新するカラムとマージ
-        return $this->login()->save($login->fillUpdateColumns($update_columns));
+        return $this->login()->save($login->fillUpdateColumns($updateColumns));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\VerifyCsrfToken;
 use App\Models\Area;
 use App\Models\Login;
 use App\Models\Occupation;
@@ -9,6 +10,8 @@ use App\Models\Trainer;
 use App\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use ReflectionClass;
 use Tests\TestCase;
@@ -23,12 +26,15 @@ class TrainerRegisterTest extends TestCase
      */
     public function can_register_email()
     {
+        $this->withoutMiddleware([VerifyCsrfToken::class]);
+
         $this->get(route('top'))->assertStatus(200);
 
         $email = $this->faker->email;
         // email登録
         $response = $this->post(route('register'), compact('email'));
         // 送信完了画面へ
+        Mail::fake();
         $response->assertStatus(302);
         // 登録確認
         $this->assertDatabaseHas('login', compact('email'));
@@ -42,6 +48,7 @@ class TrainerRegisterTest extends TestCase
      */
     public function can_register_trainer_info()
     {
+        $this->withoutMiddleware([VerifyCsrfToken::class]);
         $this->withExceptionHandling();
         // login作成
         $login = factory(Login::class)->create();
@@ -63,6 +70,7 @@ class TrainerRegisterTest extends TestCase
         $response = $this->post(
             URL::signedRoute('trainer.store', ['id' => $login->id]),
             array_merge($data->toArray(), [
+                'name' => $login->name,
                 'occupation_id' => factory(Occupation::class)->create()->id,
                 'area_id' => factory(Area::class)->create()->id
             ])

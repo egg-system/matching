@@ -44,12 +44,12 @@ class Offer extends Model
      * オファーのステータス絞り込み
      *
      * @param Illuminate\Database\Eloquent\Builder
-     * @param int $offer_state
+     * @param int $offerState
      * @return Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWhereState(Builder $query, int $offer_state = OfferState::UNREPLY)
+    public function scopeWhereState(Builder $query, int $offerState = OfferState::UNREPLY)
     {
-        return $query->where('offer_state', $offer_state);
+        return $query->where('offer_state', $offerState);
     }
 
     public function updateState(int $state)

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\VerifyEmail;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,7 +48,7 @@ class Login extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         // メールを送信
-        $this->notify(new \App\Notifications\VerifyEmail);
+        $this->notify(new VerifyEmail);
     }
 
     public function user()
@@ -64,12 +66,12 @@ class Login extends Authenticatable implements MustVerifyEmail
 
     /**
      * 更新するカラムで属性を上書きしたモデルを取得
-     * @param array $update_columns = []
+     * @param array $updateColumns = []
      * @return \App\Modes\Login
      */
-    public function fillUpdateColumns(array $update_columns = [])
+    public function fillUpdateColumns(array $updateColumns = [])
     {
-        $attr = array_merge($this->getAttributes(), $update_columns);
+        $attr = array_merge($this->getAttributes(), $updateColumns);
         return $this->fill($attr);
     }
 
