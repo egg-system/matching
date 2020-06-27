@@ -11,6 +11,7 @@ use App\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use ReflectionClass;
 use Tests\TestCase;
@@ -33,8 +34,8 @@ class TrainerRegisterTest extends TestCase
         // email登録
         $response = $this->post(route('register'), compact('email'));
         // 送信完了画面へ
-        // CircleCIで.envにMAILの設定が必要でエラーになるので一旦コメントアウト
-        // $response->assertStatus(302);
+        Mail::fake();
+        $response->assertStatus(302);
         // 登録確認
         $this->assertDatabaseHas('login', compact('email'));
         // ログイン状態ではないこと
