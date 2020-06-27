@@ -24,13 +24,12 @@ class Trainer extends Model
     }
 
     /**
-     * トレーナーとログインを関連付ける
+     * ログインと関連付ける
      * @param int $id
      * @return \App\Models\Login
      */
-    public function associateToTrainer(int $loginId, array $updateColumns = [])
+    public function associateToLogin(Login $login, array $updateColumns = [])
     {
-        $login = Login::find($loginId);
         // 更新するカラムとマージ
         return $this->login()->save($login->fillUpdateColumns($updateColumns));
     }

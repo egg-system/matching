@@ -10,18 +10,18 @@ use App\Models\Login;
 use App\Models\MatchingCondition;
 use App\Models\Trainer;
 use App\Services\AuthService;
-use App\Services\TrainerService;
+use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class TrainerController extends Controller
 {
-    protected $trainerService;
-    
-    public function __construct(AuthService $authService, TrainerService $trainerService)
+    protected $userService;
+
+    public function __construct(AuthService $authService, UserService $userService)
     {
         $this->authService = $authService;
-        $this->trainerService = $trainerService;
+        $this->userService = $userService;
     }
 
     /**
@@ -42,8 +42,8 @@ class TrainerController extends Controller
         if (Login::find($loginId)->user_id) {
             return redirect()->route('top');
         }
-        
-        $login = $this->trainerService->createModels($request);
+
+        $login = $this->userService->createTrainer($request);
 
         auth()->login($login);
 
@@ -66,7 +66,7 @@ class TrainerController extends Controller
 
     public function update(UpdateRequest $request, Trainer $trainer)
     {
-        $this->trainerService->updateModels($request, $trainer);
+        $this->userService->updateUser($request, $trainer);
 
         return redirect()->route('top');
     }

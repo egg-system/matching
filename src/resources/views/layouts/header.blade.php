@@ -30,6 +30,10 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"
+                            href={{ route(Auth::user()->user_type === \App\Models\Trainer::class ? 'trainer.edit' : 'gym.edit', Auth::user()->user_id) }}>
+                            プロフィール編集
+                        </a>
                         <a class="dropdown-item" href="{{ route('offer.index') }}">
                             オファー一覧
                         </a>

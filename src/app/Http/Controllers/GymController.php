@@ -3,22 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Gym\TrainerSearchRequest;
+use App\Http\Requests\Gym\UpdateRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Services\AuthService;
-use Illuminate\Validation\ValidationException;
+use App\Services\UserService;
 
 class GymController extends Controller
 {
-    public function __construct(AuthService $authService)
+    protected AuthService $authService;
+    protected UserService $userService;
+    public function __construct(AuthService $authService, UserService $userService)
     {
         $this->authService = $authService;
+        $this->userService = $userService;
+
+        $this->authorizeResource(Gym::class);
     }
 
     public function index()
     {
         return view('gym.index');
+    }
+
+    public function edit(Gym $gym)
+    {
+        $matchingCondition = $gym->matchingCondition;
+        return view('gym.edit', compact('gym', 'matchingCondition'));
+    }
+
+    public function update(UpdateRequest $request, Gym $gym)
+    {
+        $this->userService->updateUser($request, $gym);
+
+        return redirect()->route('gym.edit', $gym->id);
     }
 
     /**

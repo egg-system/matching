@@ -1,15 +1,19 @@
 <?php
+
 namespace App\Services;
 
 use App\Http\Requests\Trainer\RegisterRequest;
-use App\Http\Requests\Trainer\UpdateRequest;
+use App\Models\Login;
+use App\Models\MatchingCondition;
 use App\Models\Trainer;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class TrainerService
+class UserService
 {
-    public function createModels(RegisterRequest $request)
+    public function createTrainer(RegisterRequest $request)
     {
         return DB::transaction(function () use ($request) {
             $validated = $request->validated();
@@ -18,8 +22,7 @@ class TrainerService
             // matchingConditionと紐付け
             $registered_trainer->matchingCondition()->create($validated);
             // トレーナーとログインの紐付けて、カラムの更新
-            $login_id = $request->id;
-            return $registered_trainer->associateToTrainer($login_id, [
+            return $registered_trainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
                 'email_verified_at' => now(),
                 'password' => $request->password
@@ -27,16 +30,15 @@ class TrainerService
         });
     }
 
-    public function updateModels(UpdateRequest $request, Trainer $trainer)
+    public function updateUser(Request $request, Model $user)
     {
-        DB::transaction(function () use ($request, $trainer) {
+        DB::transaction(function () use ($request, $user) {
             // トレーナー更新
-            Trainer::find($trainer->id)->update($request->getTrainerValues());
+            $user->update($request->only($user->getFillable()));
             // matchingCondition更新
-            $trainer->matchingCondition->update($request->getMatchingConditionValues());
-            // トレーナーとログインの紐付けて、カラムの更新
-            $login_id = Auth::id();
-            return $trainer->associateToTrainer($login_id, [
+            $user->matchingCondition->update($request->only(MatchingCondition::make()->getFillable()));
+            // ログインと紐付けて、カラムの更新
+            return $user->associateToLogin(Auth::user(), [
                 'name' => $request->name
             ]);
         });

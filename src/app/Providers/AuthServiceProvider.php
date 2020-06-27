@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Gym;
 use App\Models\Offer;
 use App\Models\Trainer;
+use App\Policies\GymPolicy;
 use App\Policies\OfferPolicy;
 use App\Policies\TrainerPolicy;
 
@@ -22,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
         Trainer::class => TrainerPolicy::class,
         Offer::class => OfferPolicy::class,
+        Gym::class => GymPolicy::class,
     ];
 
     /**
