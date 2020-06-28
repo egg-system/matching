@@ -42,7 +42,9 @@
         "hooks": {
             "pre-commit": [
                 "echo [pre-commit]phpmd checking...",
-                "src/vendor/bin/phpmd src/ text src/phpmd.xml --suffixes php --exclude vendor/*,tests/*"
+                "src/vendor/bin/phpmd src/ text src/phpmd.xml --suffixes php --exclude vendor/*,tests/*",
+                "echo [pre-commit]php-cs-fixer checking...",
+                "src/vendor/bin/php-cs-fixer fix --config src/.php_cs.dist --path-mode=intersection src/"
             ]
         }
     },
