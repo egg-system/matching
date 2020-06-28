@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Http\Requests\Trainer\RegisterRequest;
@@ -25,12 +27,12 @@ class UserService
             return $registered_trainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
                 'email_verified_at' => now(),
-                'password' => $request->password
+                'password' => $request->password,
             ]);
         });
     }
 
-    public function updateUser(Request $request, Model $user)
+    public function updateUser(Request $request, Model $user): void
     {
         DB::transaction(function () use ($request, $user) {
             // トレーナー更新
@@ -39,7 +41,7 @@ class UserService
             $user->matchingCondition->update($request->only(MatchingCondition::make()->getFillable()));
             // ログインと紐付けて、カラムの更新
             return $user->associateToLogin(Auth::user(), [
-                'name' => $request->name
+                'name' => $request->name,
             ]);
         });
     }

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Database\Seeds\Common\AreasTableSeeder;
 use Database\Seeds\Common\OccupationsTableSeeder;
-
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\Artisan;
 

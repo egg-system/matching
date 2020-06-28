@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -44,7 +46,8 @@ class Offer extends Model
      * オファーのステータス絞り込み
      *
      * @param Illuminate\Database\Eloquent\Builder
-     * @param int $offerState
+     * @param int     $offerState
+     * @param Builder $query
      * @return Illuminate\Database\Eloquent\Builder
      */
     public function scopeWhereState(Builder $query, int $offerState = OfferState::UNREPLY)

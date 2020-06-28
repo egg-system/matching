@@ -1,44 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
-use App\Http\View\Composers\OfferStateComposer;
 use App\Models\Area;
-use App\Models\Login;
 use App\Models\Occupation;
 use App\Models\OfferState;
-use App\Models\Trainer;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
     }
 
     /**
      * Bootstrap services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         \View::composer(
             ['trainer.edit', 'common._form'],
-            function ($view) {
+            function ($view): void {
                 $view->with($this->getMasterData());
             }
         );
 
         \View::composer(
             'gym.trainerList',
-            function ($view) {
+            function ($view): void {
                 $viewData = array_merge($this->getMasterData(), [
                     'offers' => optional(\Auth::user()->fromOffers),
                 ]);
@@ -49,7 +43,7 @@ class ViewServiceProvider extends ServiceProvider
         // offerstate
         \View::composer(
             'offer.index',
-            function ($view) {
+            function ($view): void {
                 $view->with('states', OfferState::all());
             }
         );

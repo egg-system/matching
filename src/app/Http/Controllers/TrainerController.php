@@ -1,18 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\Trainer\RegisterRequest;
 use App\Http\Requests\Trainer\UpdateRequest;
 use App\Models\Login;
-use App\Models\MatchingCondition;
 use App\Models\Trainer;
 use App\Services\AuthService;
 use App\Services\UserService;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
 class TrainerController extends Controller
 {
@@ -25,7 +23,7 @@ class TrainerController extends Controller
     }
 
     /**
-     * トレーナー本登録画面表示
+     * トレーナー本登録画面表示.
      */
     public function create()
     {
@@ -33,7 +31,8 @@ class TrainerController extends Controller
     }
 
     /**
-     * 本登録する
+     * 本登録する.
+     * @param RegisterRequest $request
      */
     public function store(RegisterRequest $request)
     {
@@ -51,7 +50,8 @@ class TrainerController extends Controller
     }
 
     /**
-     * トレーナーのログイン
+     * トレーナーのログイン.
+     * @param LoginRequest $request
      */
     public function login(LoginRequest $request)
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Trainer;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,7 +25,7 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $day_of_week_role = join(',', trans('search.day_of_week'));
+        $day_of_week_role = implode(',', trans('search.day_of_week'));
 
         return [
             'name' => 'required',

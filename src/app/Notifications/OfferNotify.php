@@ -1,21 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Mail\Mailable;
+use Illuminate\Notifications\Notification;
 
 class OfferNotify extends Notification
 {
     use Queueable;
 
     protected $mail;
+
     protected $to;
+
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param Mailable $mail
+     * @param string   $to
      */
     public function __construct(Mailable $mail, string $to)
     {
@@ -26,7 +31,7 @@ class OfferNotify extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -37,7 +42,7 @@ class OfferNotify extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -48,13 +53,12 @@ class OfferNotify extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
     {
         return [
-            //
         ];
     }
 }

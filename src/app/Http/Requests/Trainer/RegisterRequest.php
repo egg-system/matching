@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Trainer;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,14 +25,14 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        $day_of_week_role = join(',', trans('search.day_of_week'));
+        $day_of_week_role = implode(',', trans('search.day_of_week'));
 
         return [
             'id' => 'required',
             'password' => 'required|min:6|max:255|confirmed',
             'name' => 'required',
             'occupation_id' => 'required|exists:occupations,id',
-            'agree' => 'accepted'
+            'agree' => 'accepted',
         ];
     }
 
@@ -40,7 +42,7 @@ class RegisterRequest extends FormRequest
             'password' => 'パスワード',
             'name' => '氏名',
             'occupation_id' => '種類',
-            'agree' => '利用規約'
+            'agree' => '利用規約',
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -36,9 +38,9 @@ class MatchingCondition extends Model
     }
 
     /**
-     * トレーナーだけに限定するクエリスコープ
+     * トレーナーだけに限定するクエリスコープ.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOnlyTrainer(Builder $query)
@@ -47,17 +49,21 @@ class MatchingCondition extends Model
     }
 
     /**
-     * イコール検索するクエリスコープ
+     * イコール検索するクエリスコープ.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param array                                 $attributes
+     * @param string                                $operation
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeSearch(Builder $query, array $attributes, string $operation = '=')
     {
         $attributes = Arr::dot($attributes);
+
         foreach ($attributes as $column => $value) {
             $column = str_replace('.', '->', $column);
-            if (!is_null($value)) {
+
+            if ($value !== null) {
                 $query->where($column, $operation, $value);
             }
         }
