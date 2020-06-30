@@ -12,8 +12,8 @@ use App\Services\UserService;
 
 class GymController extends Controller
 {
-    protected AuthService $authService;
-    protected UserService $userService;
+    protected $authService;
+    protected $userService;
     public function __construct(AuthService $authService, UserService $userService)
     {
         $this->authService = $authService;
