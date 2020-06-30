@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Observers;
 
 use App\Mail\OfferRecieve;
@@ -14,9 +12,10 @@ class OfferObserver
     /**
      * Handle the offer "created" event.
      *
-     * @param \App\Models\Offer $offer
+     * @param  \App\Models\Offer  $offer
+     * @return void
      */
-    public function created(Offer $offer): void
+    public function created(Offer $offer)
     {
         // トレーナーに受信メール送信
         $trainer = $offer->toUser->email;
@@ -27,9 +26,10 @@ class OfferObserver
     /**
      * Handle the offer "updated" event.
      *
-     * @param \App\Models\Offer $offer
+     * @param  \App\Models\Offer  $offer
+     * @return void
      */
-    public function updated(Offer $offer): void
+    public function updated(Offer $offer)
     {
         // オーナーに返答メール送信
         $owner = $offer->fromUser->email;

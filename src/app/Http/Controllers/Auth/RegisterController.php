@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Auth;
 
 use App\Events\TrainerRegistered;
@@ -9,8 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Login;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 
 class RegisterController extends Controller
 {
@@ -28,26 +26,6 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Handle a registration request for the application.
-     * メールアドレス登録でログインしないようにオーバーライド.
-     * @param RegisterRequest $request
-     */
-    public function register(RegisterRequest $request)
-    {
-        event(new TrainerRegistered($user = $this->create($request->all())));
-
-        $response = $this->registered($request, $user);
-
-        if (isset($response)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new Response('', 201)
-            : redirect($this->redirectPath());
-    }
-
-    /**
      * Where to redirect users after registration.
      *
      * @var string
@@ -58,9 +36,28 @@ class RegisterController extends Controller
     }
 
     /**
+     * Handle a registration request for the application.
+     * メールアドレス登録でログインしないようにオーバーライド
+     */
+    public function register(RegisterRequest $request)
+    {
+        event(new TrainerRegistered($user = $this->create($request->all())));
+
+        $response = $this->registered($request, $user);
+        if (isset($response)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new Response('', 201)
+            : redirect($this->redirectPath());
+    }
+
+
+    /**
      * Create a new user instance after a valid registration.
      *
-     * @param array $data
+     * @param  array  $data
      * @return \App\Models\Login
      */
     protected function create(array $data)

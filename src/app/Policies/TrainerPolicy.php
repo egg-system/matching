@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Policies;
 
 use App\Models\Login;
@@ -14,15 +12,16 @@ class TrainerPolicy
 
     /**
      * Create a new policy instance.
+     *
+     * @return void
      */
     public function __construct()
     {
+        //
     }
 
     /**
-     * ログインユーザーのみ編集を認可.
-     * @param Login   $login
-     * @param Trainer $trainer
+     * ログインユーザーのみ編集を認可
      */
     public function update(Login $login, Trainer $trainer)
     {

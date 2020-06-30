@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
 use App\Notifications\VerifyEmail;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,7 +45,7 @@ class Login extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendEmailVerificationNotification(): void
+    public function sendEmailVerificationNotification()
     {
         // メールを送信
         $this->notify(new VerifyEmail);
@@ -58,16 +57,15 @@ class Login extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * パスワードのハッシュ化.
-     * @param mixed $password
+     * パスワードのハッシュ化
      */
-    public function setPasswordAttribute($password): void
+    public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
     }
 
     /**
-     * 更新するカラムで属性を上書きしたモデルを取得.
+     * 更新するカラムで属性を上書きしたモデルを取得
      * @param array $updateColumns = []
      * @return \App\Modes\Login
      */
@@ -94,9 +92,9 @@ class Login extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * トレーナーだけに限定するクエリスコープ.
+     * トレーナーだけに限定するクエリスコープ
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOnlyTrainer(Builder $query)

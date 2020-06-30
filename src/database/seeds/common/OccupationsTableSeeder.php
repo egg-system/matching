@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Database\Seeds\Common;
 
 use App\Models\Occupation;
@@ -11,20 +9,19 @@ class OccupationsTableSeeder extends Seeder
 {
     private const DATA = [
         [
-            'name' => 'パーソナル',
+            'name' => 'パーソナル'
         ],
         [
-            'name' => 'ボクシング',
+            'name' => 'ボクシング'
         ],
         [
-            'name' => 'フィットネス',
-        ],
+            'name' => 'フィットネス'
+        ]
     ];
 
-    public function run(): void
+    public function run()
     {
         $datas = self::DATA;
-
         foreach ($datas as $data) {
             Occupation::firstOrCreate($data);
         }

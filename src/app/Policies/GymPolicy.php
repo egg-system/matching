@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Policies;
 
-use App\Models\Gym;
 use App\Models\Login;
+use App\Models\Gym;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GymPolicy
@@ -14,15 +12,18 @@ class GymPolicy
 
     /**
      * Create a new policy instance.
+     *
+     * @return void
      */
     public function __construct()
     {
+        //
     }
 
     /**
-     * indexメソッドに対する認可.
+     * indexメソッドに対する認可
      *
-     * @param \App\Models\Login $user
+     * @param  \App\Models\Login  $user
      * @return mixed
      */
     public function viewAny(Login $user)
@@ -31,9 +32,7 @@ class GymPolicy
     }
 
     /**
-     * ログインユーザーのみ編集を認可.
-     * @param Login $login
-     * @param Gym   $gym
+     * ログインユーザーのみ編集を認可
      */
     public function update(Login $login, Gym $gym)
     {

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Requests\Offer;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -27,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'message' => 'required|string',
-            'to' => 'required|exists:login,id',
+            'to' => 'required|exists:login,id'
         ];
     }
 }

@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -14,9 +13,12 @@ class OfferUpdate extends Mailable
 
     /**
      * Create a new message instance.
+     *
+     * @return void
      */
     public function __construct()
     {
+        //
     }
 
     /**
@@ -29,7 +31,7 @@ class OfferUpdate extends Mailable
         return $this->subject('オファー返答のお知らせ')
             ->markdown('offer.mail.update')
             ->with([
-                'url' => route('offer.index'),
+                'url' => route('offer.index')
             ]);
     }
 }

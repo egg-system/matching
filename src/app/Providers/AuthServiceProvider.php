@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Providers;
 
 use App\Models\Gym;
@@ -10,6 +8,7 @@ use App\Models\Trainer;
 use App\Policies\GymPolicy;
 use App\Policies\OfferPolicy;
 use App\Policies\TrainerPolicy;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -29,8 +28,10 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
+     *
+     * @return void
      */
-    public function boot(): void
+    public function boot()
     {
         $this->registerPolicies();
 

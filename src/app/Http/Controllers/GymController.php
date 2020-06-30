@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Gym\TrainerSearchRequest;
@@ -14,10 +12,8 @@ use App\Services\UserService;
 
 class GymController extends Controller
 {
-    protected $authService;
-
-    protected $userService;
-
+    protected AuthService $authService;
+    protected UserService $userService;
     public function __construct(AuthService $authService, UserService $userService)
     {
         $this->authService = $authService;
@@ -45,14 +41,12 @@ class GymController extends Controller
     }
 
     /**
-     * トレーナの一覧表示画面(検索付).
-     * @param TrainerSearchRequest $request
+     * トレーナの一覧表示画面(検索付)
      */
     public function trainerList(TrainerSearchRequest $request)
     {
         $validated = $request->validated();
         $matchingCondition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
-
         if ($request->anyFilled(array_keys($validated))) {
             $matchingCondition = $matchingCondition->search($validated);
         }
@@ -61,8 +55,7 @@ class GymController extends Controller
     }
 
     /**
-     * ジムオーナーのログイン.
-     * @param LoginRequest $request
+     * ジムオーナーのログイン
      */
     public function login(LoginRequest $request)
     {

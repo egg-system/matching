@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Policies;
 
-use App\Models\Login;
 use App\Models\Offer;
+use App\Models\Login;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OfferPolicy
@@ -13,9 +11,9 @@ class OfferPolicy
     use HandlesAuthorization;
 
     /**
-     * indexメソッドに対する認可.
+     * indexメソッドに対する認可
      *
-     * @param \App\Models\Login $user
+     * @param  \App\Models\Login  $user
      * @return mixed
      */
     public function viewAny(Login $user)
@@ -24,10 +22,10 @@ class OfferPolicy
     }
 
     /**
-     * showメソッドに対する認可.
+     * showメソッドに対する認可
      *
-     * @param \App\Models\Login $user
-     * @param \App\Models\Offer $offer
+     * @param  \App\Models\Login  $user
+     * @param  \App\Models\Offer  $offer
      * @return mixed
      */
     public function view(Login $user, Offer $offer)
@@ -39,8 +37,8 @@ class OfferPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param \App\Models\Login $user
-     * @param \App\Models\Offer $offer
+     * @param  \App\Models\Login  $user
+     * @param  \App\Models\Offer  $offer
      * @return mixed
      */
     public function update(Login $user, Offer $offer)
@@ -52,7 +50,7 @@ class OfferPolicy
     /**
      * Determine whether the user can create the model.
      *
-     * @param \App\Models\Login $user
+     * @param  \App\Models\Login  $user
      * @return mixed
      */
     public function create(Login $user)

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Requests\Offer;
 
 use App\Models\OfferState;
@@ -27,13 +25,14 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'offer_state' => [
-                'required',
-                Rule::exists('offer_states', 'id')->where(function ($query): void {
+                "required",
+                Rule::exists('offer_states', 'id')->where(function ($query) {
                     $query->where('id', '<>', OfferState::UNREPLY);
-                }),
-            ],
+                })
+            ]
         ];
     }
 }

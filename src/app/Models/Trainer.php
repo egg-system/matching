@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -26,10 +24,8 @@ class Trainer extends Model
     }
 
     /**
-     * ログインと関連付ける.
-     * @param int   $id
-     * @param Login $login
-     * @param array $updateColumns
+     * ログインと関連付ける
+     * @param int $id
      * @return \App\Models\Login
      */
     public function associateToLogin(Login $login, array $updateColumns = [])

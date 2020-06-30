@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Models\Area;
+use App\Models\Occupation;
+use App\Models\Trainer;
 use App\Models\Login;
 use App\Models\MatchingCondition;
-use App\Models\Trainer;
 use Faker\Generator as Faker;
 
 $factory->define(Trainer::class, function (Faker $faker) {
@@ -16,7 +16,7 @@ $factory->define(Trainer::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(Trainer::class, function ($trainer): void {
+$factory->afterCreating(Trainer::class, function ($trainer) {
     $trainerMorph = [
         'user_type' => Trainer::class,
         'user_id' => $trainer->id,

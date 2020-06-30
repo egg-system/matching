@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Offer\StoreRequest;
@@ -41,8 +39,7 @@ class OfferController extends Controller
     }
 
     /**
-     * オファー作成処理.
-     * @param StoreRequest $request
+     * オファー作成処理
      */
     public function store(StoreRequest $request)
     {
@@ -51,7 +48,7 @@ class OfferController extends Controller
             'offer_from_id' => $id,
             'offer_to_id' => $request->to,
             'offer_state' => OfferState::UNREPLY,
-            'message' => $request->message,
+            'message' => $request->message
         ]);
 
         return back();

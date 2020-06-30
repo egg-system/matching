@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Requests\Auth;
 
 use App\Models\Login;
@@ -19,22 +17,22 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255'
         ];
     }
 
     public function attributes()
     {
         return [
-            'email' => 'メールアドレス',
+            'email' => 'メールアドレス'
         ];
     }
 
-    public function withValidator(Validator $validator): void
+    public function withValidator(Validator $validator)
     {
-        $validator->after(function ($validator): void {
+        $validator->after(function ($validator) {
             $login = Login::where('email', $this->input('email'))->first();
-
+            
             // すでに本登録済みの場合はエラー
             throw_if(
                 $login !== null && $login->isRegisteredDefinitive(),

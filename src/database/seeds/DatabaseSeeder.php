@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use Database\Seeds\Common;
 use Database\Seeds\Testing;
 use Illuminate\Database\Seeder;
@@ -17,20 +15,22 @@ class DatabaseSeeder extends Seeder
 
     const COMMON = [
         Common\AreasTableSeeder::class,
-        Common\OccupationsTableSeeder::class,
+        Common\OccupationsTableSeeder::class
     ];
 
     /**
      * Seed the application's database.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        DB::transaction(function (): void {
+        DB::transaction(function () {
             $this->seed();
         });
     }
 
-    protected function seed(): void
+    protected function seed()
     {
         // prodのデータは全環境で使用する
         $this->call(self::COMMON);
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         // 本番では実行しない
         if (App::isProduction()) {
             return;
-        }
+        };
         $this->call(self::TESTING);
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -9,13 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * The path to the "home" route for your application.
-     *
-     * @var string
-     */
-    public const HOME = '/';
-
     /**
      * This namespace is applied to your controller routes.
      *
@@ -26,29 +17,46 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * Define your route model bindings, pattern filters, etc.
+     * The path to the "home" route for your application.
+     *
+     * @var string
      */
-    public function boot(): void
+    public const HOME = '/';
+
+    /**
+     * Define your route model bindings, pattern filters, etc.
+     *
+     * @return void
+     */
+    public function boot()
     {
+        //
+
         parent::boot();
     }
 
     /**
      * Define the routes for the application.
+     *
+     * @return void
      */
-    public function map(): void
+    public function map()
     {
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+
+        //
     }
 
     /**
      * Define the "web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
      */
-    protected function mapWebRoutes(): void
+    protected function mapWebRoutes()
     {
         Route::middleware('web')
             ->namespace($this->namespace)
@@ -59,8 +67,10 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
+     *
+     * @return void
      */
-    protected function mapApiRoutes(): void
+    protected function mapApiRoutes()
     {
         Route::prefix('api')
             ->middleware('api')

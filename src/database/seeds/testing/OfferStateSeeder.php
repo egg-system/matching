@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Database\Seeds\Testing;
 
 use App\Models\OfferState;
@@ -11,23 +9,24 @@ class OfferStateSeeder extends Seeder
 {
     private const DATA = [
         [
-            'name' => '未返答',
+            'name' => '未返答'
         ],
         [
-            'name' => '承諾',
+            'name' => '承諾'
         ],
         [
-            'name' => '辞退',
-        ],
+            'name' => '辞退'
+        ]
     ];
 
     /**
      * Run the database seeds.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
         $datas = self::DATA;
-
         foreach ($datas as $data) {
             OfferState::firstOrCreate($data);
         }

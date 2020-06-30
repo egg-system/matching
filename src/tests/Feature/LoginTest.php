@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tests\Feature;
 
 use App\Models\Gym;
+use App\Models\Login;
 use App\Models\Trainer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -23,7 +22,7 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function trainer_login(): void
+    public function trainer_login()
     {
         $trainer = factory(Trainer::class)->create();
 
@@ -36,7 +35,7 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function gymowner_login(): void
+    public function gymowner_login()
     {
         $owner = factory(Gym::class)->create();
 
