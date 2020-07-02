@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.9.1
 
 jobs:
   build:
@@ -99,6 +102,17 @@ jobs:
           command: docker-compose run laravel composer check-phpmd
           name: phpmd
 
+    deploy:
+      machine: true
+      steps:
+        - checkout
+        - run:
+            command: |
+              docker build -fphp-fpm/prod.dockerfile .
+              docker build -tborderless-gym/app -fphp-fpm/prod.dockerfile .
+              docker build -tborderless-gym/nginx -fnginx/Dockerfile .
+            name: build images
+
 workflows:
   version: 2
   build-and-test:
@@ -109,4 +123,12 @@ workflows:
             - build
       - phpmd:
           requires:
-            - phpunit
+            - build
+      - deploy:
+          context: aws-eggsystem
+          # required:
+          #   - phpmd
+          #   - phpunit
+          # filters:
+          #   branches:
+          #     only: master
