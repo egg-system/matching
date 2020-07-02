@@ -118,6 +118,7 @@ jobs:
             docker tag borderless-gym/app:latest "${APP_ECR_URL}/app:${CIRCLE_SHA1}"
             docker tag borderless-gym/nginx:latest "${APP_ECR_URL}/nginx:${CIRCLE_SHA1}"
           name: set image tag
+      - aws-ecr/ecr-login
       - aws-ecr/push-image:
           repo: "borderless-gym/app"
           tag: "${CIRCLE_SHA1}"
