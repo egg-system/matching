@@ -121,10 +121,10 @@ jobs:
         name: set image tag
       - aws-ecr/push-image:
         repo: 'borderless-gym/app'
-        tag: '${CIRCLE_SHA1}'
+        tag: "${CIRCLE_SHA1}"
       - aws-ecr/push-image:
         repo: 'borderless-gym/nginx'
-        tag: '${CIRCLE_SHA1}''
+        tag: "${CIRCLE_SHA1}"
 
 workflows:
   version: 2
