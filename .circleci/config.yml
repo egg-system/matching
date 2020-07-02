@@ -108,7 +108,7 @@ jobs:
       - checkout
       - run:
           command: |
-            docker build -fphp-fpm/base.dockerfile .
+            docker build -tgym-app-base -fphp-fpm/base.dockerfile .
             docker build -tborderless-gym/app -fphp-fpm/prod.dockerfile .
             docker build -tborderless-gym/nginx -fnginx/Dockerfile .
           name: build iamges
