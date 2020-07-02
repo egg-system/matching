@@ -105,7 +105,7 @@ jobs:
   deploy:
     machine: true
     environment:
-      APP_ECR_URL: ${AWS_ECR_ACCOUNT_URL}/borderless-gym
+      APP_ECR_URL: "${AWS_ECR_ACCOUNT_URL}/borderless-gym"
     steps:
       - checkout
       - run:
