@@ -47,6 +47,17 @@ class MatchingCondition extends Model
     }
 
     /**
+     * ジムだけに限定するクエリスコープ
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnlyGym(Builder $query)
+    {
+        return $query->where('user_type', Gym::class);
+    }
+
+    /**
      * イコール検索するクエリスコープ
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query

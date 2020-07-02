@@ -9,15 +9,19 @@ use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Services\AuthService;
 use App\Services\UserService;
+use App\Services\SearchService;
 
 class GymController extends Controller
 {
     protected AuthService $authService;
     protected UserService $userService;
-    public function __construct(AuthService $authService, UserService $userService)
+    protected SearchService $searchService;
+
+    public function __construct(AuthService $authService, UserService $userService, SearchService $searchService)
     {
         $this->authService = $authService;
         $this->userService = $userService;
+        $this->searchService = $searchService;
 
         $this->authorizeResource(Gym::class);
     }
