@@ -107,13 +107,11 @@ jobs:
     steps:
       - checkout
       - run:
-          command: docker build -fphp-fpm/dev.dockerfile .
-          name: build base images
-      - run:
           command: |
+            docker build -fphp-fpm/base.dockerfile .
             docker build -tborderless-gym/app -fphp-fpm/prod.dockerfile .
             docker build -tborderless-gym/nginx -fnginx/Dockerfile .
-          name: build production iamges
+          name: build iamges
 
 workflows:
   version: 2
