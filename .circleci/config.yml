@@ -102,16 +102,16 @@ jobs:
           command: docker-compose run laravel composer check-phpmd
           name: phpmd
 
-    deploy:
-      machine: true
-      steps:
-        - checkout
-        - run:
-            command: |
-              docker build -fphp-fpm/prod.dockerfile .
-              docker build -tborderless-gym/app -fphp-fpm/prod.dockerfile .
-              docker build -tborderless-gym/nginx -fnginx/Dockerfile .
-            name: build images
+  deploy:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          command: |
+            docker build -fphp-fpm/prod.dockerfile .
+            docker build -tborderless-gym/app -fphp-fpm/prod.dockerfile .
+            docker build -tborderless-gym/nginx -fnginx/Dockerfile .
+          name: build images
 
 workflows:
   version: 2
