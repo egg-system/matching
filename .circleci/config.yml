@@ -115,16 +115,16 @@ jobs:
             docker build -tborderless-gym/nginx -fnginx/Dockerfile .
           name: build iamges
       - run:
-        command: |
-          docker tag borderless-gym/app:latest "${APP_ECR_URL}/app:${CIRCLE_SHA1}"
-          docker tag borderless-gym/nginx:latest "${APP_ECR_URL}/nginx:${CIRCLE_SHA1}"
-        name: set image tag
+          command: |
+            docker tag borderless-gym/app:latest "${APP_ECR_URL}/app:${CIRCLE_SHA1}"
+            docker tag borderless-gym/nginx:latest "${APP_ECR_URL}/nginx:${CIRCLE_SHA1}"
+          name: set image tag
       - aws-ecr/push-image:
-        repo: 'borderless-gym/app'
-        tag: "${CIRCLE_SHA1}"
+          repo: "borderless-gym/app"
+          tag: "${CIRCLE_SHA1}"
       - aws-ecr/push-image:
-        repo: 'borderless-gym/nginx'
-        tag: "${CIRCLE_SHA1}"
+          repo: "borderless-gym/nginx"
+          tag: "${CIRCLE_SHA1}"
 
 workflows:
   version: 2
