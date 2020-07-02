@@ -25,7 +25,6 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'offer_state' => [
                 "required",

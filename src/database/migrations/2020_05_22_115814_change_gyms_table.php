@@ -15,7 +15,6 @@ class ChangeGymsTable extends Migration
     {
         // ジムオーナーのスタッフ数をnullableに変更
         Schema::table('gyms', function (Blueprint $table) {
-            
             $table->unsignedInteger('staff_count')->nullable()->change();
         });
     }
