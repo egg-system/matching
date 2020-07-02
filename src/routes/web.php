@@ -42,3 +42,7 @@ Route::view('/serviceRule', 'common.serviceRule')->name('serviceRule');
 Route::view('/', 'landingPage')->name('top');
 Route::post('register', 'Auth\RegisterController@register')->name('register');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/sample', function () {
+    return view('sample');
+});
