@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 // トレーナーのルーティング
 Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
     // 認証
-    Route::view('login', 'trainer.login')->middleware('guest')->name('login');
+    Route::view('login', 'trainer.login')->middleware('guest')->name('login.view');
     Route::post('login', 'TrainerController@login')->middleware('guest')->name('login');
     /**
      * createとstoreのみにsignedを適用するため、使用しないものと分離
@@ -22,7 +22,7 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
 // ジムオーナー
 Route::group(['prefix' => 'gym', 'as' => 'gym.'], function () {
     // 認証
-    Route::view('login', 'gym.login')->middleware('guest')->name('login');
+    Route::view('login', 'gym.login')->middleware('guest')->name('login.view');
     Route::post('login', 'GymController@login')->middleware('guest')->name('login');
     Route::middleware(['auth', 'can:gymowner-only'])->group(function () {
         Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
@@ -42,7 +42,3 @@ Route::view('/serviceRule', 'common.serviceRule')->name('serviceRule');
 Route::view('/', 'landingPage')->name('top');
 Route::post('register', 'Auth\RegisterController@register')->name('register');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('/sample', function () {
-    return view('sample');
-});
