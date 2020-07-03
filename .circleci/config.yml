@@ -128,6 +128,11 @@ jobs:
       - aws-ecr/push-image:
           repo: "borderless-gym/nginx"
           tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
+          family: "borderless-gym-app-stage"
+          cluster-name: "borderless-gym-app-group"
+          service-name: "borderless-gym-app-stage"
+          container-image-name-updates: "container=stage-gym-app,tag=${CIRCLE_SHA1},container=stage-gym-nginx,tag=${CIRCLE_SHA1}"
 
 workflows:
   version: 2
