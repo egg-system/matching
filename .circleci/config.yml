@@ -184,6 +184,7 @@ workflows:
           requires:
             - phpmd
             - phpunit
+            - build-test
           filters:
             branches:
               only: master
