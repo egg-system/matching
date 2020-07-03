@@ -174,7 +174,7 @@ workflows:
           requires:
             - build
       - build-test:
-          required:
+          requires:
             - build
       - deploy-image:
           context: aws-eggsystem
