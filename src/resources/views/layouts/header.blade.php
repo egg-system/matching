@@ -20,7 +20,7 @@
                 <!-- Authentication Links -->
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('trainer.login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('trainer.login.view') }}">{{ __('Login') }}</a>
                 </li>
                 @else
                 <li class="nav-item dropdown">

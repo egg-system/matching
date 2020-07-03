@@ -51,7 +51,42 @@ jobs:
           paths:
             - src/vendor
           name: composer save cache
-  
+
+  build-test:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
+          paths:
+            - ~/caches/images.tar
+      - run:
+          command: |
+            if [[ -e ~/caches/images.tar ]]; then
+              docker load -i ~/caches/images.tar
+            fi
+          name: docker load
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "src/composer.lock" }}
+          name: composer restore cache
+      - run:
+          command: |
+            docker-compose run laravel cp ./.env.example ./.env
+            docker-compose run laravel php artisan migrate --seed
+            docker-compose run laravel php artisan config:cache
+            docker-compose run laravel php artisan view:cache
+            docker-compose run laravel php artisan event:cache
+            docker-compose run laravel php artisan optimize
+          name: build with cache
+      - run:
+          command: docker-compose run laravel php artisan migrate --seed
+          name: test seeder reentrant
+      - run:
+          command: docker-compose run laravel composer install --no-dev
+          name: test prod install
+
   phpunit:
     machine: true
     steps:
@@ -139,6 +174,9 @@ workflows:
           requires:
             - build
       - phpmd:
+          requires:
+            - build
+      - build-test:
           requires:
             - build
       - deploy-image:
