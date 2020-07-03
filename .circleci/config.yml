@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.2.1
   aws-ecr: circleci/aws-ecr@6.9.1
-  aws-ecs: circleci/aws-ecs@0.0.10
+  aws-ecs: circleci/aws-ecs@1.2.0
 
 jobs:
   build:
@@ -104,7 +104,7 @@ jobs:
           command: docker-compose run laravel composer check-phpmd
           name: phpmd
 
-  deploy:
+  deploy-image:
     machine: true
     steps:
       - checkout
@@ -129,11 +129,6 @@ jobs:
       - aws-ecr/push-image:
           repo: "borderless-gym/nginx"
           tag: "${CIRCLE_SHA1}"
-      - aws-ecs/deploy-service-update:
-          family: "borderless-gym-app-stage"
-          cluster-name: "borderless-gym-app-group"
-          service-name: "borderless-gym-app-stage"
-          container-image-name-updates: "container=stage-gym-app,tag=${CIRCLE_SHA1},container=stage-gym-nginx,tag=${CIRCLE_SHA1}"
 
 workflows:
   version: 2
@@ -146,7 +141,7 @@ workflows:
       - phpmd:
           requires:
             - build
-      - deploy:
+      - deploy-image:
           context: aws-eggsystem
           # required:
           #   - phpmd
@@ -154,3 +149,15 @@ workflows:
           # filters:
           #   branches:
           #     only: master
+      - aws-ecs/deploy-service-update:
+          context: aws-eggsystem
+          required:
+            - deploy-image
+          # filters:
+          #     branches:
+          #       only: master
+          family: "borderless-gym-app-stage"
+          cluster-name: "borderless-gym-app-group"
+          service-name: "borderless-gym-app-stage"
+          container-image-name-updates: "container=stage-gym-app,tag=${CIRCLE_SHA1},container=stage-gym-nginx,tag=${CIRCLE_SHA1}"
+  
