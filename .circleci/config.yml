@@ -84,7 +84,7 @@ jobs:
           command: docker-compose run laravel php artisan migrate --seed
           name: test seeder reentrant
       - run:
-          command: composer isntall --no-dev
+          command: docker-compose run laravel composer isntall --no-dev
           name: test prod install
 
   phpunit:
