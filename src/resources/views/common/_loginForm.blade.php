@@ -60,7 +60,7 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ $isGymOwner ? route('trainer.login') : route('gym.login') }}">
+                                <a class="btn btn-link" href="{{ $isGymOwner ? route('trainer.login.view') : route('gym.login.view') }}">
                                     {{ $isGymOwner ? 'トレーナーの方はこちら': 'ジムオーナーの方はこちら' }}
                                 </a>
                             </div>
