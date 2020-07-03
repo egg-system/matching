@@ -143,19 +143,19 @@ workflows:
             - build
       - deploy-image:
           context: aws-eggsystem
-          # requires:
-          #   - phpmd
-          #   - phpunit
-          # filters:
-          #   branches:
-          #     only: master
+          requires:
+            - phpmd
+            - phpunit
+          filters:
+            branches:
+              only: master
       - aws-ecs/deploy-service-update:
           context: aws-eggsystem
           requires:
             - deploy-image
-          # filters:
-          #     branches:
-          #       only: master
+          filters:
+              branches:
+                only: master
           family: "borderless-gym-app-stage"
           cluster-name: "borderless-gym-app-group"
           service-name: "borderless-gym-app-stage"
