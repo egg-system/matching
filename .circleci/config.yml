@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  aws-cli: circleci/aws-cli@1.2.1
   aws-ecr: circleci/aws-ecr@6.9.1
 
 jobs:
@@ -118,6 +119,8 @@ jobs:
             docker tag borderless-gym/app:latest "${APP_ECR_URL}/app:${CIRCLE_SHA1}"
             docker tag borderless-gym/nginx:latest "${APP_ECR_URL}/nginx:${CIRCLE_SHA1}"
           name: set image tag
+      - aws-cli/install
+      - aws-cli/setup
       - aws-ecr/ecr-login
       - aws-ecr/push-image:
           repo: "borderless-gym/app"
