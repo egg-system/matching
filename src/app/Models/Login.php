@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class Login extends Authenticatable implements MustVerifyEmail
 {
@@ -61,7 +62,7 @@ class Login extends Authenticatable implements MustVerifyEmail
      */
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = bcrypt($password);
+        $this->attributes['password'] = Hash::needsRehash($password) ? bcrypt($password) : $password;
     }
 
     /**
