@@ -9,19 +9,19 @@ use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Services\AuthService;
 use App\Services\UserService;
-use App\Services\SearchService;
+use App\Components\TrainerSearch;
 
 class GymController extends Controller
 {
     protected AuthService $authService;
     protected UserService $userService;
-    protected SearchService $searchService;
+    protected TrainerSearch $trainerSearch;
 
-    public function __construct(AuthService $authService, UserService $userService, SearchService $searchService)
+    public function __construct(AuthService $authService, UserService $userService, TrainerSearch $trainerSearch)
     {
         $this->authService = $authService;
         $this->userService = $userService;
-        $this->searchService = $searchService;
+        $this->trainerSearch = $trainerSearch;
 
         $this->authorizeResource(Gym::class);
     }
@@ -50,11 +50,11 @@ class GymController extends Controller
     public function trainerList(TrainerSearchRequest $request)
     {
         $validated = $request->validated();
-        $matchingCondition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
+
         if ($request->anyFilled(array_keys($validated))) {
-            $matchingCondition = $matchingCondition->search($validated);
+            $conditions = $this->trainerSearch->userSearch($request);
         }
-        $conditions = $matchingCondition->get();
+        
         return view('gym.trainerList', compact('conditions'));
     }
 
