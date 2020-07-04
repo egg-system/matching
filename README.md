@@ -40,3 +40,16 @@ $ php artisan serve
     $ cd src
     $ vendor/bin/cghooks update
     ```
+
+## storybookについて
+- 以下のURLから確認できる
+    - https://sharp-edison-14627b.netlify.app
+- push後にbuildされるが、失敗することもある
+    - 以下で確認可能
+    - [![Netlify Status](https://api.netlify.com/api/v1/badges/1274dfe9-9079-462e-bf3b-89ea5f4f4ba5/deploy-status)](https://app.netlify.com/sites/sharp-edison-14627b/deploys)
+- コンポーネントの管理を行うためのツール
+    - 基本的に、コンポーネントを追加した際は、storyを作成する
+        - 下記のstep4を参照
+        - https://storybook.js.org/docs/guides/guide-vue/
+    - storyとは、コンポーネントの仕様書のようなもの
+- localで確認する際は、`npm --prefix ./src run storybook`を実行する
