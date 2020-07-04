@@ -18,6 +18,16 @@
 - DBのmigrationとseedを実行する
     - `php artisan migrate --seed`
 
+### 起動
+```
+// Laravel Mixの実行
+$ npm run dev
+(開発時に変更を監視する場合は $npm run hot)
+
+// laravelの起動
+$ php artisan serve
+```
+
 ### 新規アカウント作成
 - Mailtrapのアカウント作成&`.env`ファイルを修正
     - 参考：https://qiita.com/ubonsa/items/5514fb9c5d5783bcc758

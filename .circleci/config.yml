@@ -1,4 +1,9 @@
-version: 2
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.2.1
+  aws-ecr: circleci/aws-ecr@6.9.1
+  aws-ecs: circleci/aws-ecs@1.2.0
 
 jobs:
   build:
@@ -46,7 +51,42 @@ jobs:
           paths:
             - src/vendor
           name: composer save cache
-  
+
+  build-test:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
+          paths:
+            - ~/caches/images.tar
+      - run:
+          command: |
+            if [[ -e ~/caches/images.tar ]]; then
+              docker load -i ~/caches/images.tar
+            fi
+          name: docker load
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "src/composer.lock" }}
+          name: composer restore cache
+      - run:
+          command: |
+            docker-compose run laravel cp ./.env.example ./.env
+            docker-compose run laravel php artisan migrate --seed
+            docker-compose run laravel php artisan config:cache
+            docker-compose run laravel php artisan view:cache
+            docker-compose run laravel php artisan event:cache
+            docker-compose run laravel php artisan optimize
+          name: build with cache
+      - run:
+          command: docker-compose run laravel php artisan migrate --seed
+          name: test seeder reentrant
+      - run:
+          command: docker-compose run laravel composer install --no-dev
+          name: test prod install
+
   phpunit:
     machine: true
     steps:
@@ -99,6 +139,32 @@ jobs:
           command: docker-compose run laravel composer check-phpmd
           name: phpmd
 
+  deploy-image:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          command: |
+            docker build -tgym-app-base -fphp-fpm/base.dockerfile .
+            docker build -tborderless-gym/app -fphp-fpm/prod.dockerfile .
+            docker build -tborderless-gym/nginx -fnginx/Dockerfile .
+          name: build iamges
+      - run:
+          command: |
+            APP_ECR_URL="${AWS_ECR_ACCOUNT_URL}/borderless-gym"
+            docker tag borderless-gym/app:latest "${APP_ECR_URL}/app:${CIRCLE_SHA1}"
+            docker tag borderless-gym/nginx:latest "${APP_ECR_URL}/nginx:${CIRCLE_SHA1}"
+          name: set image tag
+      - aws-cli/install
+      - aws-cli/setup
+      - aws-ecr/ecr-login
+      - aws-ecr/push-image:
+          repo: "borderless-gym/app"
+          tag: "${CIRCLE_SHA1}"
+      - aws-ecr/push-image:
+          repo: "borderless-gym/nginx"
+          tag: "${CIRCLE_SHA1}"
+
 workflows:
   version: 2
   build-and-test:
@@ -109,4 +175,28 @@ workflows:
             - build
       - phpmd:
           requires:
+            - build
+      - build-test:
+          requires:
+            - build
+      - deploy-image:
+          context: aws-eggsystem
+          requires:
+            - phpmd
             - phpunit
+            - build-test
+          filters:
+            branches:
+              only: master
+      - aws-ecs/deploy-service-update:
+          context: aws-eggsystem
+          requires:
+            - deploy-image
+          filters:
+              branches:
+                only: master
+          family: "borderless-gym-app-stage"
+          cluster-name: "borderless-gym-app-group"
+          service-name: "borderless-gym-app-stage"
+          container-image-name-updates: "container=stage-gym-app,tag=${CIRCLE_SHA1},container=stage-gym-nginx,tag=${CIRCLE_SHA1}"
+  

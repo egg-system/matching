@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f93f2268ce5d6e322894c6c54d15ed9e",
+    "content-hash": "c15006159802dbde2f92a6c32ef2d414",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4944,16 +4944,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v2.16.3",
+            "version": "3.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "83baf823a33a1cbd5416c8626935cf3f843c10b0"
+                "reference": "9249b0c368e5d056167292293afa580d4467787a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/83baf823a33a1cbd5416c8626935cf3f843c10b0",
-                "reference": "83baf823a33a1cbd5416c8626935cf3f843c10b0",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/9249b0c368e5d056167292293afa580d4467787a",
+                "reference": "9249b0c368e5d056167292293afa580d4467787a",
                 "shasum": ""
             },
             "require": {
@@ -4963,7 +4963,7 @@
                 "ext-json": "*",
                 "ext-tokenizer": "*",
                 "php": "^5.6 || ^7.0",
-                "php-cs-fixer/diff": "^1.3",
+                "php-cs-fixer/diff": "^2.0",
                 "symfony/console": "^3.4.17 || ^4.1.6 || ^5.0",
                 "symfony/event-dispatcher": "^3.0 || ^4.0 || ^5.0",
                 "symfony/filesystem": "^3.0 || ^4.0 || ^5.0",
@@ -4985,12 +4985,12 @@
                 "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "^1.1",
                 "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.1",
                 "phpunitgoodpractices/traits": "^1.8",
-                "symfony/phpunit-bridge": "^4.3 || ^5.0",
+                "symfony/phpunit-bridge": "^5.1",
                 "symfony/yaml": "^3.0 || ^4.0 || ^5.0"
             },
             "suggest": {
                 "ext-dom": "For handling output formats in XML",
-                "ext-mbstring": "For handling non-UTF8 characters in cache signature.",
+                "ext-mbstring": "For handling non-UTF8 characters.",
                 "php-cs-fixer/phpunit-constraint-isidenticalstring": "For IsIdenticalString constraint.",
                 "php-cs-fixer/phpunit-constraint-xmlmatchesxsd": "For XmlMatchesXsd constraint.",
                 "symfony/polyfill-mbstring": "When enabling `ext-mbstring` is not possible."
@@ -5037,7 +5037,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-04-15T18:51:10+00:00"
+            "time": "2020-06-27T17:13:42+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -5649,16 +5649,16 @@
         },
         {
             "name": "php-cs-fixer/diff",
-            "version": "v1.3.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/diff.git",
-                "reference": "78bb099e9c16361126c86ce82ec4405ebab8e756"
+                "reference": "834b52c245240db327d9ab06ade429bfa3f08d5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/diff/zipball/78bb099e9c16361126c86ce82ec4405ebab8e756",
-                "reference": "78bb099e9c16361126c86ce82ec4405ebab8e756",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/diff/zipball/834b52c245240db327d9ab06ade429bfa3f08d5b",
+                "reference": "834b52c245240db327d9ab06ade429bfa3f08d5b",
                 "shasum": ""
             },
             "require": {
@@ -5680,23 +5680,20 @@
             ],
             "authors": [
                 {
-                    "name": "Kore Nordmann",
-                    "email": "mail@kore-nordmann.de"
-                },
-                {
                     "name": "Sebastian Bergmann",
                     "email": "sebastian@phpunit.de"
                 },
                 {
-                    "name": "SpacePossum"
+                    "name": "Kore Nordmann",
+                    "email": "mail@kore-nordmann.de"
                 }
             ],
-            "description": "sebastian/diff v2 backport support for PHP5.6",
+            "description": "sebastian/diff v3 backport support for PHP 5.6+",
             "homepage": "https://github.com/PHP-CS-Fixer",
             "keywords": [
                 "diff"
             ],
-            "time": "2018-02-15T16:58:55+00:00"
+            "time": "2019-09-04T11:05:18+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -7821,7 +7818,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "friendsofphp/php-cs-fixer": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
