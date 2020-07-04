@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
 use App\Http\Requests\Trainer\RegisterRequest;
 use App\Http\Requests\Trainer\UpdateRequest;
 use App\Models\Login;
-use App\Models\MatchingCondition;
 use App\Models\Trainer;
-use App\Services\AuthService;
-use App\Services\UserService;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
+use App\Repositories\UserRepository;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class TrainerController extends Controller
 {
-    protected $userService;
+    use AuthenticatesUsers;
 
-    public function __construct(AuthService $authService, UserService $userService)
+    /** @var UserRepository  */
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
-        $this->authService = $authService;
-        $this->userService = $userService;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -34,6 +32,8 @@ class TrainerController extends Controller
 
     /**
      * 本登録する
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(RegisterRequest $request)
     {
@@ -43,7 +43,7 @@ class TrainerController extends Controller
             return redirect()->route('top');
         }
 
-        $login = $this->userService->createTrainer($request);
+        $login = $this->userRepository->createTrainer($request->validated());
 
         auth()->login($login);
 
@@ -51,13 +51,9 @@ class TrainerController extends Controller
     }
 
     /**
-     * トレーナーのログイン
+     * @param Trainer $trainer
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function login(LoginRequest $request)
-    {
-        return $this->authService->login($request, Trainer::class, route('top'));
-    }
-
     public function edit(Trainer $trainer)
     {
         $matchingCondition = $trainer->matchingCondition;
@@ -66,8 +62,24 @@ class TrainerController extends Controller
 
     public function update(UpdateRequest $request, Trainer $trainer)
     {
-        $this->userService->updateUser($request, $trainer);
+        $this->userRepository->updateUser($request->validated(), $trainer);
 
         return redirect()->route('top');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function credentials(Request $request)
+    {
+        return array_merge($request->only('email', 'password'), ['user_type' => Trainer::class]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function redirectPath()
+    {
+        return route('top');
     }
 }

@@ -4,20 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Gym\TrainerSearchRequest;
 use App\Http\Requests\Gym\UpdateRequest;
-use App\Http\Requests\LoginRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
-use App\Services\AuthService;
-use App\Services\UserService;
+use App\Repositories\UserRepository;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class GymController extends Controller
 {
-    protected AuthService $authService;
-    protected UserService $userService;
-    public function __construct(AuthService $authService, UserService $userService)
+    use AuthenticatesUsers;
+
+    /** @var UserRepository  */
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
-        $this->authService = $authService;
-        $this->userService = $userService;
+        $this->userRepository = $userRepository;
 
         $this->authorizeResource(Gym::class);
     }
@@ -35,7 +37,7 @@ class GymController extends Controller
 
     public function update(UpdateRequest $request, Gym $gym)
     {
-        $this->userService->updateUser($request, $gym);
+        $this->userRepository->updateUser($request->validated(), $gym);
 
         return redirect()->route('gym.edit', $gym->id);
     }
@@ -55,10 +57,18 @@ class GymController extends Controller
     }
 
     /**
-     * ジムオーナーのログイン
+     * {@inheritDoc}
      */
-    public function login(LoginRequest $request)
+    protected function credentials(Request $request)
     {
-        return $this->authService->login($request, Gym::class, route('gym.index'));
+        return array_merge($request->only('email', 'password'), ['user_type' => Gym::class]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function redirectPath()
+    {
+        return route('gym.index');
     }
 }
