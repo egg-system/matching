@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Gym\TrainerSearchRequest;
 use App\Http\Requests\Gym\UpdateRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Repositories\UserRepository;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class GymController extends Controller
 {
-    use AuthenticatesUsers;
-
     /** @var UserRepository  */
     protected $userRepository;
 
@@ -57,18 +55,22 @@ class GymController extends Controller
     }
 
     /**
-     * {@inheritDoc}
+     * ジムオーナーのログイン
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ValidationException
      */
-    protected function credentials(Request $request)
+    public function login(LoginRequest $request)
     {
-        return array_merge($request->only('email', 'password'), ['user_type' => Gym::class]);
-    }
+        $credentials = array_merge($request->only('email', 'password'), ['user_type' => Gym::class]);
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function redirectPath()
-    {
-        return route('gym.index');
+        // 認証失敗
+        if (!auth()->attempt($credentials)) {
+            throw ValidationException::withMessages([
+                'email' => [trans('auth.failed')],
+            ]);
+        }
+
+        return redirect()->intended(route('gym.index'));
     }
 }

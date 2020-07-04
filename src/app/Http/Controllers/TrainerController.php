@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\Trainer\RegisterRequest;
 use App\Http\Requests\Trainer\UpdateRequest;
 use App\Models\Login;
 use App\Models\Trainer;
 use App\Repositories\UserRepository;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class TrainerController extends Controller
 {
-    use AuthenticatesUsers;
-
     /** @var UserRepository  */
     protected $userRepository;
 
@@ -51,6 +49,26 @@ class TrainerController extends Controller
     }
 
     /**
+     * トレーナーのログイン
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ValidationException
+     */
+    public function login(LoginRequest $request)
+    {
+        $credentials = array_merge($request->only('email', 'password'), ['user_type' => Trainer::class]);
+
+        // 認証失敗
+        if (!auth()->attempt($credentials)) {
+            throw ValidationException::withMessages([
+                'email' => [trans('auth.failed')],
+            ]);
+        }
+
+        return redirect()->intended(route('top'));
+    }
+
+    /**
      * @param Trainer $trainer
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -65,21 +83,5 @@ class TrainerController extends Controller
         $this->userRepository->updateUser($request->validated(), $trainer);
 
         return redirect()->route('top');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function credentials(Request $request)
-    {
-        return array_merge($request->only('email', 'password'), ['user_type' => Trainer::class]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function redirectPath()
-    {
-        return route('top');
     }
 }
