@@ -68,7 +68,7 @@ class TrainerRegisterTest extends TestCase
             'password' => 'password', 'password_confirmation' => 'password', 'agree' => 1
         ]);
         $response = $this->post(
-            URL::signedRoute('trainer.store', ['id' => $login->id]),
+            URL::signedRoute('trainers.store', ['id' => $login->id]),
             array_merge($data->toArray(), [
                 'name' => $login->name,
                 'occupation_id' => factory(Occupation::class)->create()->id,

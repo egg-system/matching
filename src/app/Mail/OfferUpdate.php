@@ -29,9 +29,9 @@ class OfferUpdate extends Mailable
     public function build()
     {
         return $this->subject('オファー返答のお知らせ')
-            ->markdown('offer.mail.update')
+            ->markdown('markdown.offers.update')
             ->with([
-                'url' => route('offer.index')
+                'url' => route('offers.index')
             ]);
     }
 }

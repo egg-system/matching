@@ -42,7 +42,7 @@ class VerifyEmail extends Notification
     {
         return (new MailMessage)
             ->subject(__('email.verify.subject')) // メールのタイトル
-            ->markdown('common.verifyEmail', ['url' => $this->verificationUrl($notifiable)]);
+            ->markdown('mails.verify', ['url' => $this->verificationUrl($notifiable)]);
     }
 
     /**
@@ -67,7 +67,7 @@ class VerifyEmail extends Notification
     protected function verificationUrl($notifiable)
     {
         return url()->signedRoute(
-            'trainer.create',
+            'trainers.create',
             ['id' => $notifiable->getKey()]
         );
     }
