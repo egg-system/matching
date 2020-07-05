@@ -8,7 +8,7 @@
                 <div class="card-header">トレーナー登録</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ URL::signedRoute('trainer.store', ['id' => request()->id ]) }}">
+                    <form method="POST" action="{{ URL::signedRoute('trainers.store', ['id' => request()->id ]) }}">
                         @csrf
                         @include('components.common._form', ['type' => 'register'])
                         <div class="form-group row">
