@@ -12,6 +12,7 @@
         "build-storybook": "build-storybook -s public -o ../docs"
     },
     "devDependencies": {
+        "@storybook/vue": "^5.3.19",
         "axios": "^0.19",
         "babel-preset-vue": "^2.0.2",
         "cross-env": "^7.0",
