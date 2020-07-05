@@ -36,11 +36,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         // トレーナーのみ許可
-        Gate::define('trainer-only', function ($login) {
+        Gate::define('trainer', function ($login) {
             return optional($login)->user_type === Trainer::class;
         });
         // ジムオーナーのみ許可
-        Gate::define('gymowner-only', function ($login) {
+        Gate::define('gym', function ($login) {
             return optional($login)->user_type === Gym::class;
         });
     }
