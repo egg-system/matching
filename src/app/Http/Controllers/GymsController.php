@@ -10,7 +10,7 @@ use App\Models\MatchingCondition;
 use App\Services\AuthService;
 use App\Services\UserService;
 
-class GymController extends Controller
+class GymsController extends Controller
 {
     protected $authService;
     protected $userService;
@@ -24,20 +24,20 @@ class GymController extends Controller
 
     public function index()
     {
-        return view('gym.index');
+        return view('pages.gyms.index');
     }
 
     public function edit(Gym $gym)
     {
         $matchingCondition = $gym->matchingCondition;
-        return view('gym.edit', compact('gym', 'matchingCondition'));
+        return view('pages.gyms.edit', compact('gym', 'matchingCondition'));
     }
 
     public function update(UpdateRequest $request, Gym $gym)
     {
         $this->userService->updateUser($request, $gym);
 
-        return redirect()->route('gym.edit', $gym->id);
+        return redirect()->route('pages.gyms.edit', $gym->id);
     }
 
     /**
@@ -51,7 +51,7 @@ class GymController extends Controller
             $matchingCondition = $matchingCondition->search($validated);
         }
         $conditions = $matchingCondition->get();
-        return view('gym.trainerList', compact('conditions'));
+        return view('pages.gyms.trainerList', compact('conditions'));
     }
 
     /**
@@ -59,6 +59,6 @@ class GymController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        return $this->authService->login($request, Gym::class, route('gym.index'));
+        return $this->authService->login($request, Gym::class, route('gyms.index'));
     }
 }

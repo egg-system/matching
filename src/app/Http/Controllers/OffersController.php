@@ -8,7 +8,7 @@ use App\Models\Offer;
 use App\Models\OfferState;
 use Illuminate\Http\Request;
 
-class OfferController extends Controller
+class OffersController extends Controller
 {
     public function __construct()
     {
@@ -24,12 +24,12 @@ class OfferController extends Controller
         $type = $request->type;
         $query = !$type ? $user->fromOffers() : $user->toOffers();
         $offers = $query->whereState($stateId)->get();
-        return view('offer.index', compact('offers'));
+        return view('pages.offers.index', compact('offers'));
     }
 
     public function show(Offer $offer)
     {
-        return view('offer.show', compact('offer'));
+        return view('pages.offers.show', compact('offer'));
     }
 
     public function update(Offer $offer, UpdateRequest $request)

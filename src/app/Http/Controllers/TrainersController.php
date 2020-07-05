@@ -14,7 +14,7 @@ use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
-class TrainerController extends Controller
+class TrainersController extends Controller
 {
     protected $userService;
 
@@ -29,7 +29,7 @@ class TrainerController extends Controller
      */
     public function create()
     {
-        return view('trainer.register');
+        return view('pages.trainers.register');
     }
 
     /**
@@ -61,7 +61,7 @@ class TrainerController extends Controller
     public function edit(Trainer $trainer)
     {
         $matchingCondition = $trainer->matchingCondition;
-        return view('trainer.edit', compact('trainer', 'matchingCondition'));
+        return view('pages.trainers.edit', compact('trainer', 'matchingCondition'));
     }
 
     public function update(UpdateRequest $request, Trainer $trainer)
