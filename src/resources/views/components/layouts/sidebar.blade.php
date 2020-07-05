@@ -8,13 +8,13 @@
         </a>
         <ul class="nav navbar-nav text-light" id="accordionSidebar">
             <li class="nav-item" role="presentation">
-                <a class="nav-link" href="{{ route('gym.trainerList') }}">
+                <a class="nav-link" href="{{ route('gyms.trainerList') }}">
                     <i class="fas fa-home"></i>
                     <span>トレーナー一覧</span>
                 </a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" href="{{ route('offer.index') }}">
+                <a class="nav-link" href="{{ route('offers.index') }}">
                     <i class="fas fa-home"></i>
                     <span>オファー一覧</span>
                 </a>

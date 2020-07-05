@@ -1,4 +1,4 @@
-@extends('gym.layouts.app')
+@extends('templates.app')
 
 @section('content')
 <h2>トレーナー一覧</h2>
@@ -113,12 +113,15 @@
             <td>
                 {{-- トレーナにオファーしていない場合ボタン表示 --}}
                 @php
-                $offer = $offers->whereStrict('offer_to_id', optional($condition->user->login)->id)->first();
+                    $offer = $offers->whereStrict(
+                        'offer_to_id',
+                        optional($condition->user->login)->id
+                    )->first();
                 @endphp
                 @if(!$offer)
-                @include('gym.offerModalForm', compact('condition'))
+                    @include('components.gyms.offerModalForm', compact('condition'))
                 @else
-                {{ optional($offer->state)->name }}
+                    {{ optional($offer->state)->name }}
                 @endif
             </td>
         </tr>

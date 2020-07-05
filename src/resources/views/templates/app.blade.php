@@ -1,21 +1,19 @@
-@include('layouts.head')
-@include('layouts.header')
-@include('layouts.script')
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    @yield('head')
+    @include('components.layouts.head')
 </head>
 
 <body>
     <div class="d-flex" id="app">   
-        <div class="">
-            @include('gym.layouts.sidebar')
-        </div>
+        @can('gym', \Auth::user())
+            <div class="">
+                @include('components.layouts.sidebar')
+            </div>
+        @endcan
         <div class="flex-grow-1">
-            @yield('header')
+            @include('components.layouts.header')
 
             <main class="py-4">
                 @yield('content')
@@ -23,7 +21,7 @@
         </div>
     </div>
 
-    @yield('script')
+    @include('components.layouts.script')
 </body>
 
 </html>

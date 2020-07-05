@@ -12,7 +12,7 @@
             </div>
             @isset($modal_footer)
             <div class="modal-footer">
-                {{ $modal_footer}}
+                {{ $modal_footer }}
             </div>
             @endisset
         </div>

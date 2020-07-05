@@ -16,7 +16,7 @@
             <td>{{ $offer->toUser->name }}</td>
             <td>{{ $offer->state->name }}</td>
             <td>
-                <a href="{{ route('offer.show', $offer->id) }}" class="btn btn-success">詳細</a>
+                <a href="{{ route('offers.show', $offer->id) }}" class="btn btn-success">詳細</a>
             </td>
         </tr>
         @endforeach

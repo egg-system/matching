@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('templates.app')
 
 @section('content')
 <div class="container">
@@ -20,6 +20,6 @@
         </div>
     </div>
 
-    @include('offer.listTable')
+    @include('components.offers.listTable')
 </div>
 @endsection

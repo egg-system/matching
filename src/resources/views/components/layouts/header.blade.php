@@ -1,4 +1,3 @@
-@section('header')
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -20,7 +19,7 @@
                 <!-- Authentication Links -->
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('trainer.login.view') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('trainers.login.view') }}">{{ __('Login') }}</a>
                 </li>
                 @else
                 <li class="nav-item dropdown">
@@ -31,10 +30,10 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item"
-                            href={{ route(Auth::user()->user_type === \App\Models\Trainer::class ? 'trainer.edit' : 'gym.edit', Auth::user()->user_id) }}>
+                            href={{ route(Auth::user()->user_type === \App\Models\Trainer::class ? 'trainers.edit' : 'gyms.edit', Auth::user()->user_id) }}>
                             プロフィール編集
                         </a>
-                        <a class="dropdown-item" href="{{ route('offer.index') }}">
+                        <a class="dropdown-item" href="{{ route('offers.index') }}">
                             オファー一覧
                         </a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -52,4 +51,3 @@
         </div>
     </div>
 </nav>
-@endsection

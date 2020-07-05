@@ -1,4 +1,4 @@
-@extends('gym.layouts.app')
+@extends('templates.app')
 
 @section('content')
 トップページ

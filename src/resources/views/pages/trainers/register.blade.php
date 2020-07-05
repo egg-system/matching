@@ -1,4 +1,4 @@
-@extends('trainer.layouts.app')
+@extends('templates.app')
 
 @section('content')
 <div class="container">
@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ URL::signedRoute('trainer.store', ['id' => request()->id ]) }}">
                         @csrf
-                        @include('common._form', ['type' => 'register'])
+                        @include('components.common._form', ['type' => 'register'])
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">パスワード</label>
 
@@ -38,7 +38,7 @@
 
                         <div class="form-group row">
                             <span for="agree" class="col-md-4 col-form-label text-md-right">
-                                <a href="{{ route('serviceRule') }}" target="_blank">利用規約</a>の同意</span>
+                                <a href="{{ route('serviceTerm') }}" target="_blank">利用規約</a>の同意</span>
                             <div class="col-md-3">
                                 <input id="agree" type="checkbox"
                                     class="custom-checkbox @error('agree') is-invalid @enderror" name="agree" value="1"

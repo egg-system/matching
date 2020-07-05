@@ -1,4 +1,4 @@
-@extends('trainer.layouts.app')
+@extends('templates.app')
 
 @section('content')
 <div class="container">
@@ -8,11 +8,11 @@
                 <div class="card-header">トレーナー編集</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('trainer.update', [$trainer->id]) }}">
+                    <form method="POST" action="{{ route('trainers.update', [$trainer->id]) }}">
                         @method('PUT')
                         @csrf
 
-                        @include('common._form', ['type' => 'edit'])
+                        @include('components.common._form', ['type' => 'edit'])
 
                         <div class="form-group row">
                             <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号</label>
