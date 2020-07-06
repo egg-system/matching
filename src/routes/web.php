@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
     // 認証
     Route::view('login', 'trainer.login')->middleware('guest')->name('login.view');
-    Route::post('login', 'TrainerController@login')->middleware('guest')->name('login');
+    Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
     /**
      * createとstoreのみにsignedを適用するため、使用しないものと分離
      * Route::resource('', 'TrainerController')->except(['create', 'store']);
      */
-    Route::resource('', 'TrainerController')->only(['create', 'store'])->middleware('signed');
+    Route::resource('', 'UserController')->only(['create', 'store'])->middleware('signed');
 
     // トレーナーのみ
     Route::group(['middleware' => ['auth', 'can:trainer-only']], function () {
-        Route::resource('', 'TrainerController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:update,trainer']);
+        Route::resource('', 'UserController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:update,trainer']);
     });
 });
 
@@ -23,10 +23,11 @@ Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
 Route::group(['prefix' => 'gym', 'as' => 'gym.'], function () {
     // 認証
     Route::view('login', 'gym.login')->middleware('guest')->name('login.view');
-    Route::post('login', 'GymController@login')->middleware('guest')->name('login');
+    Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
     Route::middleware(['auth', 'can:gymowner-only'])->group(function () {
         Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
-        Route::resource('', 'GymController', ['parameters' => ['' => 'gym']])->only(['index', 'edit', 'update']);
+        Route::resource('', 'GymController', ['parameters' => ['' => 'gym']])->only(['index']);
+        Route::resource('', 'UserController', ['parameters' => ['' => 'gym']])->only(['edit', 'update'])->middleware(['can:update,gym']);
     });
 });
 Route::group(['middleware' => ['auth']], function () {

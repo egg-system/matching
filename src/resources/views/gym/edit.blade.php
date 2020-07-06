@@ -8,7 +8,7 @@
                 <div class="card-header">ジム編集</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('gym.update', $gym->id) }}">
+                    <form method="POST" action="{{ route('gym.update', $user->id) }}">
                         @method('PUT')
                         @csrf
 
@@ -19,7 +19,7 @@
                             <div class="col-md-6">
                                 <input class="form-control @error('president_name') is-invalid @enderror" type="text"
                                     name="president_name" id="president_name"
-                                    value="{{ old('president_name',$gym->president_name) }}"
+                                    value="{{ old('president_name',$user->president_name) }}"
                                     autocomplete="president_name" autofocus>
                                 @error('president_name')
                                 <span class="text-danger" style="color:red" role="alert">
@@ -32,7 +32,7 @@
                             <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号</label>
                             <div class="col-md-6">
                                 <input id="tel" type="tel" class="form-control @error('tel') is-invalid @enderror"
-                                    name="tel" value="{{ old('tel',$gym->tel) }}" autocomplete="tel" autofocus>
+                                    name="tel" value="{{ old('tel',$user->tel) }}" autocomplete="tel" autofocus>
                                 @error('tel')
                                 <span class="text-danger" style="color:red" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
                             <div class="col-md-6">
                                 <input class="form-control @error('staff_count') is-invalid @enderror" type="number"
                                     name="staff_count" id="staff_count"
-                                    value="{{ old('staff_count',$gym->staff_count) }}" autocomplete="staff_count"
+                                    value="{{ old('staff_count',$user->staff_count) }}" autocomplete="staff_count"
                                     autofocus>
                                 @error('staff_count')
                                 <span class="text-danger" role="alert">
@@ -59,7 +59,7 @@
                             <div class="col-md-6">
                                 <input class="form-control @error('customer_count') is-invalid @enderror" type="number"
                                     name="customer_count" id="customer_count"
-                                    value="{{ old('customer_count',$gym->customer_count) }}"
+                                    value="{{ old('customer_count',$user->customer_count) }}"
                                     autocomplete="customer_count" autofocus>
                                 @error('customer_count')
                                 <span class="text-danger" role="alert">
@@ -74,7 +74,7 @@
                                 <input id="requirements" type="number"
                                     class="form-control @error('requirements.number') is-invalid @enderror"
                                     name="requirements[number]"
-                                    value="{{ old('requirements.number',$gym->requirements['number'] ?? '') }}"
+                                    value="{{ old('requirements.number',$user->requirements['number'] ?? '') }}"
                                     autocomplete="requirements" autofocus>
                                 @error('requirements.number')
                                 <span class="text-danger" role="alert">
@@ -89,7 +89,7 @@
                                 <input id="requirements" type="text"
                                     class="form-control @error('requirements.skill') is-invalid @enderror"
                                     name="requirements[skill]"
-                                    value="{{ old('requirements.skill',$gym->requirements['skill'] ?? '') }}"
+                                    value="{{ old('requirements.skill',$user->requirements['skill'] ?? '') }}"
                                     autocomplete="requirements" autofocus>
                                 @error('requirements.skill')
                                 <span class="text-danger" role="alert">
