@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Gym;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -30,6 +30,7 @@ class UpdateRequest extends FormRequest
             'tel' => 'nullable',
             'occupation_id' => 'required|exists:occupations,id',
             'area_id' => 'nullable|exists:areas,id',
+            'pr_comment' => 'nullable|string',
             'staff_count' => 'nullable|integer',
             'customer_count' => 'nullable|integer',
             'requirements' => 'nullable|array',
@@ -46,10 +47,11 @@ class UpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'president_name' => '代表者名',
+            'name' => '氏名',
             'tel' => '電話番号',
             'occupation_id' => '種類',
             'area_id' => '場所／エリア',
+            'pr_comment' => 'PRのコメント',
             'staff_count' => 'スタッフ数',
             'customer_count' => '顧客数',
             'requirements.*' => '募集要項',
