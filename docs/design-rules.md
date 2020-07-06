@@ -48,5 +48,5 @@ localで確認する際は、`npm --prefix ./src run storybook`を実行する
 
 ### 備考
 push後にbuildされるが、失敗することもある
-    - 以下で確認可能
+- 以下で確認可能
     - [![Netlify Status](https://api.netlify.com/api/v1/badges/1274dfe9-9079-462e-bf3b-89ea5f4f4ba5/deploy-status)](https://app.netlify.com/sites/sharp-edison-14627b/deploys)
