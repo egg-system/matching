@@ -3,43 +3,49 @@
 use Illuminate\Support\Facades\Route;
 
 // トレーナーのルーティング
-Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
+Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
     // 認証
-    Route::view('login', 'trainer.login')->middleware('guest')->name('login.view');
+    Route::view('login', 'pages.trainers.login')->middleware('guest')->name('login.view');
     Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
-    /**
-     * createとstoreのみにsignedを適用するため、使用しないものと分離
-     * Route::resource('', 'TrainerController')->except(['create', 'store']);
-     */
+
     Route::resource('', 'UserController')->only(['create', 'store'])->middleware('signed');
 
     // トレーナーのみ
-    Route::group(['middleware' => ['auth', 'can:trainer-only']], function () {
-        Route::resource('', 'UserController', ['parameters' => ['' => 'trainer']])->only(['edit', 'update'])->middleware(['can:update,trainer']);
+    Route::group(['middleware' => ['auth', 'can:trainer']], function () {
+        Route::resource('', 'UserController', ['parameters' => ['' => 'trainer']])
+            ->only(['edit', 'update'])
+            ->middleware(['can:update,trainer']);
     });
 });
 
 // ジムオーナー
-Route::group(['prefix' => 'gym', 'as' => 'gym.'], function () {
+Route::group(['prefix' => 'gyms', 'as' => 'gyms.'], function () {
     // 認証
-    Route::view('login', 'gym.login')->middleware('guest')->name('login.view');
+    Route::view('login', 'pages.gyms.login')->middleware('guest')->name('login.view');
     Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
-    Route::middleware(['auth', 'can:gymowner-only'])->group(function () {
-        Route::get('trainerList', 'GymController@trainerList')->name('trainerList');
-        Route::resource('', 'GymController', ['parameters' => ['' => 'gym']])->only(['index']);
-        Route::resource('', 'UserController', ['parameters' => ['' => 'gym']])->only(['edit', 'update'])->middleware(['can:update,gym']);
+    Route::middleware(['auth', 'can:gym'])->group(function () {
+        Route::get('trainerList', 'GymsController@trainerList')->name('trainerList');
+        Route::resource('', 'GymsController', ['parameters' => ['' => 'gym']])
+            ->only(['index']);
+        Route::resource('', 'UserController', ['parameters' => ['' => 'gym']])
+            ->only(['edit', 'update'])
+            ->middleware(['can:update,gym']);
     });
 });
+
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('offer', 'OfferController')->only(['index', 'show', 'update']);
-    Route::resource('offer', 'OfferController')->only(['store'])->middleware('can:gymowner-only');
+    Route::resource('offers', 'OffersController')->only(['index', 'show', 'update']);
+    Route::resource('offers', 'OffersController')->only(['store'])->middleware('can:gym');
 });
 
 // メール送信済
-Route::view('/sendEmail', 'common.sendVerifyEmail')->name('sendVerifyEmail');
+Route::view('/send-email', 'pages.send-verify-email')->name('sendVerifyEmail');
+
 // 利用規約
-Route::view('/serviceRule', 'common.serviceRule')->name('serviceRule');
+Route::view('/service-term', 'pages.service-term')->name('serviceTerm');
+
 // TopのLP
-Route::view('/', 'landingPage')->name('top');
+Route::view('/', 'pages.landing')->name('top');
+
 Route::post('register', 'Auth\RegisterController@register')->name('register');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');

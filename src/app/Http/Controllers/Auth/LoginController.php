@@ -38,8 +38,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        if (\Route::current()->getName() === 'gym.login') {
-            $this->redirectTo =  route('gym.index');
+        if (\Route::current()->getName() === 'gyms.login') {
+            $this->redirectTo =  route('gyms.index');
         }
         $this->middleware('guest')->except('logout');
     }
@@ -49,7 +49,7 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        $userType = \Route::current()->getName() === 'trainer.login' ? Trainer::class : Gym::class;
+        $userType = \Route::current()->getName() === 'trainers.login' ? Trainer::class : Gym::class;
         return array_merge($request->only('email', 'password'), ['user_type' => $userType]);
     }
 }

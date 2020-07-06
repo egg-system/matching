@@ -43,11 +43,11 @@ class GymOwnerTest extends TestCase
                 ]
             );
         });
-        $response = $this->actingAs($this->owner->login)->get(route('gym.trainerList'));
+        $response = $this->actingAs($this->owner->login)->get(route('gyms.trainerList'));
 
         $response->assertStatus(200)->assertSee(100)->assertSee('test');
 
-        $search_response = $this->actingAs($this->owner->login)->get(route('gym.trainerList'), [
+        $search_response = $this->actingAs($this->owner->login)->get(route('gyms.trainerList'), [
             'price' => ['min' => 100]
         ]);
 

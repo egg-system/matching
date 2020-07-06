@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('trainer.register');
+        return view('pages.trainers.register');
     }
 
     /**
@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $view = get_class($user) === Trainer::class ? 'trainer.edit' : 'gym.edit';
+        $view = get_class($user) === Trainer::class ? 'pages.trainers.edit' : 'pages.gyms.edit';
         $matchingCondition = $user->matchingCondition;
         return view($view, compact('user', 'matchingCondition'));
     }
@@ -68,8 +68,10 @@ class UserController extends Controller
     public function update(UpdateRequest $request, User $model)
     {
         $this->userRepository->updateUser($request, $model);
-        $redirectHome = get_class($model) === Gym::class ? 'gym.index' : 'top';
 
-        return redirect()->route($redirectHome);
+        if (get_class($model) === Gym::class) {
+            return redirect()->route('gyms.edit', $model->id);
+        }
+        return redirect()->route('top');
     }
 }
