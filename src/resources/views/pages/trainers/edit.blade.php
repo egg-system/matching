@@ -44,19 +44,14 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="pr_comment" class="col-md-4 col-form-label text-md-right">PRコメント</label>
-                            <div class="col-md-6">
-                                <textarea id="pr_comment" class="form-control @error('pr_comment') is-invalid @enderror"
-                                    name="pr_comment" value="{{ $trainer->pr_comment ?? old('pr_comment') }}" autocomplete="pr_comment"
-                                    autofocus>{{ $trainer->pr_comment ?? old('pr_comment') }}</textarea>
-                                @error('pr_comment')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
+                        <text-area-form
+                            label="自己紹介"
+                            textareaId="pr_comment"
+                            name="pr_comment"
+                            value="{{ $trainer->pr_comment ?? old('pr_comment') }}"
+                            placeholder="自己紹介を入れて企業にアピールしよう"
+                            error="{{ $errors->first('pr_comment') }}"
+                        ></text-area-form>
                         <div class="form-group row">
                             <label for="price" class="col-md-4 col-form-label text-md-right">希望単価</label>
                             <div class="col-md-3">
