@@ -1,13 +1,16 @@
 # デザインのルール
 ## 概要
 画面は、Atomic Desingに従って作成する
-- [参考][https://design.dena.com/design/atomic-design-%E3%82%92%E5%88%86%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%A4%E3%82%82%E3%82%8A%E3%81%AB%E3%81%AA%E3%82%8B/]
 
-Vueのコンポーネントは[storybook][https://sharp-edison-14627b.netlify.app]で管理する
+- [参考](https://design.dena.com/design/atomic-design-%E3%82%92%E5%88%86%E3%81%8B%E3%81%A3%E3%81%9F%E3%81%A4%E3%82%82%E3%82%8A%E3%81%AB%E3%81%AA%E3%82%8B/)
+
+Vueのコンポーネントは[storybook](https://sharp-edison-14627b.netlify.app)で管理する
 
 ### bladeとVueの使い分け
 bladeとvueの使い分けを適切に管理しなければ、デザイン修正が困難になる
+
 そのため、Atomic Designのレイヤーで使い分ける
+
 また、フォルダもレイヤー単位で分割する
 
 #### blade
@@ -34,6 +37,7 @@ Vueは以下のレイヤーで実装する
 ## storybook
 ### 概要
 コンポーネントの仕様などを管理を行うためのツール
+
 基本的に、コンポーネントを追加した際は、storyを作成する
 
 ### 書き方
@@ -44,5 +48,5 @@ localで確認する際は、`npm --prefix ./src run storybook`を実行する
 
 ### 備考
 push後にbuildされるが、失敗することもある
-    - 以下で確認可能
+- 以下で確認可能
     - [![Netlify Status](https://api.netlify.com/api/v1/badges/1274dfe9-9079-462e-bf3b-89ea5f4f4ba5/deploy-status)](https://app.netlify.com/sites/sharp-edison-14627b/deploys)
