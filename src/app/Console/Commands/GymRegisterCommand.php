@@ -12,7 +12,6 @@ use App\Models\Gym;
 use App\Models\Login;
 use App\Models\Occupation;
 
-
 class GymRegisterCommand extends Command
 {
 

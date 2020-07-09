@@ -30,14 +30,14 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer(
-            ['trainer.edit', 'common._form'],
+            ['pages.trainers.edit', 'components.common._form'],
             function ($view) {
                 $view->with($this->getMasterData());
             }
         );
 
         \View::composer(
-            'gym.trainerList',
+            'pages.gyms.trainerList',
             function ($view) {
                 $viewData = array_merge($this->getMasterData(), [
                     'offers' => optional(\Auth::user()->fromOffers),
@@ -48,7 +48,7 @@ class ViewServiceProvider extends ServiceProvider
 
         // offerstate
         \View::composer(
-            'offer.index',
+            'pages.offers.index',
             function ($view) {
                 $view->with('states', OfferState::all());
             }

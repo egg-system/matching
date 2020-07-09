@@ -31,9 +31,9 @@ class OfferRecieve extends Mailable
     public function build()
     {
         return $this->subject('オファー受信のお知らせ')
-            ->markdown('offer.mail.recieve')
+            ->markdown('markdown.offers.recieve')
             ->with([
-                'url' => route('offer.show', $this->offer->id)
+                'url' => route('offers.show', $this->offer->id)
             ]);
     }
 }
