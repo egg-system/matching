@@ -34,12 +34,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        $this->app['router']->bind('trainer', function ($value) {
-            return (new Trainer())->find($value);
-        });
-        $this->app['router']->bind('gym', function ($value) {
-            return (new Gym())->find($value);
-        });
+        Route::model('trainer', Trainer::class);
+        Route::model('gym', Gym::class);
     }
 
     /**
