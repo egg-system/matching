@@ -10,7 +10,7 @@ use App\Models\Trainer;
 use App\Models\User;
 use App\Repositories\UserRepository;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     /** @var UserRepository  */
     private $userRepository;

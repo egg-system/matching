@@ -8,11 +8,11 @@ Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
     Route::view('login', 'pages.trainers.login')->middleware('guest')->name('login.view');
     Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
 
-    Route::resource('', 'UserController')->only(['create', 'store'])->middleware('signed');
+    Route::resource('', 'UsersController')->only(['create', 'store'])->middleware('signed');
 
     // トレーナーのみ
     Route::group(['middleware' => ['auth', 'can:trainer']], function () {
-        Route::resource('', 'UserController', ['parameters' => ['' => 'trainer']])
+        Route::resource('', 'UsersController', ['parameters' => ['' => 'trainer']])
             ->only(['edit', 'update'])
             ->middleware(['can:update,trainer']);
     });
@@ -27,7 +27,7 @@ Route::group(['prefix' => 'gyms', 'as' => 'gyms.'], function () {
         Route::get('trainerList', 'GymsController@trainerList')->name('trainerList');
         Route::resource('', 'GymsController', ['parameters' => ['' => 'gym']])
             ->only(['index']);
-        Route::resource('', 'UserController', ['parameters' => ['' => 'gym']])
+        Route::resource('', 'UsersController', ['parameters' => ['' => 'gym']])
             ->only(['edit', 'update'])
             ->middleware(['can:update,gym']);
     });
