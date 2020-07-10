@@ -87,7 +87,7 @@ jobs:
           command: npm --prefix src run production
           name: build node_modules
       - save_cache:
-          key: assets-{{ checksum "src/public" }}
+          key: assets-{{ checksum "src/packege-lock.json" }}
           paths:
             - src/public
           name: assets save cache
