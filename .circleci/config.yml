@@ -46,6 +46,11 @@ jobs:
       - run:
           command: docker-compose run laravel composer install
           name: composer install
+      - save_cache:
+          key: composer-{{ checksum "src/composer.lock" }}
+          paths:
+            - src/vendor
+          name: composer save cache
       - run:
           command: |
             nvm install v12.18.2
@@ -57,11 +62,10 @@ jobs:
       - run:
           command: npm --prefix ./project/src run production
           name: build javascript
-      - save_cache:
-          key: composer-{{ checksum "src/composer.lock" }}
-          paths:
-            - src/vendor
-          name: composer save cache
+      - save_cahce:
+          key: build-{{ checksum "src/public" }}
+          paths: src/public
+          name: public files save cache
 
   build-test:
     machine: true
@@ -117,6 +121,10 @@ jobs:
           keys:
             - composer-{{ checksum "src/composer.lock" }}
           name: composer restore cache
+      - restore_cache:
+          keys:
+            - build-{{ checksum "src/public" }}
+          name: public build restore cache
       - run:
           command: docker-compose run laravel cp ./.env.example ./.env
           name: create env file
