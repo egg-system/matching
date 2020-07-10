@@ -61,11 +61,13 @@ jobs:
           name: update node environments
       - run:
           command: |
-            node -v
+            nvm alias default
             npm --prefix ./src install
           name: node_modules install
       - run:
-          command: npm --prefix ./src run production
+          command: |
+            nvm alias default
+            npm --prefix ./src run production
           name: build javascript
       - save_cache:
           key: build-{{ checksum "src/public" }}
