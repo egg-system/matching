@@ -5,8 +5,31 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.9.1
   aws-ecs: circleci/aws-ecs@1.2.0
 
+commands:
+  restore_caches:
+    steps:
+      - restore_build_cache:
+          keys:
+            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
+          paths:
+            - ~/caches/images.tar
+      - run:
+          command: |
+            if [[ -e ~/caches/images.tar ]]; then
+              docker load -i ~/caches/images.tar
+            fi
+          name: docker load
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "src/composer.lock" }}
+          name: composer restore cache
+      - restore_cache:
+          keys:
+            - assets-{{ checksum "src/public" }}
+          name: assets restore cache
+
 jobs:
-  build:
+  build-laravel:
     machine: true
     steps:
       - checkout
@@ -51,48 +74,28 @@ jobs:
           paths:
             - src/vendor
           name: composer save cache
+
+  build-assets:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
       - run:
-          command: |
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install --lts --latest-npm
-            nvm alias default lts/*
-          name: update node environments
-      - run:
-          command: |
-            nvm alias default
-            npm --prefix ./src install
+          command: npm --prefix src install
           name: node_modules install
       - run:
-          command: |
-            nvm alias default
-            npm --prefix ./src run production
-          name: build javascript
+          command: npm --prefix src run production
+          name: build node_modules
       - save_cache:
-          key: build-{{ checksum "src/public" }}
-          paths: src/public
-          name: public files save cache
+          keys:
+            - assets-{{ checksum "src/public" }}
+          name: assets save cache
 
-  build-test:
+  building-test:
     machine: true
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
-          paths:
-            - ~/caches/images.tar
-      - run:
-          command: |
-            if [[ -e ~/caches/images.tar ]]; then
-              docker load -i ~/caches/images.tar
-            fi
-          name: docker load
-      - restore_cache:
-          keys:
-            - composer-{{ checksum "src/composer.lock" }}
-          name: composer restore cache
+      - restore_build_cache
       - run:
           command: |
             docker-compose run laravel cp ./.env.example ./.env
@@ -113,25 +116,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
-          paths:
-            - ~/caches/images.tar
-      - run:
-          command: |
-            if [[ -e ~/caches/images.tar ]]; then
-              docker load -i ~/caches/images.tar
-            fi
-          name: docker load
-      - restore_cache:
-          keys:
-            - composer-{{ checksum "src/composer.lock" }}
-          name: composer restore cache
-      - restore_cache:
-          keys:
-            - build-{{ checksum "src/public" }}
-          name: public build restore cache
+      - restore_build_cache
       - run:
           command: docker-compose run laravel cp ./.env.example ./.env
           name: create env file
@@ -146,21 +131,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
-          paths:
-            - ~/caches/images.tar
-      - run:
-          command: |
-            if [[ -e ~/caches/images.tar ]]; then
-              docker load -i ~/caches/images.tar
-            fi
-          name: docker load
-      - restore_cache:
-          keys:
-            - composer-{{ checksum "src/composer.lock" }}
-          name: composer restore cache
+      - restore_build_cache
       - run: 
           command: docker-compose run laravel composer check-phpmd
           name: phpmd
@@ -195,22 +166,26 @@ workflows:
   version: 2
   build-and-test:
     jobs:
-      - build
+      - build-laravel
+      - build-assets
       - phpunit:
           requires:
-            - build
+            - build-laravel
+            - build-assets
       - phpmd:
           requires:
-            - build
-      - build-test:
+            - build-laravel
+            - build-assets
+      - building-test:
           requires:
-            - build
+            - build-laravel
+            - build-assets
       - deploy-image:
           context: aws-eggsystem
           requires:
             - phpmd
             - phpunit
-            - build-test
+            - building-test
           filters:
             branches:
               only: master
