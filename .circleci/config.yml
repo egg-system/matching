@@ -57,7 +57,6 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm install stable --latest-npm
             nvm alias default stable
-            npm install -g npm@latest
           name: update node environments
       - run:
           command: npm --prefix ./src install
