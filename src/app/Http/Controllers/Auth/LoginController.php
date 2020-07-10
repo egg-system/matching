@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gym;
-use App\Models\Trainer;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -31,16 +29,14 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    /** @var string */
+    private $userType;
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * LoginController constructor.
      */
     public function __construct()
     {
-        if (\Route::current()->getName() === 'gyms.login') {
-            $this->redirectTo =  route('gyms.index');
-        }
         $this->middleware('guest')->except('logout');
     }
 
@@ -49,7 +45,22 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        $userType = \Route::current()->getName() === 'trainers.login' ? Trainer::class : Gym::class;
-        return array_merge($request->only('email', 'password'), ['user_type' => $userType]);
+        return array_merge($request->only('email', 'password'), ['user_type' => $this->userType]);
+    }
+
+    /**
+     * @param string $userType
+     */
+    public function setUserType(string $userType)
+    {
+        $this->userType = $userType;
+    }
+
+    /**
+     * @param string $redirectTo
+     */
+    public function setRedirectTo(string $redirectTo)
+    {
+        $this->redirectTo = $redirectTo;
     }
 }

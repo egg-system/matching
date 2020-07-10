@@ -15,6 +15,9 @@ class UsersController extends Controller
     /** @var UserRepository  */
     private $userRepository;
 
+    /** @var int */
+    private $loginId;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
@@ -35,9 +38,8 @@ class UsersController extends Controller
      */
     public function store(RegisterRequest $request)
     {
-        $loginId = $request->id;
         // すでにLoginと紐付いていた場合
-        if (Login::find($loginId)->user_id) {
+        if (Login::find($this->loginId)->user_id) {
             return redirect()->route('top');
         }
 
@@ -73,5 +75,13 @@ class UsersController extends Controller
             return redirect()->route('gyms.edit', $model->id);
         }
         return redirect()->route('top');
+    }
+
+    /**
+     * @param int $loginId
+     */
+    public function setLoginId(int $loginId): void
+    {
+        $this->loginId = $loginId;
     }
 }
