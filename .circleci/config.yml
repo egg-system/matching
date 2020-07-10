@@ -142,9 +142,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - assets-{{ checksum "src/package-lock.json" }}
-        name: assets restore cache
+          keys:
+            - assets-{{ checksum "src/package-lock.json" }}
+          name: assets restore cache
       - run:
           command: |
             docker build -tgym-app-base -fphp-fpm/base.dockerfile .
