@@ -1,9 +1,14 @@
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue'
+import vuetify from './plugins/vuetify'
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+import appSlot from "./organisms/app-slot.vue";
 
 const app = new Vue({
+    vuetify,
+    components: { appSlot },
     el: '#app'
-});
+})
+
+window.app = app
