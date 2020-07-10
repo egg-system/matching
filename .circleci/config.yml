@@ -55,8 +55,8 @@ jobs:
           command: |
             export NVM_DIR="/opt/circleci/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install stable --latest-npm
-            nvm alias default stable
+            nvm install --lts --latest-npm
+            nvm alias default lts/*
           name: update node environments
       - run:
           command: npm --prefix ./src install
