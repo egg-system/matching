@@ -25,7 +25,7 @@ commands:
           name: composer restore cache
       - restore_cache:
           keys:
-            - assets-{{ checksum "src/public" }}
+            - assets-{{ checksum "src/package-lock.json" }}
           name: assets restore cache
 
 jobs:
