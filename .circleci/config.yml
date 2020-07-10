@@ -59,10 +59,10 @@ jobs:
             npm install -g npm@latest
           name: update node environments
       - run:
-          command: npm --prefix ./project/src install
+          command: npm --prefix ./src install
           name: node_modules install
       - run:
-          command: npm --prefix ./project/src run production
+          command: npm --prefix ./src run production
           name: build javascript
       - save_cache:
           key: build-{{ checksum "src/public" }}
