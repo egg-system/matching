@@ -6,9 +6,9 @@ orbs:
   aws-ecs: circleci/aws-ecs@1.2.0
 
 commands:
-  restore_caches:
+  restore_build_cache:
     steps:
-      - restore_build_cache:
+      - restore_cache:
           keys:
             - docker-cache-{{ checksum "nginx/Dockerfile" }}-{{ checksum "src/composer.lock" }}-{{ checksum "src/package.json" }}
           paths:
