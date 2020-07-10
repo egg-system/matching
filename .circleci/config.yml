@@ -60,7 +60,9 @@ jobs:
             nvm alias default lts/*
           name: update node environments
       - run:
-          command: npm --prefix ./src install
+          command: |
+            node -v
+            npm --prefix ./src install
           name: node_modules install
       - run:
           command: npm --prefix ./src run production
