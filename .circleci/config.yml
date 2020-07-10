@@ -46,6 +46,17 @@ jobs:
       - run:
           command: docker-compose run laravel composer install
           name: composer install
+      - run:
+          command: |
+            nvm install v12.18.2
+            npm install -g npm@latest
+          name: update node environments
+      - run:
+          command: npm --prefix ./project/src install
+          name: node_modules install
+      - run:
+          command: npm --prefix ./project/src run production
+          name: build javascript
       - save_cache:
           key: composer-{{ checksum "src/composer.lock" }}
           paths:
