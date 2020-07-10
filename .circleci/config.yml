@@ -62,7 +62,7 @@ jobs:
       - run:
           command: npm --prefix ./project/src run production
           name: build javascript
-      - save_cahce:
+      - save_cache:
           key: build-{{ checksum "src/public" }}
           paths: src/public
           name: public files save cache
