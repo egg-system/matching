@@ -23,6 +23,12 @@ class AddForeignKey extends Migration
             $table->foreign('offer_to_id')->references('id')->on('login');
             $table->foreign('offer_state')->references('id')->on('offer_states');
         });
+        Schema::table('gyms', function (Blueprint $table) {
+            $table->foreign('prefecture_id')->references('id')->on('prefectures');
+        });
+        Schema::table('trainers', function (Blueprint $table) {
+            $table->foreign('now_work_area_id')->references('id')->on('areas');
+        });
     }
 
     /**
@@ -41,6 +47,12 @@ class AddForeignKey extends Migration
             $table->dropForeign('offers_offer_from_id_foreign');
             $table->dropForeign('offers_offer_to_id_foreign');
             $table->dropForeign('offers_offer_state_foreign');
+        });
+        Schema::table('gyms', function (Blueprint $table) {
+            $table->dropForeign('prefectures_prefecture_id_foreign');
+        });
+        Schema::table('trainers', function (Blueprint $table) {
+            $table->dropForeign('areas_now_work_area_id_foreign');
         });
     }
 }

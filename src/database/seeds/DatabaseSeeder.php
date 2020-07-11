@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
 
     const COMMON = [
         Common\AreasTableSeeder::class,
-        Common\OccupationsTableSeeder::class
+        Common\OccupationsTableSeeder::class,
+        Common\PrefecturesSeeder::class,
     ];
 
     /**
