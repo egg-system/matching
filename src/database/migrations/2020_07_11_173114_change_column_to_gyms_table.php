@@ -21,7 +21,7 @@ class ChangeColumnToGymsTable extends Migration
             // カラム追加
             $table->unsignedBigInteger("prefecture_id")->nullable()->comment('住所 - 都道府県');
             $table->string("cities")->nullable()->comment('住所 - 市区町村');
-            $table->text("stree_address")->nullable()->comment('住所 - 丁・番地以下');
+            $table->text("street_address")->nullable()->comment('住所 - 丁・番地以下');
             $table->text("gym_url")->nullable()->comment('店舗URL');
             $table->text("comment")->nullable()->comment('紹介文');
             $table->string("charge")->nullable()->comment('担当業務');
@@ -46,7 +46,7 @@ class ChangeColumnToGymsTable extends Migration
             // カラム削除
             $table->dropColumn('prefecture_id');
             $table->dropColumn('cities');
-            $table->dropColumn('stree_address');
+            $table->dropColumn('street_address');
             $table->dropColumn('gym_url');
             $table->dropColumn('comment');
             $table->dropColumn('charge');
