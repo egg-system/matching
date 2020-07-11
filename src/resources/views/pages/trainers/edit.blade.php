@@ -12,104 +12,163 @@
                         @method('PUT')
                         @csrf
 
-                        @include('components.common._form', ['type' => 'edit'])
+                        <form-wrapper
+                            label="氏名"
+                            name="name"
+                            error="{{ $errors->first('name') }}"
+                        >
+                            <input-form
+                                name="name"
+                                id="name"
+                                type="text"
+                                value="{{ optional(Auth::user())->name ?? old('name') }}"
+                                autocomplete="name"
+                                autofocus
+                                error="{{ $errors->first('name') }}"
+                            ></input-form>
+                        </form-wrapper>
 
-                        <div class="form-group row">
-                            <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号</label>
-                            <div class="col-md-6">
-                                <input id="tel" type="tel" class="form-control @error('tel') is-invalid @enderror"
-                                    name="tel" value="{{ $trainer->tel ?? old('tel') }}" autocomplete="tel" autofocus>
-                                @error('tel')
-                                <span class="text-danger" style="color:red" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="areas" class="col-md-4 col-form-label text-md-right">場所／エリア</label>
-                            <div class="col-md-6">
-                                <select name="area_id" class="form-control" id="areas">
-                                    <option value=""></option>
-                                    @foreach ($areas as $area)
-                                    <option value="{{ $area->id }}"
-                                        {{ (isset($matchingCondition->area_id) ? (string)$matchingCondition->area_id : old('area_id')) === (string)$area->id ? 'selected' : '' }}>
-                                        {{ $area->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('area_id')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <text-area-form
+                        <?php
+                            // componentのpropsに合わせて変換
+                            $formattedOccupations = array(array('name' => '-- 選択してください --', 'value' => ''));
+                            foreach ($occupations as $occupation) {
+                                $obj["name"] = $occupation->name;
+                                $obj["value"] = $occupation->id;
+                                array_push($formattedOccupations, $obj);
+                            }
+                        ?>
+                        <form-wrapper
+                            label="業種"
+                            name="occupation_id"
+                            subtext="業種"
+                            error="{{ $errors->first('occupation_id') }}"
+                        >
+                            <select-form
+                                name="occupation_id"
+                                id="occupation"
+                                :options="{{ json_encode($formattedOccupations) }}"
+                                selected="{{ isset($matchingCondition->occupation_id) ? (string)$matchingCondition->occupation_id : old('occupation_id') }}"
+                                error="{{ $errors->first('occupation_id') }}"
+                            ></select-form>
+                        </form-wrapper>
+
+                        <?php
+                            // componentのpropsに合わせて変換
+                            $formattedAreas = array(array('name' => '', 'value' => ''));
+                            foreach ($areas as $area) {
+                                $obj["name"] = $area->name;
+                                $obj["value"] = $area->id;
+                                array_push($formattedAreas, $obj);
+                            }
+                        ?>
+                        <form-wrapper
+                            label="現在の勤務地エリア"
+                            name="areas"
+                            subtext="エリア"
+                            error="{{ $errors->first('area_id') }}"
+                        >
+                            <select-form
+                                name="area_id"
+                                id="area"
+                                :options="{{ json_encode($formattedAreas) }}"
+                                selected="{{ isset($matchingCondition->area_id) ? (string)$matchingCondition->area_id : old('area_id') }}"
+                                error="{{ $errors->first('area_id') }}"
+                            ></select-form>
+                        </form-wrapper>
+
+                        <form-wrapper
+                            label="電話番号"
+                            name="tel"
+                            error="{{ $errors->first('tel') }}"
+                        >
+                            <input-form
+                                name="tel"
+                                id="tel"
+                                type="tel"
+                                value="{{ $trainer->tel ?? old('tel') }}"
+                                autocomplete="tel"
+                                error="{{ $errors->first('tel') }}"
+                            ></input-form>
+                        </form-wrapper>
+
+                        <form-wrapper
                             label="自己紹介"
-                            textareaId="pr_comment"
                             name="pr_comment"
-                            value="{{ $trainer->pr_comment ?? old('pr_comment') }}"
-                            placeholder="自己紹介を入れて企業にアピールしよう"
                             error="{{ $errors->first('pr_comment') }}"
-                        ></text-area-form>
-                        <div class="form-group row">
-                            <label for="price" class="col-md-4 col-form-label text-md-right">希望単価</label>
-                            <div class="col-md-3">
-                                <input id="price" type="number"
-                                    class="form-control @error('price.min') is-invalid @enderror" name="price[min]"
-                                    value="{{ isset($matchingCondition->price['min']) ? $matchingCondition->price['min'] : old('price.min') }}" autocomplete="price" autofocus>
-                                @error('price.min')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <span>~</span>
-                            <div class="col-md-3">
-                                <input id="price" type="number"
-                                    class="form-control @error('price.max') is-invalid @enderror" name="price[max]"
-                                    value="{{ isset($matchingCondition->price['max']) ? $matchingCondition->price['max'] : old('price.max') }}" autocomplete="price" autofocus>
+                        >
+                            <text-area-form
+                                name="pr_comment"
+                                id="pr_comment"
+                                value="{{ $trainer->pr_comment ?? old('pr_comment') }}"
+                                placeholder="自己紹介を入れて企業にアピールしよう"
+                                error="{{ $errors->first('pr_comment') }}"
+                            ></text-area-form>
+                        </form-wrapper>
 
-                                @error('price.max')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="work_time" class="col-md-4 col-form-label text-md-right">希望曜日</label>
-                            <div class="col-md-3">
-                                <select name="work_time[week]" class="form-control" id="work_time">
-                                    <option></option>
-                                    @foreach (trans('search.day_of_week') as $day_of_week)
-                                    <option value="{{ $day_of_week }}"
-                                        {{ (isset($matchingCondition->work_time['week']) ? $matchingCondition->work_time['week'] : old('work_time.week')) === $day_of_week ? 'selected' : '' }}>
-                                        {{ $day_of_week }}</option>
-                                    @endforeach
-                                </select>
-                                @error('work_time.week')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="work_time" class="col-md-4 col-form-label text-md-right">希望時間帯</label>
-                            <div class="col-md-3">
-                                <input id="work_time" type="time"
-                                    class="form-control @error('work_time.time') is-invalid @enderror"
-                                    name="work_time[time]" value="{{ isset($matchingCondition->work_time['time']) ? $matchingCondition->work_time['time'] : old('work_time.time') }}" autocomplete="work_time"
-                                    autofocus>
-                                @error('work_time.time')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
+                        <form-wrapper
+                            label="希望単価"
+                            name="price"
+                            type="range"
+                            error="{{ !empty($errors->first('price.min')) ? $errors->first('price.min') : (!empty($errors->first('price.max')) ? $errors->first('price.max') : '') }}"
+                        >
+                            <template v-slot:from>
+                                <input-form
+                                    name="price[min]"
+                                    id="price"
+                                    type="number"
+                                    value="{{ isset($matchingCondition->price['min']) ? $matchingCondition->price['min'] : old('price.min') }}"
+                                    error="{{ $errors->first('price.min') }}"
+                                ></input-form>
+                            </template>
+                            <template v-slot:to>
+                                <input-form
+                                    name="price[max]"
+                                    id="price"
+                                    type="number"
+                                    value="{{ isset($matchingCondition->price['max']) ? $matchingCondition->price['max'] : old('price.max') }}"
+                                    error="{{ $errors->first('price.max') }}"
+                                ></input-form>
+                            </template>
+                        </form-wrapper>
 
+                        <?php
+                            // componentのpropsに合わせて変換
+                            $formattedDayOfWeek = array(array('name' => '', 'value' => ''));
+                            $dayOfWeek = trans('search.day_of_week');
+                            foreach ($dayOfWeek as $item) {
+                                $obj["name"] = $item;
+                                $obj["value"] = $item;
+                                array_push($formattedDayOfWeek, $obj);
+                            }
+                        ?>
+                        <form-wrapper
+                            label="希望曜日"
+                            name="work_time"
+                            error="{{ $errors->first('work_time.week') }}"
+                        >
+                            <select-form
+                                name="work_time[week]"
+                                id="work_time"
+                                :options="{{ json_encode($formattedDayOfWeek) }}"
+                                selected="{{ isset($matchingCondition->work_time['week']) ? $matchingCondition->work_time['week'] : old('work_time.week') }}"
+                                error="{{ $errors->first('work_time.week') }}"
+                            ></select-form>
+                        </form-wrapper>
+
+                        <form-wrapper
+                            label="希望時間帯"
+                            name="work_time"
+                            error="{{ $errors->first('work_time.time') }}"
+                        >
+                            <input-form
+                                name="work_time[time]"
+                                id="work_time"
+                                type="time"
+                                value="{{ isset($matchingCondition->work_time['time']) ? $matchingCondition->work_time['time'] : old('work_time.time') }}"
+                                error="{{ $errors->first('work_time.time') }}"
+                            ></input-form>
+                        </form-wrapper>
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
