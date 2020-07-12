@@ -1,8 +1,9 @@
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue'
+import vuetify from './plugins/vuetify'
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+import appSlot from "./organisms/app-slot.vue";
 
 // molecules
 Vue.component('form-wrapper', require('./components/molecules/form/FormWrapper.vue').default);
@@ -11,5 +12,9 @@ Vue.component('select-form', require('./components/molecules/form/SelectForm.vue
 Vue.component('text-area-form', require('./components/molecules/form/TextAreaForm.vue').default);
 
 const app = new Vue({
+    vuetify,
+    components: { appSlot },
     el: '#app'
-});
+})
+
+window.app = app

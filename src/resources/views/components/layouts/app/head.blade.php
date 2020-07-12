@@ -1,13 +1,7 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('components.layouts.common.head')
 
-<!-- CSRF Token -->
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
+@section('head')
 <title>{{ config('app.name', 'Laravel') }}</title>
-
-<!-- Scripts -->
-{{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,3 +12,4 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 @yield('pageCss')
+@show
