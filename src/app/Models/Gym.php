@@ -10,12 +10,19 @@ class Gym extends Model
         'president_name',
         'tel',
         'staff_count',
-        'customer_count',
-        'requirements',
+        'prefecture_id',
+        'cities',
+        'street_address',
+        'gym_url',
+        'comment',
+        'charge',
+        'requirements_number',
+        'pay',
+        'experience',
     ];
 
     protected $casts = [
-        'requirements' => 'json',
+        'pay' => 'json',
     ];
 
     public function login()

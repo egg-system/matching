@@ -1,9 +1,11 @@
 <?php
 
-use App\Models\Prefectures;
+namespace Database\Seeds\Common;
+
+use App\Models\Prefecture;
 use Illuminate\Database\Seeder;
 
-class PrefecturesSeeder extends Seeder
+class PrefecturesTableSeeder extends Seeder
 {
     private const DATA = [
         ['name' => '北海道'],
@@ -64,7 +66,7 @@ class PrefecturesSeeder extends Seeder
     {
         $datas = self::DATA;
         foreach ($datas as $data) {
-            Prefectures::firstOrCreate($data);
+            Prefecture::firstOrCreate($data);
         }
     }
 }

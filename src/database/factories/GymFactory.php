@@ -14,8 +14,18 @@ $factory->define(Gym::class, function (Faker $faker) {
         'president_name' => $faker->name,
         'tel' => $faker->phoneNumber,
         'staff_count' => $faker->numberBetween(),
-        'customer_count' => $faker->numberBetween(),
-        'requirements' => [],
+        'prefecture_id' => $faker->numberBetween(1, 47),
+        'cities' => $faker->city,
+        'street_address' => $faker->streetAddress,
+        'gym_url' => $faker->url,
+        'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2),
+        'charge' => $faker->realText($maxNbChars = 50, $indexSize = 2),
+        'requirements_number' => $faker->randomNumber($nbDigits = 5),
+        'pay' => [
+            'max' => "{$faker->numberBetween(6, 10)}0000",
+            'min' => "{$faker->numberBetween(1, 5)}0000"
+        ],
+        'experience' => $faker->randomNumber($nbDigits = 2),
     ];
 });
 

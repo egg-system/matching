@@ -11,13 +11,12 @@ class MatchingCondition extends Model
     protected $fillable = [
         'occupation_id',
         'area_id',
-        'price',
-        'work_time',
+        'worktime_week',
+        'holiday_work',
+        'weekday_work',
     ];
 
     protected $casts = [
-        'price' => 'json',
-        'work_time' => 'json',
     ];
 
     public function user()
@@ -47,6 +46,17 @@ class MatchingCondition extends Model
     }
 
     /**
+     * trainersテーブルとの結合
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function joinTrainers(Builder $query)
+    {
+        return $query->join('trainers', 'trainers.id', '=', 'matching_conditions.user_id');
+    }
+
+    /**
      * ジムだけに限定するクエリスコープ
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -58,20 +68,13 @@ class MatchingCondition extends Model
     }
 
     /**
-     * イコール検索するクエリスコープ
+     * gymsテーブルとの結合
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearch(Builder $query, array $attributes, string $operation = '=')
+    public function joinGyms(Builder $query)
     {
-        $attributes = Arr::dot($attributes);
-        foreach ($attributes as $column => $value) {
-            $column = str_replace('.', '->', $column);
-            if (!is_null($value)) {
-                $query->where($column, $operation, $value);
-            }
-        }
-        return $query;
+        return $query->join('gyms', 'gyms.id', '=', 'matching_conditions.user_id');
     }
 }

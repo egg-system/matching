@@ -13,6 +13,8 @@ $factory->define(Trainer::class, function (Faker $faker) {
     return [
         'tel' => $faker->phoneNumber,
         'pr_comment' => $faker->text,
+        'now_work_area_id' => 1,
+        'now_work_style' => 1,
     ];
 });
 
