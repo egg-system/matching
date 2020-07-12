@@ -33,7 +33,7 @@ export default {
     width: 100%;
     border: none;
     border-bottom: solid 1px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 .inputForm--danger {
     border: solid 2px red;

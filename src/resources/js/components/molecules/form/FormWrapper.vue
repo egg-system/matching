@@ -72,7 +72,7 @@ export default {
 .rangeFormContainer__tilda {
     flex-basis: 20%;
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 .rangeFormContainer__form {
     flex-basis: 40%;

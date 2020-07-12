@@ -1,6 +1,6 @@
 .page {
   max-width: 1000px;
-  margin: 0 5%;
+  margin: 20px 5% 0 5%;
 }
 .header h1 {
   font-size: 1.3rem;
@@ -10,7 +10,7 @@
 .header__aside {
   position: absolute;
   right: 5%;
-  top: 70px;
+  top: 105px;
 }
 .header__aside button {
   color: white;

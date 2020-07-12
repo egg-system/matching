@@ -1,17 +1,19 @@
 <template>
-    <select
-        :id="id"
-        :name="name"
-        class="selectForm"
-        :class="{ 'selectForm--danger': error }" 
-    >
-        <option
-          v-for="(option, i) in options"
-          :value="option.value"
-          :key="`select_${i}`"
-          :selected="String(option.value) === selected"
-        >{{ option.name }}</option>
-    </select>
+    <div class="selectWrap">
+        <select
+            :id="id"
+            :name="name"
+            class="selectForm"
+            :class="{ 'selectForm--danger': error }" 
+        >
+            <option
+              v-for="(option, i) in options"
+              :value="option.value"
+              :key="`select_${i}`"
+              :selected="String(option.value) === selected"
+            >{{ option.name }}</option>
+        </select>
+    </div>
 </template>
 
 <script>
@@ -27,12 +29,29 @@ export default {
 </script>
 
 <style scoped>
+.selectWrap {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+.selectWrap::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-bottom: solid 2px #b4b3b3;
+    border-right: solid 2px #b4b3b3;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -8px;
+    pointer-events: none;
+}
 .selectForm {
     display: block;
     width: 100%;
-    border: none;
     border-bottom: solid 1px;
-    font-size: 1.3rem;
+    font-size: 1.2em;
     padding-bottom: 5px;
 }
 .selectForm--danger {
