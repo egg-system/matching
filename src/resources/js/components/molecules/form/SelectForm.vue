@@ -32,7 +32,7 @@ export default {
     width: 100%;
     border: none;
     border-bottom: solid 1px;
-    font-size: 18px;
+    font-size: 1.3rem;
     padding-bottom: 5px;
 }
 .selectForm--danger {

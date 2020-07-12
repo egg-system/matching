@@ -49,12 +49,12 @@ export default {
 
 <style scoped>
 .formWrapper {
-    margin: 0 5% 50px 5%;
+    margin-bottom: 50px;
 }
 .formLabel {
     display: block;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 1rem;
     margin-bottom: 30px;
 }
 .formContainer {
@@ -72,7 +72,7 @@ export default {
 .rangeFormContainer__tilda {
     flex-basis: 20%;
     text-align: center;
-    font-size: 18px;
+    font-size: 1.3rem;
 }
 .rangeFormContainer__form {
     flex-basis: 40%;

@@ -29,7 +29,7 @@ export default {
     resize: none;
     border: none;
     border-bottom: solid 1px;
-    font-size: 18px;
+    font-size: 1.3rem;
 }
 .textareaForm--danger {
     border: solid 2px red;
