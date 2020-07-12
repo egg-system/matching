@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase, WithFaker, WithoutMiddleware;
+    use RefreshDatabase, WithFaker;
 
     protected function setUp(): void
     {
