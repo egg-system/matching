@@ -36,12 +36,10 @@
 
             <?php
                 // componentのpropsに合わせて変換
-                $formattedOccupations = array(array('name' => '-- 選択してください --', 'value' => ''));
-                foreach ($occupations as $occupation) {
-                    $obj["name"] = $occupation->name;
-                    $obj["value"] = $occupation->id;
-                    array_push($formattedOccupations, $obj);
-                }
+                $formattedOccupations = collect($occupations)->map(function ($occupation) {
+                    return collect([ 'name' => $occupation->name, 'value' => $occupation->id ]);
+                });
+                $formattedOccupations->prepend(collect([ 'name' => '-- 選択してください --', 'value' => '' ]));
             ?>
             <form-wrapper
                 label="業種"
@@ -60,12 +58,10 @@
 
             <?php
                 // componentのpropsに合わせて変換
-                $formattedAreas = array(array('name' => '', 'value' => ''));
-                foreach ($areas as $area) {
-                    $obj["name"] = $area->name;
-                    $obj["value"] = $area->id;
-                    array_push($formattedAreas, $obj);
-                }
+                $formattedAreas = collect($areas)->map(function ($area) {
+                    return collect([ 'name' => $area->name, 'value' => $area->id ]);
+                });
+                $formattedAreas->prepend(collect([ 'name' => '', 'value' => '' ]));
             ?>
             <form-wrapper
                 label="現在の勤務地エリア"
@@ -139,13 +135,11 @@
 
             <?php
                 // componentのpropsに合わせて変換
-                $formattedDayOfWeek = array(array('name' => '', 'value' => ''));
                 $dayOfWeek = trans('search.day_of_week');
-                foreach ($dayOfWeek as $item) {
-                    $obj["name"] = $item;
-                    $obj["value"] = $item;
-                    array_push($formattedDayOfWeek, $obj);
-                }
+                $formattedDayOfWeek = collect($dayOfWeek)->map(function ($item) {
+                    return collect([ 'name' => $item, 'value' => $item ]);
+                });
+                $formattedDayOfWeek->prepend(collect([ 'name' => '', 'value' => '' ]));
             ?>
             <form-wrapper
                 label="希望曜日"
