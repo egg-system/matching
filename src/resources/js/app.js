@@ -12,9 +12,9 @@ Vue.component('select-form', require('./components/molecules/form/SelectForm.vue
 Vue.component('text-area-form', require('./components/molecules/form/TextAreaForm.vue').default);
 
 const app = new Vue({
-    vuetify,
-    components: { appSlot },
-    el: '#app'
+  vuetify,
+  components: { appSlot },
+  el: '#app'
 })
 
 window.app = app
