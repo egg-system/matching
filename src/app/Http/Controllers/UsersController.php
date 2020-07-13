@@ -18,9 +18,10 @@ class UsersController extends Controller
     /** @var int */
     private $loginId;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, ?int $loginId)
     {
         $this->userRepository = $userRepository;
+        $this->loginId = $loginId;
     }
 
     /**
@@ -28,7 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.trainers.register');
+        return view('pages.users.register');
     }
 
     /**
@@ -40,7 +41,7 @@ class UsersController extends Controller
     {
         // すでにLoginと紐付いていた場合
         if (Login::find($this->loginId)->user_id) {
-            return redirect()->route('top');
+            return redirect()->route('trainers.login');
         }
 
         $login = $this->userRepository->create($request);
@@ -57,9 +58,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $view = get_class($user) === Trainer::class ? 'pages.trainers.edit' : 'pages.gyms.edit';
         $matchingCondition = $user->matchingCondition;
-        return view($view, compact('user', 'matchingCondition'));
+        return view('pages.users.edit', compact('user', 'matchingCondition'));
     }
 
     /**
@@ -75,13 +75,5 @@ class UsersController extends Controller
             return redirect()->route('gyms.edit', $model->id);
         }
         return redirect()->route('top');
-    }
-
-    /**
-     * @param int $loginId
-     */
-    public function setLoginId(int $loginId): void
-    {
-        $this->loginId = $loginId;
     }
 }

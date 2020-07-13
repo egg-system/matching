@@ -30,22 +30,32 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Offer::observe(OfferObserver::class);
-        
-        $this->app->extend(UsersController::class, function ($usersController, $app) {
-            if (isset($app['request']['id'])) {
-                $usersController->setLoginId($app['request']['id']);
-            }
-            return $usersController;
-        });
 
-        $this->app->extend(LoginController::class, function ($loginController, $app) {
-            if (\Route::current()->getName() === 'trainers.login') {
-                $loginController->setUserType(Trainer::class);
-            } elseif (\Route::current()->getName() === 'gyms.login') {
-                $loginController->setUserType(Gym::class);
-                $loginController->setRedirectTo(route('gyms.index'));
-            }
-            return $loginController;
-        });
+        $this->app->when(UsersController::class)
+            ->needs('$loginId')
+            ->give(function () {
+                if (isset($this->app['request']['id'])) {
+                    return $this->app['request']['id'];
+                }
+                return null;
+            });
+        $this->app->when(LoginController::class)
+            ->needs('$userType')
+            ->give(function () {
+                if (\Route::current()->getName() === 'trainers.login') {
+                    return Trainer::class;
+                } elseif (\Route::current()->getName() === 'gyms.login') {
+                    return Gym::class;
+                }
+                return '';
+            });
+        $this->app->when(LoginController::class)
+            ->needs('$redirectTo')
+            ->give(function () {
+                if (\Route::current()->getName() === 'gyms.login') {
+                    return route('gyms.index');
+                }
+                return '';
+            });
     }
 }
