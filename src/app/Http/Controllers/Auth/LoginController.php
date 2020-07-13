@@ -34,10 +34,14 @@ class LoginController extends Controller
 
     /**
      * LoginController constructor.
+     * @param string $userType
+     * @param string $redirectTo
      */
-    public function __construct()
+    public function __construct(string $userType = '', string $redirectTo = '')
     {
         $this->middleware('guest')->except('logout');
+        $this->userType = $userType;
+        $this->redirectTo = $redirectTo;
     }
 
     /**
@@ -46,21 +50,5 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         return array_merge($request->only('email', 'password'), ['user_type' => $this->userType]);
-    }
-
-    /**
-     * @param string $userType
-     */
-    public function setUserType(string $userType)
-    {
-        $this->userType = $userType;
-    }
-
-    /**
-     * @param string $redirectTo
-     */
-    public function setRedirectTo(string $redirectTo)
-    {
-        $this->redirectTo = $redirectTo;
     }
 }
