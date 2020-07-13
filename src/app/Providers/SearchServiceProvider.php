@@ -20,17 +20,17 @@ class SearchServiceProvider extends ServiceProvider
 
         $this->app->bind(
             SearchInterface::class,
-            // TODO:bindの条件は要検討
-            function($app, $terms) {
-                switch($terms) {
-                    case "":
-                        $bindClass = \App\Components\GymSearch::class;
-                        break;
-                    case "":
-                        $bindClass = \App\Components\TrainerSearch::class;
-                        break;
-                }
-                return $app->make($bindClass);
+            function($app) {
+                // switch(Auth::user()->user_type) {
+                //     // ↓classパスの指定方法があるはず。
+                //     case \App\Models\Gym::class:
+                //         $bindClass = \App\Components\GymSearch::class;
+                //         break;
+                //     case \App\Models\Trainer::class:
+                //         $bindClass = \App\Components\TrainerSearch::class;
+                //         break;
+                // }
+                return $app->make(\App\Components\TrainerSearch::class);
         });
     }
 

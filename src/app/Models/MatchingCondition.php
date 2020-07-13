@@ -46,17 +46,6 @@ class MatchingCondition extends Model
     }
 
     /**
-     * trainersテーブルとの結合
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function joinTrainers(Builder $query)
-    {
-        return $query->join('trainers', 'trainers.id', '=', 'matching_conditions.user_id');
-    }
-
-    /**
      * ジムだけに限定するクエリスコープ
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -65,16 +54,5 @@ class MatchingCondition extends Model
     public function scopeOnlyGym(Builder $query)
     {
         return $query->where('user_type', Gym::class);
-    }
-
-    /**
-     * gymsテーブルとの結合
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function joinGyms(Builder $query)
-    {
-        return $query->join('gyms', 'gyms.id', '=', 'matching_conditions.user_id');
     }
 }

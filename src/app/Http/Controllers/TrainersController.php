@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Gym\TrainerSearchRequest;
+use App\Services\SearchInterface;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\Trainer\RegisterRequest;
@@ -14,14 +17,18 @@ use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
+use Illuminate\Support\Facades\Log;
+
 class TrainersController extends Controller
 {
     protected $userService;
+    protected $searchService;
 
-    public function __construct(AuthService $authService, UserService $userService)
+    public function __construct(AuthService $authService, UserService $userService, SearchInterface $searchService)
     {
         $this->authService = $authService;
         $this->userService = $userService;
+        $this->searchService = $searchService;
     }
 
     /**
@@ -48,6 +55,20 @@ class TrainersController extends Controller
         auth()->login($login);
 
         return redirect()->route('top');
+    }
+
+    /**
+     * ジムの一覧表示画面(検索付)
+     */
+    public function gymList(TrainerSearchRequest $request)
+    {
+        //$validated = $request->validated();
+
+        //if ($request->anyFilled(array_keys($validated))) {
+            $conditions = $this->searchService->profileSearch($request);
+        //}
+        Log::debug($conditions);
+        return view('pages.gyms.trainerList', compact('conditions'));
     }
 
     /**

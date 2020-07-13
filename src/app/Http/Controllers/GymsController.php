@@ -15,7 +15,7 @@ class GymsController extends Controller
 {
     protected $authService;
     protected $userService;
-    public function __construct(AuthService $authService, UserService $userService)
+    public function __construct(AuthService $authService, UserService $userService, TrainerSearch $trainerSearch)
     {
         $this->authService = $authService;
         $this->userService = $userService;
@@ -50,7 +50,7 @@ class GymsController extends Controller
         $validated = $request->validated();
 
         if ($request->anyFilled(array_keys($validated))) {
-            $conditions = $this->trainerSearch->userSearch($request);
+            $conditions = $this->trainerSearch->matchingConditionSearch($request);
         }
         return view('pages.gyms.trainerList', compact('conditions'));
     }
