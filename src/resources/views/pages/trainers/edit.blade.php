@@ -9,7 +9,7 @@
         <h1>プロフィール編集</h1>
     </div>
 
-    <form method="POST" action="{{ route('trainers.update', [$trainer->id]) }}">
+    <form method="POST" action="{{ route('trainers.update', [$user->id]) }}">
         <div class="header__aside">
             <button type="submit">保存</button>
         </div>
@@ -87,7 +87,7 @@
                     name="tel"
                     id="tel"
                     type="tel"
-                    value="{{ $trainer->tel ?? old('tel') }}"
+                    value="{{ $user->tel ?? old('tel') }}"
                     autocomplete="tel"
                     error="{{ $errors->first('tel') }}"
                 ></input-form>
@@ -101,7 +101,7 @@
                 <text-area-form
                     name="pr_comment"
                     id="pr_comment"
-                    value="{{ $trainer->pr_comment ?? old('pr_comment') }}"
+                    value="{{ $user->pr_comment ?? old('pr_comment') }}"
                     placeholder="自己紹介を入れて企業にアピールしよう"
                     error="{{ $errors->first('pr_comment') }}"
                 ></text-area-form>
