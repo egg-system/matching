@@ -1,19 +1,23 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
 
-use App\Http\Requests\Trainer\RegisterRequest;
 use App\Models\Login;
 use App\Models\MatchingCondition;
 use App\Models\Trainer;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class UserService
+class UserRepository
 {
-    public function createTrainer(RegisterRequest $request)
+    /**
+     * トレーナー登録
+     * @param array $params
+     * @return mixed
+     */
+    public function create(Request $request)
     {
         return DB::transaction(function () use ($request) {
             $validated = $request->validated();
@@ -30,7 +34,12 @@ class UserService
         });
     }
 
-    public function updateUser(Request $request, Model $user)
+    /**
+     * ユーザー更新
+     * @param Request $request
+     * @param User $user
+     */
+    public function updateUser(Request $request, User $user)
     {
         DB::transaction(function () use ($request, $user) {
             // トレーナー更新

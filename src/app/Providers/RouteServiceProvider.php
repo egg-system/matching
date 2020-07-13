@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Gym;
+use App\Models\Trainer;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -30,9 +32,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::model('trainer', Trainer::class);
+        Route::model('gym', Gym::class);
     }
 
     /**

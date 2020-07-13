@@ -8,7 +8,7 @@
                 <div class="card-header">トレーナー編集</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('trainers.update', [$trainer->id]) }}">
+                    <form method="POST" action="{{ route('trainers.update', [$user->id]) }}">
                         @method('PUT')
                         @csrf
 
@@ -18,7 +18,7 @@
                             <label for="tel" class="col-md-4 col-form-label text-md-right">電話番号</label>
                             <div class="col-md-6">
                                 <input id="tel" type="tel" class="form-control @error('tel') is-invalid @enderror"
-                                    name="tel" value="{{ $trainer->tel ?? old('tel') }}" autocomplete="tel" autofocus>
+                                    name="tel" value="{{ $user->tel ?? old('tel') }}" autocomplete="tel" autofocus>
                                 @error('tel')
                                 <span class="text-danger" style="color:red" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -48,8 +48,8 @@
                             <label for="pr_comment" class="col-md-4 col-form-label text-md-right">PRコメント</label>
                             <div class="col-md-6">
                                 <textarea id="pr_comment" class="form-control @error('pr_comment') is-invalid @enderror"
-                                    name="pr_comment" value="{{ $trainer->pr_comment ?? old('pr_comment') }}" autocomplete="pr_comment"
-                                    autofocus>{{ $trainer->pr_comment ?? old('pr_comment') }}</textarea>
+                                    name="pr_comment" value="{{ $user->pr_comment ?? old('pr_comment') }}" autocomplete="pr_comment"
+                                    autofocus>{{ $user->pr_comment ?? old('pr_comment') }}</textarea>
                                 @error('pr_comment')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
