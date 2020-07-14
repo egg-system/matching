@@ -1,6 +1,38 @@
 @import './base.scss';
 
-.landing-page-accent-phrase {
-  color: gray;
-  font-family: serif;
+.landing-page {
+  h1, h2, h3, section, p {
+    text-align: center;
+  }
+
+  .description p {
+    text-align: left;
+  }
+
+  h2, h3 {
+    font-size: 50px;
+  }
+
+  @mixin main-font {
+    color: #666;
+    font-family: serif;
+  }
+
+  h1, span.feauture {
+    @include main-font;
+  }
+
+  p {
+    @include main-font;
+    font-size: 45px;
+
+    width: 90%;
+    margin: 45px auto;
+  }
+
+  .center-align-wrapper {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
 }

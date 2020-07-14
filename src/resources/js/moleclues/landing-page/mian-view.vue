@@ -1,7 +1,7 @@
 <template>
-  <div class="view-wrapper">
+  <div class="center-align-wrapper">
     <main-image />
-    <h1 class="main-title landing-page-accent-phrase">
+    <h1 class="main-title accent-phrase">
       トレーナーのための<br >副業マッチングプラットフォーム
     </h1>
     <main-copy />
@@ -10,7 +10,7 @@
 
 <script>
 import mainImage from '../../atoms/landing-page/main-image'
-import mainCopy from '../../atoms/landing-page/main-copy'
+import mainCopy from '../../atoms/landing-page/first-view/main-copy'
 
 export default {
   components: { mainImage, mainCopy }
@@ -18,14 +18,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.view-wrapper {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-}
-
 .main-title {
-  text-align: center;
+  font-size: 30px;
   margin-top: 80px;
   margin-bottom: 60px;
 }
