@@ -5,7 +5,7 @@
 @endsection
 
 @section('body')
-    <div>
+    <div class="landing-page">
         @include('components.layouts.landing-page.header')
 
         <v-main>
