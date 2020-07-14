@@ -27,15 +27,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .inputForm {
   display: block;
   width: 100%;
   border: none;
   border-bottom: solid 1px;
   font-size: 1.2rem;
-}
-.inputForm--danger {
-  border: solid 2px red;
+  &--danger {
+    border: solid 2px red;
+  }
 }
 </style>

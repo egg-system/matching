@@ -28,24 +28,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .selectWrap {
   width: 100%;
   position: relative;
   display: inline-block;
-}
-.selectWrap::after {
-  content: '';
-  width: 10px;
-  height: 10px;
-  border-bottom: solid 2px #b4b3b3;
-  border-right: solid 2px #b4b3b3;
-  transform: rotate(-45deg);
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  margin-top: -8px;
-  pointer-events: none;
+  &::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-bottom: solid 2px #b4b3b3;
+    border-right: solid 2px #b4b3b3;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -8px;
+    pointer-events: none;
+  }
 }
 .selectForm {
   display: block;
@@ -53,8 +53,8 @@ export default {
   border-bottom: solid 1px;
   font-size: 1.2em;
   padding-bottom: 5px;
-}
-.selectForm--danger {
-  border: solid 2px red;
+  &--danger {
+    border: solid 2px red;
+  }
 }
 </style>

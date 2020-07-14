@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .formWrapper {
   margin-bottom: 50px;
 }
@@ -59,23 +59,23 @@ export default {
 }
 .formContainer {
   display: flex;
-}
-.formContainer__subtext {
-  flex-basis: 40%;
-}
-.formContainer__form {
-  flex-basis: 60%;
+  &__subtext {
+    flex-basis: 40%;
+  }
+  &__form {
+    flex-basis: 60%;
+  }
 }
 .rangeFormContainer {
   display: flex;
-}
-.rangeFormContainer__tilda {
-  flex-basis: 20%;
-  text-align: center;
-  font-size: 1.2rem;
-}
-.rangeFormContainer__form {
-  flex-basis: 40%;
+  &__tilda {
+    flex-basis: 20%;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  &__form {
+    flex-basis: 40%;
+  }
 }
 .alertText {
   display: block;
