@@ -5,12 +5,12 @@
 @endsection
 
 @section('body')
-    <div class="flex-grow-1">
+    <div>
         @include('components.layouts.landing-page.header')
 
-        <main class="py-4">
+        <v-main>
             @yield('content')
-        </main>
+        </v-main>
     </div>
 </body>
 @endsection
