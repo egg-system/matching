@@ -1,14 +1,18 @@
-require('./bootstrap');
+require('./bootstrap')
 
 import Vue from 'vue'
+
+import { globalComponents } from './plugins/register-components'
+
+globalComponents.forEach(component => {
+  Vue.component(component.name, component.object)
+})
+
 import vuetify from './plugins/vuetify'
 
-import appSlot from "./organisms/app-slot.vue";
-
 const app = new Vue({
-    vuetify,
-    components: { appSlot },
-    el: '#app'
+  vuetify,
+  el: '#app'
 })
 
 window.app = app

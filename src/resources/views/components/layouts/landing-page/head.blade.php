@@ -2,5 +2,11 @@
 
 @section('head')
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link href="{{ asset('css/landing-page.css') }}" rel="stylesheet">
+    <link
+        href="{{ asset(
+            'css/landing-page.css',
+            app()->isProduction()
+        ) }}"
+        rel="stylesheet"
+    >
 @endsection
