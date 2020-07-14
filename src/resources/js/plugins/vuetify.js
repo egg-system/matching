@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuetify, {
   VApp,
-  VMain
+  VMain,
+  VContainer
 } from 'vuetify/lib'
 
 // bladeから直接呼び出したいコンポーネントは以下で登録する
 Vue.use(Vuetify, {
-  components: { VApp, VMain }
+  components: { VApp, VMain, VContainer }
 })
 
 export default new Vuetify({
