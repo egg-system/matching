@@ -1,10 +1,10 @@
 @extends('templates.app')
-@section('pageCss')
+@push('script')
 <link href="{{ asset('/css/pages/trainers/edit.css') }}" rel="stylesheet">
-@endsection
+@endpush
 
 @section('content')
-<div class="page">
+<div class="trainersEditPage">
     <div class="header">
         <h1>プロフィール編集</h1>
     </div>
