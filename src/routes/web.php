@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
     // 認証
     Route::view('login', 'pages.trainers.login')->middleware('guest')->name('login.view');
-    Route::post('login', 'TrainersController@login')->middleware('guest')->name('login');
+    Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
 
-    Route::resource('', 'TrainersController')->only(['create', 'store'])->middleware('signed');
+    Route::resource('', 'UsersController')->only(['create', 'store'])->middleware('signed');
 
     // トレーナーのみ
     Route::group(['middleware' => ['auth', 'can:trainer']], function () {
-        Route::resource('', 'TrainersController', ['parameters' => ['' => 'trainer']])
+        Route::resource('', 'UsersController', ['parameters' => ['' => 'trainer']])
             ->only(['edit', 'update'])
             ->middleware(['can:update,trainer']);
     });
@@ -22,11 +22,14 @@ Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
 Route::group(['prefix' => 'gyms', 'as' => 'gyms.'], function () {
     // 認証
     Route::view('login', 'pages.gyms.login')->middleware('guest')->name('login.view');
-    Route::post('login', 'GymsController@login')->middleware('guest')->name('login');
+    Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
     Route::middleware(['auth', 'can:gym'])->group(function () {
         Route::get('trainerList', 'GymsController@trainerList')->name('trainerList');
         Route::resource('', 'GymsController', ['parameters' => ['' => 'gym']])
-            ->only(['index', 'edit', 'update']);
+            ->only(['index']);
+        Route::resource('', 'UsersController', ['parameters' => ['' => 'gym']])
+            ->only(['edit', 'update'])
+            ->middleware(['can:update,gym']);
     });
 });
 
