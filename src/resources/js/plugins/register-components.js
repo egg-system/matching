@@ -14,5 +14,9 @@ export const globalComponents = [
   {
     name: 'landing-page-conversion',
     object: () => import('../organisms/landing-page/conversion.vue')
+  },
+  {
+    name: 'landing-page-questions',
+    object: () => import('../organisms/landing-page/often-questions.vue')
   }
 ]
