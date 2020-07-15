@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\Gym;
-use App\Models\Login;
-use App\Models\Trainer;
 use App\Models\User;
 use App\Repositories\UserRepository;
 
@@ -40,7 +38,7 @@ class UsersController extends Controller
     public function store(RegisterRequest $request)
     {
         // すでにLoginと紐付いていた場合
-        if (Login::find($this->loginId)->user_id) {
+        if ($request->existsRegisteredUser()) {
             return redirect()->route('trainers.login');
         }
 

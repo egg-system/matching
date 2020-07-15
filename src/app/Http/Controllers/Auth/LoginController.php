@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gym;
+use App\Models\Trainer;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class LoginController extends Controller
 {
@@ -34,14 +37,17 @@ class LoginController extends Controller
 
     /**
      * LoginController constructor.
-     * @param string $userType
-     * @param string $redirectTo
+     * @param Route $route
      */
-    public function __construct(string $userType = '', string $redirectTo = '')
+    public function __construct(Route $route)
     {
         $this->middleware('guest')->except('logout');
-        $this->userType = $userType;
-        $this->redirectTo = $redirectTo;
+        // トレーナー、ジムオーナーで処理を分ける可能性があるためコンストラクタで設定する
+        $this->userType = strpos($route->getName(), 'trainers') !== false ? Trainer::class : Gym::class;
+
+        if ($route->getName() === 'gyms.login') {
+            $this->redirectTo = route('gyms.index');
+        }
     }
 
     /**
