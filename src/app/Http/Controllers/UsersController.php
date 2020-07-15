@@ -13,13 +13,9 @@ class UsersController extends Controller
     /** @var UserRepository  */
     private $userRepository;
 
-    /** @var int */
-    private $loginId;
-
-    public function __construct(UserRepository $userRepository, ?int $loginId)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->loginId = $loginId;
     }
 
     /**
