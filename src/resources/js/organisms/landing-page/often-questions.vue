@@ -1,14 +1,14 @@
 <template>
-  <section>
+  <section class="quesionns-wrapper">
     <h2>よくある質問</h2>
-    <ol>
+    <ul>
       <template v-for="(question, index) in questions">
         <li :key="question.question">
           <often-question :question="question.question" :answer="question.answer" />
         </li>
         <content-line :key="index" />
       </template>
-    </ol>
+    </ul>
   </section>
 </template>
 
@@ -22,3 +22,13 @@ export default {
   data: () => ({ questions })
 } 
 </script>
+
+<style lang="scss" scoped>
+.quesionns-wrapper {
+  margin: 200px 0;
+
+  h2 {
+    margin-bottom: 100px;
+  }
+}
+</style>
