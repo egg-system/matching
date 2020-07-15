@@ -30,7 +30,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer(
-            ['pages.trainers.edit', 'components.common._form'],
+            ['pages.users.edit', 'components.common._form'],
             function ($view) {
                 $view->with($this->getMasterData());
             }
