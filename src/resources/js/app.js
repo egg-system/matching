@@ -2,9 +2,9 @@ require('./bootstrap')
 
 import Vue from 'vue'
 
-import { globalComponents } from './plugins/register-components'
+import { components } from './plugins/register-components'
 
-globalComponents.forEach(component => {
+components.forEach(component => {
   Vue.component(component.name, component.object)
 })
 
