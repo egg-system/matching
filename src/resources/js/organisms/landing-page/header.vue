@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="nav-menu-wrapper">
-      <nav-menu class="mx-6 my-8" />
+      <nav-menu class="mx-14 my-16" />
     </div>
   </header>
 </template>
