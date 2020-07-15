@@ -35,3 +35,8 @@
         :menus='@json($footerMenus)'
     ></landing-page-footer>
 @endsection
+
+@push('scripts')
+    {{-- Twitterのシェアボタンに必要になる --}}
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+@endpush
