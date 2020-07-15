@@ -1,27 +1,28 @@
 <template>
-  <ul class="fixutures-wrapper">
-    <li v-for="(feature, index) in features" :key="index">
-      <feature-description :index="index + 1" :feature="feature" />
-    </li>
-  </ul>
+  <ol class="feature-wrapper">
+    <template v-for="(feature, index) in features">
+      <content-line v-if="index !== 0" :key="index" />
+      <li :key="feature.name">
+        <feature-description :index="index + 1" :feature="feature" />
+      </li>
+    </template>
+  </ol>
 </template>
 
 <script>
+import contentLine from '../../atoms/landing-page/content-line'
 import featureDescription from '../../atoms/landing-page/descriptions/feature-description'
 import { features } from './features-constants'
 
 export default {
-  components: { featureDescription },
+  components: { featureDescription, contentLine },
   data: () => ({ features })
 }
 </script>
 
 <style lang="scss" scoped>
-.fixutures-wrapper {
+.feature-wrapper {
   margin: 150px 0;
-
-  li:not(:last-child) {
-    border-bottom: 1px solid #000;
-  }
+  padding: 0;
 }
 </style>

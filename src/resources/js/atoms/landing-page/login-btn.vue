@@ -1,5 +1,5 @@
 <template>
-  <v-btn width="500px" height="80px" class="login-btn">
+  <v-btn width="600px" height="100px" class="login-btn">
     <span class="login-btn-phrase">
       無料で始める / ログイン
     </span>
@@ -9,6 +9,7 @@
 <style lang="scss" scoped>
 .login-btn {
   background: linear-gradient(to right, #FF9966, #FF6666);
+  border-radius: 10px;
 }
 
 span.login-btn-phrase {
