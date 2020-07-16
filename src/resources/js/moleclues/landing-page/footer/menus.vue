@@ -32,7 +32,7 @@ export default {
 
   .v-list-item__content {
     justify-content: center;
-    font-size: 45px;
+    font-size: 35px;
     margin: 10px;
   }
 }
