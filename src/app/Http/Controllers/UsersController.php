@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\Gym\TrainerSearchRequest;
 use App\Models\Gym;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Repositories\SearchService;
 
 class UsersController extends Controller
 {
     /** @var UserRepository  */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    private $searchService;
+
+    public function __construct(UserRepository $userRepository, SearchService $searchService)
     {
         $this->userRepository = $userRepository;
+        $this->searchService = $searchService;
     }
 
     /**
@@ -69,5 +74,19 @@ class UsersController extends Controller
             return redirect()->route('gyms.edit', $model->id);
         }
         return redirect()->route('top');
+    }
+
+    /**
+     * トレーナの一覧表示画面(検索付)
+     */
+    public function trainerList(TrainerSearchRequest $request)
+    {
+        // $validated = $request->validated();
+
+        // if ($request->anyFilled(array_keys($validated))) {
+            $conditions = $this->searchService->profileSearch($request);
+        // }
+
+        return view('pages.gyms.trainerList', compact('conditions'));
     }
 }

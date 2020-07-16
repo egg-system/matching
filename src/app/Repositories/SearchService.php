@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Http\Request;
+
 class SearchService
 {
     protected $searchInterface;

@@ -22,6 +22,8 @@ class ChangeColumnToMatchingConditionsTable extends Migration
             $table->unsignedBigInteger("worktime_week")->nullable()->comment('勤務時間 - 1週間あたり');
             $table->unsignedBigInteger("holiday_work")->nullable()->comment('休日勤務可能');
             $table->unsignedBigInteger("weekday_work")->nullable()->comment('平日勤務可能');
+            $table->unsignedBigInteger("adjust")->nullable()->comment('企業や案件に合わせて調整したい');
+            $table->unsignedBigInteger("changing_jobs")->nullable()->comment('転職も検討している');
         });
     }
 
@@ -41,6 +43,8 @@ class ChangeColumnToMatchingConditionsTable extends Migration
             $table->dropColumn("worktime_week");
             $table->dropColumn("holiday_work");
             $table->dropColumn("weekday_work");
+            $table->dropColumn("adjust");
+            $table->dropColumn("changing_jobs");
         });
     }
 }

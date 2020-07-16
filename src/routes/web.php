@@ -19,9 +19,11 @@ Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
 
     // トレーナーのみ
     Route::group(['middleware' => ['auth', 'can:trainer']], function () {
-    Route::resource('', 'UsersController', ['parameters' => ['' => 'trainer']])
-            ->only(['edit', 'update'])
-            ->middleware(['can:update,trainer']);
+        Route::resource('', 'UsersController', ['parameters' => ['' => 'trainer']])
+                ->only(['edit', 'update'])
+                ->middleware(['can:update,trainer']);
+        Route::get('trainerList', 'UsersController@trainerList')
+                ->name('trainerList');
     });
 });
 

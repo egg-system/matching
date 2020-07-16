@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Components;
 
-use App\Services\SearchInterface;
+use App\Repositories\SearchInterface;
 use App\Models\MatchingCondition;
 use Illuminate\Http\Request;
 
@@ -19,11 +19,11 @@ class TrainerSearch implements SearchInterface
         $this->matchingConditionSearch = $matchingConditionSearch;
 
         $this->detailSearchParams = [
-            'id' => ['operation' => '='],
+            'user_id' => ['operation' => '='],
         ];
 
         $this->profileSearchParams = [
-            'id' => ['operation' => '='],
+            'user_id' => ['operation' => '='],
         ];
 
         $this->messageSearchParams = [

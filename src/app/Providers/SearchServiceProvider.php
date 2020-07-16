@@ -29,7 +29,7 @@ class SearchServiceProvider extends ServiceProvider
                         $bindClass = \App\Components\TrainerSearch::class;
                         break;
                 }
-                // return $app->make(\App\Components\TrainerSearch::class);
+                return $app->make($bindClass);
         });
     }
 

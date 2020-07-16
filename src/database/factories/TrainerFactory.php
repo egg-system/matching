@@ -15,6 +15,18 @@ $factory->define(Trainer::class, function (Faker $faker) {
         'pr_comment' => $faker->text,
         'now_work_area_id' => 1,
         'now_work_style' => 1,
+        'carrer' => [
+            [
+                'gym_name' => $faker->realText($maxNbChars = 10, $indexSize = 2),
+                'enrollment' => ['start' => '2019/01', 'end' => '2019/12', 'ongoing' => '0'],
+                'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2)
+            ],
+            [
+                'gym_name' => $faker->realText($maxNbChars = 10, $indexSize = 2),
+                'enrollment' => ['start' => '2020/01', 'end' => '', 'ongoing' => '1'],
+                'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2)
+            ]
+        ],
     ];
 });
 

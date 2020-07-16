@@ -14,5 +14,7 @@ $factory->define(MatchingCondition::class, function (Faker $faker) {
         'worktime_week' => 1,
         'holiday_work' => 1,
         'weekday_work' => 1,
+        'adjust' => 1,
+        'changing_jobs' => 1,
     ];
 });
