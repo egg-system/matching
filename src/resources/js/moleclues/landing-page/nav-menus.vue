@@ -1,7 +1,7 @@
 <template>
   <div>
     <div @click="open">
-      <nav-icon />
+      <nav-icon v-if="false" />
     </div>
     <v-navigation-drawer v-model="isShown" right app temporary>
       <v-list nav>
