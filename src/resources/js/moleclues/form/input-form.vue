@@ -1,32 +1,36 @@
 <template>
-  <textarea
+  <input
     :id="id"
-    class="textareaForm"
-    :class="{ 'textareaForm--danger': error }" 
+    :type="type"
+    class="input-form"
+    :class="{ 'input-form--danger': error }" 
     :name="name"
     :value="value"
-    :placeholder="placeholder"
-  ></textarea>
+    :autocomplete="autocomplete"
+    :autofocus="autofocus"
+    :required="required"
+  >
 </template>
 
 <script>
 export default {
   props: {
-    id: { type: String, default: '' },
     name: { type: String, required: true },
+    id: { type: String, default: '' },
+    type: { type: String, default: '' },
     value: { type: String, required: true },
-    placeholder: { type: String, default: '' },
+    autocomplete: { type: String, default: '' },
+    autofocus: { type: Boolean, default: false },
+    required: { type: Boolean, default: false },
     error: { type: String, default: '' }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.textareaForm {
+.input-form {
   display: block;
   width: 100%;
-  height: 100px;
-  resize: none;
   border: none;
   border-bottom: solid 1px;
   font-size: 1.2rem;

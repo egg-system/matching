@@ -1,12 +1,12 @@
 <template>
-  <div class="formWrapper">
-    <label class="formLabel" :for="name">{{ label }}</label>
+  <div class="form-wrapper">
+    <label class="form-label" :for="name">{{ label }}</label>
     
     <!-- サブテキストあり -->
     <template v-if="subtext">
-      <div class="formContainer">
-        <div class="formContainer__subtext">{{ subtext }}</div>
-        <div class="formContainer__form">
+      <div class="form-container">
+        <div class="form-container__subtext">{{ subtext }}</div>
+        <div class="form-container__form">
           <slot />
         </div>
       </div>
@@ -14,12 +14,12 @@
 
     <!-- 範囲系 -->
     <template v-else-if="type === 'range'">
-      <div class="rangeFormContainer">
-        <div class="rangeFormContainer__form">
+      <div class="range-form-container">
+        <div class="range-form-container__form">
           <slot name="from" />
         </div>
-        <div class="rangeFormContainer__tilda">〜</div>
-        <div class="rangeFormContainer__form">
+        <div class="range-form-container__tilda">〜</div>
+        <div class="range-form-container__form">
           <slot name="to" />
         </div>
       </div>
@@ -29,7 +29,7 @@
       <slot />
     </template>
     
-    <span v-if="error" class="alertText" role="alert">
+    <span v-if="error" class="alert-text" role="alert">
       <strong>{{ error }}</strong>
     </span>
   </div>
@@ -48,16 +48,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.formWrapper {
+.form-wrapper {
   margin-bottom: 50px;
 }
-.formLabel {
+.form-label {
   display: block;
   font-weight: bold;
   font-size: 1rem;
   margin-bottom: 30px;
 }
-.formContainer {
+.form-container {
   display: flex;
   &__subtext {
     flex-basis: 40%;
@@ -66,7 +66,7 @@ export default {
     flex-basis: 60%;
   }
 }
-.rangeFormContainer {
+.range-form-container {
   display: flex;
   &__tilda {
     flex-basis: 20%;
@@ -77,7 +77,7 @@ export default {
     flex-basis: 40%;
   }
 }
-.alertText {
+.alert-text {
   display: block;
   color: red;
   margin-top: 10px;

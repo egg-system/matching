@@ -1,5 +1,5 @@
-import FormWrapper from './FormWrapper.vue'
-import SelectForm from './SelectForm.vue'
+import FormWrapper from './form-wrapper.vue'
+import SelectForm from './select-form.vue'
 
 export default { title: 'Form/SelectForm' };
 

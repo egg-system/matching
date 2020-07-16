@@ -1,5 +1,5 @@
-import FormWrapper from './FormWrapper.vue'
-import InputForm from './InputForm.vue'
+import FormWrapper from './form-wrapper.vue'
+import InputForm from './input-form.vue'
 
 export default { title: 'Form/InputForm' };
 

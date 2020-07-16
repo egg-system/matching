@@ -4,7 +4,7 @@
 @endpush
 
 @section('content')
-<div class="usersEditPage">
+<div class="users-edit-page">
     @can('trainer')
     <div class="header">トレーナー編集</div>
     @elsecan('gym')

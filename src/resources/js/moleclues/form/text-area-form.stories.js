@@ -1,5 +1,5 @@
-import FormWrapper from './FormWrapper.vue'
-import TextAreaForm from './TextAreaForm.vue'
+import FormWrapper from './form-wrapper.vue'
+import TextAreaForm from './text-area-form.vue'
 
 export default { title: 'Form/TextAreaForm' };
 

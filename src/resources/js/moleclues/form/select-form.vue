@@ -1,10 +1,10 @@
 <template>
-  <div class="selectWrap">
+  <div class="select-wrap">
     <select
       :id="id"
       :name="name"
-      class="selectForm"
-      :class="{ 'selectForm--danger': error }" 
+      class="select-form"
+      :class="{ 'select-form--danger': error }" 
     >
       <option
         v-for="(option, i) in options"
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.selectWrap {
+.select-wrap {
   width: 100%;
   position: relative;
   display: inline-block;
@@ -47,7 +47,7 @@ export default {
     pointer-events: none;
   }
 }
-.selectForm {
+.select-form {
   display: block;
   width: 100%;
   border-bottom: solid 1px;

@@ -8,13 +8,13 @@ components.forEach(component => {
   Vue.component(component.name, component.object)
 })
 
-import vuetify from './plugins/vuetify'
+// form
+Vue.component('form-wrapper', require('./moleclues/form/form-wrapper.vue').default);
+Vue.component('input-form', require('./moleclues/form/input-form.vue').default);
+Vue.component('select-form', require('./moleclues/form/select-form.vue').default);
+Vue.component('text-area-form', require('./moleclues/form/text-area-form.vue').default);
 
-// molecules
-Vue.component('form-wrapper', require('./components/molecules/form/FormWrapper.vue').default);
-Vue.component('input-form', require('./components/molecules/form/InputForm.vue').default);
-Vue.component('select-form', require('./components/molecules/form/SelectForm.vue').default);
-Vue.component('text-area-form', require('./components/molecules/form/TextAreaForm.vue').default);
+import vuetify from './plugins/vuetify'
 
 const app = new Vue({
   vuetify,
