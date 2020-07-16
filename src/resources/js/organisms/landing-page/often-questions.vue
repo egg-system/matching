@@ -30,5 +30,9 @@ export default {
   h2 {
     margin-bottom: 100px;
   }
+
+  ul {
+    list-style-type: none; 
+  }
 }
 </style>

@@ -5,11 +5,11 @@
     $footerMenus = [
         [
             'name' => '運営会社',
-            'url' => '/'
+            'url' => 'https://eggsystem.co.jp/'
         ],
         [
             'name' => 'お問い合わせ',
-            'url' => '/'
+            'url' => 'https://forms.gle/ETkFKttFfxLPM6DF6'
         ],
         [
             'name' => '利用規約',

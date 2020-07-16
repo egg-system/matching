@@ -34,13 +34,17 @@ export default {
 .question-box {
   margin: 100px 0;
 
+  p, h3 {
+    text-align: left;
+  }
+
   .question-title {
-    /* pタグなどのwidth90%にあわせる */
-    margin: 0 5%;
+    /* pタグなどのwidth86%にあわせる */
+    margin: 0 7%;
 
     h3 {
       padding-left: 10px;
-      font-size: 40px;
+      font-size: 50px;
     }
   }
 }

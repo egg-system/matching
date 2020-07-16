@@ -1,7 +1,7 @@
 export const features = [
   {
     image: '/images/landing-page/icon-time.png',
-    name: '自由な働き方。',
+    name: '平日夜・休日 週1〜自由に勤務が可能。',
     description: `
       いつでもどこでも、ご自身の都合に合わせて働くことができます。
       週1日でも、夜だけでも、週末だけでも、空いた時間を使って自由に働くことができます。
