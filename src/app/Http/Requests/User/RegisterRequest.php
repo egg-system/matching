@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\Login;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -42,5 +43,14 @@ class RegisterRequest extends FormRequest
             'occupation_id' => '種類',
             'agree' => '利用規約'
         ];
+    }
+
+    /**
+     * 登録済みユーザーか判定
+     * @return bool
+     */
+    public function existsRegisteredUser(): bool
+    {
+        return !empty(Login::find($this->id)->user_id);
     }
 }

@@ -5,10 +5,17 @@ use Illuminate\Support\Facades\Route;
 // トレーナーのルーティング
 Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
     // 認証
-    Route::view('login', 'pages.trainers.login')->middleware('guest')->name('login.view');
-    Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
+    Route::view('login', 'pages.users.login', ['isGymOwner' => false])
+        ->middleware('guest')
+        ->name('login.view');
 
-    Route::resource('', 'UsersController')->only(['create', 'store'])->middleware('signed');
+    Route::post('login', 'Auth\LoginController@login')
+        ->middleware('guest')
+        ->name('login');
+
+    Route::resource('', 'UsersController')
+        ->only(['create', 'store'])
+        ->middleware('signed');
 
     // トレーナーのみ
     Route::group(['middleware' => ['auth', 'can:trainer']], function () {
@@ -21,8 +28,14 @@ Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
 // ジムオーナー
 Route::group(['prefix' => 'gyms', 'as' => 'gyms.'], function () {
     // 認証
-    Route::view('login', 'pages.gyms.login')->middleware('guest')->name('login.view');
-    Route::post('login', 'Auth\LoginController@login')->middleware('guest')->name('login');
+    Route::view('login', 'pages.users.login', ['isGymOwner' => true])
+        ->middleware('guest')
+        ->name('login.view');
+
+    Route::post('login', 'Auth\LoginController@login')
+        ->middleware('guest')
+        ->name('login');
+
     Route::middleware(['auth', 'can:gym'])->group(function () {
         Route::get('trainerList', 'GymsController@trainerList')->name('trainerList');
         Route::resource('', 'GymsController', ['parameters' => ['' => 'gym']])

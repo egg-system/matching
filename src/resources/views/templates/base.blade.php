@@ -7,9 +7,9 @@
 
 <body>
     <div id="app"> 
-        @component('components.layouts.common.app')
+        <v-app>
             @yield('body')
-        @endcomponent
+        </v-app>
     </div>
 
     {{-- 副作用を避けるため、divの外に記載 --}}

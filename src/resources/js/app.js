@@ -1,9 +1,14 @@
-require('./bootstrap');
+require('./bootstrap')
 
 import Vue from 'vue'
-import vuetify from './plugins/vuetify'
 
-import appSlot from "./organisms/app-slot.vue";
+import { components } from './plugins/register-components'
+
+components.forEach(component => {
+  Vue.component(component.name, component.object)
+})
+
+import vuetify from './plugins/vuetify'
 
 // molecules
 Vue.component('form-wrapper', require('./components/molecules/form/FormWrapper.vue').default);
@@ -13,7 +18,6 @@ Vue.component('text-area-form', require('./components/molecules/form/TextAreaFor
 
 const app = new Vue({
   vuetify,
-  components: { appSlot },
   el: '#app'
 })
 
