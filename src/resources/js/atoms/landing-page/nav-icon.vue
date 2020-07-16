@@ -1,3 +1,6 @@
 <template>
-  <v-icon :size="100">mdi-menu</v-icon>
+  <v-img
+    width="60px"
+    src="/images/landing-page/icon-menu.png"
+  />
 </template>

@@ -17,6 +17,8 @@ export default {
 
 <style lang="scss" scoped>
 .conversion-wrapper {
+  margin-bottom: 200px;
+
   p {
     font-weight: bold;
     font-family: sans-serif;
