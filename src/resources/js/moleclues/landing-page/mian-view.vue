@@ -2,7 +2,7 @@
   <div class="center-align-wrapper">
     <main-image />
     <h1 class="main-title accent-phrase">
-      トレーナーのための<br >副業マッチングプラットフォーム
+      トレーナーのための<br />複業・副業マッチングプラットフォーム
     </h1>
     <main-copy />
   </div>
