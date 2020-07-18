@@ -1,21 +1,34 @@
 <template>
-  <input
-    :id="id"
-    :type="type"
-    class="input-form"
-    :class="{ 'input-form--danger': error }" 
+  <form-wrapper
+    :label="label"
     :name="name"
-    :value="value"
-    :autocomplete="autocomplete"
-    :autofocus="autofocus"
-    :required="required"
+    :error="error"
   >
+    <input
+      :id="id"
+      :type="type"
+      class="input-form"
+      :class="{ 'input-form--danger': error }" 
+      :name="formName || name"
+      :value="value"
+      :autocomplete="autocomplete"
+      :autofocus="autofocus"
+      :required="required"
+    >
+  </form-wrapper>
 </template>
 
 <script>
+import FormWrapper from './form-wrapper'
+
 export default {
+  components: {
+    FormWrapper
+  },
   props: {
+    label: { type: String, required: true },
     name: { type: String, required: true },
+    formName: { type: String, default: '' },
     id: { type: String, default: '' },
     type: { type: String, default: '' },
     value: { type: String, required: true },

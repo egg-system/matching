@@ -6,9 +6,13 @@
 @section('content')
 <div class="users-edit-page">
     @can('trainer')
-    <div class="header">トレーナー編集</div>
+    <div class="header">
+        <h1>トレーナー編集</h1>
+    </div>
     @elsecan('gym')
-    <div class="header">ジムオーナー編集</div>
+    <div class="header">
+        <h1>ジムオーナー編集</h1>
+    </div>
     @endcan
     
     @can('trainer')
@@ -26,21 +30,16 @@
             @csrf
 
             @can('trainer')
-            <form-wrapper
+            <input-form
                 label="氏名"
                 name="name"
+                id="name"
+                type="text"
+                value="{{ optional(Auth::user())->name ?? old('name') }}"
+                autocomplete="name"
+                autofocus
                 error="{{ $errors->first('name') }}"
-            >
-                <input-form
-                    name="name"
-                    id="name"
-                    type="text"
-                    value="{{ optional(Auth::user())->name ?? old('name') }}"
-                    autocomplete="name"
-                    autofocus
-                    error="{{ $errors->first('name') }}"
-                ></input-form>
-            </form-wrapper>
+            ></input-form>
 
             <?php
                 // componentのpropsに合わせて変換
@@ -49,20 +48,15 @@
                 });
                 $formattedOccupations->prepend(collect([ 'name' => '-- 選択してください --', 'value' => '' ]));
             ?>
-            <form-wrapper
+            <select-form
                 label="業種"
+                sublabel="業種"
                 name="occupation_id"
-                subtext="業種"
+                id="occupation"
+                :options="{{ json_encode($formattedOccupations) }}"
+                selected="{{ isset($matchingCondition->occupation_id) ? (string)$matchingCondition->occupation_id : old('occupation_id') }}"
                 error="{{ $errors->first('occupation_id') }}"
-            >
-                <select-form
-                    name="occupation_id"
-                    id="occupation"
-                    :options="{{ json_encode($formattedOccupations) }}"
-                    selected="{{ isset($matchingCondition->occupation_id) ? (string)$matchingCondition->occupation_id : old('occupation_id') }}"
-                    error="{{ $errors->first('occupation_id') }}"
-                ></select-form>
-            </form-wrapper>
+            ></select-form>
 
             <?php
                 // componentのpropsに合わせて変換
@@ -71,75 +65,49 @@
                 });
                 $formattedAreas->prepend(collect([ 'name' => '', 'value' => '' ]));
             ?>
-            <form-wrapper
+            <select-form
                 label="現在の勤務地エリア"
-                name="areas"
-                subtext="エリア"
+                sublabel="エリア"
+                name="area_id"
+                id="area"
+                :options="{{ json_encode($formattedAreas) }}"
+                selected="{{ isset($matchingCondition->area_id) ? (string)$matchingCondition->area_id : old('area_id') }}"
                 error="{{ $errors->first('area_id') }}"
-            >
-                <select-form
-                    name="area_id"
-                    id="area"
-                    :options="{{ json_encode($formattedAreas) }}"
-                    selected="{{ isset($matchingCondition->area_id) ? (string)$matchingCondition->area_id : old('area_id') }}"
-                    error="{{ $errors->first('area_id') }}"
-                ></select-form>
-            </form-wrapper>
+            ></select-form>
 
-            <form-wrapper
+            <input-form
                 label="電話番号"
                 name="tel"
+                id="tel"
+                type="tel"
+                value="{{ $user->tel ?? old('tel') }}"
+                autocomplete="tel"
                 error="{{ $errors->first('tel') }}"
-            >
-                <input-form
-                    name="tel"
-                    id="tel"
-                    type="tel"
-                    value="{{ $user->tel ?? old('tel') }}"
-                    autocomplete="tel"
-                    error="{{ $errors->first('tel') }}"
-                ></input-form>
-            </form-wrapper>
+            ></input-form>
             
-            <form-wrapper
+            <text-area-form
                 label="自己紹介"
                 name="pr_comment"
+                id="pr_comment"
+                value="{{ $user->pr_comment ?? old('pr_comment') }}"
+                placeholder="自己紹介を入れて企業にアピールしよう"
                 error="{{ $errors->first('pr_comment') }}"
-            >
-                <text-area-form
-                    name="pr_comment"
-                    id="pr_comment"
-                    value="{{ $user->pr_comment ?? old('pr_comment') }}"
-                    placeholder="自己紹介を入れて企業にアピールしよう"
-                    error="{{ $errors->first('pr_comment') }}"
-                ></text-area-form>
-            </form-wrapper>
+            ></text-area-form>
 
-            <form-wrapper
+            <range-input-form
                 label="希望単価"
                 name="price"
-                type="range"
-                error="{{ !empty($errors->first('price.min')) ? $errors->first('price.min') : (!empty($errors->first('price.max')) ? $errors->first('price.max') : '') }}"
-            >
-                <template v-slot:from>
-                    <input-form
-                        name="price[min]"
-                        id="price"
-                        type="number"
-                        value="{{ isset($matchingCondition->price['min']) ? $matchingCondition->price['min'] : old('price.min') }}"
-                        error="{{ $errors->first('price.min') }}"
-                    ></input-form>
-                </template>
-                <template v-slot:to>
-                    <input-form
-                        name="price[max]"
-                        id="price"
-                        type="number"
-                        value="{{ isset($matchingCondition->price['max']) ? $matchingCondition->price['max'] : old('price.max') }}"
-                        error="{{ $errors->first('price.max') }}"
-                    ></input-form>
-                </template>
-            </form-wrapper>
+                from-id="price"
+                from-name="price[min]"
+                from-type="number"
+                from-value="{{ isset($matchingCondition->price['min']) ? $matchingCondition->price['min'] : old('price.min') }}"
+                from-error="{{ $errors->first('price.min') }}"
+                to-name="price[max]"
+                to-id="price"
+                to-type="number"
+                to-value="{{ isset($matchingCondition->price['max']) ? $matchingCondition->price['max'] : old('price.max') }}"
+                to-error="{{ $errors->first('price.max') }}"
+            ></range-input-form>
 
             <?php
                 // componentのpropsに合わせて変換
@@ -149,33 +117,25 @@
                 });
                 $formattedDayOfWeek->prepend(collect([ 'name' => '', 'value' => '' ]));
             ?>
-            <form-wrapper
+            <select-form
                 label="希望曜日"
                 name="work_time"
+                form-name="work_time[week]"
+                id="work_time"
+                :options="{{ json_encode($formattedDayOfWeek) }}"
+                selected="{{ isset($matchingCondition->work_time['week']) ? $matchingCondition->work_time['week'] : old('work_time.week') }}"
                 error="{{ $errors->first('work_time.week') }}"
-            >
-                <select-form
-                    name="work_time[week]"
-                    id="work_time"
-                    :options="{{ json_encode($formattedDayOfWeek) }}"
-                    selected="{{ isset($matchingCondition->work_time['week']) ? $matchingCondition->work_time['week'] : old('work_time.week') }}"
-                    error="{{ $errors->first('work_time.week') }}"
-                ></select-form>
-            </form-wrapper>
+            ></select-form>
 
-            <form-wrapper
+            <input-form
                 label="希望時間帯"
                 name="work_time"
+                form-name="work_time[time]"
+                id="work_time"
+                type="time"
+                value="{{ isset($matchingCondition->work_time['time']) ? $matchingCondition->work_time['time'] : old('work_time.time') }}"
                 error="{{ $errors->first('work_time.time') }}"
-            >
-                <input-form
-                    name="work_time[time]"
-                    id="work_time"
-                    type="time"
-                    value="{{ isset($matchingCondition->work_time['time']) ? $matchingCondition->work_time['time'] : old('work_time.time') }}"
-                    error="{{ $errors->first('work_time.time') }}"
-                ></input-form>
-            </form-wrapper>
+            ></input-form>
 
             @elsecan('gym')
             <div class="form-group row">

@@ -1,17 +1,24 @@
 <template>
-  <textarea
-    :id="id"
-    class="textarea-form"
-    :class="{ 'textarea-form--danger': error }" 
+  <form-wrapper
+    :label="label"
     :name="name"
-    :value="value"
-    :placeholder="placeholder"
-  ></textarea>
+    :error="error"
+  >
+    <textarea
+      :id="id"
+      class="textarea-form"
+      :class="{ 'textarea-form--danger': error }" 
+      :name="name"
+      :value="value"
+      :placeholder="placeholder"
+    ></textarea>
+  </form-wrapper>
 </template>
 
 <script>
 export default {
   props: {
+    label: { type: String, required: true },
     id: { type: String, default: '' },
     name: { type: String, required: true },
     value: { type: String, required: true },
