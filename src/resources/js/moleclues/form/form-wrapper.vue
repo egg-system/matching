@@ -1,6 +1,6 @@
 <template>
   <div class="form-wrapper">
-    <label class="form-label" :for="name">{{ label }}</label>
+    <label class="form-label" :for="labelFor">{{ label }}</label>
     
     <slot />
     
@@ -14,7 +14,7 @@
 export default {
   props: {
     label: { type: String, required: true },
-    name: { type: String, required: true },
+    labelFor: { type: String, required: true },
     error: { type: String, default: '' }
   }
 }

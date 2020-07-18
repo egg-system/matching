@@ -1,7 +1,7 @@
 <template>
   <form-wrapper
     :label="label"
-    :name="name"
+    :labelFor="labelFor || name"
     :error="error"
   >
     <input
@@ -9,7 +9,7 @@
       :type="type"
       class="input-form"
       :class="{ 'input-form--danger': error }" 
-      :name="formName || name"
+      :name="name"
       :value="value"
       :autocomplete="autocomplete"
       :autofocus="autofocus"
@@ -27,8 +27,8 @@ export default {
   },
   props: {
     label: { type: String, required: true },
+    labelFor: { type: String, default: '' },
     name: { type: String, required: true },
-    formName: { type: String, default: '' },
     id: { type: String, default: '' },
     type: { type: String, default: '' },
     value: { type: String, required: true },

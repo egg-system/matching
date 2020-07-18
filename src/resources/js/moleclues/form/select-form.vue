@@ -1,7 +1,7 @@
 <template>
   <form-wrapper
     :label="label"
-    :name="name"
+    :labelFor="labelFor || name"
     :error="error"
   >
     <div class="select-form-container">
@@ -13,7 +13,7 @@
       >
         <select
           :id="id"
-          :name="formName || name"
+          :name="name"
           class="select-form"
           :class="{ 'select-form--danger': error }" 
         >
@@ -38,9 +38,9 @@ export default {
   },
   props: {
     label: { type: String, required: true },
+    labelFor: { type: String, default: '' },
     sublabel: { type: String, default: '' },
     name: { type: String, required: true },
-    formName: { type: String, default: '' },
     id: { type: String, default: '' },
     options: { type: Array, required: true },
     selected: { type: String, default: '' },

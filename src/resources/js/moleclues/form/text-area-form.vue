@@ -1,7 +1,7 @@
 <template>
   <form-wrapper
     :label="label"
-    :name="name"
+    :labelFor="labelFor || name"
     :error="error"
   >
     <textarea
@@ -19,6 +19,7 @@
 export default {
   props: {
     label: { type: String, required: true },
+    labelFor: { type: String, default: '' },
     id: { type: String, default: '' },
     name: { type: String, required: true },
     value: { type: String, required: true },
