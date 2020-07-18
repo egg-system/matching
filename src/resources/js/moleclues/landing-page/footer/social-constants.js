@@ -1,10 +1,10 @@
 export const socialIcons = [
     {
         icon: 'mdi-facebook',
-        url: `https://www.facebook.com/sharer/sharer.php?u=${window.location.origin}`
+        url: `https://www.facebook.com/BorderlessGYM`
     },
     {
         icon: 'mdi-twitter',
-        url: 'https://twitter.com/share?ref_src=twsrc%5Etfw'
+        url: 'https://twitter.com/BorderlessGYM'
     }
 ]

@@ -1,7 +1,12 @@
 <template>
-  <v-btn width="600px" height="100px" class="login-btn">
+  <v-btn
+    width="700px"
+    height="130px"
+    class="login-btn"
+    href="https://forms.gle/TwWSKiC2nxgM4kb99"
+  >
     <span class="login-btn-phrase">
-      無料で始める / ログイン
+      無料で始める<template v-if="false"> / ログイン</template>
     </span>
   </v-btn>
 </template>
@@ -15,7 +20,7 @@
 span.login-btn-phrase {
   color: white;
   letter-spacing: 0px;
-  font-size: 30px;
+  font-size: 45px;
   font-weight: bold;
 }
 </style>

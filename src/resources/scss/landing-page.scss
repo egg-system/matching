@@ -9,7 +9,11 @@
     text-align: left;
   }
 
-  h2, h3 {
+  h2 {
+    font-size: 60px;
+  }
+
+  h3 {
     font-size: 50px;
   }
 
@@ -24,9 +28,9 @@
 
   p {
     @include main-font;
-    font-size: 45px;
+    font-size: 44px;
 
-    width: 90%;
+    width: 86%;
     margin: 45px auto;
   }
 
