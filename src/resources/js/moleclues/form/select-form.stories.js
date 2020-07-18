@@ -1,29 +1,43 @@
-import FormWrapper from './form-wrapper.vue'
 import SelectForm from './select-form.vue'
 
 export default { title: 'Form/SelectForm' };
 
+const occupations = [
+  { name: '-- 選択してください --', value: '' },
+  { name: 'パーソナル', value: '1' },
+  { name: 'ボクシング', value: '2' },
+  { name: 'フィットネス', value: '3' }
+]
+
 export const base = () => ({
-  components: { FormWrapper, SelectForm },
+  components: { SelectForm },
   data () {
-    return {
-      occupations: [
-        { name: '-- 選択してください --', value: '' },
-        { name: 'パーソナル', value: '1' },
-        { name: 'ボクシング', value: '2' },
-        { name: 'フィットネス', value: '3' }
-      ]
-    }
+    return { occupations }
   },
-  template: `<form-wrapper
-    label="業種"
-    name="occupation_id"
-    subtext="業種"
-  >
+  template: `
     <select-form
+      label="業種"
+      sublabel="業種"
       name="occupation_id"
       id="occupation"
       :options="occupations"
     ></select-form>
-  </form-wrapper>`
+  `
+})
+
+export const error = () => ({
+  components: { SelectForm },
+  data () {
+    return { occupations }
+  },
+  template: `
+    <select-form
+      label="業種"
+      sublabel="業種"
+      name="occupation_id"
+      id="occupation"
+      :options="occupations"
+      error="エラー"
+    ></select-form>
+  `
 })

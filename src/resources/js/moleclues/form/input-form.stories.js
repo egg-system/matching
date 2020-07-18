@@ -1,15 +1,12 @@
-import FormWrapper from './form-wrapper.vue'
 import InputForm from './input-form.vue'
 
 export default { title: 'Form/InputForm' };
 
 export const base = () => ({
-  components: { FormWrapper, InputForm },
-  template: `<form-wrapper
-    label="氏名"
-    name="name"
-  >
+  components: { InputForm },
+  template: `
     <input-form
+      label="氏名"
       name="name"
       id="name"
       type="text"
@@ -17,5 +14,21 @@ export const base = () => ({
       autocomplete="name"
       autofocus
     ></input-form>
-  </form-wrapper>`
+  `
+})
+
+export const error = () => ({
+  components: { InputForm },
+  template: `
+    <input-form
+      label="氏名"
+      name="name"
+      id="name"
+      type="text"
+      value="山田太郎"
+      autocomplete="name"
+      autofocus
+      error="エラー"
+    ></input-form>
+  `
 })
