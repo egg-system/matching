@@ -17,10 +17,10 @@ class OfferObserver
      */
     public function created(Offer $offer)
     {
-        // トレーナーに受信メール送信
-        $trainer = $offer->toUser->email;
+        // ユーザーに受信メール送信
+        $user = $offer->toUser->email;
         $mail = new OfferRecieve($offer);
-        $offer->notify(new OfferNotify($mail, $trainer));
+        $offer->notify(new OfferNotify($mail, $user));
     }
 
     /**
@@ -31,9 +31,8 @@ class OfferObserver
      */
     public function updated(Offer $offer)
     {
-        // オーナーに返答メール送信
-        $owner = $offer->fromUser->email;
-        $mail = new OfferUpdate();
-        $offer->notify(new OfferNotify($mail, $owner));
+        $send_to_address = $offer->getSendMailAddress();
+        $mail = resolve(OfferUpdate::class, ['offer' => $offer]);
+        $offer->notify(new OfferNotify($mail, $send_to_address));
     }
 }
