@@ -47,7 +47,7 @@ class Offer extends Model
      * @param int $offerState
      * @return Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWhereState(Builder $query, int $offerState = OfferState::UNREPLY)
+    public function scopeWhereState(Builder $query, int $offerState = OfferState::ENTRY)
     {
         return $query->where('offer_state', $offerState);
     }
@@ -55,5 +55,74 @@ class Offer extends Model
     public function updateState(int $state)
     {
         return $this->update(['offer_state' => $state]);
+    }
+
+    /**
+     * オファー状態がエントリーかの判定
+     * @return bool
+     */
+    public function isEntry()
+    {
+        return $this->offer_state === OfferState::ENTRY;
+    }
+
+    /**
+     * オファー状態が正式依頼中かの判定
+     * @return bool
+     */
+    public function isOffer()
+    {
+        return $this->offer_state === OfferState::OFFER;
+    }
+
+    public function isOfferAccept()
+    {
+        return $this->offer_state === OfferState::ACCEPT;
+    }
+
+    public function isOfferRefuse()
+    {
+        return $this->offer_state === OfferState::REFUSE;
+    }
+
+    /**
+     * 現在のオファー状態を元にメール送信先を取得
+     * @return string
+     */
+    public function getSendMailAddress()
+    {
+        if ($this->isEntry()) {
+            return $this->toUser->email;
+        }
+        
+        switch ($this->offer_state) {
+            case OfferState::ENTRY:
+                return $this->toUser->email;
+            case OfferState::OFFER:
+                return $this->toUser->user_type === Trainer::class
+                    ? $this->toUser->email
+                    : $this->fromUser->email;
+            case OfferState::ACCEPT:
+            case OfferState::REFUSE:
+                return $this->toUser->user_type === Gym::class
+                    ? $this->toUser->email
+                    : $this->fromUser->email;
+            default:
+                return '';
+        }
+    }
+
+    /**
+     * 遷移可能な状態を取得
+     * return array
+     */
+    public function getTransitionState()
+    {
+        if ($this->isEntry()) {
+            return [OfferState::OFFER];
+        } elseif ($this->isOffer()) {
+            return [OfferState::ACCEPT, OfferState::REFUSE];
+        }
+        return [];
     }
 }

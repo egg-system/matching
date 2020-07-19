@@ -110,4 +110,22 @@ class Login extends Authenticatable implements MustVerifyEmail
     {
         return $this->email_verified_at !== null;
     }
+
+    /**
+     * トレーナー判定
+     * @return bool
+     */
+    public function isTrainer()
+    {
+        return $this->user_type === Trainer::class;
+    }
+
+    /**
+     * ジムオーナー判定
+     * @return bool
+     */
+    public function isGym()
+    {
+        return $this->user_type === Gym::class;
+    }
 }
