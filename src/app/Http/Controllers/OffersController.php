@@ -5,25 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Offer\StoreRequest;
 use App\Http\Requests\Offer\UpdateRequest;
 use App\Models\Offer;
-use App\Models\OfferState;
+use App\Services\MatchingService;
 use Illuminate\Http\Request;
 
 class OffersController extends Controller
 {
-    public function __construct()
+    private $matchingService;
+
+    public function __construct(MatchingService $matchingService)
     {
+        $this->matchingService = $matchingService;
         $this->authorizeResource(Offer::class);
     }
 
     public function index(Request $request)
     {
-        $user = auth()->user();
-        // 絞り込み条件取得
-        $stateId = $request->query('offer_state', OfferState::UNREPLY);
-        // デフォルトで送信したオファー取得、指定がある場合受信取得
-        $type = $request->type;
-        $query = !$type ? $user->fromOffers() : $user->toOffers();
-        $offers = $query->whereState($stateId)->get();
+        $offers = $this->matchingService->searchOffers($request);
         return view('pages.offers.index', compact('offers'));
     }
 
@@ -34,23 +31,18 @@ class OffersController extends Controller
 
     public function update(Offer $offer, UpdateRequest $request)
     {
-        $offer->updateState($request->offer_state);
+        $this->matchingService->updateState($offer, $request);
         return back();
     }
 
     /**
-     * オファー作成処理
+     * エントリー(オファー)登録処理
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreRequest $request)
     {
-        $id = auth()->id();
-        Offer::create([
-            'offer_from_id' => $id,
-            'offer_to_id' => $request->to,
-            'offer_state' => OfferState::UNREPLY,
-            'message' => $request->message
-        ]);
-
+        $this->matchingService->entry($request);
         return back();
     }
 }

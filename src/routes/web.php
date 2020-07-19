@@ -48,7 +48,7 @@ Route::group(['prefix' => 'gyms', 'as' => 'gyms.'], function () {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('offers', 'OffersController')->only(['index', 'show', 'update']);
-    Route::resource('offers', 'OffersController')->only(['store'])->middleware('can:gym');
+    Route::resource('offers', 'OffersController')->only(['store']);
 });
 
 // メール送信済

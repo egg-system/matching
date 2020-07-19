@@ -2,8 +2,10 @@
 
 namespace App\Policies;
 
+use App\Models\Gym;
 use App\Models\Offer;
 use App\Models\Login;
+use App\Models\Trainer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OfferPolicy
@@ -43,8 +45,19 @@ class OfferPolicy
      */
     public function update(Login $user, Offer $offer)
     {
-        // 受信者のみ更新可能
-        return $offer->offer_to_id === $user->id;
+        if ($offer->offer_to_id !== $user->id && $offer->offer_from_id !== $user->id) {
+            return false;
+        }
+
+        // エントリー→正式依頼への更新はジムオーナーのみ
+        // オファー→内定受諾/辞退はトレーナーのみ
+        if ($offer->isEntry()) {
+            return $user->user_type === Gym::class;
+        } elseif ($offer->isOffer()) {
+            return $user->user_type === Trainer::class;
+        }
+
+        return false;
     }
 
     /**

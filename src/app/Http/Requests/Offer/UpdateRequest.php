@@ -26,10 +26,10 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'offer_state' => [
+            'offerState' => [
                 "required",
                 Rule::exists('offer_states', 'id')->where(function ($query) {
-                    $query->where('id', '<>', OfferState::UNREPLY);
+                    $query->where('id', '<>', OfferState::ENTRY);
                 })
             ]
         ];
