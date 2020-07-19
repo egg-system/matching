@@ -47,7 +47,7 @@ class AddForeignKey extends Migration
     {
         // matcing_conditions
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropForeign('areas_area_id_foreign');
+            $table->dropForeign('matching_conditions_area_id_foreign');
         });
         // offers
         Schema::table('offers', function (Blueprint $table) {
