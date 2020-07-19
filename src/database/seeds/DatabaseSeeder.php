@@ -9,13 +9,16 @@ class DatabaseSeeder extends Seeder
 {
     const TESTING = [
         Testing\GymsTableSeeder::class,
+        Testing\JobsTableSeeder::class,
         Testing\TrainersTableSeeder::class,
         Testing\OfferStateSeeder::class,
+        Testing\UserOccupationsTableSeeder::class,
     ];
 
     const COMMON = [
         Common\AreasTableSeeder::class,
-        Common\OccupationsTableSeeder::class
+        Common\OccupationsTableSeeder::class,
+        Common\PrefecturesTableSeeder::class,
     ];
 
     /**

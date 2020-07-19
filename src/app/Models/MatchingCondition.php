@@ -9,15 +9,12 @@ use Illuminate\Support\Arr;
 class MatchingCondition extends Model
 {
     protected $fillable = [
-        'occupation_id',
         'area_id',
-        'price',
-        'work_time',
-    ];
-
-    protected $casts = [
-        'price' => 'json',
-        'work_time' => 'json',
+        'worktime_week',
+        'holiday_work',
+        'weekday_work',
+        'adjust',
+        'changing_jobs',
     ];
 
     public function user()
@@ -32,7 +29,11 @@ class MatchingCondition extends Model
 
     public function occupation()
     {
-        return $this->belongsTo(Occupation::class);
+        return $this->belongsToMany(Occupation::class,
+                                    'user_occupations',
+                                    'user_id',
+                                    'occupation_id')
+                    ->withTimestamps();
     }
 
     /**
