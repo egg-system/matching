@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(UserOccupation::class, function (Faker $faker) {
     return [
-        'occupation_id' => 1,
-        'user_id' => 1
+        'occupation_id' => $faker->numberBetween(1, 3),
+        'user_id' => $faker->numberBetween(1, 2)
     ];
 });
