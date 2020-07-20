@@ -5,11 +5,11 @@
     :error="error"
   >
     <textarea
+      v-model="textareaValue"
       :id="id"
       class="textarea-form"
       :class="{ 'textarea-form--danger': error }" 
       :name="name"
-      :value="value"
       :placeholder="placeholder"
     ></textarea>
   </form-wrapper>
@@ -25,6 +25,11 @@ export default {
     value: { type: String, required: true },
     placeholder: { type: String, default: '' },
     error: { type: String, default: '' }
+  },
+  computed: {
+    textareaValue () {
+      return this.value
+    }
   }
 }
 </script>

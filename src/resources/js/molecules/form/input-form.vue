@@ -5,12 +5,12 @@
     :error="error"
   >
     <input
+      v-model="inputValue"
       :id="id"
       :type="type"
       class="input-form"
       :class="{ 'input-form--danger': error }" 
       :name="name"
-      :value="value"
       :autocomplete="autocomplete"
       :autofocus="autofocus"
       :required="required"
@@ -36,6 +36,11 @@ export default {
     autofocus: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
     error: { type: String, default: '' }
+  },
+  computed: {
+    inputValue () {
+      return this.value
+    }
   }
 }
 </script>

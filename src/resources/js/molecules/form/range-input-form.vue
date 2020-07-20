@@ -7,12 +7,12 @@
     <div class="range-form-container">
       <div class="range-form-container__form">
         <input
+          v-model="inputFromValue"
           :id="fromId"
           :type="fromType"
           class="input-form"
           :class="{ 'input-form--danger': fromError }" 
           :name="fromName"
-          :value="fromValue"
           :autocomplete="fromAutocomplete"
           :autofocus="fromAutofocus"
           :required="fromRequired"
@@ -21,12 +21,12 @@
       <div class="range-form-container__tilda">〜</div>
       <div class="range-form-container__form">
         <input
+          v-model="inputToValue"
           :id="toId"
           :type="toType"
           class="input-form"
           :class="{ 'input-form--danger': toError }" 
           :name="toName"
-          :value="toValue"
           :autocomplete="toAutocomplete"
           :autofocus="toAutofocus"
           :required="toRequired"
@@ -62,6 +62,14 @@ export default {
     toAutofocus: { type: Boolean, default: false },
     toRequired: { type: Boolean, default: false },
     toError: { type: String, default: '' }
+  },
+  computed: {
+    inputFromValue () {
+      return this.fromValue
+    },
+    inputToValue () {
+      return this.toValue
+    }
   }
 }
 </script>

@@ -12,6 +12,7 @@
         :class="{ 'select-form-container__form--flex': sublabel }"
       >
         <select
+          v-model="selectValue"
           :id="id"
           :name="name"
           class="select-form"
@@ -21,7 +22,6 @@
             v-for="(option, i) in options"
             :value="option.value"
             :key="`select_${i}`"
-            :selected="String(option.value) === selected"
           >{{ option.name }}</option>
         </select>
       </div>
@@ -45,6 +45,11 @@ export default {
     options: { type: Array, required: true },
     selected: { type: String, default: '' },
     error: { type: String, default: '' }
+  },
+  computed: {
+    selectValue () {
+      return this.selected
+    }
   }
 }
 </script>
