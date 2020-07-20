@@ -3,6 +3,7 @@
 
 <head>
     @yield('head')
+    @include('components.layouts.common.meta')
 </head>
 
 <body>

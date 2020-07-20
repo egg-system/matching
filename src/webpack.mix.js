@@ -25,3 +25,5 @@ glob.sync(`${scssPath}/**/*.scss`).map(function(file) {
     // マッピングパスを動的に生成
     mix.sass(file, publicPath + css_path);
 });
+
+mix.version();
