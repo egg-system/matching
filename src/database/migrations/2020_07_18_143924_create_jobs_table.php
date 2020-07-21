@@ -23,8 +23,6 @@ class CreateJobsTable extends Migration
             $table->unsignedBigInteger('pay_max')->nullable()->comment('最高希望時給');
             $table->unsignedBigInteger('experience')->nullable()->comment('経験年数');
             $table->timestamps();
-
-            $table->index('gym_id');
         });
     }
 

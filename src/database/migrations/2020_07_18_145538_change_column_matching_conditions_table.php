@@ -43,7 +43,7 @@ class ChangeColumnMatchingConditionsTable extends Migration
 
         // インデックス設定
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->index(['worktime_week', 'area_id']);
+            $table->index(['worktime_week']);
         });
     }
 

@@ -17,3 +17,7 @@ $factory->define(MatchingCondition::class, function (Faker $faker) {
         'changing_jobs' => true,
     ];
 });
+
+$factory->afterCreating(MatchingCondition::class, function ($matchingCondition) {
+    $matchingCondition->occupation()->attach(2);
+});

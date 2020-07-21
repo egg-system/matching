@@ -12,7 +12,6 @@ class DatabaseSeeder extends Seeder
         Testing\JobsTableSeeder::class,
         Testing\TrainersTableSeeder::class,
         Testing\OfferStateSeeder::class,
-        Testing\UserOccupationsTableSeeder::class,
     ];
 
     const COMMON = [
