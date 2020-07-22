@@ -53,6 +53,10 @@ class ViewServiceProvider extends ServiceProvider
                 $view->with('states', OfferState::all());
             }
         );
+
+        \Blade::if('env', function ($environment) {
+            return app()->environment($environment);
+        });
     }
 
     // bootのタイミングで、クエリを走らせないため、別メソッドに切り出し
