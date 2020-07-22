@@ -2,11 +2,19 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    @env('production')
+        @include('components.gtm.head')
+    @endenv
+
     @yield('head')
 </head>
 
 <body>
-    <div id="app"> 
+    @env('production')
+        @include('components.gtm.body')
+    @endenv
+
+    <div id="app">
         <v-app>
             @yield('body')
         </v-app>
