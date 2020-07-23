@@ -49,15 +49,7 @@ class OfferPolicy
             return false;
         }
 
-        // エントリー→正式依頼への更新はジムオーナーのみ
-        // オファー→内定受諾/辞退はトレーナーのみ
-        if ($offer->isEntry()) {
-            return $user->user_type === Gym::class;
-        } elseif ($offer->isOffer()) {
-            return $user->user_type === Trainer::class;
-        }
-
-        return false;
+        return $offer->canUpdateState($user->user_type);
     }
 
     /**

@@ -31,16 +31,7 @@ class OfferUpdate extends Mailable
     {
         // TODO ルートだけ切っておいて詳細決まりメール内容実装
 
-        $subject = '';
-        if ($this->offer->isOffer()) {
-            $subject = '正式依頼のお知らせ';
-        } elseif ($this->offer->isOfferAccept()) {
-            $subject = '内定受諾のお知らせ';
-        } elseif ($this->offer->isOfferRefuse()) {
-            $subject = '内定辞退のお知らせ';
-        }
-
-        return $this->subject($subject)
+        return $this->subject($this->offer->state->name . 'のお知らせ')
             ->markdown('markdown.offers.update')
             ->with([
                 'url' => route('offers.index')

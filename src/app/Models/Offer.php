@@ -125,4 +125,19 @@ class Offer extends Model
         }
         return [];
     }
+
+    /**
+     * ステータス変更可能か判定
+     * @param string $userType
+     * @return bool
+     */
+    public function canUpdateState(string $userType): bool
+    {
+        if ($this->isEntry()) {
+            return $userType === Gym::class;
+        } elseif ($this->isOffer()) {
+            return $userType === Trainer::class;
+        }
+        return false;
+    }
 }

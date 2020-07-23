@@ -32,7 +32,7 @@ class OfferObserver
     public function updated(Offer $offer)
     {
         $send_to_address = $offer->getSendMailAddress();
-        $mail = resolve(OfferUpdate::class, ['offer' => $offer]);
+        $mail = resolve(OfferUpdate::class, ['offer' => $offer->fresh()]);
         $offer->notify(new OfferNotify($mail, $send_to_address));
     }
 }
