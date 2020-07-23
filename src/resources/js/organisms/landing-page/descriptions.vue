@@ -9,7 +9,7 @@
 <script>
 import serviceDescription from '../../atoms/landing-page/descriptions/service-description'
 import sideJobDescription from '../../atoms/landing-page/descriptions/side-job-description'
-import featureDescriptions from '../../moleclues/landing-page/feature-descriptions'
+import featureDescriptions from '../../molecules/landing-page/feature-descriptions'
 
 export default {
   components: {
