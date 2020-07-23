@@ -153,13 +153,13 @@
 
             <range-input-form
                 label="希望単価"
-                from-id="price"
+                from-id="price_min"
                 from-name="price[min]"
                 from-type="number"
                 from-value="{{ isset($matchingCondition->price['min']) ? $matchingCondition->price['min'] : old('price.min') }}"
                 from-error="{{ $errors->first('price.min') }}"
                 to-name="price[max]"
-                to-id="price"
+                to-id="price_max"
                 to-type="number"
                 to-value="{{ isset($matchingCondition->price['max']) ? $matchingCondition->price['max'] : old('price.max') }}"
                 to-error="{{ $errors->first('price.max') }}"
@@ -176,7 +176,7 @@
             <select-form
                 label="希望曜日"
                 name="work_time[week]"
-                id="work_time"
+                id="work_time_week"
                 :options="{{ json_encode($formattedDayOfWeek) }}"
                 selected="{{ isset($matchingCondition->work_time['week']) ? $matchingCondition->work_time['week'] : old('work_time.week') }}"
                 error="{{ $errors->first('work_time.week') }}"
@@ -185,7 +185,7 @@
             <input-form
                 label="希望時間帯"
                 name="work_time[time]"
-                id="work_time"
+                id="work_time_time"
                 type="time"
                 value="{{ isset($matchingCondition->work_time['time']) ? $matchingCondition->work_time['time'] : old('work_time.time') }}"
                 error="{{ $errors->first('work_time.time') }}"
@@ -201,6 +201,7 @@
                 error="{{ $errors->first('preferred_area_id') }}"
             ></select-form>
 
+            {{ $errors->first('is_available_holiday') }}
             <div class="checkbox-form-container">
                 <div class="checkbox-form-container__form">
                     <checkbox-form

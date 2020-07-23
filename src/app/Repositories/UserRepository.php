@@ -45,6 +45,12 @@ class UserRepository
             // トレーナー更新
             $user->update($request->only($user->getFillable()));
             // matchingCondition更新
+            if (!isset($request['is_available_holiday'])) {
+                $request['is_available_holiday'] = false;
+            }
+            if (!isset($request['is_available_weekday'])) {
+                $request['is_available_weekday'] = false;
+            }
             $user->matchingCondition->update($request->only(MatchingCondition::make()->getFillable()));
             // ログインと紐付けて、カラムの更新
             return $user->associateToLogin(Auth::user(), [

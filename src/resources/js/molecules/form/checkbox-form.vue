@@ -6,6 +6,7 @@
       :id="id"
       class="checkbox-form"
       :name="name"
+      value="1"
     >
     <label class="form-label" :for="id">{{ label }}</label>
   </div>
