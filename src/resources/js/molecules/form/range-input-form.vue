@@ -1,7 +1,7 @@
 <template>
   <form-wrapper
     :label="label"
-    :labelFor="labelFor"
+    :labelFor="fromId || toId"
     :error="fromError || toError"
   >
     <div class="range-form-container">
@@ -45,7 +45,6 @@ export default {
   },
   props: {
     label: { type: String, required: true },
-    labelFor: { type: String, required: true },
     fromId: { type: String, default: '' },
     fromName: { type: String, required: true },
     fromType: { type: String, default: '' },
@@ -64,11 +63,21 @@ export default {
     toError: { type: String, default: '' }
   },
   computed: {
-    inputFromValue () {
-      return this.fromValue
+    inputFromValue: {
+      get () {
+        return this.fromValue
+      },
+      set (val) {
+        this.$emit('input', val)
+      }
     },
-    inputToValue () {
-      return this.toValue
+    inputToValue: {
+      get () {
+        return this.toValue
+      },
+      set (val) {
+        this.$emit('input', val)
+      }
     }
   }
 }

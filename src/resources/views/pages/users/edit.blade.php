@@ -134,7 +134,6 @@
 
             <input-form
                 label="募集人数"
-                label-for="requirements"
                 name="requirements[number]"
                 id="requirements"
                 type="number"
@@ -144,7 +143,6 @@
 
             <input-form
                 label="募集スキル"
-                label-for="requirements"
                 name="requirements[skill]"
                 id="requirements"
                 type="text"
@@ -155,7 +153,6 @@
 
             <range-input-form
                 label="希望単価"
-                label-for="price"
                 from-id="price"
                 from-name="price[min]"
                 from-type="number"
@@ -178,7 +175,6 @@
             ?>
             <select-form
                 label="希望曜日"
-                label-for="work_time"
                 name="work_time[week]"
                 id="work_time"
                 :options="{{ json_encode($formattedDayOfWeek) }}"
@@ -188,7 +184,6 @@
 
             <input-form
                 label="希望時間帯"
-                label-for="work_time"
                 name="work_time[time]"
                 id="work_time"
                 type="time"
