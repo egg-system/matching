@@ -19,5 +19,8 @@ $factory->define(MatchingCondition::class, function (Faker $faker) {
             'time' => $faker->time('H:00'),
             'week' => $faker->randomElement(['月', '火', '水', '木', '金', '土', '日'])
         ],
+        'preferred_area_id' => 2,
+        'is_available_holiday' => $faker->boolean,
+        'is_available_weekday' => $faker->boolean
     ];
 });
