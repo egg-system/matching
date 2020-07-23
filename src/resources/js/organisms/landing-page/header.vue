@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import navMenu from '../../moleclues/landing-page/nav-menus'
+import navMenu from '../../molecules/landing-page/nav-menus'
 
 export default {
   components: { navMenu }

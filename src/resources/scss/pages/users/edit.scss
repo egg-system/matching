@@ -1,0 +1,25 @@
+.users-edit-page {
+  max-width: 1000px;
+  margin: 20px 5% 0 5%;
+  .header {
+    &__aside {
+      position: absolute;
+      right: 5%;
+      top: 105px;
+      button {
+        color: white;
+        background-color: #147454;
+        font-weight: bold;
+        border-radius: 20px;
+        padding: 10px 15px;
+        border: none;
+        outline: none;
+      }
+    }
+    h1 {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+  }
+}

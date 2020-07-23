@@ -1,4 +1,7 @@
+import { formComponents } from './components/molecules/form-components'
 import { landingPageComponents } from './components/landing-page-components'
-const globalComponents = []
 
-export const components = globalComponents.concat(landingPageComponents)
+export const components = [
+  ...formComponents,
+  ...landingPageComponents
+]
