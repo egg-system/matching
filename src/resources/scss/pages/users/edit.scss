@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .users-edit-page {
   max-width: 1000px;
   margin: 20px 5% 0 5%;
@@ -8,7 +10,7 @@
       top: 105px;
       button {
         color: white;
-        background-color: #147454;
+        background: $main-btn-bg;
         font-weight: bold;
         border-radius: 20px;
         padding: 10px 15px;

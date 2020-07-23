@@ -12,8 +12,10 @@
 </template>
 
 <style lang="scss" scoped>
+@import '../../../scss/variables';
+
 .login-btn {
-  background: linear-gradient(to right, #FF9966, #FF6666);
+  background: $main-btn-bg;
   border-radius: 10px;
 }
 
