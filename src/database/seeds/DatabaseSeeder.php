@@ -7,17 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    const TESTING = [
-        Testing\GymsTableSeeder::class,
-        Testing\TrainersTableSeeder::class,
-        Testing\OfferStateSeeder::class,
-    ];
-
-    const COMMON = [
-        Common\AreasTableSeeder::class,
-        Common\OccupationsTableSeeder::class
-    ];
-
     /**
      * Seed the application's database.
      *
@@ -33,12 +22,11 @@ class DatabaseSeeder extends Seeder
     protected function seed()
     {
         // prodのデータは全環境で使用する
-        $this->call(self::COMMON);
+        $this->call(CommonSeeder::class);
 
-        // 本番では実行しない
-        if (App::isProduction()) {
-            return;
+        // 開発環境のみ、実行する
+        if (App::isLocal()) {
+            $this->call(TestingSeeder::class);
         };
-        $this->call(self::TESTING);
     }
 }
