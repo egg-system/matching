@@ -1,7 +1,7 @@
 <template>
   <form-wrapper
     :label="label"
-    :labelFor="labelFor || name"
+    :labelFor="id"
     :error="error"
   >
     <input
@@ -27,9 +27,8 @@ export default {
   },
   props: {
     label: { type: String, required: true },
-    labelFor: { type: String, default: '' },
     name: { type: String, required: true },
-    id: { type: String, default: '' },
+    id: { type: String, required: true },
     type: { type: String, default: '' },
     value: { type: String, required: true },
     autocomplete: { type: String, default: '' },
@@ -38,8 +37,13 @@ export default {
     error: { type: String, default: '' }
   },
   computed: {
-    inputValue () {
-      return this.value
+    inputValue: {
+      get () {
+        return this.value
+      },
+      set (val) {
+        this.$emit('input', val)
+      }
     }
   }
 }

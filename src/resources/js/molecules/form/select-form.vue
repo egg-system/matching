@@ -1,7 +1,7 @@
 <template>
   <form-wrapper
     :label="label"
-    :labelFor="labelFor || name"
+    :labelFor="id"
     :error="error"
   >
     <div class="select-form-container">
@@ -38,17 +38,21 @@ export default {
   },
   props: {
     label: { type: String, required: true },
-    labelFor: { type: String, default: '' },
     sublabel: { type: String, default: '' },
     name: { type: String, required: true },
-    id: { type: String, default: '' },
+    id: { type: String, required: true },
     options: { type: Array, required: true },
     selected: { type: String, default: '' },
     error: { type: String, default: '' }
   },
   computed: {
-    selectValue () {
-      return this.selected
+    selectValue: {
+      get () {
+        return this.selected
+      },
+      set (val) {
+        this.$emit('change', val)
+      }
     }
   }
 }

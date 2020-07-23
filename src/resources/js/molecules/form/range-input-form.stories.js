@@ -7,7 +7,6 @@ export const base = () => ({
   template: `
     <range-input-form
       label="希望単価"
-      label-for="price"
       from-id="price"
       from-name="price[min]"
       from-type="number"
@@ -25,7 +24,6 @@ export const error = () => ({
   template: `
     <range-input-form
       label="希望単価"
-      label-for="price"
       from-id="price"
       from-name="price[min]"
       from-type="number"
