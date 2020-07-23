@@ -195,6 +195,36 @@
                 value="{{ isset($matchingCondition->work_time['time']) ? $matchingCondition->work_time['time'] : old('work_time.time') }}"
                 error="{{ $errors->first('work_time.time') }}"
             ></input-form>
+
+            <select-form
+                label="希望エリア"
+                sublabel="希望エリア"
+                name="preferred_area_id"
+                id="preferred_area"
+                :options="{{ json_encode($formattedAreas) }}"
+                selected="{{ isset($matchingCondition->preferred_area_id) ? (string)$matchingCondition->preferred_area_id : old('preferred_area_id') }}"
+                error="{{ $errors->first('preferred_area_id') }}"
+            ></select-form>
+
+            <div class="checkbox-form-container">
+                <div class="checkbox-form-container__form">
+                    <checkbox-form
+                        label="休日勤務可能"
+                        name="is_available_holiday"
+                        id="is_available_holiday"
+                        checked="{{ isset($matchingCondition->is_available_holiday) ? !!$matchingCondition->is_available_holiday : old('is_available_holiday') }}"
+                    ></checkbox-form>
+                </div>
+
+                <div class="checkbox-form-container__form">
+                    <checkbox-form
+                        label="平日勤務可能"
+                        name="is_available_weekday"
+                        id="is_available_weekday"
+                        checked="{{ isset($matchingCondition->is_available_weekday) ? !!$matchingCondition->is_available_weekday : old('is_available_weekday') }}"
+                    ></checkbox-form>
+                </div>
+            </div>
         </div>
     </form>
 </div>

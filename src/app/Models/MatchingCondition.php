@@ -13,6 +13,9 @@ class MatchingCondition extends Model
         'area_id',
         'price',
         'work_time',
+        'preferred_area_id',
+        'is_available_holiday',
+        'is_available_weekday'
     ];
 
     protected $casts = [

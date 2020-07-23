@@ -1,5 +1,9 @@
 export const formComponents = [
   {
+    name: 'checkbox-form',
+    object: () => import('../../../molecules/form/checkbox-form.vue')
+  },
+  {
     name: 'form-wrapper',
     object: () => import('../../../molecules/form/form-wrapper.vue')
   },

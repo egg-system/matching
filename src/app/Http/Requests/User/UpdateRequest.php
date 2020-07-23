@@ -41,6 +41,9 @@ class UpdateRequest extends FormRequest
             'work_time' => 'nullable|array',
             'work_time.week' => "nullable|in:{$day_of_week_role}",
             'work_time.time' => 'nullable|date_format:H:i',
+            'preferred_area_id' => 'nullable|exists:areas,id',
+            'is_available_holiday' => 'boolean',
+            'is_available_weekday' => 'boolean',
         ];
     }
 
@@ -57,6 +60,9 @@ class UpdateRequest extends FormRequest
             'requirements.*' => '募集要項',
             'price' => '支払い単価',
             'work_time' => '希望する曜日や時間帯',
+            'preferred_area_id' => '希望エリア',
+            'is_available_holiday' => '休日勤務可能',
+            'is_available_weekday' => '平日勤務可能',
         ];
     }
 }

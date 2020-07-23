@@ -24,4 +24,10 @@
       margin-bottom: 30px;
     }
   }
+  .checkbox-form-container {
+    display: flex;
+    &__form {
+      flex-basis: 50%;
+    }
+  }
 }
