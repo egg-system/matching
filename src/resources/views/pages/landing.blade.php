@@ -13,15 +13,15 @@
         ],
         [
             'name' => '利用規約',
-            'url' => '/'
+            'url' => '/service-term'
         ],
         [
             'name' => '個人情報保護方針',
-            'url' => '/'
+            'url' => '/privacy-policy'
         ],
         [
             'name' => '特定商取引法に基づく表記',
-            'url' => '/'
+            'url' => '/commercial-transactions'
         ]
     ];
 @endphp
