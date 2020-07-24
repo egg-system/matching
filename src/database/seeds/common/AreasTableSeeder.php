@@ -44,6 +44,6 @@ class AreasTableSeeder extends Seeder
             collect($areas)->each(function ($areaData) use ($area) {
                 $area->children()->create(['name' => $areaData]);
             });
-        });        
+        });
     }
 }
