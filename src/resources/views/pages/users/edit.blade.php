@@ -201,14 +201,13 @@
                 error="{{ $errors->first('preferred_area_id') }}"
             ></select-form>
 
-            {{ $errors->first('is_available_holiday') }}
             <div class="checkbox-form-container">
                 <div class="checkbox-form-container__form">
                     <checkbox-form
                         label="休日勤務可能"
                         name="is_available_holiday"
                         id="is_available_holiday"
-                        checked="{{ isset($matchingCondition->is_available_holiday) ? !!$matchingCondition->is_available_holiday : old('is_available_holiday') }}"
+                        checked="{{ isset($matchingCondition->is_available_holiday) ? $matchingCondition->is_available_holiday : old('is_available_holiday') }}"
                     ></checkbox-form>
                 </div>
 
@@ -217,7 +216,7 @@
                         label="平日勤務可能"
                         name="is_available_weekday"
                         id="is_available_weekday"
-                        checked="{{ isset($matchingCondition->is_available_weekday) ? !!$matchingCondition->is_available_weekday : old('is_available_weekday') }}"
+                        checked="{{ isset($matchingCondition->is_available_weekday) ? $matchingCondition->is_available_weekday : old('is_available_weekday') }}"
                     ></checkbox-form>
                 </div>
             </div>

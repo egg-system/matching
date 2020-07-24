@@ -63,9 +63,6 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $model)
     {
-        \Log::debug('------------------');
-        \Log::debug($request);
-        \Log::debug('------------------');
         $this->userRepository->updateUser($request, $model);
 
         if (get_class($model) === Gym::class) {
