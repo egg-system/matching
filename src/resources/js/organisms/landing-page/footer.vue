@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import socialIcons from '../../moleclues/landing-page/footer/social-icons'
-import footerMenus from '../../moleclues/landing-page/footer/menus'
+import socialIcons from '../../molecules/landing-page/footer/social-icons'
+import footerMenus from '../../molecules/landing-page/footer/menus'
 
 export default {
   components: { socialIcons, footerMenus },
