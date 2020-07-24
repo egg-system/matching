@@ -26,4 +26,16 @@ glob.sync(`${scssPath}/**/*.scss`).map(function(file) {
     mix.sass(file, publicPath + css_path);
 });
 
+/**
+ * browerSync(ブラウザ自動リロード)設定
+ */
+mix.browserSync({
+    proxy: {
+        target: "localhost:90",
+    },
+    files: [
+        publicPath + '**/*.*',
+    ],
+});
+
 mix.version();

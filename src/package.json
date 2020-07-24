@@ -16,6 +16,8 @@
         "@storybook/vue": "^5.3.19",
         "axios": "^0.19",
         "babel-preset-vue": "^2.0.2",
+        "browser-sync": "^2.26.10",
+        "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^7.0",
         "deepmerge": "^4.2.2",
         "fibers": "^5.0.0",
