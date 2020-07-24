@@ -1,7 +1,10 @@
 @extends('templates.users.register')
 
 @section('content')
-<users-register />
+<form method="POST" action="{{ URL::signedRoute('trainers.store', ['id' => request()->id ]) }}">
+    @csrf
+    <users-register />
+</form>
 
 <!-- <div class="container">
     <div class="row justify-content-center">

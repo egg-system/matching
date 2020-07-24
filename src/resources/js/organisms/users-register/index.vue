@@ -1,10 +1,12 @@
 <template>
   <div>
-    <start-page v-show="stepState === 0" @click="goToNextStep" />
+    <start-page v-show="stepState === 0" @click="moveNextStep" />
+    <name-step v-show="stepState === 1" @click="moveNextStep" />
   </div>
 </template>
 
 <script>
+import nameStep from './name-step'
 import startPage from './start-page'
 
 export default {
@@ -14,10 +16,11 @@ export default {
     }
   },
   components: {
+    nameStep,
     startPage
   },
   methods: {
-    goToNextStep () {
+    moveNextStep () {
       this.stepState++
     }
   }

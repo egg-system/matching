@@ -1,0 +1,107 @@
+<template>
+  <div class="name-step-wrapper">
+    <div class="contents">
+      <v-img src="/images/users-register/finish_background.jpg">
+        <div class="contents__container">
+          <div class="contents__header">あなたの名前を教えてください</div>
+
+          <div class="contents__form">
+            <div class="contents__form-heading">氏名</div>
+            <input
+              v-model="inputValue"
+              type="text"
+              class="input-form"
+              :class="{ 'input-form--danger': error }" 
+              name="name"
+              autocomplete="name"
+              autofocus
+              required
+            >
+            <span v-if="error" class="contents__form--danger">
+              <strong>{{ error }}</strong>
+            </span>
+          </div>
+
+          <rounded-btn class="contents__btn" text="次へ" @click="onClick" />
+        </div>
+      </v-img>
+    </div>
+
+    <steps-footer step="1" :progress="10" />
+  </div>
+</template>
+
+<script>
+import roundedBtn from '../../atoms/users-register/rounded-btn'
+import stepsFooter from '../../molecules/users-register/steps-footer'
+
+export default {
+  components: {
+    roundedBtn,
+    stepsFooter
+  },
+  data () {
+    return {
+      inputValue: '',
+      error: ''
+    }
+  },
+  methods: {
+    onClick () {
+      // バリデーション
+      if (!this.inputValue) {
+        this.error = '氏名は必須です'
+        return
+      }
+
+      this.error = ''
+      this.$emit('click')
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.contents__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  .contents__header {
+    margin-top: 70px;
+    font-weight: bold;
+  }
+  .contents__form {
+    margin-top: 150px;
+    width: 75%;
+    &-heading {
+      font-size: 0.5rem;
+      color: grey;
+    }
+    &--danger {
+      display: block;
+      color: red;
+      margin-top: 10px;
+    }
+    .input-form {
+      width: 100%;
+      border-bottom: solid 1px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 7px 0;
+      &--danger {
+        border-bottom: solid 2px red;
+      }
+    }
+  }
+  .contents__btn {
+    margin-top: 60px;
+  }
+}
+.steps-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+}
+</style>

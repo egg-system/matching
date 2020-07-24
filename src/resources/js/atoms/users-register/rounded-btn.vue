@@ -1,7 +1,8 @@
 <template>
   <v-btn
+    :type="type"
     class="rounded-btn"
-    width="73%"
+    width="75%"
     min-height="50px"
     max-width="600px"
     @click="onClick"
@@ -12,7 +13,8 @@
 <script>
 export default {
   props: {
-    text: { type: String, required: true }
+    text: { type: String, required: true },
+    type: { type: String, default: undefined }
   },
   methods: {
     onClick () {
