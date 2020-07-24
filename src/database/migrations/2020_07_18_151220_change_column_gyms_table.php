@@ -29,7 +29,7 @@ class ChangeColumnGymsTable extends Migration
 
         // カラム追加
         Schema::table('gyms', function (Blueprint $table) {
-            $table->json('basic_profile')->nullable()->comment('基本情報（代表者名、従業員数、住所-市区町村、住所-丁・番地以下）');
+            $table->json('profiles')->nullable()->comment('基本情報（代表者名、従業員数、住所-市区町村、住所-丁・番地以下）');
         });
         Schema::table('gyms', function (Blueprint $table) {
             $table->unsignedBigInteger("prefecture_id")->nullable()->comment('住所 - 都道府県');
@@ -38,7 +38,7 @@ class ChangeColumnGymsTable extends Migration
             $table->text("gym_url")->nullable()->comment('店舗URL');
         });
         Schema::table('gyms', function (Blueprint $table) {
-            $table->text("comment")->nullable()->comment('紹介文');
+            $table->text("introduction")->nullable()->comment('紹介文');
         });
     }
 
@@ -65,7 +65,7 @@ class ChangeColumnGymsTable extends Migration
 
         // カラム削除
         Schema::table('gyms', function (Blueprint $table) {            
-            $table->dropColumn('basic_profile');
+            $table->dropColumn('profiles');
         });
         Schema::table('gyms', function (Blueprint $table) {
             $table->dropColumn('prefecture_id');
@@ -74,7 +74,7 @@ class ChangeColumnGymsTable extends Migration
             $table->dropColumn('gym_url');
         });
         Schema::table('gyms', function (Blueprint $table) {
-            $table->dropColumn('comment');
+            $table->dropColumn('introduction');
         });
     }
 }

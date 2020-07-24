@@ -11,7 +11,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Gym::class, function (Faker $faker) {
     return [
-        'basic_profile' => [
+        'profiles' => [
             'president_name' => $faker->realText($maxNbChars = 10, $indexSize = 2),
             'staff_count' => $faker->numberBetween(),
             'cities' => $faker->city,
@@ -20,7 +20,7 @@ $factory->define(Gym::class, function (Faker $faker) {
         'tel' => $faker->phoneNumber,
         'prefecture_id' => $faker->numberBetween(1, 47),
         'gym_url' => $faker->url,
-        'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2),
+        'introduction' => $faker->realText($maxNbChars = 50, $indexSize = 2),
     ];
 });
 

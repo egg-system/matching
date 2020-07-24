@@ -12,10 +12,11 @@ class Occupation extends Model
 
     public function occupation()
     {
-        return $this->belongsToMany(Occupation::class,
-                                    'user_occupations',
-                                    'occupation_id',
-                                    'user_id')
-                    ->withTimestamps();
+        return $this->belongsToMany(
+            Occupation::class,
+            'user_occupations',
+            'occupation_id',
+            'user_id'
+        )->withTimestamps();
     }
 }

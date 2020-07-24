@@ -11,10 +11,10 @@ class MatchingCondition extends Model
     protected $fillable = [
         'area_id',
         'worktime_week',
-        'holiday_work',
-        'weekday_work',
-        'adjust',
-        'changing_jobs',
+        'holiday_work_is_possible',
+        'weekday_work_is_possible',
+        'adjust_by_project',
+        'changing_jobs_is_considering',
     ];
 
     public function user()
@@ -29,11 +29,12 @@ class MatchingCondition extends Model
 
     public function occupation()
     {
-        return $this->belongsToMany(Occupation::class,
-                                    'user_occupations',
-                                    'user_id',
-                                    'occupation_id')
-                    ->withTimestamps();
+        return $this->belongsToMany(
+            Occupation::class,
+            'user_occupations',
+            'user_id',
+            'occupation_id'
+        )->withTimestamps();
     }
 
     /**

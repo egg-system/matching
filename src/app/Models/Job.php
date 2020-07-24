@@ -12,6 +12,6 @@ class Job extends Model
         'requirements_number',
         'pay_min',
         'pay_max',
-        'experience',
+        'experience_years',
     ];
 }

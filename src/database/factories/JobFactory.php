@@ -12,6 +12,6 @@ $factory->define(Job::class, function (Faker $faker) {
         'requirements_number' => $faker->randomNumber($nbDigits = 5),
         'pay_min' => 1000,
         'pay_max' => 5000,
-        'experience' => $faker->randomNumber($nbDigits = 5),
+        'experience_years' => $faker->randomNumber($nbDigits = 5),
     ];
 });
