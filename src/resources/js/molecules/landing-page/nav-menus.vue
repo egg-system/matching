@@ -1,7 +1,7 @@
 <template>
   <div>
     <div @click="open">
-      <nav-icon v-if="false" />
+      <nav-icon v-if="isEnabledLogin" />
     </div>
     <v-navigation-drawer v-model="isShown" right app temporary>
       <v-list nav>
@@ -21,6 +21,11 @@ import navIcon from '../../atoms/landing-page/nav-icon'
 export default {
   components: { navIcon },
   data: () => ({ isShown: false }),
+  computed: {
+    isEnabledLogin() {
+      return this.$root.isEnabled('login')
+    }
+  },
   methods: {
     open() {
       this.isShown = true
