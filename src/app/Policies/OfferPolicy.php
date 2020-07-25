@@ -45,11 +45,7 @@ class OfferPolicy
      */
     public function update(Login $user, Offer $offer)
     {
-        if ($offer->offer_to_id !== $user->id && $offer->offer_from_id !== $user->id) {
-            return false;
-        }
-
-        return $offer->canUpdateState($user->user_type);
+        return $offer->canUpdateState($user->id, $user->user_type);
     }
 
     /**

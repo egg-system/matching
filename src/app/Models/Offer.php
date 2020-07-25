@@ -128,11 +128,16 @@ class Offer extends Model
 
     /**
      * ステータス変更可能か判定
+     * @param int $userId
      * @param string $userType
      * @return bool
      */
-    public function canUpdateState(string $userType): bool
+    public function canUpdateState(int $userId, string $userType): bool
     {
+        if ($this->offer_to_id !== $userId && $this->offer_from_id !== $userId) {
+            return false;
+        }
+
         if ($this->isEntry()) {
             return $userType === Gym::class;
         } elseif ($this->isOffer()) {
