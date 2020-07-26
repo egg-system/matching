@@ -9,7 +9,7 @@ class Gym extends User
         'tel',
         'prefecture_id',
         'gym_url',
-        'introduction',
+        'description',
     ];
 
     protected $casts = [

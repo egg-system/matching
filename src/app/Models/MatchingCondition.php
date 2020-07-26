@@ -10,11 +10,11 @@ class MatchingCondition extends Model
 {
     protected $fillable = [
         'area_id',
-        'worktime_week',
-        'holiday_work_is_possible',
-        'weekday_work_is_possible',
-        'adjust_by_project',
-        'changing_jobs_is_considering',
+        'weekly_worktime',
+        'can_work_holiday',
+        'can_work_weekday',
+        'hope_adjust_worktime',
+        'is_considering_change_job',
     ];
 
     public function user()

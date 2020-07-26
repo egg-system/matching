@@ -10,11 +10,11 @@ use Illuminate\Support\Str;
 $factory->define(MatchingCondition::class, function (Faker $faker) {
     return [
         'area_id' => 1,
-        'worktime_week' => 1,
-        'holiday_work_is_possible' => true,
-        'weekday_work_is_possible' => true,
-        'adjust_by_project' => true,
-        'changing_jobs_is_considering' => true,
+        'weekly_worktime' => 1,
+        'can_work_holiday' => true,
+        'can_work_weekday' => true,
+        'hope_adjust_worktime' => true,
+        'is_considering_change_job' => true,
     ];
 });
 

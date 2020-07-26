@@ -38,7 +38,7 @@ class ChangeColumnGymsTable extends Migration
             $table->text("gym_url")->nullable()->comment('店舗URL');
         });
         Schema::table('gyms', function (Blueprint $table) {
-            $table->text("introduction")->nullable()->comment('紹介文');
+            $table->text("description")->nullable()->comment('紹介文');
         });
     }
 
@@ -74,7 +74,7 @@ class ChangeColumnGymsTable extends Migration
             $table->dropColumn('gym_url');
         });
         Schema::table('gyms', function (Blueprint $table) {
-            $table->dropColumn('introduction');
+            $table->dropColumn('description');
         });
     }
 }

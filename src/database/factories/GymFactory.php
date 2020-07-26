@@ -20,7 +20,7 @@ $factory->define(Gym::class, function (Faker $faker) {
         'tel' => $faker->phoneNumber,
         'prefecture_id' => $faker->numberBetween(1, 47),
         'gym_url' => $faker->url,
-        'introduction' => $faker->realText($maxNbChars = 50, $indexSize = 2),
+        'description' => $faker->realText($maxNbChars = 50, $indexSize = 2),
     ];
 });
 

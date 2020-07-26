@@ -26,24 +26,24 @@ class ChangeColumnMatchingConditionsTable extends Migration
 
         // カラム追加
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->unsignedBigInteger("worktime_week")->nullable()->comment('勤務時間 - 1週間あたり');
+            $table->unsignedBigInteger("weekly_worktime")->nullable()->comment('勤務時間 - 1週間あたり');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->boolean("holiday_work_is_possible")->nullable()->comment('休日勤務可能');
+            $table->boolean("can_work_holiday")->nullable()->comment('休日勤務可能');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->boolean("weekday_work_is_possible")->nullable()->comment('平日勤務可能');
+            $table->boolean("can_work_weekday")->nullable()->comment('平日勤務可能');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->boolean("adjust_by_project")->nullable()->comment('企業や案件に合わせて調整したい');
+            $table->boolean("hope_adjust_worktime")->nullable()->comment('企業や案件に合わせて調整したい');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->boolean("changing_jobs_is_considering")->nullable()->comment('転職も検討している');
+            $table->boolean("is_considering_change_job")->nullable()->comment('転職も検討している');
         });
 
         // インデックス設定
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->index(['worktime_week']);
+            $table->index(['weekly_worktime']);
         });
     }
 
@@ -67,24 +67,24 @@ class ChangeColumnMatchingConditionsTable extends Migration
 
         // カラム削除
         Schema::table('matching_conditions', function (Blueprint $table) {            
-            $table->dropColumn('worktime_week');
+            $table->dropColumn('weekly_worktime');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropColumn('holiday_work_is_possible');
+            $table->dropColumn('can_work_holiday');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropColumn('weekday_work_is_possible');
+            $table->dropColumn('can_work_weekday');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropColumn('adjust_by_project');
+            $table->dropColumn('hope_adjust_worktime');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropColumn('changing_jobs_is_considering');
+            $table->dropColumn('is_considering_change_job');
         });
 
         // インデックス削除
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropIndex(['worktime_week']);
+            $table->dropIndex(['weekly_worktime']);
         });
     }
 }
