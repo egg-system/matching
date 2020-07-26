@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kalnoy\Nestedset\NestedSet;
 
-class CreateAreasTable extends Migration
+class CreatePrefecturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +13,10 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
+        // 都道府県
+        Schema::create('prefectures', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            NestedSet::columns($table);
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('prefectures');
     }
 }
