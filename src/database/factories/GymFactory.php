@@ -11,11 +11,16 @@ use Faker\Generator as Faker;
 
 $factory->define(Gym::class, function (Faker $faker) {
     return [
-        'president_name' => $faker->name,
+        'profiles' => [
+            'president_name' => $faker->realText($maxNbChars = 10, $indexSize = 2),
+            'staff_count' => $faker->numberBetween(),
+            'cities' => $faker->city,
+            'street_address' => $faker->streetAddress
+        ],
         'tel' => $faker->phoneNumber,
-        'staff_count' => $faker->numberBetween(),
-        'customer_count' => $faker->numberBetween(),
-        'requirements' => [],
+        'prefecture_id' => $faker->numberBetween(1, 47),
+        'gym_url' => $faker->url,
+        'description' => $faker->realText($maxNbChars = 50, $indexSize = 2),
     ];
 });
 

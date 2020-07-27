@@ -30,6 +30,14 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer(
+            'components.layouts.common.composer',
+            function ($view) {
+                $view->with(['releaseConfigs' => config('release')]);
+            }
+        );
+
+        // TODO: ViewComposerの整理
+        \View::composer(
             ['pages.users.edit', 'components.common._form'],
             function ($view) {
                 $view->with($this->getMasterData());

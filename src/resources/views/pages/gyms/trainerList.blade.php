@@ -25,22 +25,6 @@
                     </span>
                     @enderror
                 </div>
-                <label for="occupation" class="col-md-2 col-form-label text-md-right">種別</label>
-
-                <div class="col-md-2">
-                    <select name="occupation_id" id="occupation" class="form-control">
-                        <option></option>
-                        @foreach ($occupations as $occupation)
-                        <option value="{{ $occupation->id }}">{{ $occupation->name }}</option>
-                        @endforeach
-                    </select>
-
-                    @error('occupation_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
             </div>
             <div class="form-group row">
                 <label for="price" class="col-md-2 col-form-label text-md-right">希望単価</label>
@@ -106,7 +90,6 @@
         @foreach ($conditions as $condition)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ optional($condition->occupation)->name }}</td>
             <td>{{ optional($condition->area)->name }}</td>
             <td>{{ implode(',',$condition->price ?? []) }}</td>
             <td>{{ implode(',',$condition->work_time ?? []) }}</td>

@@ -15,6 +15,7 @@ class CommonSeeder extends Seeder
         $this->call([
             Common\AreasTableSeeder::class,
             Common\OccupationsTableSeeder::class,
+            Common\PrefecturesTableSeeder::class,
         ]);
     }
 }
