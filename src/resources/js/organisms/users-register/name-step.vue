@@ -62,46 +62,48 @@ export default {
 </script>
 
 <style lang="scss">
-.contents__container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  .contents__header {
-    margin-top: 70px;
-    font-weight: bold;
-  }
-  .contents__form {
-    margin-top: 150px;
-    width: 75%;
-    &-heading {
-      font-size: 0.5rem;
-      color: grey;
-    }
-    &--danger {
-      display: block;
-      color: red;
-      margin-top: 10px;
-    }
-    .input-form {
-      width: 100%;
-      border-bottom: solid 1px;
-      font-size: 1.1rem;
+.name-step-wrapper {
+  .contents__container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .contents__header {
+      margin-top: 70px;
       font-weight: bold;
-      padding: 7px 0;
+    }
+    .contents__form {
+      margin-top: 150px;
+      width: 75%;
+      &-heading {
+        font-size: 0.5rem;
+        color: grey;
+      }
       &--danger {
-        border-bottom: solid 2px red;
+        display: block;
+        color: red;
+        margin-top: 10px;
+      }
+      .input-form {
+        width: 100%;
+        border-bottom: solid 1px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 7px 0;
+        &--danger {
+          border-bottom: solid 2px red;
+        }
       }
     }
+    .contents__btn {
+      margin-top: 60px;
+    }
   }
-  .contents__btn {
-    margin-top: 60px;
+  .steps-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
   }
-}
-.steps-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: white;
 }
 </style>
