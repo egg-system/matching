@@ -38,7 +38,7 @@ class ViewServiceProvider extends ServiceProvider
 
         // TODO: ViewComposerの整理
         \View::composer(
-            ['pages.users.edit', 'components.common._form'],
+            ['pages.users.register', 'pages.users.edit', 'components.common._form'],
             function ($view) {
                 $view->with($this->getMasterData());
             }

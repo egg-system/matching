@@ -3,7 +3,13 @@
 @section('content')
 <form method="POST" action="{{ URL::signedRoute('trainers.store', ['id' => request()->id ]) }}">
     @csrf
-    <users-register />
+    <?php
+        // componentのpropsに合わせて変換
+        $formattedOccupations = collect($occupations)->map(function ($occupation) {
+            return collect([ 'name' => $occupation->name, 'value' => $occupation->id ]);
+        });
+    ?>
+    <users-register :occupations="{{ json_encode($formattedOccupations) }}" />
 </form>
 
 <!-- <div class="container">

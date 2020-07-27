@@ -31,7 +31,7 @@ export default {
     border-radius: 3px;
   }
   .symbol-image {
-    width: 45px;
+    width: 40px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

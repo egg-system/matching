@@ -1,13 +1,14 @@
 <template>
   <step-page-wrapper
-    headerText="あなたの今の働き方を教えて下さい"
-    headerSubText="下記を選択してください"
+    headerText="今の職種を選択してください"
+    headerSubText="複数選択可能"
     step="1"
-    :progress="20"
+    :progress="30"
     @back="back"
   >
     <div class="contents__form">
-      <div
+      <!-- TODO: 実装 -->
+      <!-- <div
         v-for="(nowWorkStyle, i) in nowWorkStyles"
         :key="`contents__form-container_${i}`"
         class="contents__form-container"
@@ -18,8 +19,7 @@
         <p class="contents__form-text">{{ nowWorkStyle.label }}</p>
       </div>
 
-      <!-- selectフォームのoptionではデザインを実装しにくかったのでhiddenに動的に値を挿入 -->
-      <input type="hidden" name="now_work_style" :value="inputNowWorkStyle">
+      <input type="hidden" name="now_work_style" :value="inputNowWorkStyle"> -->
     </div>
   </step-page-wrapper>
 </template>
@@ -31,11 +31,15 @@ export default {
   components: {
     stepPageWrapper
   },
+  props: {
+    occupations: { type: Array, required: true }
+  },
   data () {
     return {
-      nowWorkStyles: [
+      selectValue: '',
+      selectOptions: [
         {
-          label: 'ジムに勤務しています',
+          label: 'フィットネス',
           value: 'Gym',
           img: '/images/users-register/gym.png'
         },
@@ -44,18 +48,12 @@ export default {
           value: 'Trainer',
           img: '/images/users-register/freelance_icon.jpg'
         }
-      ],
-      inputNowWorkStyle: '' // 選択した働き方
+      ]
     }
   },
   methods: {
     back () {
       this.$emit('back')
-    },
-    onClickNowWorkStyle (value) {
-      this.inputNowWorkStyle = value
-
-      this.$emit('click')
     }
   }
 }
