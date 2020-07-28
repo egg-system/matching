@@ -1,16 +1,34 @@
+.service-term {
+  color: #333;
+  font-family: serif;
+  width: 86%;
+  margin: 45px auto;
+}
+
+.article {
+  ol {
+      list-style-type: decimal
+  }
+}
+
+.article-title {
+  margin-top: 12px;
+  font-weight: 700;
+}
+
 .paragraph-list {
   list-style: decimal;
-  li {
-    margin-top: 12px;
-  }
 }
 
 .parentheses-list li{
   list-style-type: none;
   list-style-position: inside;
   counter-increment: cnt;
-  margin-top: 8px;
   &:before {
     content: "(" counter(cnt) ") ";
   }
+}
+
+.article-footer {
+  margin-top: 20px;
 }
