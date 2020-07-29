@@ -1,8 +1,7 @@
 @extends('templates.base')
-@extends('components.layouts.common.head')
 
 @section('head')
-    <link href="{{ asset('/css/pages/users/register.css') }}" rel="stylesheet">
+    @include('components.layouts.users.register.head')
 @endsection
 
 @section('body')
