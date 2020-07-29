@@ -6,7 +6,15 @@
     <?php
         // componentのpropsに合わせて変換
         $formattedOccupations = collect($occupations)->map(function ($occupation) {
-            return collect([ 'name' => $occupation->name, 'value' => $occupation->id ]);
+            $img = '';
+            if ($occupation->name === 'フィットネス') {
+                $img = '/images/users-register/fitness_icon.jpg';
+            } elseif ($occupation->name === 'ジム') {
+                $img = '/images/users-register/gym_icon2.jpg';
+            } elseif ($occupation->name === 'パーソナル') {
+                $img = '/images/users-register/personal_trainer_icon.jpg';
+            }
+            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $img ]);
         });
     ?>
     <users-register :occupations="{{ json_encode($formattedOccupations) }}" />

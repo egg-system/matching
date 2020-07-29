@@ -22,7 +22,7 @@
             </span>
           </div>
 
-          <rounded-btn class="contents__btn" text="次へ" @click="onClick" />
+          <rounded-btn class="contents__btn" text="次へ" :disabled="!inputValue" @click="onClick" />
         </div>
       </v-img>
     </div>
@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .name-step-wrapper {
   .contents__container {
     display: flex;

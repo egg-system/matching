@@ -6,6 +6,7 @@
     min-height="50px"
     max-width="600px"
     @click="onClick"
+    :disabled="disabled"
     rounded
   >{{ text }}</v-btn>
 </template>
@@ -14,7 +15,8 @@
 export default {
   props: {
     text: { type: String, required: true },
-    type: { type: String, default: undefined }
+    type: { type: String, default: undefined },
+    disabled: { type: Boolean, default: false }
   },
   methods: {
     onClick () {

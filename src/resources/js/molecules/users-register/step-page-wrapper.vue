@@ -11,6 +11,8 @@
 
     <slot />
 
+    <p v-if="footerText" class="footer__text">{{ footerText }}</p>
+
     <steps-footer :step="step" :progress="progress" />
   </div>
 </template>
@@ -27,6 +29,7 @@ export default {
   props: {
     headerText: { type: String, default: '' },
     headerSubText: { type: String, default: '' },
+    footerText: { type: String, default: '' },
     step: { type: String, default: '1' },
     progress: { type: Number, default: 10 }
   },
@@ -40,9 +43,6 @@ export default {
 
 <style lang="scss">
 .step-page-wrapper {
-  .symbol-header-wrapper {
-    margin-top: 20px;
-  }
   .symbol-header__text {
     margin-top: 55px;
     font-weight: bold;
@@ -54,6 +54,13 @@ export default {
       font-size: 0.8rem;
       font-weight: normal;
     }
+  }
+  .footer__text {
+    position: fixed;
+    bottom: 11%;
+    left: 50%;
+    font-size: 0.8rem;
+    transform: translate(-50%, -50%);
   }
   .steps-footer {
     position: fixed;

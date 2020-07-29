@@ -19,7 +19,7 @@ export default {
   },
   data () {
     return {
-      stepState: 2
+      stepState: 3
     }
   },
   components: {
