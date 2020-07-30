@@ -11,13 +11,12 @@ class Offer extends Model
     use Notifiable;
 
     protected $fillable = [
-        'offer_from_id',
-        'offer_to_id',
+        'gym_login_id',
+        'trainer_login_id',
         'offer_state',
-        'message',
     ];
 
-    protected $with = ['fromUser.user', 'toUser.user', 'state'];
+    protected $with = ['gym.user', 'trainer.user', 'state'];
 
     public function state()
     {
@@ -25,19 +24,19 @@ class Offer extends Model
     }
 
     /**
-     * 自分が送ったオファー
+     * ジム側のユーザー情報
      */
-    public function fromUser()
+    public function gym()
     {
-        return $this->belongsTo(Login::class, 'offer_from_id', 'id');
+        return $this->belongsTo(Login::class, 'gym_login_id', 'id');
     }
 
     /**
-     * 自分に来たオファー
+     * トレーナー側のユーザー情報
      */
-    public function toUser()
+    public function trainer()
     {
-        return $this->belongsTo(Login::class, 'offer_to_id', 'id');
+        return $this->belongsTo(Login::class, 'trainer_login_id', 'id');
     }
 
     /**
@@ -87,29 +86,18 @@ class Offer extends Model
 
     /**
      * 現在のオファー状態を元にメール送信先を取得
-     * @return string
+     * @return array
      */
     public function getSendMailAddress()
     {
-        if ($this->isEntry()) {
-            return $this->toUser->email;
+        $result = [];
+        if ($this->state->trainer_send_mail) {
+            $result[] = $this->trainer->email;
         }
-        
-        switch ($this->offer_state) {
-            case OfferState::ENTRY:
-                return $this->toUser->email;
-            case OfferState::OFFER:
-                return $this->toUser->user_type === Trainer::class
-                    ? $this->toUser->email
-                    : $this->fromUser->email;
-            case OfferState::ACCEPT:
-            case OfferState::REFUSE:
-                return $this->toUser->user_type === Gym::class
-                    ? $this->toUser->email
-                    : $this->fromUser->email;
-            default:
-                return '';
+        if ($this->state->gym_send_mail) {
+            $result[] = $this->gym->email;
         }
+        return $result;
     }
 
     /**

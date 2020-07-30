@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Mail\OfferRecieve;
-use App\Mail\OfferUpdate;
 use App\Models\Offer;
 use App\Notifications\OfferNotify;
 
@@ -18,23 +17,10 @@ class OfferObserver
     public function created(Offer $offer)
     {
         // ユーザーに受信メール送信
-        $user = $offer->toUser->email;
-        $mail = new OfferRecieve($offer);
-        $offer->notify(new OfferNotify($mail, $user));
-    }
-
-    /**
-     * Handle the offer "updated" event.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return void
-     */
-    public function updated(Offer $offer)
-    {
-        $send_to_address = $offer->getSendMailAddress();
-
-        // 更新後のOfferStateを取得するためにfreshを行う
-        $mail = resolve(OfferUpdate::class, ['offer' => $offer->fresh()]);
-        $offer->notify(new OfferNotify($mail, $send_to_address));
+        // 登録後のOfferStateを取得するためにfreshを行う
+        $stored_offer = $offer->fresh();
+        $send_address = $stored_offer->getSendMailAddress();
+        $mail = new OfferRecieve($stored_offer);
+        $offer->notify(new OfferNotify($mail, $send_address));
     }
 }

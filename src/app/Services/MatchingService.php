@@ -33,30 +33,16 @@ class MatchingService
     }
 
     /**
-     * エントリー
+     * オファー情報登録
      * @param StoreRequest $request
      */
-    public function entry(StoreRequest $request)
+    public function storeOffer(StoreRequest $request)
     {
-        $storeParams = $request->only(['to', 'message']);
+        $storeParams = $request->only(['gym', 'trainer', 'state']);
         Offer::create([
-            'offer_from_id' => auth()->id(),
-            'offer_to_id' => $storeParams['to'],
-            'offer_state' => OfferState::ENTRY,
-            'message' => $storeParams['message']
+            'gym_login_id' => $storeParams['gym'],
+            'trainer_login_id' => $storeParams['trainer'],
+            'offer_state' => $storeParams['state'],
         ]);
-    }
-
-    /**
-     * マッチング状態更新
-     * @param Offer $offer
-     * @param UpdateRequest $request
-     */
-    public function updateState(Offer $offer, UpdateRequest $request)
-    {
-        if (!in_array($request->offerState, $offer->getTransitionState())) {
-            throw new BadRequestHttpException();
-        }
-        $offer->updateState($request->offerState);
     }
 }

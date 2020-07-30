@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Offer\StoreRequest;
-use App\Http\Requests\Offer\UpdateRequest;
 use App\Models\Offer;
 use App\Services\MatchingService;
 use Illuminate\Http\Request;
@@ -29,20 +28,14 @@ class OffersController extends Controller
         return view('pages.offers.show', compact('offer'));
     }
 
-    public function update(Offer $offer, UpdateRequest $request)
-    {
-        $this->matchingService->updateState($offer, $request);
-        return back();
-    }
-
     /**
-     * エントリー(オファー)登録処理
+     * オファー情報登録
      * @param StoreRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreRequest $request)
     {
-        $this->matchingService->entry($request);
+        $this->matchingService->storeOffer($request);
         return back();
     }
 }

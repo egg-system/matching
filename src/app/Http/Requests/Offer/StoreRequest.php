@@ -24,8 +24,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'required|string',
-            'to' => 'required|exists:login,id'
+            'gym' => 'required|exists:login,id',
+            'trainer' => 'required|exists:login,id',
+            'state' => 'required|int|exists:offer_states,id'
         ];
     }
 }
