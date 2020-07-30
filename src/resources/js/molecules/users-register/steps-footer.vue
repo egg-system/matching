@@ -7,9 +7,9 @@
     ></v-progress-linear>
 
     <ol class="steps">
-      <step-item number="1" text="今の仕事について" :current="step === '1'" />
-      <step-item number="2" text="働き方について" :current="step === '2'" />
-      <step-item number="3" text="プロフィール入力" :current="step === '3'" />
+      <step-item number="1" text="今の仕事について" :current="parseInt(step, 10) >= 1" />
+      <step-item number="2" text="働き方について" :current="parseInt(step, 10) >= 2" />
+      <step-item number="3" text="プロフィール入力" :current="parseInt(step, 10) >= 3" />
     </ol>
   </div>
 </template>

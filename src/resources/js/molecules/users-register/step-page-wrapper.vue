@@ -3,8 +3,7 @@
     <div class="symbol-header-wrapper">
       <symbol-header @back="back" />
 
-      <div v-if="headerText" class="symbol-header__text">
-        {{ headerText }}
+      <div v-if="headerText" class="symbol-header__text" v-html="headerText">
         <p v-if="headerSubText" class="symbol-header__text-sub">{{ headerSubText }}</p>
       </div>
     </div>
@@ -44,10 +43,11 @@ export default {
 <style lang="scss">
 .step-page-wrapper {
   .symbol-header__text {
-    margin-top: 55px;
+    margin-top: 47px;
     font-weight: bold;
     font-size: 0.9rem;
     text-align: center;
+    line-height: 1.8rem;
     &-sub {
       text-align: center;
       margin-top: 13px;

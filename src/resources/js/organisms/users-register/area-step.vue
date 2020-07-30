@@ -10,7 +10,7 @@
       <div class="contents__form-heading">勤務地</div>
       <select
         v-model="selectValue"
-        name="now-work-area-id"
+        name="now_work_area_id"
         class="select-form"
       >
         <option
