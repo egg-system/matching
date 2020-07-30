@@ -14,7 +14,7 @@
 
 <script>
 import contentLine from '../../atoms/landing-page/content-line'
-import oftenQuestion from '../../moleclues/landing-page/often-question'
+import oftenQuestion from '../../molecules/landing-page/often-question'
 import { questions } from './question-constants'
 
 export default {

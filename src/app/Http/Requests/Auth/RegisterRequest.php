@@ -38,7 +38,7 @@ class RegisterRequest extends FormRequest
                 $login !== null && $login->isRegisteredDefinitive(),
                 ValidationException::withMessages([
                     'email' => [trans('validation.custom.auth.register.unique')],
-                ]),
+                ])
             );
         });
     }

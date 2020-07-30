@@ -100,6 +100,7 @@ jobs:
       - run:
           command: |
             docker-compose run laravel cp ./.env.example ./.env
+            docker-compose run laravel composer dump-autoload
             docker-compose run laravel php artisan migrate --seed
             docker-compose run laravel php artisan config:cache
             docker-compose run laravel php artisan view:cache
@@ -119,7 +120,9 @@ jobs:
       - checkout
       - restore_build_cache
       - run:
-          command: docker-compose run laravel cp ./.env.example ./.env
+          command: |
+            docker-compose run laravel cp ./.env.example ./.env
+            docker-compose run laravel composer dump-autoload
           name: create env file
       - run:
           command: docker-compose run laravel php artisan key:generate

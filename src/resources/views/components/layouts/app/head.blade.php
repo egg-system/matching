@@ -1,7 +1,7 @@
 @extends('components.layouts.common.head')
 
 @section('head')
-<title>{{ config('app.name', 'Laravel') }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Fonts -->
 <link rel="dns-prefetch" href="//fonts.gstatic.com">

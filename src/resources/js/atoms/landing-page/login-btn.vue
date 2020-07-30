@@ -6,10 +6,20 @@
     href="https://forms.gle/TwWSKiC2nxgM4kb99"
   >
     <span class="login-btn-phrase">
-      無料で始める<template v-if="false"> / ログイン</template>
+      無料で始める<template v-if="isEnabledLogin"> / ログイン</template>
     </span>
   </v-btn>
 </template>
+
+<script>
+export default {
+  computed: {
+    isEnabledLogin() {
+      return this.$root.isEnabled('login')
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .login-btn {

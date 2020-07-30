@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import mainView from '../../moleclues/landing-page/mian-view'
+import mainView from '../../molecules/landing-page/mian-view'
 import loginBtn from '../../atoms/landing-page/login-btn'
 
 export default {
