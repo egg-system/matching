@@ -1,9 +1,10 @@
 <template>
   <div>
-    <start-page v-show="stepState === 0" @click="moveNextStep" />
-    <name-step v-show="stepState === 1" @click="moveNextStep" />
-    <user-type-step v-show="stepState === 2" @click="moveNextStep" @back="movePrevStep" />
-    <occupation-step v-show="stepState === 3" :occupations="occupations" @click="moveNextStep" @back="movePrevStep" />
+    <start-page v-show="stepState === 0" @moveNext="moveNextStep" />
+    <name-step v-show="stepState === 1" @moveNext="moveNextStep" />
+    <user-type-step v-show="stepState === 2" @moveNext="moveNextStep" @back="movePrevStep" />
+    <occupation-step v-show="stepState === 3" :occupations="occupations" @moveNext="moveNextStep" @back="movePrevStep" />
+    <area-step v-show="stepState === 4" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
   </div>
 </template>
 
@@ -12,21 +13,24 @@ import startPage from './start-page'
 import nameStep from './name-step'
 import userTypeStep from './user-type-step'
 import occupationStep from './occupation-step'
+import areaStep from './area-step'
 
 export default {
   props: {
-    occupations: { type: Array, required: true }
+    occupations: { type: Array, required: true },
+    areas: { type: Array, required: true }
   },
   data () {
     return {
-      stepState: 3
+      stepState: 4
     }
   },
   components: {
     startPage,
     nameStep,
     userTypeStep,
-    occupationStep
+    occupationStep,
+    areaStep
   },
   methods: {
     moveNextStep () {

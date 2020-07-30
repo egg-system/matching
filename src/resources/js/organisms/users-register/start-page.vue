@@ -28,7 +28,7 @@
             </p>
           </div>
 
-          <rounded-btn class="contents__btn" text="はじめる" @click="onClick" />
+          <rounded-btn class="contents__btn" text="はじめる" @click="moveNext" />
         </div>
       </v-img>
     </div>
@@ -41,8 +41,8 @@ import roundedBtn from '../../atoms/users-register/rounded-btn'
 export default {
   components: { roundedBtn },
   methods: {
-    onClick () {
-      this.$emit('click')
+    moveNext () {
+      this.$emit('moveNext')
     }
   }
 }

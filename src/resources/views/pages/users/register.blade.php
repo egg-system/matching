@@ -16,8 +16,12 @@
             }
             return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $img ]);
         });
+        $formattedAreas = collect($areas)->map(function ($area) {
+            return collect([ 'name' => $area->name, 'value' => $area->id ]);
+        });
+        $formattedAreas->prepend(collect([ 'name' => '', 'value' => '' ]));
     ?>
-    <users-register :occupations="{{ json_encode($formattedOccupations) }}" />
+    <users-register :occupations="{{ json_encode($formattedOccupations) }}" :areas="{{ json_encode($formattedAreas) }}" />
 </form>
 
 <!-- <div class="container">

@@ -11,18 +11,14 @@
               v-model="inputValue"
               type="text"
               class="input-form"
-              :class="{ 'input-form--danger': error }" 
               name="name"
               autocomplete="name"
               autofocus
               required
             >
-            <span v-if="error" class="contents__form--danger">
-              <strong>{{ error }}</strong>
-            </span>
           </div>
 
-          <rounded-btn class="contents__btn" text="次へ" :disabled="!inputValue" @click="onClick" />
+          <rounded-btn class="contents__btn" text="次へ" :disabled="!inputValue" @click="moveNext" />
         </div>
       </v-img>
     </div>
@@ -42,20 +38,12 @@ export default {
   },
   data () {
     return {
-      inputValue: '',
-      error: ''
+      inputValue: ''
     }
   },
   methods: {
-    onClick () {
-      // バリデーション
-      if (!this.inputValue) {
-        this.error = '氏名は必須です'
-        return
-      }
-
-      this.error = ''
-      this.$emit('click')
+    moveNext () {
+      this.$emit('moveNext')
     }
   }
 }

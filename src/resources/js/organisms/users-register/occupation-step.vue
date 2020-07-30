@@ -24,7 +24,7 @@
       <input type="hidden" name="occupation_ids" :value="selectedValues">
     </div>
 
-    <rounded-btn class="contents__btn" text="次へ" :disabled="!selectedValues.length" @click="onClickNext" />
+    <rounded-btn class="contents__btn" text="次へ" :disabled="!selectedValues.length" @click="moveNext" />
   </step-page-wrapper>
 </template>
 
@@ -56,8 +56,8 @@ export default {
         this.selectedValues = this.selectedValues.filter(selectedValue => selectedValue !== value)
       }
     },
-    onClickNext () {
-      this.$emit('click')
+    moveNext () {
+      this.$emit('moveNext')
     }
   }
 }

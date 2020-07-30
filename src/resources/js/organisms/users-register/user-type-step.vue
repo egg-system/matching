@@ -55,7 +55,7 @@ export default {
     onClickNowWorkStyle (value) {
       this.inputNowWorkStyle = value
 
-      this.$emit('click')
+      this.$emit('moveNext')
     }
   }
 }
