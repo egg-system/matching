@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Gym;
 
+use App\Http\Requests\SearchRequestInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrainerSearchRequest extends FormRequest
+class TrainerSearchRequest extends FormRequest implements SearchRequestInterface
 {
     /**
      * Determine if the user is authorized to make this request.

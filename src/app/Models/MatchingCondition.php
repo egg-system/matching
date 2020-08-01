@@ -20,6 +20,8 @@ class MatchingCondition extends Model
         'work_time' => 'json',
     ];
 
+    protected $with = ['user', 'area', 'occupation'];
+
     public function user()
     {
         return $this->morphTo('user');
@@ -44,6 +46,17 @@ class MatchingCondition extends Model
     public function scopeOnlyTrainer(Builder $query)
     {
         return $query->where('user_type', Trainer::class);
+    }
+
+    /**
+     * ジムだけに限定するクエリスコープ
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnlyGym(Builder $query)
+    {
+        return $query->where('user_type', Gym::class);
     }
 
     /**

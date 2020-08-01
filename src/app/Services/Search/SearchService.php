@@ -2,37 +2,55 @@
 
 namespace App\Services\Search;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\SearchRequestInterface;
 use App\Models\MatchingCondition;
 
 class SearchService
 {
-    public function matchingConditionSearch(Request $request)
+    /**
+     * マッチング条件検索
+     * @param App\Http\Requests\SearchRequestInterface $request
+     */
+    public function matchingConditionSearch(SearchRequestInterface $request)
     {
         $query = MatchingCondition::with(['area', 'occupation']);
         $query = SearchUtil::createSearchCondition($query, $this->matchingConditionSearchParams, $request);
         return $query->get();
     }
 
-    public function detailSearch(Request $request)
+    /**
+     * 詳細検索
+     *  - ジムオーナー利用時：トレーナー詳細検索
+     *  - トレーナー利用時：ジム詳細検索
+     * @param App\Http\Requests\SearchRequestInterface $request
+     */
+    public function detailSearch(SearchRequestInterface $request)
     {
-        /**
-         * MEMO
-         * ・Facadeで呼び出し
-         * TODO
-         * ・Requestに検索用パラメータも入れる。
-         * ・Facade呼び出すだけなら、Controllerから直接がいい？
-         */
-        return \Search::detailSearch($request);
+        $query = MatchingCondition::OnlyTrainer();
+        // $query = SearchGenerator::createSearchCondition($query, $request->detailSearchParams, $request);
+        // $query = SearchGenerator::createSearchCondition($query, [], $request);
+        return $query->get();
     }
 
-    public function profileSearch(Request $request)
+    /**
+     * プロフィール検索
+     *  - ジムオーナー利用時：ジムプロフィール検索
+     *  - トレーナー利用時：トレーナープロフィール検索
+     * @param App\Http\Requests\SearchRequestInterface $request
+     */
+    public function profileSearch(SearchRequestInterface $request)
     {
-        return \Search::profileSearch($request);
+        $query = MatchingCondition::OnlyGym();
+        // $query = SearchGenerator::createSearchCondition($query, $request->profileSearchParams, $request);
+        // $query = SearchGenerator::createSearchCondition($query, [], $request);
+        return $query->get();
     }
 
-    public function messageSearch(Request $request)
+    /**
+     * メッセージ検索
+     * @param App\Http\Requests\SearchRequestInterface $request
+     */
+    public function messageSearch(SearchRequestInterface $request)
     {
-        return \Search::messageSearch($request);
     }
 }
