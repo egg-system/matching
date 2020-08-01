@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
     // 認証
     Route::view('login', 'pages.users.login', ['isGym' => false])
-        ->middleware('guest')
+        ->middleware(['guest', 'released:login'])
         ->name('login.view');
 
     Route::post('login', 'Auth\LoginController@login')
@@ -29,7 +29,7 @@ Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
 Route::group(['prefix' => 'gyms', 'as' => 'gyms.'], function () {
     // 認証
     Route::view('login', 'pages.users.login', ['isGym' => true])
-        ->middleware('guest')
+        ->middleware(['guest', 'released:login'])
         ->name('login.view');
 
     Route::post('login', 'Auth\LoginController@login')
