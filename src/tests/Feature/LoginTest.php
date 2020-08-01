@@ -26,9 +26,7 @@ class LoginTest extends TestCase
     {
         $trainer = factory(Trainer::class)->create();
 
-        $response = $this->post(route('login.posts', [
-            'userType' => 'trainer',
-        ], [
+        $response = $this->post(route('login.post', [
             'email' => $trainer->login->email,
             'password' => 'password',
             'user_type' => Trainer::class,
@@ -45,9 +43,7 @@ class LoginTest extends TestCase
     {
         $owner = factory(Gym::class)->create();
 
-        $response = $this->post(route('login.posts', [
-            'userType' => 'gym',
-        ], [
+        $response = $this->post(route('login.post', [
             'email' => $owner->login->email,
             'password' => 'password',
             'user_type' => Gym::class,
