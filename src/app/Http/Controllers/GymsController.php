@@ -6,15 +6,22 @@ use App\Http\Requests\Gym\TrainerSearchRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Repositories\UserRepository;
+use App\Services\Search\SearchService;
+
+use Illuminate\Support\Facades\Log;
 
 class GymsController extends Controller
 {
     /** @var UserRepository  */
     protected $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    /** @var SearchService  */
+    protected $searchService;
+
+    public function __construct(UserRepository $userRepository, SearchService $searchService)
     {
         $this->userRepository = $userRepository;
+        $this->searchService = $searchService;
 
         $this->authorizeResource(Gym::class);
     }
@@ -29,12 +36,7 @@ class GymsController extends Controller
      */
     public function trainerList(TrainerSearchRequest $request)
     {
-        $validated = $request->validated();
-        $matchingCondition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
-        if ($request->anyFilled(array_keys($validated))) {
-            $matchingCondition = $matchingCondition->search($validated);
-        }
-        $conditions = $matchingCondition->get();
+        $conditions = $this->searchService->detailSearch($request);
         return view('pages.gyms.trainerList', compact('conditions'));
     }
 }

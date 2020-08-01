@@ -5,49 +5,65 @@ namespace App\Services\Search;
 use App\Http\Requests\SearchRequestInterface;
 use App\Models\MatchingCondition;
 
+use Illuminate\Support\Facades\Log;
+
 class SearchService
 {
-    /**
-     * マッチング条件検索
-     * @param App\Http\Requests\SearchRequestInterface $request
-     */
-    public function matchingConditionSearch(SearchRequestInterface $request)
+    /** @var MatchingCondition  */
+    protected $matchingCondition;
+
+    public function __construct(MatchingCondition $matchingCondition)
     {
-        $query = MatchingCondition::with(['area', 'occupation']);
-        $query = SearchUtil::createSearchCondition($query, $this->matchingConditionSearchParams, $request);
-        return $query->get();
+        $this->matchingCondition = $matchingCondition;
     }
 
     /**
      * 詳細検索
      *  - ジムオーナー利用時：トレーナー詳細検索
      *  - トレーナー利用時：ジム詳細検索
+     * 
      * @param App\Http\Requests\SearchRequestInterface $request
      */
     public function detailSearch(SearchRequestInterface $request)
     {
-        $query = MatchingCondition::OnlyTrainer();
-        // $query = SearchGenerator::createSearchCondition($query, $request->detailSearchParams, $request);
-        // $query = SearchGenerator::createSearchCondition($query, [], $request);
-        return $query->get();
+        $validated = $request->validated();
+
+        if ($request->anyFilled(array_keys($validated))) {
+            if ($request->user_type == \App\Models\Gym::class) {
+                $query = $this->matchingCondition->searchTrainer($validated);
+                return $query->get();
+            } else {
+                $query = $this->matchingCondition->searchGym($validated);
+                return $query->get();
+            }
+        }
     }
 
     /**
      * プロフィール検索
      *  - ジムオーナー利用時：ジムプロフィール検索
      *  - トレーナー利用時：トレーナープロフィール検索
+     * 
      * @param App\Http\Requests\SearchRequestInterface $request
      */
     public function profileSearch(SearchRequestInterface $request)
     {
-        $query = MatchingCondition::OnlyGym();
-        // $query = SearchGenerator::createSearchCondition($query, $request->profileSearchParams, $request);
-        // $query = SearchGenerator::createSearchCondition($query, [], $request);
-        return $query->get();
+        $validated = $request->validated();
+
+        if ($request->anyFilled(array_keys($validated))) {
+            if ($request->user_type == \App\Models\Gym::class) {
+                $query = $this->matchingCondition->searchGym($validated);
+                return $query->get();
+            } else {
+                $query = $this->matchingCondition->searchTrainer($validated);
+                return $query->get();
+            }
+        }
     }
 
     /**
      * メッセージ検索
+     * 
      * @param App\Http\Requests\SearchRequestInterface $request
      */
     public function messageSearch(SearchRequestInterface $request)

@@ -25,6 +25,7 @@ class TrainerSearchRequest extends FormRequest implements SearchRequestInterface
     public function rules()
     {
         return [
+            'user_id' => 'nullable|integer',
             'occupation_id' => 'nullable|integer',
             'area_id' => 'nullable|integer',
             'price' => 'nullable|array',

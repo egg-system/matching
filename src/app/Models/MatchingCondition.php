@@ -22,6 +22,14 @@ class MatchingCondition extends Model
 
     protected $with = ['user', 'area', 'occupation'];
 
+    const SEARCH_GYM_PARAMS = [
+        'user_id' => ['operation' => '='],
+    ];
+
+    const SEARCH_TRAINER_PARAMS = [
+        'user_id' => ['operation' => '='],
+    ];
+
     public function user()
     {
         return $this->morphTo('user');
@@ -38,25 +46,41 @@ class MatchingCondition extends Model
     }
 
     /**
-     * トレーナーだけに限定するクエリスコープ
+     * ジム検索のクエリスコープ
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOnlyTrainer(Builder $query)
+    public function scopeSearchGym(Builder $query, array $attributes)
     {
-        return $query->where('user_type', Trainer::class);
+        $query = $query->where('user_type', Gym::class);
+
+        collect(self::SEARCH_GYM_PARAMS)->each(function ($operation, $param) {
+            if (!is_null($operation) && !isset($operation) && !$attributes->only($param) == "") {
+                $query = $this->scopeSearch([$param => $attributes[$param]], $param['operation']);
+            }
+        });
+
+        return $query;
     }
 
     /**
-     * ジムだけに限定するクエリスコープ
+     * ジム検索のクエリスコープ
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOnlyGym(Builder $query)
+    public function scopeSearchTrainer(Builder $query, array $attributes)
     {
-        return $query->where('user_type', Gym::class);
+        $query = $query->where('user_type', Trainer::class);
+
+        collect(self::SEARCH_TRAINER_PARAMS)->each(function ($operation, $param) {
+            if (!is_null($operation) && !isset($operation) && !$attributes->only($param) == "") {
+                $query = $this->scopeSearch([$param => $attributes[$param]], $param['operation']);
+            }
+        });
+
+        return $query;
     }
 
     /**
