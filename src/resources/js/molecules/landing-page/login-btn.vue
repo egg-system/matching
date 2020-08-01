@@ -26,7 +26,7 @@ export default {
       return '無料で始める'
     },
     href() {
-      if (this.isEnabledLogin) {
+      if (this.isEnabledRegister) {
         return ''
       }
 
@@ -34,11 +34,14 @@ export default {
     },
     isEnabledLogin() {
       return this.$root.isEnabled('login')
+    },
+    isEnabledRegister() {
+      return this.$root.isEnabled('register')
     }
   },
   methods: {
     openDialog() {
-      if (!this.isEnabledLogin) {
+      if (!this.isEnabledRegister) {
         return
       }
 
