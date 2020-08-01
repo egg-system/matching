@@ -10,3 +10,4 @@
     - [release.php](../src/app/Http/Middleware/CheckIsEnableRoute.php)
 - route定義時に、`released:login`のようにmiddlewareを追加すると、リリース制御を実行する
     - 当該機能がリリースされていない限り、遷移できなくなる
+        - 404を返す

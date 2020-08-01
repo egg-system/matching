@@ -24,7 +24,7 @@ class TrainerRegisterTest extends TestCase
      * email登録できること
      * @test
      */
-    public function can_register_email()
+    public function canRegisterEmail()
     {
         $this->withoutMiddleware([VerifyCsrfToken::class]);
 
@@ -46,7 +46,7 @@ class TrainerRegisterTest extends TestCase
      * トレーナー登録できること
      * @test
      */
-    public function can_register_trainer_info()
+    public function canRegisterTrainerInfo()
     {
         $this->withoutMiddleware([VerifyCsrfToken::class]);
         $this->withExceptionHandling();

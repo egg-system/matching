@@ -5,7 +5,6 @@
  */
 return [
     'login' => [
-        'is_enabled' => env('IS_RELEASE_LOGIN', false),
-        'back_to' => 'top'
+        'is_enabled' => env('IS_RELEASE_LOGIN', false)
     ]
 ];
