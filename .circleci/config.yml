@@ -113,6 +113,9 @@ jobs:
       - run:
           command: docker-compose run laravel composer install --no-dev
           name: test prod install
+      - run:
+          command: docker-compose run laravel php artisan route:list
+          name: test route:list
 
   phpunit:
     machine: true
