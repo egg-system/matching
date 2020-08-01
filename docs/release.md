@@ -5,6 +5,8 @@
     - `is_enabled = true`の場合、リリース状態になる
 - 開発時は、環境変数により、機能を有効化させる想定
 
-## 今後の実装展望
-- route名を指定して、middlewareの制御を追加する
-- gateを追加して、条件を満たすユーザーにしか表示できないようにする
+### middleware
+- 以下のmiddlewareでリリース制御を実行している
+    - [release.php](../src/app/Http/Middleware/CheckIsEnableRoute.php)
+- route定義時に、`released:login`のようにmiddlewareを追加すると、リリース制御を実行する
+    - 当該機能がリリースされていない限り、遷移できなくなる
