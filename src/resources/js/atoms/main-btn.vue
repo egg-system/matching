@@ -5,9 +5,9 @@
     height="130px"
     :href="href"
     @click="$emit('click')"
-	>
-		<span class="main-btn-phrase">{{ label }}</span>
-	</v-btn>
+  >
+    <span class="main-btn-phrase">{{ label }}</span>
+  </v-btn>
 </template>
 
 <script>
