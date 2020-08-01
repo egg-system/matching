@@ -2,17 +2,17 @@
   <div class="first-view-wrapper">
     <main-view />
     <v-row justify="center" class="login-btn-wrapper">
-      <login-btn />
+      <login-dialog />
     </v-row>
   </div>
 </template>
 
 <script>
 import mainView from '../../molecules/landing-page/mian-view'
-import loginBtn from '../../atoms/landing-page/login-btn'
+import loginDialog from '../landing-page/login-dialog'
 
 export default {
-  components: { mainView, loginBtn }  
+  components: { mainView, loginDialog }  
 }
 </script>
 
