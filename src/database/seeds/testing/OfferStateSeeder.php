@@ -9,14 +9,30 @@ class OfferStateSeeder extends Seeder
 {
     private const DATA = [
         [
-            'name' => '未返答'
+            'name' => 'エントリー',
+            'trainer_send_mail' => 1,
+            'gym_send_mail' => 1
         ],
         [
-            'name' => '承諾'
+            'name' => 'オファー',
+            'trainer_send_mail' => 1,
+            'gym_send_mail' => 1
         ],
         [
-            'name' => '辞退'
-        ]
+            'name' => '内定',
+            'trainer_send_mail' => 1,
+            'gym_send_mail' => 0
+        ],
+        [
+            'name' => '内定承諾',
+            'trainer_send_mail' => 1,
+            'gym_send_mail' => 1
+        ],
+        [
+            'name' => '内定辞退',
+            'trainer_send_mail' => 0,
+            'gym_send_mail' => 1
+        ],
     ];
 
     /**
