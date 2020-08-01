@@ -2,10 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
-// トレーナーのルーティング
-Route::resource('trainers', 'UsersController')
+// トレーナーの登録
+Route::group(['middleware' => 'released:register'], function () {
+    Route::resource('trainers', 'UsersController')
         ->only(['create', 'store'])
         ->middleware('signed');
+    Route::post('register', 'Auth\RegisterController@register')
+        ->name('register');
+});
+
+// ログイン
+Route::group([
+    'prefix' => 'login', 'as' => 'login.',
+    'middleware' => ['guest', 'released:login'],
+], function () {
+    Route::view('/{userType}', 'pages.users.login')
+        ->where('userType', '(gym|trainer)')
+        ->name('view');
+    Route::post('', 'Auth\LoginController@login')
+        ->name('post');
+});
 
 // トレーナーのみがアクセル可能なルート
 Route::group([
@@ -32,18 +48,6 @@ Route::group([
         ->middleware(['can:update,gym']);
 });
 
-// ログイン
-Route::group([
-    'prefix' => 'login', 'as' => 'login.',
-    'middleware' => ['guest', 'released:login'],
-], function () {
-    Route::view('/{userType}', 'pages.users.login')
-        ->where('userType', '(gym|trainer)')
-        ->name('view');
-    Route::post('', 'Auth\LoginController@login')
-        ->name('post');
-});
-
 // オファー
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('offers', 'OffersController')
@@ -62,5 +66,4 @@ Route::view('/service-term', 'pages.service-term')->name('serviceTerm');
 // TopのLP
 Route::view('/', 'pages.landing')->name('top');
 
-Route::post('register', 'Auth\RegisterController@register')->name('register');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
