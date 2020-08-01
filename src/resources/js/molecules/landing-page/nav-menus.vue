@@ -5,9 +5,9 @@
     </div>
     <v-navigation-drawer v-model="isShown" right app temporary>
       <v-list nav>
-        <v-list-item>
+        <v-list-item v-for="menu in menus" :key="menu.url" :href="menu.url">
           <v-list-item-content>
-            <v-list-item-title>テスト</v-list-item-title>
+            <v-list-item-title v-text="menu.name" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -20,6 +20,12 @@ import navIcon from '../../atoms/landing-page/nav-icon'
 
 export default {
   components: { navIcon },
+  props: {
+    menus: {
+      type: Array,
+      required: true
+    }
+  },
   data: () => ({ isShown: false }),
   computed: {
     isEnabledLogin() {
