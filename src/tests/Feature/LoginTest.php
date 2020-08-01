@@ -22,11 +22,13 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function trainer_login()
+    public function trainerLogin()
     {
         $trainer = factory(Trainer::class)->create();
 
-        $response = $this->post(route('trainers.login', [
+        $response = $this->post(route('login.posts', [
+            'userType' => 'trainer',
+        ], [
             'email' => $trainer->login->email,
             'password' => 'password',
             'user_type' => Trainer::class,
@@ -39,11 +41,13 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function gymowner_login()
+    public function gymLogin()
     {
         $owner = factory(Gym::class)->create();
 
-        $response = $this->post(route('gyms.login', [
+        $response = $this->post(route('login.posts', [
+            'userType' => 'gym',
+        ], [
             'email' => $owner->login->email,
             'password' => 'password',
             'user_type' => Gym::class,
