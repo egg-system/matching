@@ -20,6 +20,14 @@ class TrainerRegisterTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // トレーナーの登録機能を有効にする
+        config(['release.register.is_enabled' => true]);
+    }
+    
     /**
      * email登録できること
      * @test
