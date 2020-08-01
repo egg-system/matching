@@ -27,7 +27,7 @@ class TrainerRegisterTest extends TestCase
         // トレーナーの登録機能を有効にする
         config(['release.register.is_enabled' => true]);
     }
-    
+
     /**
      * email登録できること
      * @test
