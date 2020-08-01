@@ -14,6 +14,11 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     /**
      * @test
      */
