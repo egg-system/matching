@@ -1,6 +1,6 @@
 <template>
-	<v-btn
-		class="main-btn" 
+  <v-btn
+    class="main-btn" 
     width="700px"
     height="130px"
     :href="href"
@@ -12,16 +12,16 @@
 
 <script>
 export default {
-	props: {
-		label: {
-			type: String,
-			requried: true
-		},
-		href: {
-			type: String,
-			default: ''
-		}
-	}
+  props: {
+    label: {
+      type: String,
+      requried: true
+    },
+    href: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 
