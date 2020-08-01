@@ -6,3 +6,4 @@ bordeless-gymの開発に必要な情報を記載する
 - [環境構築方法について](docs/quick-installation-guide.md)
 - [デザインルールについて](docs/design-rules.md)
 - [各種環境について](docs/envs.md)
+- [リリース制御について](docs/release.md)
