@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 // トレーナーのルーティング
 Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
     // 認証
-    Route::view('login', 'pages.users.login', ['isGymOwner' => false])
+    Route::view('login', 'pages.users.login', ['isGym' => false])
         ->middleware('guest')
         ->name('login.view');
 
@@ -28,7 +28,7 @@ Route::group(['prefix' => 'trainers', 'as' => 'trainers.'], function () {
 // ジムオーナー
 Route::group(['prefix' => 'gyms', 'as' => 'gyms.'], function () {
     // 認証
-    Route::view('login', 'pages.users.login', ['isGymOwner' => true])
+    Route::view('login', 'pages.users.login', ['isGym' => true])
         ->middleware('guest')
         ->name('login.view');
 
