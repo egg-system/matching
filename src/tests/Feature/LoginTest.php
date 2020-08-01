@@ -17,6 +17,9 @@ class LoginTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // ログイン機能を有効にする
+        config(['release.login.is_enabled' => true]);
     }
 
     /**
