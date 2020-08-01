@@ -26,7 +26,11 @@ class LoginTest extends TestCase
     {
         $trainer = factory(Trainer::class)->create();
 
-        $response = $this->post(route('trainers.login', ['email' => $trainer->login->email, 'password' => 'password']));
+        $response = $this->post(route('trainers.login', [
+            'email' => $trainer->login->email,
+            'password' => 'password',
+            'user_type' => Trainer::class,
+        ]));
 
         $response->assertStatus(302);
         $this->assertAuthenticated();
@@ -39,7 +43,11 @@ class LoginTest extends TestCase
     {
         $owner = factory(Gym::class)->create();
 
-        $response = $this->post(route('gyms.login', ['email' => $owner->login->email, 'password' => 'password']));
+        $response = $this->post(route('gyms.login', [
+            'email' => $owner->login->email,
+            'password' => 'password',
+            'user_type' => Gym::class,
+        ]));
 
         $response->assertStatus(302);
         $this->assertAuthenticated();

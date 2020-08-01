@@ -7,6 +7,11 @@
                 <div class="card-body">
                     <form method="POST" action="{{ $isGym ? route('gyms.login') : route('trainers.login') }}">
                         @csrf
+                        <input
+                            type="hidden"
+                            name="user_type"
+                            value="{{ $isGym ? \App\Models\Gym::class : \App\Models\Trainer::class }}"
+                        >
 
                         <div class="form-group row">
                             <label for="email"
