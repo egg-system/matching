@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Kalnoy\Nestedset\NestedSet;
 
-class CreateAreasTable extends Migration
+class CreateUserOccupationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,13 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            NestedSet::columns($table);
+        // ユーザ - 職種（中間テーブル）
+        Schema::create('user_occupations', function (Blueprint $table) {
+            $table->unsignedBigInteger("occupation_id");
+            $table->unsignedBigInteger("user_id");
             $table->timestamps();
+
+            $table->primary(['occupation_id', 'user_id']);
         });
     }
 
@@ -29,6 +30,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('user_occupations');
     }
 }

@@ -31,6 +31,6 @@ class CreateMatchingConditionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matcing_conditons');
+        Schema::dropIfExists('matching_conditions');
     }
 }

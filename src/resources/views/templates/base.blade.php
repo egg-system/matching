@@ -16,6 +16,7 @@
     @endenv
 
     <div id="app">
+        @include('components.layouts.common.composer')
         <v-app>
             @yield('body')
         </v-app>
