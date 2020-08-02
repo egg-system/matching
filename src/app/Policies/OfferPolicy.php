@@ -2,10 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Gym;
 use App\Models\Offer;
 use App\Models\Login;
-use App\Models\Trainer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OfferPolicy
@@ -34,18 +32,6 @@ class OfferPolicy
     {
         $id = $user->id;
         return $offer->offer_from_id === $id || $offer->offer_to_id === $id;
-    }
-
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\Login  $user
-     * @param  \App\Models\Offer  $offer
-     * @return mixed
-     */
-    public function update(Login $user, Offer $offer)
-    {
-        return $offer->canUpdateState($user->id, $user->user_type);
     }
 
     /**

@@ -3,11 +3,10 @@
 namespace App\Services;
 
 use App\Http\Requests\Offer\StoreRequest;
-use App\Http\Requests\Offer\UpdateRequest;
 use App\Models\Offer;
 use App\Models\OfferState;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * マッチング関連のサービスクラス
@@ -38,11 +37,29 @@ class MatchingService
      */
     public function storeOffer(StoreRequest $request)
     {
+        if (!$request->canStore()) {
+            throw app(AuthorizationException::class);
+        }
+
         $storeParams = $request->only(['gym', 'trainer', 'state']);
         Offer::create([
             'gym_login_id' => $storeParams['gym'],
             'trainer_login_id' => $storeParams['trainer'],
             'offer_state' => $storeParams['state'],
         ]);
+    }
+
+    /**
+     * 指定したマッチングの直近オファー情報を取得
+     * @param int $gym
+     * @param int $trainer
+     * @return mixed
+     */
+    public function getMostRecentOffer(int $gym, int $trainer)
+    {
+        return Offer::where('gym_login_id', $gym)
+            ->where('trainer_login_id', $trainer)
+            ->orderBy('created_at', 'desc')
+            ->first();
     }
 }
