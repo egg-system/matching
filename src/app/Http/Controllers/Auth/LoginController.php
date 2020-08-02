@@ -42,12 +42,9 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        // TODO: #59 ホーム画面を実装する
-        // $login = auth()->user();
-        // if ($login->user_type === App\Models\Gym::class) {
-        //     return route('gyms.index');
-        // }
+        $login = auth()->user();
+        $routeName = $login->isGym ? 'trainers.index' : 'gyms.index';
 
-        return route('top');
+        return route($routeName);
     }
 }
