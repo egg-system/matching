@@ -20,7 +20,8 @@ class OfferObserver
         // 登録後のOfferStateを取得するためにfreshを行う
         $stored_offer = $offer->fresh();
         $send_address = $stored_offer->getSendMailAddress();
-        $mail = new OfferRecieve($stored_offer);
-        $offer->notify(new OfferNotify($mail, $send_address));
+
+        $mail = app(OfferRecieve::class, ['offer' => $stored_offer]);
+        $offer->notify(app(OfferNotify::class, ['mail' => $mail, 'to' => $send_address]));
     }
 }

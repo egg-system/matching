@@ -37,7 +37,7 @@ class MatchingService
      */
     public function storeOffer(StoreRequest $request)
     {
-        if (!$request->canStore()) {
+        if (!$request->canStoreState()) {
             throw app(AuthorizationException::class);
         }
 
