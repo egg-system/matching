@@ -35,7 +35,7 @@ class RegisterRequest extends FormRequest
             
             // すでに本登録済みの場合はエラー
             throw_if(
-                $login !== null && $login->isRegisteredDefinitive(),
+                $login !== null && $login->isRegisteredDefinitive,
                 ValidationException::withMessages([
                     'email' => [trans('validation.custom.auth.register.unique')],
                 ])
