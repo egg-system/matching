@@ -30,8 +30,14 @@ class AddColumnOfferStates extends Migration
     {
         Schema::table('offer_states', function (Blueprint $table) {
             $table->dropColumn('gym_send_mail');
+        });
+        Schema::table('offer_states', function (Blueprint $table) {
             $table->dropColumn('trainer_send_mail');
+        });
+        Schema::table('offer_states', function (Blueprint $table) {
             $table->dropColumn('transition_state');
+        });
+        Schema::table('offer_states', function (Blueprint $table) {
             $table->dropColumn('transition_user_type');
         });
     }
