@@ -24,6 +24,7 @@ Route::group([
 });
 
 // トレーナーのみがアクセル可能なルート
+// 　TODO: #166 プロフィール編集のルートをまとめる
 Route::group([
     'prefix' => 'trainers',
     'as' => 'trainers.',
@@ -35,21 +36,29 @@ Route::group([
 });
 
 // ジムオーナーのみがアクセス可能なルート
+// 　TODO: #166 プロフィール編集のルートをまとめる
 Route::group([
     'prefix' => 'gyms',
     'as' => 'gyms.',
     'middleware' => ['auth', 'can:gym']
 ], function () {
-    Route::get('trainerList', 'GymsController@trainerList')->name('trainerList');
-    Route::resource('', 'GymsController', ['parameters' => ['' => 'gym']])
-        ->only(['index']);
     Route::resource('', 'UsersController', ['parameters' => ['' => 'gym']])
         ->only(['edit', 'update'])
         ->middleware(['can:update,gym']);
 });
 
-// オファー
+// ログイン時のみアクセス可能
 Route::group(['middleware' => ['auth']], function () {
+    // トレーナー一覧 ※ 個人情報のため、ジムのみ閲覧可能
+    Route::resource('trainers', 'TrainersController')
+        ->only(['index'])
+        ->middleware('can:gym');
+
+    // ジム一覧 ※ 公開情報がほとんどのため、制限しない
+    Route::resource('gyms', 'GymsController')
+        ->only(['index']);
+
+    // オファー
     Route::resource('offers', 'OffersController')
         ->only(['index', 'show', 'update']);
     Route::resource('offers', 'OffersController')
@@ -64,6 +73,6 @@ Route::view('/send-email', 'pages.send-verify-email')->name('sendVerifyEmail');
 Route::view('/service-term', 'pages.service-term')->name('serviceTerm');
 
 // TopのLP
-Route::view('/', 'pages.landing')->name('top');
+Route::view('/', 'pages.landing')->name('top')->middleware('guest');
 
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
