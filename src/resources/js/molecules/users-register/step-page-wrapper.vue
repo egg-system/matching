@@ -3,14 +3,13 @@
     <div class="symbol-header-wrapper">
       <symbol-header @back="back" />
 
-      <div v-if="headerText" class="symbol-header__text" v-html="headerText">
+      <div v-if="headerText" class="symbol-header__text">
+        <span v-html="headerText"></span>
         <p v-if="headerSubText" class="symbol-header__text-sub">{{ headerSubText }}</p>
       </div>
     </div>
 
     <slot />
-
-    <p v-if="footerText" class="footer__text">{{ footerText }}</p>
 
     <steps-footer :step="step" :progress="progress" />
   </div>
@@ -54,13 +53,6 @@ export default {
       font-size: 0.8rem;
       font-weight: normal;
     }
-  }
-  .footer__text {
-    position: fixed;
-    bottom: 11%;
-    left: 50%;
-    font-size: 0.8rem;
-    transform: translate(-50%, -50%);
   }
   .steps-footer {
     position: fixed;

@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-      stepState: 5
+      stepState: 0
     }
   },
   components: {

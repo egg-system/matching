@@ -1,27 +1,25 @@
 <template>
   <div class="name-step-wrapper">
-    <div class="contents">
-      <v-img src="/images/users-register/finish_background.jpg">
-        <div class="contents__container">
-          <div class="contents__header">あなたの名前を教えてください</div>
+    <v-img src="/images/users-register/finish_background.jpg">
+      <div class="name-step">
+        <div class="name-step__header">あなたの名前を教えてください</div>
 
-          <div class="contents__form">
-            <div class="contents__form-heading">氏名</div>
-            <input
-              v-model="inputValue"
-              type="text"
-              class="input-form"
-              name="name"
-              autocomplete="name"
-              autofocus
-              required
-            >
-          </div>
-
-          <rounded-btn class="contents__btn" text="次へ" :disabled="!inputValue" @click="moveNext" />
+        <div class="name-form">
+          <div class="name-form__heading">氏名</div>
+          <input
+            v-model="inputValue"
+            type="text"
+            class="name-form__input"
+            name="name"
+            autocomplete="name"
+            autofocus
+            required
+          >
         </div>
-      </v-img>
-    </div>
+
+        <rounded-btn class="next-btn" text="次へ" :disabled="!inputValue" @click="moveNext" />
+      </div>
+    </v-img>
 
     <steps-footer step="1" :progress="10" />
   </div>
@@ -51,39 +49,32 @@ export default {
 
 <style lang="scss" scoped>
 .name-step-wrapper {
-  .contents__container {
+  .name-step {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    .contents__header {
-      margin-top: 70px;
+    &__header {
+      margin-top: 72px;
       font-weight: bold;
+      font-size: 0.9rem;
     }
-    .contents__form {
-      margin-top: 150px;
+    .name-form {
+      margin-top: 135px;
       width: 75%;
-      &-heading {
+      &__heading {
         font-size: 0.5rem;
         color: grey;
       }
-      &--danger {
-        display: block;
-        color: red;
-        margin-top: 10px;
-      }
-      .input-form {
+      &__input {
         width: 100%;
         border-bottom: solid 1px;
         font-size: 1.1rem;
         font-weight: bold;
-        padding: 7px 0;
-        &--danger {
-          border-bottom: solid 2px red;
-        }
+        padding: 3px 0 7px 0;
       }
     }
-    .contents__btn {
+    .next-btn {
       margin-top: 60px;
     }
   }

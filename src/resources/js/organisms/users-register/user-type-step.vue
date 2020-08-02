@@ -6,16 +6,16 @@
     :progress="20"
     @back="back"
   >
-    <div class="contents__form">
+    <div class="form-wrapper">
       <div
         v-for="(nowWorkStyle, i) in nowWorkStyles"
-        :key="`contents__form-container_${i}`"
-        class="contents__form-container"
-        :class="{ 'contents__form-container--selected': nowWorkStyle.value === inputNowWorkStyle }"
+        :key="`now-work-style-form_${i}`"
+        class="now-work-style-form"
+        :class="{ 'now-work-style-form--selected': nowWorkStyle.value === inputNowWorkStyle }"
         @click="onClickNowWorkStyle(nowWorkStyle.value)"
       >
-        <img :src="nowWorkStyle.img" :alt="nowWorkStyle.label" class="contents__form-img">
-        <p class="contents__form-text">{{ nowWorkStyle.label }}</p>
+        <img :src="nowWorkStyle.img" :alt="nowWorkStyle.label" class="now-work-style-form__img">
+        <p class="now-work-style-form__text">{{ nowWorkStyle.label }}</p>
       </div>
 
       <!-- selectフォームのoptionではデザインを実装しにくかったのでhiddenに動的に値を挿入 -->
@@ -62,24 +62,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contents__form {
+.form-wrapper {
+  $this: &;
   display: flex;
   text-align: center;
   margin-top: 65px;
   padding: 0 10%;
-  &-img {
-    max-width: 60%;
-    margin: auto;
-    border: solid 2px lightgrey;
-    padding: 10px;
-  }
-  &-container--selected .contents__form-img {
-    border: solid 2px red;
-  }
-  &-text {
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-top: 15px;
+  .now-work-style-form {
+    &--selected #{$this}-img {
+      border: solid 2px red;
+    }
+    &__img {
+      max-width: 60%;
+      margin: auto;
+      border: solid 2px lightgrey;
+      padding: 10px;
+    }
+    &__text {
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-top: 15px;
+    }
   }
 }
 </style>

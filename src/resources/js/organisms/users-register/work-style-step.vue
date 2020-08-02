@@ -1,7 +1,6 @@
 <template>
   <step-page-wrapper
     headerText="完了まであと少し！<br>希望する働き方について教えて下さい"
-    footerText="あと２ステップ！"
     step="2"
     :progress="50"
     @back="back"
@@ -64,6 +63,8 @@
     <div class="skip-link">
       <a href="javascript:void(0)" @click.prevent="skip">スキップ</a>
     </div>
+
+    <p class="small-text" ref="smallText">あと２ステップ！</p>
   </step-page-wrapper>
 </template>
 
@@ -99,18 +100,22 @@ export default {
     skip () {
       this.$emit('moveNext')
     }
+  },
+  mounted () {
+    const smallTextOffsetTop = this.$refs.smallText.offsetTop
+    this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .form-wrapper {
-  margin: 15px 10% 0 10%;
+  margin: 15px 13% 0 10%;
   .weekly-worktime-form {
     display: flex;
     &__heading {
       flex-basis: 35%;
-      margin: auto;
+      margin: auto auto auto -6px;
       font-size: 0.9rem;
       color: grey;
     }
@@ -121,19 +126,17 @@ export default {
       border-bottom: solid 1px;
       font-size: 1.2em;
       padding-bottom: 5px;
-      margin: 0 10px;
+      margin-right: -14px;
     }
     &::after {
       content: "";
-      position: absolute;
-      right: 14%;
-      top: 30%;
       box-sizing: border-box;
       width: 4px;
       height: 4px;
       border: 4px solid transparent;
       border-top: 4px solid black;
       pointer-events: none;
+      margin-top: 18px;
     }
   }
   .area-form {
@@ -141,7 +144,7 @@ export default {
     margin: 17px 0 38px 0;
     &__heading {
       flex-basis: 35%;
-      margin: auto;
+      margin: auto auto auto -4px;
       font-size: 0.9rem;
       color: grey;
     }
@@ -152,7 +155,7 @@ export default {
       border-bottom: solid 1px;
       font-size: 1.2em;
       padding-bottom: 5px;
-      margin: 0 10px;
+      margin-right: -14px;
     }
     &::after {
       content: "";
@@ -161,10 +164,8 @@ export default {
       border-bottom: solid 2px #b4b3b3;
       border-right: solid 2px #b4b3b3;
       transform: rotate(-45deg);
-      position: absolute;
-      top: 38%;
-      right: 14%;
       pointer-events: none;
+      margin-top: 12px;
     }
   }
   .checkbox-form {
@@ -228,5 +229,9 @@ export default {
     text-decoration: none;
     color: grey;
   }
+}
+.small-text {
+  font-size: 0.8rem;
+  text-align: center;
 }
 </style>
