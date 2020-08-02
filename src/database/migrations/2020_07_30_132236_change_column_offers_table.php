@@ -14,11 +14,13 @@ class ChangeColumnOffersTable extends Migration
     public function up()
     {
         Schema::table('offers', function (Blueprint $table) {
-            $table->dropForeign('offers_offer_from_id_foreign');
-            $table->dropForeign('offers_offer_to_id_foreign');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('offers_offer_from_id_foreign');
+                $table->dropForeign('offers_offer_to_id_foreign');
+            }
 
-            $table->unsignedBigInteger('gym_login_id')->after('id')->comment('ジム側のログインID');
-            $table->unsignedBigInteger('trainer_login_id')->after('gym_login_id')->comment('トレーナー側のログインID');
+            $table->unsignedBigInteger('gym_login_id')->nullable()->after('id')->comment('ジム側のログインID');
+            $table->unsignedBigInteger('trainer_login_id')->nullable()->after('gym_login_id')->comment('トレーナー側のログインID');
             $table->foreign('gym_login_id')->references('id')->on('login');
             $table->foreign('trainer_login_id')->references('id')->on('login');
         });
@@ -38,8 +40,11 @@ class ChangeColumnOffersTable extends Migration
     public function down()
     {
         Schema::table('offers', function (Blueprint $table) {
-            $table->dropForeign('offers_gym_login_id_foreign');
-            $table->dropForeign('offers_trainer_login_id_foreign');
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->dropForeign('offers_gym_login_id_foreign');
+                $table->dropForeign('offers_trainer_login_id_foreign');
+            }
+
 
             $table->unsignedBigInteger('offer_from_id')->after('id')->comment('オファーしたユーザーのID');
             $table->unsignedBigInteger('offer_to_id')->after('offer_from_id')->comment('オファーされたユーザーのID');
