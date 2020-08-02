@@ -25,9 +25,11 @@ class MatchingService
         $user = auth()->user();
         // 絞り込み条件取得
         $stateId = $request->query('offer_state', OfferState::ENTRY);
+        
+        // TODO ここはオファー一覧の仕様が固まり次第パラメータ込みで要リファクタ
         // デフォルトで送信したオファー取得、指定がある場合受信取得
         $type = $request->type;
-        $query = !$type ? $user->fromOffers() : $user->toOffers();
+        $query = !$type ? $user->gymOffers() : $user->trainerOffers();
         return $query->whereState($stateId)->get();
     }
 

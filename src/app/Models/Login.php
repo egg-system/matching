@@ -78,19 +78,19 @@ class Login extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * 自分が送ったオファー
+     * ジムとしてマッチングしたオファー
      */
-    public function fromOffers()
+    public function gymOffers()
     {
-        return $this->hasMany(Offer::class, 'offer_from_id', 'id');
+        return $this->hasMany(Offer::class, 'gym_login_id', 'id');
     }
 
     /**
-     * 自分に来たオファー
+     * トレーナーとしてマッチングしたオファー
      */
-    public function toOffers()
+    public function trainerOffers()
     {
-        return $this->hasMany(Offer::class, 'offer_to_id', 'id');
+        return $this->hasMany(Offer::class, 'trainer_login_id', 'id');
     }
 
     /**
