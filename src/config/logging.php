@@ -17,7 +17,13 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'daily'),
+
+    // SQLのログを吐き出す
+    'enable_sql_log' => env('ENABLE_SQL_LOG', false),
+
+    // requestのログを吐き出す
+    'enable_request_log' => env('ENABLE_REQUEST_LOG', false),
 
     /*
     |--------------------------------------------------------------------------

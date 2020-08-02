@@ -17,16 +17,23 @@ class LoginTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // ログイン機能を有効にする
+        config(['release.login.is_enabled' => true]);
     }
 
     /**
      * @test
      */
-    public function trainer_login()
+    public function trainerLogin()
     {
         $trainer = factory(Trainer::class)->create();
 
-        $response = $this->post(route('trainers.login', ['email' => $trainer->login->email, 'password' => 'password']));
+        $response = $this->post(route('login.post', [
+            'email' => $trainer->login->email,
+            'password' => 'password',
+            'user_type' => Trainer::class,
+        ]));
 
         $response->assertStatus(302);
         $this->assertAuthenticated();
@@ -35,11 +42,15 @@ class LoginTest extends TestCase
     /**
      * @test
      */
-    public function gymowner_login()
+    public function gymLogin()
     {
         $owner = factory(Gym::class)->create();
 
-        $response = $this->post(route('gyms.login', ['email' => $owner->login->email, 'password' => 'password']));
+        $response = $this->post(route('login.post', [
+            'email' => $owner->login->email,
+            'password' => 'password',
+            'user_type' => Gym::class,
+        ]));
 
         $response->assertStatus(302);
         $this->assertAuthenticated();
