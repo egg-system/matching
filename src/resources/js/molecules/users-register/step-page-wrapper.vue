@@ -5,7 +5,7 @@
 
       <div v-if="headerText" class="symbol-header__text">
         <span v-html="headerText"></span>
-        <p v-if="headerSubText" class="symbol-header__text-sub">{{ headerSubText }}</p>
+        <p v-if="headerSubText" class="symbol-header__text-sub" v-html="headerSubText"></p>
       </div>
     </div>
 
@@ -43,15 +43,15 @@ export default {
 .step-page-wrapper {
   .symbol-header__text {
     margin-top: 47px;
-    font-weight: bold;
-    font-size: 0.9rem;
     text-align: center;
-    line-height: 1.8rem;
+    span {
+      font-weight: bold;
+      font-size: 0.9rem;
+      line-height: 1.8rem;
+    }
     &-sub {
-      text-align: center;
       margin-top: 13px;
       font-size: 0.8rem;
-      font-weight: normal;
     }
   }
   .steps-footer {

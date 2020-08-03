@@ -6,6 +6,7 @@
     <occupation-step v-show="stepState === 3" :occupations="occupations" @moveNext="moveNextStep" @back="movePrevStep" />
     <area-step v-show="stepState === 4" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
     <work-style-step v-show="stepState === 5" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
+    <career-step v-show="stepState === 6" @moveNext="moveNextStep" @back="movePrevStep" />
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import userTypeStep from './user-type-step'
 import occupationStep from './occupation-step'
 import areaStep from './area-step'
 import workStyleStep from './work-style-step'
+import careerStep from './career-step'
 
 export default {
   props: {
@@ -24,7 +26,7 @@ export default {
   },
   data () {
     return {
-      stepState: 0
+      stepState: 6
     }
   },
   components: {
@@ -33,7 +35,8 @@ export default {
     userTypeStep,
     occupationStep,
     areaStep,
-    workStyleStep
+    workStyleStep,
+    careerStep
   },
   methods: {
     moveNextStep () {
