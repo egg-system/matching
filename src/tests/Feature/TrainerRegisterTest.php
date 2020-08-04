@@ -20,11 +20,19 @@ class TrainerRegisterTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // トレーナーの登録機能を有効にする
+        config(['release.register.is_enabled' => true]);
+    }
+
     /**
      * email登録できること
      * @test
      */
-    public function can_register_email()
+    public function canRegisterEmail()
     {
         $this->withoutMiddleware([VerifyCsrfToken::class]);
 
@@ -46,7 +54,7 @@ class TrainerRegisterTest extends TestCase
      * トレーナー登録できること
      * @test
      */
-    public function can_register_trainer_info()
+    public function canRegisterTrainerInfo()
     {
         $this->withoutMiddleware([VerifyCsrfToken::class]);
         $this->withExceptionHandling();

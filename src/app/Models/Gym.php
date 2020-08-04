@@ -5,14 +5,14 @@ namespace App\Models;
 class Gym extends User
 {
     protected $fillable = [
-        'president_name',
+        'profiles',
         'tel',
-        'staff_count',
-        'customer_count',
-        'requirements',
+        'prefecture_id',
+        'gym_url',
+        'description',
     ];
 
     protected $casts = [
-        'requirements' => 'json',
+        'profiles' => 'json',
     ];
 }

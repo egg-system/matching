@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="nav-menu-wrapper">
-      <nav-menu class="mx-14 my-16" />
+      <nav-menu :menus="menus" class="mx-14 my-16" />
     </div>
   </header>
 </template>
@@ -10,7 +10,13 @@
 import navMenu from '../../molecules/landing-page/nav-menus'
 
 export default {
-  components: { navMenu }
+  components: { navMenu },
+  props: {
+    menus: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 
