@@ -5,8 +5,13 @@
                 <div class="card-header">{{ $isGym ? 'ジムオーナーログイン' : 'トレーナーログイン' }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ $isGym ? route('gyms.login') : route('trainers.login') }}">
+                    <form method="POST" action="{{ route('login.post') }}">
                         @csrf
+                        <input
+                            type="hidden"
+                            name="user_type"
+                            value="{{ $isGym ? \App\Models\Gym::class : \App\Models\Trainer::class }}"
+                        >
 
                         <div class="form-group row">
                             <label for="email"
@@ -60,7 +65,10 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ $isGym ? route('trainers.login.view') : route('gyms.login.view') }}">
+                                <a
+                                    class="btn btn-link"
+                                    href="{{ route('login.view', ['userType' => $isGym ? 'gym' : 'trainer']) }}"
+                                >
                                     {{ $isGym ? 'トレーナーの方はこちら': 'ジムオーナーの方はこちら' }}
                                 </a>
                             </div>

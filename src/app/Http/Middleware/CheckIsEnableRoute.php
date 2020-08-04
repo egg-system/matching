@@ -15,8 +15,7 @@ class CheckIsEnableRoute
         $releaseFeature = config("release.{$feature}");
 
         if (!$releaseFeature['is_enabled']) {
-            $route = route($releaseFeature['back_to']);
-            return redirect()->to($route);
+            return \App::abort(404);;
         }
 
         return $next($request);

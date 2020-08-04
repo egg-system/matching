@@ -15,7 +15,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (config('logging.enable_sql_log')) {
+            $this->listenSqlLog();
+        }
+    }
+
+    protected function listenSqlLog()
+    {
+        \DB::listen(function ($query) {
+            \Log::debug('SQL', [
+                'sql' => $query->sql,
+                'bindings' => implode(',', $query->bindings),
+                'time' => "$query->time ms",
+            ]);
+        });
     }
 
     /**

@@ -111,6 +111,9 @@ jobs:
           command: docker-compose run laravel php artisan migrate --seed
           name: test seeder reentrant
       - run:
+          command: docker-compose run laravel php artisan route:list
+          name: test route:list
+      - run:
           command: docker-compose run laravel composer install --no-dev
           name: test prod install
 
