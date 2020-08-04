@@ -98,7 +98,16 @@ export default {
       this.$emit('moveNext')
     },
     skip () {
+      this.resetValue()
       this.$emit('moveNext')
+    },
+    resetValue () {
+      this.selectedWeeklyWorkTimeValue = null
+      this.selectedAreaValue = ''
+      this.checkedCanWorkHoliday = false
+      this.checkedCanWorkWeekday = false
+      this.checkedHopeAdjustWorktime = false
+      this.checkedIsConsideringChangeJob = false
     }
   },
   mounted () {

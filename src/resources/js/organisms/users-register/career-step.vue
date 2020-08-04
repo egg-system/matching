@@ -6,16 +6,17 @@
     :progress="80"
     @back="back"
   >
+
     <div class="form-wrapper">
       <div class="form-header">経歴</div>
 
-      <div class="career-form">
+      <div class="career-form" v-for="(career, i) in careerValues" :key="`career-form_${i}`">
         <div class="career-form-gym-name">
           <div class="career-form-gym-name__heading">企業/ジム名</div>
           <input
+            v-model="career.gymName"
             type="text"
             class="career-form-gym-name__input"
-            name="gym_name"
             placeholder="〇〇ジム、エニタイム〇〇店など"
           >
         </div>
@@ -23,40 +24,50 @@
         <div class="career-form-enrollment">
           <div class="career-form-enrollment-container">
             <div class="career-form-enrollment__heading">在籍期間</div>
-            <input
-              type="text"
-              class="career-form-enrollment__input"
-              name="enrollment[start]"
-              placeholder="開始日"
-            >
+            <div class="career-form-enrollment__input" :class="{ 'career-form-enrollment__input--danger': errors[i].enrollmentStart }">
+              <input
+                v-model="career.enrollmentStart"
+                type="text"
+                placeholder="開始日"
+              >
+              <span v-if="errors[i].enrollmentStart">{{ errors[i].enrollmentStart }}</span>
+            </div>
             <div class="career-form-enrollment__tilda">〜</div>
-            <input
-              type="text"
-              class="career-form-enrollment__input"
-              name="enrollment[end]"
-              placeholder="完了日"
-            >
+            <div class="career-form-enrollment__input" :class="{ 'career-form-enrollment__input--danger': errors[i].enrollmentEnd }">
+              <input
+                v-model="career.enrollmentEnd"
+                type="text"
+                placeholder="完了日"
+              >
+              <span v-if="errors[i].enrollmentEnd">{{ errors[i].enrollmentEnd }}</span>
+            </div>
           </div>
           <div class="career-form-enrollment-checkbox-wrapper">
-            <input type="checkbox" id="ongoing" name="enrollment[ongoing]" class="career-form-enrollment-checkbox">
+            <input
+              v-model="career.enrollmentOngoing"
+              type="checkbox"
+              id="ongoing"
+              class="career-form-enrollment-checkbox"
+            >
             <label for="ongoing">今も継続中</label>
           </div>
         </div>
 
         <div class="career-form-comment">
           <textarea
+            v-model="career.comment"
             class="career-form-comment__textarea"
-            name="comment"
             placeholder="〇〇ジムのトレーナーとして２年間従事。笑顔と丁寧な接客を大事にしており、年間１００名の方の健康を支える指導・サポートを行ってきた、また後輩の育成も担当し、３名のトレーナーの育成をサポートした。"
           ></textarea>
         </div>
 
         <v-btn
+          v-if="careerValues.length > 1"
           fab
           dark
           color="black"
           class="career-form-remove-btn"
-          @click="removeCareerForm"
+          @click="removeCareerForm(i)"
         >×</v-btn>
       </div>
 
@@ -72,11 +83,15 @@
       class="next-btn"
       text="次へ"
       @click="moveNext"
+      :disabled="isError"
     ></rounded-btn>
 
     <div class="skip-link">
       <a href="javascript:void(0)" @click.prevent="skip">スキップ</a>
     </div>
+
+    <!-- DBのカラム名が"carrer"なので合わせる（多分typo） -->
+    <input type="hidden" name="carrer" :value="careerValuesStr">
   </step-page-wrapper>
 </template>
 
@@ -84,10 +99,41 @@
 import stepPageWrapper from '../../molecules/users-register/step-page-wrapper'
 import roundedBtn from '../../atoms/users-register/rounded-btn'
 
+const CAREER_DEFAULT_VALUE = {
+  gymName: '',
+  enrollmentStart: '',
+  enrollmentEnd: '',
+  enrollmentOngoing: false,
+  comment: ''
+}
+
 export default {
   components: {
     stepPageWrapper,
     roundedBtn
+  },
+  data () {
+    return {
+      careerValues: [{ ...CAREER_DEFAULT_VALUE }],
+      errors: [{ ...CAREER_DEFAULT_VALUE }],
+      isError: false
+    }
+  },
+  computed: {
+    careerValuesStr () {
+      const formatted = this.careerValues.map(value => {
+        return {
+          gym_name: value.gymName,
+          comment: value.comment,
+          enrollment: {
+            start: value.enrollmentStart,
+            end: value.enrollmentEnd,
+            ongoing: Number(value.enrollmentOngoing)
+          }
+        }
+      })
+      return JSON.stringify(formatted)
+    }
   },
   methods: {
     back () {
@@ -97,9 +143,50 @@ export default {
       this.$emit('moveNext')
     },
     skip () {
+      this.careerValues = [{ ...CAREER_DEFAULT_VALUE }] // リセット
       this.$emit('moveNext')
     },
-    addCareerForm () {}
+    addCareerForm () {
+      this.careerValues.push({ ...CAREER_DEFAULT_VALUE })
+      this.errors.push({ ...CAREER_DEFAULT_VALUE })
+    },
+    removeCareerForm (index) {
+      this.careerValues.splice(index, 1)
+      this.errors.splice(index, 1)
+    },
+    validateDate (value) {
+      if (!value) return true
+      if (!/[0-9]{4}\/[0-9]{2}/.test(value)) return false
+      const year = value.slice(0, 4)
+      const month = value.slice(5, 7)
+      const now = new Date()
+      if (parseInt(year) < now.getFullYear()) return true
+      return parseInt(year) === now.getFullYear() && parseInt(month) <= now.getMonth() + 1
+    }
+  },
+  watch: {
+    careerValues: { 
+      handler (newValue) {
+        // バリデーション
+        this.isError = false
+        newValue.forEach((value, i) => {
+          const _enrollmentStart = value.enrollmentStart
+          this.errors[i].enrollmentStart = ''
+          if (!this.validateDate(_enrollmentStart)) {
+            this.errors[i].enrollmentStart = '\"〇〇〇〇/△△\"で過去の日付を入力してください'
+            this.isError = true
+          }
+
+          const _enrollmentEnd = value.enrollmentEnd
+          this.errors[i].enrollmentEnd = ''
+          if (!this.validateDate(_enrollmentEnd)) {
+            this.errors[i].enrollmentEnd = '\"〇〇〇〇/△△\"で過去の日付を入力してください'
+            this.isError = true
+          }
+        })
+      },
+      deep: true
+    }
   }
 }
 </script>
@@ -117,6 +204,7 @@ export default {
     padding: 7% 8% 7% 4%;
     background-color: seashell;
     font-size: 0.85rem;
+    position: relative;
     &-gym-name {
       display: flex;
       &__heading {
@@ -138,9 +226,19 @@ export default {
         }
         .career-form-enrollment__input {
           flex-basis: 28%;
-          display: block;
-          width: 100%;
-          border-bottom: solid 1px;
+          input {
+            display: block;
+            width: 100%;
+            border-bottom: solid 1px;
+          }
+          span {
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: red;
+          }
+          &--danger input {
+            border: solid 2px red;
+          }
         }
         .career-form-enrollment__tilda {
           flex-basis: 14%;
@@ -214,8 +312,8 @@ export default {
       align-items: center;
       padding-bottom: 3px;
       position: absolute;
-      right: 7%;
-      top: 26%;
+      right: 2%;
+      top: -5%;
     }
   }
   .form-add-btn {

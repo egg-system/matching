@@ -55,6 +55,7 @@ export default {
       this.$emit('moveNext')
     },
     skip () {
+      this.selectValue = '' // リセット
       this.$emit('moveNext')
     }
   },
