@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OfferState extends Model
 {
-    protected $fillable = ['name', 'trainer_notice_flg', 'gym_notice_flg'];
+    protected $fillable = ['name', 'trainer_notice_flg', 'gym_notice_flg', 'transition_state', 'transition_user_type'];
 
     /** @var int エントリー */
     public const ENTRY = 1;
@@ -24,10 +24,20 @@ class OfferState extends Model
     public const REFUSE = 5;
 
     /**
+     * 状態遷移可能ユーザー判定
+     * @param $userType
+     * @return bool
+     */
+    public function canTransitionUser($userType): bool
+    {
+        return $userType === $this->transition_user_type;
+    }
+
+    /**
      * マッチングの初期ステータス判定
      * @return bool
      */
-    public function isInitState()
+    public function isInitState(): bool
     {
         return $this->id === self::ENTRY || $this->id === self::OFFER;
     }
@@ -37,7 +47,7 @@ class OfferState extends Model
      * @param int $recentState
      * @return bool
      */
-    public function canTransitionState(int $recentState)
+    public function canTransitionState(int $recentState): bool
     {
         return empty($this->transition_state) ||
             in_array($recentState, explode(',', $this->transition_state));

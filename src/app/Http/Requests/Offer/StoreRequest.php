@@ -41,9 +41,11 @@ class StoreRequest extends FormRequest
     {
         $user = Auth::user();
 
-        /** @var OfferState $offerState 登録可能ユーザーか判定 */
+        /** @var OfferState $offerState */
         $offerState = OfferState::find($this->state);
-        if ($user->user_type !== $offerState->transition_user_type) {
+
+        // 登録可能ユーザーか判定
+        if (!$offerState->canTransitionUser($user->user_type)) {
             return false;
         }
 
