@@ -25,10 +25,10 @@ class ChangeColumnOffersTable extends Migration
             $table->foreign('trainer_login_id')->references('id')->on('login');
         });
         Schema::table('offers', function (Blueprint $table) {
-            $table->dropColumn('offer_from_id');
-        });
-        Schema::table('offers', function (Blueprint $table) {
-            $table->dropColumn('offer_to_id');
+            $table->dropColumn([
+                'offer_from_id',
+                'offer_to_id'
+            ]);
         });
     }
 
@@ -45,17 +45,16 @@ class ChangeColumnOffersTable extends Migration
                 $table->dropForeign('offers_trainer_login_id_foreign');
             }
 
-
             $table->unsignedBigInteger('offer_from_id')->after('id')->comment('オファーしたユーザーのID');
             $table->unsignedBigInteger('offer_to_id')->after('offer_from_id')->comment('オファーされたユーザーのID');
             $table->foreign('offer_from_id')->references('id')->on('login');
             $table->foreign('offer_to_id')->references('id')->on('login');
         });
         Schema::table('offers', function (Blueprint $table) {
-            $table->dropColumn('trainer_login_id');
-        });
-        Schema::table('offers', function (Blueprint $table) {
-            $table->dropColumn('gym_login_id');
+            $table->dropColumn([
+                'trainer_login_id',
+                'gym_login_id'
+            ]);
         });
     }
 }
