@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OfferState extends Model
 {
-    protected $fillable = ['name', 'trainer_notice_flg', 'gym_notice_flg', 'transition_state', 'transition_user_type'];
+    protected $fillable = ['name', 'should_notice_trainer', 'should_notice_gym', 'transition_state', 'transition_user_type'];
 
     /** @var int エントリー */
     public const ENTRY = 1;

@@ -63,10 +63,10 @@ class Offer extends Model
     public function getSendMailAddress()
     {
         $result = [];
-        if ($this->state->trainer_notice_flg) {
+        if ($this->state->should_notice_trainer) {
             $result[] = $this->trainer->email;
         }
-        if ($this->state->gym_notice_flg) {
+        if ($this->state->should_notice_gym) {
             $result[] = $this->gym->email;
         }
         return $result;
