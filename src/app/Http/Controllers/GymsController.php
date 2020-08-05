@@ -6,22 +6,20 @@ use App\Http\Requests\Gym\TrainerSearchRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Repositories\UserRepository;
-use App\Services\Search\SearchService;
-
-use Illuminate\Support\Facades\Log;
+use App\Services\Search\UserSearchService;
 
 class GymsController extends Controller
 {
     /** @var UserRepository  */
     protected $userRepository;
 
-    /** @var SearchService  */
-    protected $searchService;
+    /** @var UserSearchService  */
+    protected $userSearchService;
 
-    public function __construct(UserRepository $userRepository, SearchService $searchService)
+    public function __construct(UserRepository $userRepository, UserSearchService $userSearchService)
     {
         $this->userRepository = $userRepository;
-        $this->searchService = $searchService;
+        $this->userSearchService = $userSearchService;
 
         $this->authorizeResource(Gym::class);
     }
@@ -36,7 +34,7 @@ class GymsController extends Controller
      */
     public function trainerList(TrainerSearchRequest $request)
     {
-        $conditions = $this->searchService->detailSearch($request);
+        $conditions = $this->userSearchService->profileSearch($request);
         return view('pages.gyms.trainerList', compact('conditions'));
     }
 }

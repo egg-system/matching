@@ -19,14 +19,6 @@ class MatchingCondition extends Model
 
     protected $with = ['user', 'area', 'occupation'];
 
-    const SEARCH_GYM_PARAMS = [
-        'user_id' => ['operation' => '='],
-    ];
-
-    const SEARCH_TRAINER_PARAMS = [
-        'user_id' => ['operation' => '='],
-    ];
-
     public function user()
     {
         return $this->morphTo('user');
@@ -48,58 +40,17 @@ class MatchingCondition extends Model
     }
 
     /**
-     * ジム検索のクエリスコープ
+     * ユーザ検索のクエリスコープ
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearchGym(Builder $query, array $attributes)
+    public function scopeProfileSearch(Builder $query, array $attributes)
     {
-        $query = $query->where('user_type', Gym::class);
-
-        collect(self::SEARCH_GYM_PARAMS)->each(function ($operation, $param) {
-            if (!is_null($operation) && !isset($operation) && !$attributes->only($param) == "") {
-                $query = $this->scopeSearch([$param => $attributes[$param]], $param['operation']);
-            }
+        collect($attributes)->each(function ($value, $column) use ($query) {
+            $query->where($column, '=', $value);
         });
 
-        return $query;
-    }
-
-    /**
-     * ジム検索のクエリスコープ
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeSearchTrainer(Builder $query, array $attributes)
-    {
-        $query = $query->where('user_type', Trainer::class);
-
-        collect(self::SEARCH_TRAINER_PARAMS)->each(function ($operation, $param) {
-            if (!is_null($operation) && !isset($operation) && !$attributes->only($param) == "") {
-                $query = $this->scopeSearch([$param => $attributes[$param]], $param['operation']);
-            }
-        });
-
-        return $query;
-    }
-
-    /**
-     * イコール検索するクエリスコープ
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeSearch(Builder $query, array $attributes, string $operation = '=')
-    {
-        $attributes = Arr::dot($attributes);
-        foreach ($attributes as $column => $value) {
-            $column = str_replace('.', '->', $column);
-            if (!is_null($value)) {
-                $query->where($column, $operation, $value);
-            }
-        }
         return $query;
     }
 }
