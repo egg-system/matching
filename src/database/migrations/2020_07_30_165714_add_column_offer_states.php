@@ -31,7 +31,7 @@ class AddColumnOfferStates extends Migration
         Schema::table('offer_states', function (Blueprint $table) {
             $table->dropColumn([
                 'should_notice_trainer',
-                'gym_notice_flg',
+                'should_notice_gym',
                 'transition_state',
                 'transition_user_type'
             ]);
