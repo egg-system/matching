@@ -7,6 +7,7 @@
     <area-step v-show="stepState === 4" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
     <work-style-step v-show="stepState === 5" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
     <career-step v-show="stepState === 6" @moveNext="moveNextStep" @back="movePrevStep" />
+    <thanks-page v-show="stepState === 7" @entry="entry" />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import occupationStep from './occupation-step'
 import areaStep from './area-step'
 import workStyleStep from './work-style-step'
 import careerStep from './career-step'
+import thanksPage from './thanks-page'
 
 export default {
   props: {
@@ -26,7 +28,7 @@ export default {
   },
   data () {
     return {
-      stepState: 6
+      stepState: 7
     }
   },
   components: {
@@ -36,7 +38,8 @@ export default {
     occupationStep,
     areaStep,
     workStyleStep,
-    careerStep
+    careerStep,
+    thanksPage
   },
   methods: {
     moveNextStep () {
@@ -44,6 +47,9 @@ export default {
     },
     movePrevStep () {
       this.stepState--
+    },
+    entry () {
+      // TODO: 遷移先を確認する
     }
   }
 }
