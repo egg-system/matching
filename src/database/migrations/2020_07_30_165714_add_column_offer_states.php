@@ -30,8 +30,8 @@ class AddColumnOfferStates extends Migration
     {
         Schema::table('offer_states', function (Blueprint $table) {
             $table->dropColumn([
-                'gym_send_mail',
-                'trainer_send_mail',
+                'trainer_notice_flg',
+                'gym_notice_flg',
                 'transition_state',
                 'transition_user_type'
             ]);
