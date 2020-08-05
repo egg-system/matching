@@ -63,13 +63,12 @@ export default {
 
 <style lang="scss" scoped>
 .form-wrapper {
-  $this: &;
   display: flex;
   text-align: center;
   margin-top: 65px;
   padding: 0 10%;
   .now-work-style-form {
-    &--selected #{$this}-img {
+    &--selected .now-work-style-form__img {
       border: solid 2px red;
     }
     &__img {

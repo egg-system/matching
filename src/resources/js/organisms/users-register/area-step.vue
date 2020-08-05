@@ -40,6 +40,7 @@ export default {
     roundedBtn
   },
   props: {
+    isShown: { type: Boolean, default: false },
     areas: { type: Array, required: true }
   },
   data () {
@@ -59,9 +60,15 @@ export default {
       this.$emit('moveNext')
     }
   },
-  mounted () {
-    const smallTextOffsetTop = this.$refs.smallText.offsetTop
-    this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
+  watch: {
+    isShown (newValue) {
+      if (newValue) {
+        const smallTextOffsetTop = this.$refs.smallText.offsetTop
+        this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
+      } else {
+        this.$refs.smallText.style['margin-top'] = 'auto'
+      }
+    }
   }
 }
 </script>

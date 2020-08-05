@@ -44,6 +44,7 @@ export default {
     roundedBtn
   },
   props: {
+    isShown: { type: Boolean, default: false },
     occupations: { type: Array, required: true }
   },
   data () {
@@ -66,16 +67,21 @@ export default {
       this.$emit('moveNext')
     }
   },
-  mounted () {
-    const smallTextOffsetTop = this.$refs.smallText.offsetTop
-    this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
+  watch: {
+    isShown (newValue) {
+      if (newValue) {
+        const smallTextOffsetTop = this.$refs.smallText.offsetTop
+        this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
+      } else {
+        this.$refs.smallText.style['margin-top'] = 'auto'
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .form-wrapper {
-  $this: &;
   display: flex;
   text-align: center;
   margin-top: 45px;
@@ -86,7 +92,7 @@ export default {
       margin: auto;
       border: solid 2px lightgrey;
     }
-    &--selected #{$this}__img {
+    &--selected .occupation-form__img {
       border: solid 2px red;
     }
     &__text {
