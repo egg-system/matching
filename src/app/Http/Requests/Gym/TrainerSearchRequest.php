@@ -25,7 +25,6 @@ class TrainerSearchRequest extends FormRequest implements SearchRequestInterface
     public function rules()
     {
         return [
-            'user_id' => 'nullable|integer',
             'user_type' => 'nullable|in:App\Models\Gym,App\Models\Trainer',
             'occupation_id' => 'nullable|integer',
             'area_id' => 'nullable|integer',
