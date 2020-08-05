@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OfferState extends Model
 {
-    protected $fillable = ['name', 'trainer_send_mail', 'gym_send_mail'];
+    protected $fillable = ['name', 'trainer_notice_flg', 'gym_notice_flg'];
 
     /** @var int エントリー */
     public const ENTRY = 1;
@@ -22,4 +22,24 @@ class OfferState extends Model
     
     /** @var int 辞退 */
     public const REFUSE = 5;
+
+    /**
+     * マッチングの初期ステータス判定
+     * @return bool
+     */
+    public function isInitState()
+    {
+        return $this->id === self::ENTRY || $this->id === self::OFFER;
+    }
+    
+    /**
+     * 直近のオファー状態と比較し、遷移可能な状態か判定
+     * @param int $recentState
+     * @return bool
+     */
+    public function canTransitionState(int $recentState)
+    {
+        return empty($this->transition_state) ||
+            in_array($recentState, explode(',', $this->transition_state));
+    }
 }
