@@ -56,4 +56,17 @@ class StoreRequest extends FormRequest
         return empty($recent_offer->state->transition_state) ||
             in_array($this->state, explode(',', $recent_offer->state->transition_state));
     }
+
+    /**
+     * 登録パラメータ取得
+     * @return array
+     */
+    public function getStoreParameter(): array
+    {
+        return [
+            'gym_login_id' => $this->gym,
+            'trainer_login_id' => $this->trainer,
+            'offer_state' => $this->state,
+        ];
+    }
 }
