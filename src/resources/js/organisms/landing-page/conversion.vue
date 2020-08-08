@@ -2,16 +2,16 @@
   <div class="conversion-wrapper center-align-wrapper">
     <main-image />
     <p class="mt-16 mb-6">さあ、今すぐ<br />エントリー。</p>
-    <login-dialog />
+    <register-btn />
   </div>
 </template>
 
 <script>
 import mainImage from '../../atoms/landing-page/main-image'
-import loginDialog from '../landing-page/login-dialog'
+import registerBtn from '../../molecules/landing-page/register-btn'
 
 export default {
-  components: { mainImage, loginDialog }
+  components: { mainImage, registerBtn }
 }
 </script>
 

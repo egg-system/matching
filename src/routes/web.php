@@ -2,13 +2,39 @@
 
 use Illuminate\Support\Facades\Route;
 
+// TopのLP
+Route::view('/', 'pages.landing')->name('top');
+
+// 利用規約
+Route::view('/service-term', 'pages.terms.service-term')
+    ->name('serviceTerm');
+
+// 個人情報保護
+Route::view('/privacy-policy', 'pages.terms.privacy-policy')
+    ->name('privacyPolicy');
+
+// 特定商取引法に基づく表記
+Route::view('/commercial-transactions', 'pages.terms.commercial-transactions')
+    ->name('commercialTransactions');
+
 // トレーナーの登録
 Route::group(['middleware' => 'released:register'], function () {
+    // メールアドレス入力
+    Route::view('/input-email', 'pages.email.input-email')
+        ->name('inputEmail');
+
+    // メールアドレスの登録処理
+    Route::post('register', 'Auth\RegisterController@register')
+        ->name('register');
+
+    // メールアドレス入力後のサンクスページ
+    Route::view('/send-email', 'pages.email.send-email')
+        ->name('sendEmail');
+
+    // 会員登録画面
     Route::resource('trainers', 'UsersController')
         ->only(['create', 'store'])
         ->middleware('signed');
-    Route::post('register', 'Auth\RegisterController@register')
-        ->name('register');
 });
 
 // ログイン
@@ -68,12 +94,3 @@ Route::group(['middleware' => ['auth']], function () {
     // ログアウト
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 });
-
-// メール送信済
-Route::view('/send-email', 'pages.send-verify-email')->name('sendVerifyEmail');
-
-// 利用規約
-Route::view('/service-term', 'pages.service-term')->name('serviceTerm');
-
-// TopのLP
-Route::view('/', 'pages.landing')->name('top')->middleware('guest');
