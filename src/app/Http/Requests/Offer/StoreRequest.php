@@ -40,20 +40,23 @@ class StoreRequest extends FormRequest
     public function canStoreState(): bool
     {
         $user = Auth::user();
+
+        /** @var OfferState $offerState */
+        $offerState = OfferState::find($this->state);
+
         // 登録可能ユーザーか判定
-        $offer_state = OfferState::find($this->state);
-        if ($user->user_type !== $offer_state->transition_user_type) {
+        if (!$offerState->canTransitionUser($user->user_type)) {
             return false;
         }
 
-        $recent_offer = app(MatchingService::class)->getMostRecentOffer($this->gym, $this->trainer);
+        $recentOffer = app(MatchingService::class)->getMostRecentOffer($this->gym, $this->trainer);
 
-        if (empty($recent_offer)) {
-            return true;
+        // 直近オファーがない場合は初期状態の登録か判定
+        if (empty($recentOffer)) {
+            return $offerState->isInitState();
         }
 
         // 登録する状態と直近のオファー状態から遷移可能かを判定する
-        return empty($recent_offer->state->transition_state) ||
-            in_array($this->state, explode(',', $recent_offer->state->transition_state));
+        return $offerState->canTransitionState($recentOffer->state->id);
     }
 }
