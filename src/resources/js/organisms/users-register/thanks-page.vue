@@ -14,7 +14,7 @@
           <img src="/images/users-register/finish_background.png" alt="ジムで運動する人々" />
         </div>
 
-        <rounded-btn class="entry-btn" text="早速、ジムに応募する" @click="entry" />
+        <rounded-btn type="submit" class="entry-btn" text="早速、ジムに応募する" />
       </div>
     </v-img>
   </div>
@@ -24,12 +24,7 @@
 import roundedBtn from '../../atoms/users-register/rounded-btn'
 
 export default {
-  components: { roundedBtn },
-  methods: {
-    entry () {
-      this.$emit('entry')
-    }
-  }
+  components: { roundedBtn }
 }
 </script>
 

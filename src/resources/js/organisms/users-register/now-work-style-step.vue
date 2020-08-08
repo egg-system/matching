@@ -36,16 +36,16 @@ export default {
       nowWorkStyles: [
         {
           label: 'ジムに勤務しています',
-          value: 'Gym',
+          value: 1,
           img: '/images/users-register/gym.png'
         },
         {
           label: 'フリーランスです',
-          value: 'Trainer',
+          value: 2,
           img: '/images/users-register/freelance_icon.jpg'
         }
       ],
-      inputNowWorkStyle: '' // 選択した働き方
+      inputNowWorkStyle: null // 選択した働き方
     }
   },
   methods: {

@@ -3,7 +3,7 @@
     <start-page v-show="stepState === 0" @moveNext="moveNextStep" />
     <name-step v-show="stepState === 1" @moveNext="moveNextStep" />
     <password-step v-show="stepState === 2" @moveNext="moveNextStep" @back="movePrevStep" />
-    <user-type-step v-show="stepState === 3" @moveNext="moveNextStep" @back="movePrevStep" />
+    <now-work-style-step v-show="stepState === 3" @moveNext="moveNextStep" @back="movePrevStep" />
     <occupation-step v-show="stepState === 4" :isShown="stepState === 4" :occupations="occupations" @moveNext="moveNextStep" @back="movePrevStep" />
     <area-step v-show="stepState === 5" :isShown="stepState === 5" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
     <work-style-step v-show="stepState === 6" :isShown="stepState === 6" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
@@ -16,7 +16,7 @@
 import startPage from './start-page'
 import nameStep from './name-step'
 import passwordStep from './password-step'
-import userTypeStep from './user-type-step'
+import nowWorkStyleStep from './now-work-style-step'
 import occupationStep from './occupation-step'
 import areaStep from './area-step'
 import workStyleStep from './work-style-step'
@@ -30,14 +30,14 @@ export default {
   },
   data () {
     return {
-      stepState: 2
+      stepState: 0
     }
   },
   components: {
     startPage,
     nameStep,
     passwordStep,
-    userTypeStep,
+    nowWorkStyleStep,
     occupationStep,
     areaStep,
     workStyleStep,
@@ -52,7 +52,7 @@ export default {
       this.stepState--
     },
     entry () {
-      // TODO: 遷移先を確認する
+      this.$emit('submit')
     }
   }
 }
