@@ -63,6 +63,12 @@ Route::view('/send-email', 'pages.send-verify-email')->name('sendVerifyEmail');
 // 利用規約
 Route::view('/service-term', 'pages.service-term')->name('serviceTerm');
 
+// 個人情報保護
+Route::view('/privacy-policy', 'pages.privacy-policy')->name('privacyPolicy');
+
+// 特定商取引法に基づく表記
+Route::view('/commercial-transactions', 'pages.commercial-transactions')->name('commercialTransactions');
+
 // TopのLP
 Route::view('/', 'pages.landing')->name('top');
 
