@@ -19,9 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            $login = Auth::user();
-            $routeName = $login->isGym ? 'trainers.index' : 'gyms.index';
-
+            $routeName = Auth::user()->homeRouteName;
             return redirect(route($routeName));
         }
 

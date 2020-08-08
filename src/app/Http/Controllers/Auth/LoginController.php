@@ -42,9 +42,7 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        $login = auth()->user();
-        $routeName = $login->isGym ? 'trainers.index' : 'gyms.index';
-
+        $routeName = auth()->user()->homeRouteName;
         return route($routeName);
     }
 }

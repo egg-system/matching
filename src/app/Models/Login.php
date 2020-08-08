@@ -116,4 +116,9 @@ class Login extends Authenticatable implements MustVerifyEmail
     {
         return $this->user_type === Gym::class;
     }
+
+    public function getHomeRouteNameAttribute()
+    {
+        return $this->isGym ? 'trainers.index' : 'gyms.index';
+    }
 }
