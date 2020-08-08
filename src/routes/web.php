@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('offers', 'OffersController')
         ->only(['store'])
         ->middleware('can:gym');
+
+    // ログアウト
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 });
 
 // メール送信済
@@ -74,5 +77,3 @@ Route::view('/service-term', 'pages.service-term')->name('serviceTerm');
 
 // TopのLP
 Route::view('/', 'pages.landing')->name('top')->middleware('guest');
-
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
