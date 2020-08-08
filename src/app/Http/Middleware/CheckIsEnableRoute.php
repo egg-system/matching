@@ -15,7 +15,7 @@ class CheckIsEnableRoute
         $releaseFeature = config("release.{$feature}");
 
         if (!$releaseFeature['is_enabled']) {
-            return \App::abort(404);;
+            return \App::abort(404);
         }
 
         return $next($request);
