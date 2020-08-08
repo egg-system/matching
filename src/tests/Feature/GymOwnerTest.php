@@ -39,8 +39,10 @@ class GymOwnerTest extends TestCase
             );
         });
 
-        $search_response = $this->actingAs($this->owner->login)->get(route('gyms.trainerList') . '?user_type=App\Models\Trainer');
+        $searchResponse = $this->actingAs($this->owner->login)->get(route('gyms.trainerList', [
+            'user_type' => 'App\Models\Trainer'
+        ]));
 
-        $search_response->assertStatus(200);
+        $searchResponse->assertStatus(200);
     }
 }

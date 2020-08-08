@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Services\Search;
 
-interface SearchRequestInterface
+interface SearchInterface
 {
     public function validated();
     public function rules();

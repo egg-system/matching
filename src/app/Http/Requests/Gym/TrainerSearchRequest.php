@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Gym;
 
-use App\Http\Requests\SearchRequestInterface;
+use App\Services\Search\SearchInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrainerSearchRequest extends FormRequest implements SearchRequestInterface
+class TrainerSearchRequest extends FormRequest implements SearchInterface
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class TrainerSearchRequest extends FormRequest implements SearchRequestInterface
     public function rules()
     {
         return [
-            'user_type' => 'nullable|in:App\Models\Gym,App\Models\Trainer',
+            'user_type' => 'required|in:App\Models\Gym,App\Models\Trainer',
             'occupation_id' => 'nullable|integer',
             'area_id' => 'nullable|integer',
             'price' => 'nullable|array',
