@@ -5,7 +5,9 @@ namespace App\Services\Search;
 interface SearchInterface
 {
     /**
-     * 検証済みの検索項目を返却.
+     * 検索項目を返却.
+     * 
+     * @return array [searchColumn => searchValue]
      */
-    public function searchParamValidated();
+    public function searchAttributes();
 }

@@ -50,7 +50,7 @@ class TrainerSearchRequest extends FormRequest implements SearchInterface
     /**
      * 検証済みの検索項目を返却.
      */
-    public function searchParamValidated() {
+    public function searchAttributes() {
         return $this->validated();
     }
 }
