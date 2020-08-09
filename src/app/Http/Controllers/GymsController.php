@@ -34,7 +34,7 @@ class GymsController extends Controller
      */
     public function trainerList(TrainerSearchRequest $request)
     {
-        $conditions = $this->userSearchService->profileSearch($request);
+        $conditions = $this->userSearchService->execute($request);
         return view('pages.gyms.trainerList', compact('conditions'));
     }
 }

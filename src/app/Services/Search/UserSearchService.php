@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Log;
 class UserSearchService
 {
     /**
-     * プロフィール検索
+     * ユーザ検索処理実行
      * 
      * @param App\Services\Search\SearchInterface $request
      */
-    public function profileSearch(SearchInterface $request)
+    public function execute(SearchInterface $request)
     {
         $validated = $request->validated();
         $query = MatchingCondition::profileSearch($validated);
