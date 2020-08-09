@@ -26,7 +26,7 @@
       <a href="javascript:void(0)" @click.prevent="skip">スキップ</a>
     </div>
 
-    <p class="small-text" ref="smallText">あと３ステップ！</p>
+    <p class="small-text" ref="smallText">あと２ステップ！</p>
   </step-page-wrapper>
 </template>
 

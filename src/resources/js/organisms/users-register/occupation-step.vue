@@ -30,7 +30,7 @@
       @click="moveNext"
     ></rounded-btn>
 
-    <p class="small-text" ref="smallText">あと４ステップ！</p>
+    <p class="small-text" ref="smallText">あと３ステップ！</p>
   </step-page-wrapper>
 </template>
 
