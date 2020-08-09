@@ -1,3 +1,3 @@
 <template>
-  <v-icon>mdi-account</v-icon>
+  <v-icon>mdi-cog</v-icon>
 </template>

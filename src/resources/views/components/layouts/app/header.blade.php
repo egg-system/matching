@@ -1,13 +1,13 @@
 @php
-$profileUrl = route(\Auth::user()->homeRouteName);
+$user = \Auth::user();
 $headerMenu = [
     [
-        'icon' => 'mdi-card-account-details',
-        'url' => $profileUrl,
+        'icon' => 'mdi-home',
+        'url' => route($user->homeRouteName),
     ],
     [
         'icon' => 'mdi-chat-processing',
-        'url' => '',
+        'url' => route('offers.index'),
     ],
     // [
     //     'icon' => 'mdi-bell',
@@ -16,19 +16,23 @@ $headerMenu = [
 ];
 
 $profileMenu = [
+    [
+        'name' =>  $user->isGym ? '基本情報編集' : 'プロフィール編集',
+        'url' => '',
+    ],
+    [
+        'name' =>  '求人情報編集',
+        'url' => '',
+        'isShown' => $user->isGym,
+    ],
     // [
     //     'icon' => 'cards-heart',
     //     'name' => '「いいね」一覧',
     //     'url' => '',
     // ]
     [
-        'icon' => 'mdi-lock',
         'name' => 'パスワード変更',
         'url' => '',
-    ],
-    [
-        'name' => 'ログアウト',
-        'url' => route('logout'),
     ]
 ];
 @endphp
@@ -36,5 +40,5 @@ $profileMenu = [
 <app-header
     :header-menus='@json($headerMenu)'
     :profile-menus='@json($profileMenu)'
-    :profile-url='@json($profileUrl)'
+    :logout-url='@json(route('logout'))'
 ></app-header>
