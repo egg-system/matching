@@ -46,4 +46,11 @@ class TrainerSearchRequest extends FormRequest implements SearchInterface
             'work_time' => '希望する曜日や時間帯',
         ];
     }
+
+    /**
+     * 検証済みの検索項目を返却.
+     */
+    public function searchParamValidated() {
+        return $this->validated();
+    }
 }
