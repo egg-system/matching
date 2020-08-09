@@ -23,6 +23,8 @@ class ChangeColumnOffersTable extends Migration
             $table->unsignedBigInteger('trainer_login_id')->nullable()->after('gym_login_id')->comment('トレーナー側のログインID');
             $table->foreign('gym_login_id')->references('id')->on('login');
             $table->foreign('trainer_login_id')->references('id')->on('login');
+        });
+        Schema::table('offers', function (Blueprint $table) {
             $table->renameColumn('offer_state', 'offer_state_id');
         });
         Schema::table('offers', function (Blueprint $table) {
@@ -50,6 +52,8 @@ class ChangeColumnOffersTable extends Migration
             $table->unsignedBigInteger('offer_to_id')->after('offer_from_id')->comment('オファーされたユーザーのID');
             $table->foreign('offer_from_id')->references('id')->on('login');
             $table->foreign('offer_to_id')->references('id')->on('login');
+        });
+        Schema::table('offers', function (Blueprint $table) {
             $table->renameColumn('offer_state_id', 'offer_state');
         });
         Schema::table('offers', function (Blueprint $table) {
