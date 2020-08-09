@@ -32,20 +32,25 @@ class GymOwnerTest extends TestCase
         $this->withExceptionHandling();
 
         $trainers = factory(Trainer::class, 10)->create()->each(function ($trainer) {
+            $areaId = (Area::inRandomOrder()->first())->id ?? factory(Area::class)->create()->id;
             $trainer->matchingCondition()->create(
                 [
-                    'area_id' => (Area::inRandomOrder()->first())->id ?? factory(Area::class)->create()->id
+                    'area_id' => $areaId
                 ]
             );
         });
-        $response = $this->actingAs($this->owner->login)->get(route('gyms.trainerList'));
+        $response = $this
+            ->actingAs($this->owner->login)
+            ->get(route('trainers.index'));
 
         $response->assertStatus(200);
 
-        $search_response = $this->actingAs($this->owner->login)->get(route('gyms.trainerList'), [
-            'price' => ['min' => 100]
-        ]);
+        $searchResponse = $this
+            ->actingAs($this->owner->login)
+            ->get(route('trainers.index'), [
+                'price' => ['min' => 100]
+            ]);
 
-        $search_response->assertStatus(200);
+        $searchResponse->assertStatus(200);
     }
 }

@@ -1,14 +1,17 @@
 @php
 // TODO: #117 メニュー用の変数の管理方法を検討する
-// TODO: #155 グローバルメニューの内容をFIXする
 $headerMenus = [
     [
-        'name' => 'トレーナーログイン',
+        'name' => '無料で始める',
+        'url' => route('inputEmail'),
+    ],
+    [
+        'name' => 'ログイン',
         'url' => route('login.view', ['userType' => 'trainer']),
     ],
     [
-        'name' => 'ジムオーナーログイン',
-        'url' => route('login.view', ['userType' => 'gym']),
+        'name' => 'お問い合わせ',
+        'url' => 'https://forms.gle/ETkFKttFfxLPM6DF6',
     ]
 ]
 @endphp

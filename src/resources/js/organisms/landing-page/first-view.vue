@@ -1,27 +1,21 @@
 <template>
   <div class="first-view-wrapper">
     <main-view />
-    <v-row justify="center" class="login-btn-wrapper">
-      <login-dialog />
-    </v-row>
+    <login-area />
   </div>
 </template>
 
 <script>
 import mainView from '../../molecules/landing-page/mian-view'
-import loginDialog from '../landing-page/login-dialog'
+import loginArea from '../landing-page/login-area'
 
 export default {
-  components: { mainView, loginDialog }  
+  components: { mainView, loginArea }  
 }
 </script>
 
 <style lang="scss" scoped>
 .first-view-wrapper {
   margin-top: 50px;
-}
-
-.login-btn-wrapper {
-  margin-top: 130px;
 }
 </style>
