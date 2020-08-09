@@ -46,10 +46,10 @@
             <input
               v-model="career.enrollmentOngoing"
               type="checkbox"
-              id="ongoing"
+              :id="`ongoing_${i}`"
               class="career-form-enrollment-checkbox"
             >
-            <label for="ongoing">今も継続中</label>
+            <label :for="`ongoing_${i}`">今も継続中</label>
           </div>
         </div>
 
