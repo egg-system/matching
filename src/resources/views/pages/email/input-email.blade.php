@@ -1,4 +1,4 @@
-@extends('templates.app')
+@extends('templates.landing-page')
 
 @section('content')
 <div class="container">
