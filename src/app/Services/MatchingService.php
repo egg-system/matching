@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Http\Requests\Offer\StoreRequest;
+use App\Models\Login;
 use App\Models\Offer;
-use App\Models\OfferState;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
@@ -22,15 +22,15 @@ class MatchingService
      */
     public function searchOffers(Request $request)
     {
-        $user = auth()->user();
-        // 絞り込み条件取得
-        $stateId = $request->query('offer_state', OfferState::ENTRY);
-        
-        // TODO ここはオファー一覧の仕様が固まり次第パラメータ込みで要リファクタ
-        // デフォルトで送信したオファー取得、指定がある場合受信取得
-        $type = $request->type;
-        $query = !$type ? $user->gymOffers() : $user->trainerOffers();
-        return $query->whereState($stateId)->get();
+        /** @var Login $user */
+        $user = $request->user();
+
+        // 各マッチングの最新状態のみを取得
+        $targetIds = Offer::whereUserId($user)
+            ->getMatchingLatestIds()
+            ->get()
+            ->pluck('id');
+        return Offer::whereIn('id', $targetIds)->get();
     }
 
     /**
@@ -43,12 +43,7 @@ class MatchingService
             throw app(AuthorizationException::class);
         }
 
-        $storeParams = $request->only(['gym', 'trainer', 'state']);
-        Offer::create([
-            'gym_login_id' => $storeParams['gym'],
-            'trainer_login_id' => $storeParams['trainer'],
-            'offer_state' => $storeParams['state'],
-        ]);
+        Offer::create($request->getStoreParameter());
     }
 
     /**

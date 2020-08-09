@@ -26,7 +26,7 @@ class DropColumnOffersTable extends Migration
     public function down()
     {
         Schema::table('offers', function (Blueprint $table) {
-            $table->text('message')->after('offer_state')->comment('オファーの内容');
+            $table->text('message')->after('offer_state_id')->comment('オファーの内容');
         });
     }
 }
