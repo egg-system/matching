@@ -1,7 +1,10 @@
 <template>
   <v-app-bar app flat color="white">
     <header-menus :menus="headerMenus" />
-    <profile-menus />
+    <profile-menus
+      :menus="profileMenus"
+      :logout-url="logoutUrl"
+    />
   </v-app-bar>
 </template>
 
@@ -17,6 +20,14 @@ export default {
   props: {
     headerMenus: {
       type: Array,
+      required: true
+    },
+    profileMenus: {
+      type: Array,
+      required: true
+    },
+    logoutUrl: {
+      type: String,
       required: true
     }
   }
