@@ -16,7 +16,7 @@ class UserSearchService
      */
     public function execute(SearchInterface $request)
     {
-        $validated = $request->searchAttributes();
+        $validated = $request->searchParameters();
         $query = MatchingCondition::profileSearch($validated);
         return $query->get();
     }

@@ -9,5 +9,5 @@ interface SearchInterface
      * 
      * @return array [searchColumn => searchValue]
      */
-    public function searchAttributes();
+    public function searchParameters();
 }
