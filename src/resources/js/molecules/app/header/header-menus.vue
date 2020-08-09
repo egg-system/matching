@@ -5,7 +5,6 @@
       :key="menu.icon"
       :href="menu.url"
       icon
-      color="white"
     >
       <main-icon :icon="menu.icon" />
     </v-btn>
