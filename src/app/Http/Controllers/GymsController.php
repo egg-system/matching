@@ -28,13 +28,4 @@ class GymsController extends Controller
     {
         return view('pages.gyms.index');
     }
-
-    /**
-     * トレーナの一覧表示画面(検索付)
-     */
-    public function trainerList(TrainerSearchRequest $request)
-    {
-        $conditions = $this->userSearchService->execute($request);
-        return view('pages.gyms.trainerList', compact('conditions'));
-    }
 }

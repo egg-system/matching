@@ -32,7 +32,7 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        return route('sendVerifyEmail');
+        return route('sendEmail');
     }
 
     /**

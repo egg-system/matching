@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Gym;
+namespace App\Http\Requests;
 
 use App\Services\Search\SearchInterface;
 use Illuminate\Foundation\Http\FormRequest;
