@@ -13,14 +13,14 @@ class Offer extends Model
     protected $fillable = [
         'gym_login_id',
         'trainer_login_id',
-        'offer_state',
+        'offer_state_id',
     ];
 
     protected $with = ['gym.user', 'trainer.user', 'state'];
 
     public function state()
     {
-        return $this->hasOne(OfferState::class, 'id', 'offer_state');
+        return $this->hasOne(OfferState::class, 'id', 'offer_state_id');
     }
 
     /**
@@ -48,7 +48,7 @@ class Offer extends Model
      */
     public function scopeWhereState(Builder $query, int $offerState = OfferState::ENTRY)
     {
-        return $query->where('offer_state', $offerState);
+        return $query->where('offer_state_id', $offerState);
     }
 
     /**
@@ -74,7 +74,7 @@ class Offer extends Model
 
     public function updateState(int $state)
     {
-        return $this->update(['offer_state' => $state]);
+        return $this->update(['offer_state_id' => $state]);
     }
 
     /**

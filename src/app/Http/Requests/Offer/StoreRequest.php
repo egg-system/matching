@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
         return [
             'gym_login_id' => 'required|different:trainer|exists:login,id',
             'trainer_login_id' => 'required|different:gym|exists:login,id',
-            'offer_state' => 'required|int|exists:offer_states,id'
+            'offer_state_id' => 'required|int|exists:offer_states,id'
         ];
     }
 
@@ -42,7 +42,7 @@ class StoreRequest extends FormRequest
         $user = Auth::user();
 
         /** @var OfferState $offerState */
-        $offerState = OfferState::find($this->offer_state);
+        $offerState = OfferState::find($this->offer_state_id);
 
         // 登録可能ユーザーか判定
         if (!$offerState->canTransitionUser($user->user_type)) {
@@ -66,6 +66,6 @@ class StoreRequest extends FormRequest
      */
     public function getStoreParameter(): array
     {
-        return $this->only(['gym_login_id', 'trainer_login_id', 'offer_state']);
+        return $this->only(['gym_login_id', 'trainer_login_id', 'offer_state_id']);
     }
 }
