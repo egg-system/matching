@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\Offer\StoreRequest;
+use App\Models\Login;
 use App\Models\Offer;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -14,12 +15,6 @@ use Illuminate\Http\Request;
  */
 class MatchingService
 {
-    private $offer;
-    public function __construct(Offer $offer)
-    {
-        $this->offer = $offer;
-    }
-
     /**
      * オファー情報取得
      * @param Request $request
@@ -27,13 +22,12 @@ class MatchingService
      */
     public function searchOffers(Request $request)
     {
+        /** @var Login $user */
         $user = $request->user();
 
         // 各マッチングの最新状態のみを取得
-        $searchColumn = $user->isGym() ? 'gym_login_id' : 'trainer_login_id';
-        $targetIds = Offer::selectRaw('max(id) as id')
-            ->where($searchColumn, $user->id)
-            ->groupBy('gym_login_id', 'trainer_login_id')
+        $targetIds = Offer::whereUserId($user)
+            ->getMatchingLatestIds()
             ->get()
             ->pluck('id');
         return Offer::whereIn('id', $targetIds)->get();

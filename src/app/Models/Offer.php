@@ -51,6 +51,27 @@ class Offer extends Model
         return $query->where('offer_state', $offerState);
     }
 
+    /**
+     * @param Builder $query
+     * @param Login $user
+     * @return Builder
+     */
+    public function scopeWhereUserId(Builder $query, Login $user)
+    {
+        $searchColumn = $user->isGym() ? 'gym_login_id' : 'trainer_login_id';
+        return $query->where($searchColumn, $user->id);
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeGetMatchingLatestIds(Builder $query)
+    {
+        return $query->selectRaw('max(id) as id')
+            ->groupBy('gym_login_id', 'trainer_login_id');
+    }
+
     public function updateState(int $state)
     {
         return $this->update(['offer_state' => $state]);

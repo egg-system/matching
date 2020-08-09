@@ -27,9 +27,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'gym' => 'required|different:trainer|exists:login,id',
-            'trainer' => 'required|different:gym|exists:login,id',
-            'state' => 'required|int|exists:offer_states,id'
+            'gym_login_id' => 'required|different:trainer|exists:login,id',
+            'trainer_login_id' => 'required|different:gym|exists:login,id',
+            'offer_state' => 'required|int|exists:offer_states,id'
         ];
     }
 
@@ -42,14 +42,14 @@ class StoreRequest extends FormRequest
         $user = Auth::user();
 
         /** @var OfferState $offerState */
-        $offerState = OfferState::find($this->state);
+        $offerState = OfferState::find($this->offer_state);
 
         // 登録可能ユーザーか判定
         if (!$offerState->canTransitionUser($user->user_type)) {
             return false;
         }
 
-        $recentOffer = app(MatchingService::class)->getMostRecentOffer($this->gym, $this->trainer);
+        $recentOffer = app(MatchingService::class)->getMostRecentOffer($this->gym_login_id, $this->trainer_login_id);
 
         // 直近オファーがない場合は初期状態の登録か判定
         if (empty($recentOffer)) {
@@ -66,10 +66,6 @@ class StoreRequest extends FormRequest
      */
     public function getStoreParameter(): array
     {
-        return [
-            'gym_login_id' => $this->gym,
-            'trainer_login_id' => $this->trainer,
-            'offer_state' => $this->state,
-        ];
+        return $this->only(['gym_login_id', 'trainer_login_id', 'offer_state']);
     }
 }
