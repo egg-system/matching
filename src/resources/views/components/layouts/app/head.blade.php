@@ -1,6 +1,5 @@
-@extends('components.layouts.common.head')
-
 @section('head')
+    @include('components.layouts.common.head')
     <link
         href="{{ mix('css/app.css') }}"
         rel="stylesheet"
