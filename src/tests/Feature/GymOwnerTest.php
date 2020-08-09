@@ -39,10 +39,11 @@ class GymOwnerTest extends TestCase
                 ]
             );
         });
-
         $response = $this
             ->actingAs($this->owner->login)
             ->get(route('trainers.index'));
+
+        $response->assertStatus(200);
 
         $searchResponse = $this
             ->actingAs($this->owner->login)
