@@ -39,13 +39,13 @@ export default {
 
 @mixin mainBtnPhrase($color) {
   color: $color;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   font-size: $mainBtnFontSize;
   font-weight: bold;
 }
 
 .rounded-btn {
-  border-radius: 75px;
+  border-radius: 1.5rem;
 }
 
 .main-btn {
@@ -57,7 +57,7 @@ export default {
 
 .outlined-btn {
   color: $mainBtnColor;
-  border-width: 4px;
+  border-width: 0.2rem;
   span.main-btn-phrase {
     @include mainBtnPhrase($mainBtnColor)
   }
