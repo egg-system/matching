@@ -27,17 +27,17 @@
           </p>
         </div>
 
-        <rounded-btn class="next-btn" text="はじめる" @click="moveNext" />
+        <main-btn class="next-btn" label="はじめる" @click="moveNext" />
       </div>
     </v-img>
   </div>
 </template>
 
 <script>
-import roundedBtn from '../../atoms/users-register/rounded-btn'
+import mainBtn from '../../atoms/users-register/main-btn'
 
 export default {
-  components: { roundedBtn },
+  components: { mainBtn },
   methods: {
     moveNext () {
       this.$emit('moveNext')

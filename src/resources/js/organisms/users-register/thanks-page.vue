@@ -14,17 +14,17 @@
           <img src="/images/users-register/finish_background.png" alt="ジムで運動する人々" />
         </div>
 
-        <rounded-btn type="submit" class="entry-btn" text="早速、ジムに応募する" />
+        <main-btn type="submit" class="entry-btn" label="早速、ジムに応募する" />
       </div>
     </v-img>
   </div>
 </template>
 
 <script>
-import roundedBtn from '../../atoms/users-register/rounded-btn'
+import mainBtn from '../../atoms/users-register/main-btn'
 
 export default {
-  components: { roundedBtn }
+  components: { mainBtn }
 }
 </script>
 

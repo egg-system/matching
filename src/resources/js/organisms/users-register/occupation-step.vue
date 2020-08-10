@@ -23,12 +23,12 @@
       <input type="hidden" name="occupation_ids" :value="selectedValues">
     </div>
 
-    <rounded-btn
+    <main-btn
       class="next-btn"
-      text="次へ"
+      label="次へ"
       :disabled="!selectedValues.length"
       @click="moveNext"
-    ></rounded-btn>
+    ></main-btn>
 
     <p class="small-text" ref="smallText">あと３ステップ！</p>
   </step-page-wrapper>
@@ -36,12 +36,12 @@
 
 <script>
 import stepPageWrapper from '../../molecules/users-register/step-page-wrapper'
-import roundedBtn from '../../atoms/users-register/rounded-btn'
+import mainBtn from '../../atoms/users-register/main-btn'
 
 export default {
   components: {
     stepPageWrapper,
-    roundedBtn
+    mainBtn
   },
   props: {
     isShown: { type: Boolean, default: false },

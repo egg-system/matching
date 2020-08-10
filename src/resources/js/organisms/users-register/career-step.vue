@@ -79,12 +79,12 @@
       >＋経歴を追加</v-btn>
     </div>
 
-    <rounded-btn
+    <main-btn
       class="next-btn"
-      text="次へ"
+      label="次へ"
       @click="moveNext"
       :disabled="isError"
-    ></rounded-btn>
+    ></main-btn>
 
     <div class="skip-link">
       <a href="javascript:void(0)" @click.prevent="skip">スキップ</a>
@@ -97,7 +97,7 @@
 
 <script>
 import stepPageWrapper from '../../molecules/users-register/step-page-wrapper'
-import roundedBtn from '../../atoms/users-register/rounded-btn'
+import mainBtn from '../../atoms/users-register/main-btn'
 
 const CAREER_DEFAULT_VALUE = {
   gymName: '',
@@ -110,7 +110,7 @@ const CAREER_DEFAULT_VALUE = {
 export default {
   components: {
     stepPageWrapper,
-    roundedBtn
+    mainBtn
   },
   data () {
     return {

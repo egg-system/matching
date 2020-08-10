@@ -17,7 +17,7 @@
           >
         </div>
 
-        <rounded-btn class="next-btn" text="次へ" :disabled="!inputValue" @click="moveNext" />
+        <main-btn class="next-btn" label="次へ" :disabled="!inputValue" @click="moveNext" />
       </div>
     </v-img>
 
@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import roundedBtn from '../../atoms/users-register/rounded-btn'
+import mainBtn from '../../atoms/users-register/main-btn'
 import stepsFooter from '../../molecules/users-register/steps-footer'
 
 export default {
   components: {
-    roundedBtn,
+    mainBtn,
     stepsFooter
   },
   data () {

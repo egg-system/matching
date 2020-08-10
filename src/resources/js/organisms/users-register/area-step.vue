@@ -20,7 +20,7 @@
       </select>
     </div>
 
-    <rounded-btn class="next-btn" text="次へ" :disabled="!selectValue" @click="moveNext" />
+    <main-btn class="next-btn" label="次へ" :disabled="!selectValue" @click="moveNext" />
 
     <div class="skip-link">
       <a href="javascript:void(0)" @click.prevent="skip">スキップ</a>
@@ -32,12 +32,12 @@
 
 <script>
 import stepPageWrapper from '../../molecules/users-register/step-page-wrapper'
-import roundedBtn from '../../atoms/users-register/rounded-btn'
+import mainBtn from '../../atoms/users-register/main-btn'
 
 export default {
   components: {
     stepPageWrapper,
-    roundedBtn
+    mainBtn
   },
   props: {
     isShown: { type: Boolean, default: false },
