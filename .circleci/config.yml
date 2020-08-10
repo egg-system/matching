@@ -25,7 +25,7 @@ commands:
           name: composer restore cache
       - restore_cache:
           keys:
-            - assets-{{ .Revision }}
+            - assets-{{ .Branch }}-{{ .Revision }}
           name: assets restore cache
 
 jobs:
@@ -87,7 +87,7 @@ jobs:
           command: npm --prefix src run production
           name: build node_modules
       - save_cache:
-          key: assets-{{ .Revision }}
+          key: assets-{{ .Branch }}-{{ .Revision }}
           paths:
             - src/public
           name: assets save cache
@@ -149,7 +149,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - assets-{{ .Revision }}
+            - assets-{{ .Branch }}-{{ .Revision }}
           name: assets restore cache
       - run:
           command: |
