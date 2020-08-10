@@ -1,7 +1,7 @@
 <template>
   <div class="conversion-wrapper center-align-wrapper">
     <main-image />
-    <p class="mt-16 mb-6">さあ、今すぐ<br />エントリー。</p>
+    <p class="mt-8 mb-4">さあ、今すぐ<br />エントリー。</p>
     <register-btn />
   </div>
 </template>
@@ -16,13 +16,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'resources/scss/_variables.scss';
+
 .conversion-wrapper {
-  margin-bottom: 200px;
+  margin-bottom: $sectionMarginSize;
 
   p {
     font-weight: bold;
     font-family: sans-serif;
-    font-size: 100px;
+    font-size: 3rem;
   }
 }
 </style>

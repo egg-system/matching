@@ -28,12 +28,12 @@
 
 <style lang="scss" scoped>
 .image-wrapper {
-  margin: 150px 0;
+  margin: 3rem 0;
 }
 
 .side-job-wrapper {
-  padding-bottom: 350px;
-  padding-top: 300px;
+  padding-bottom: 15rem;
+  padding-top: 10rem;
 
   h2, p {
     color: white;

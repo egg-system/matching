@@ -19,8 +19,8 @@ export default {
 
 <style lang="scss" scoped>
 .main-title {
-  font-size: 40px;
-  margin-top: 80px;
-  margin-bottom: 60px;
+  font-size: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
 }
 </style>
