@@ -20,7 +20,7 @@ class ChangeColumnJobsTable extends Migration
 
         // カラム追加
         Schema::table('jobs', function (Blueprint $table) {
-            $table->json('job_content')->comment('求人詳細内容（タイトル、詳細見出し、詳細画像、詳細文章、求める人物像）');
+            $table->json('job_content')->nullable()->comment('求人詳細内容（タイトル、詳細見出し、詳細画像、詳細文章、求める人物像）');
         });
     }
 
