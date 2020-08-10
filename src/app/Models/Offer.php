@@ -47,9 +47,44 @@ class Offer extends Model
      * @param int $offerState
      * @return Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWhereState(Builder $query, int $offerState = OfferState::UNREPLY)
+    public function scopeWhereState(Builder $query, int $offerState)
     {
-        return $query->where('offer_state', $offerState);
+        return $query->where('offer_state_id', $offerState);
+    }
+
+    /**
+     * @param Builder $query
+     * @param Login $user
+     * @return Builder
+     */
+    public function scopeWhereUser(Builder $query, Login $user)
+    {
+        $searchColumn = $user->isGym() ? 'gym_login_id' : 'trainer_login_id';
+        return $query->where($searchColumn, $user->id);
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeGetMatchingLatestIds(Builder $query)
+    {
+        return $query->selectRaw('max(id) as id')
+            ->groupBy('gym_login_id', 'trainer_login_id');
+    }
+
+    /**
+     * @param Builder $query
+     * @param int $gymLoginId
+     * @param int $trainerLoginId
+     * @return Builder
+     */
+    public function scopeGetMostRecentOffer(Builder $query, int $gymLoginId, int $trainerLoginId)
+    {
+        return $query->where('gym_login_id', $gymLoginId)
+            ->where('trainer_login_id', $trainerLoginId)
+            ->orderBy('created_at', 'desc')
+            ->first();
     }
 
     public function updateState(int $state)
