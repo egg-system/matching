@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Gym\TrainerSearchRequest;
+use App\Http\Requests\GymSearchRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Repositories\UserRepository;
@@ -24,8 +24,12 @@ class GymsController extends Controller
         $this->authorizeResource(Gym::class);
     }
 
-    public function index()
+    /**
+     * ジム一覧画面表示(検索付)
+     */
+    public function index(GymSearchRequest $request)
     {
-        return view('pages.gyms.index');
+        $conditions = $this->userSearchService->execute($request);
+        return view('pages.gyms.index', compact('conditions'));
     }
 }
