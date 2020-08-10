@@ -6,8 +6,6 @@ use App\Http\Requests\TrainerSearchRequest;
 use App\Models\MatchingCondition;
 use App\Services\Search\UserSearchService;
 
-use Illuminate\Support\Facades\Log;
-
 class TrainersController extends Controller
 {
     /** @var UserSearchService  */

@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\ConditionGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 class MatchingCondition extends Model
 {
+    use ConditionGenerator;
+    
     protected $fillable = [
         'area_id',
         'weekly_worktime',
@@ -47,10 +50,6 @@ class MatchingCondition extends Model
      */
     public function scopeProfileSearch(Builder $query, array $attributes)
     {
-        collect($attributes)->each(function ($value, $column) use ($query) {
-            $query->where($column, '=', $value);
-        });
-
-        return $query;
+        return $this->whereFromArray($query, $attributes);
     }
 }
