@@ -40,6 +40,9 @@ class ChangeColumnMatchingConditionsTable extends Migration
         Schema::table('matching_conditions', function (Blueprint $table) {
             $table->boolean("is_considering_change_job")->nullable()->comment('転職も検討している');
         });
+        Schema::table('matching_conditions', function (Blueprint $table) {
+            $table->boolean("can_adjust_to_trainer")->nullable()->comment('トレーナーに合わせて調整可');
+        });
 
         // インデックス設定
         Schema::table('matching_conditions', function (Blueprint $table) {
@@ -80,6 +83,9 @@ class ChangeColumnMatchingConditionsTable extends Migration
         });
         Schema::table('matching_conditions', function (Blueprint $table) {
             $table->dropColumn('is_considering_change_job');
+        });
+        Schema::table('matching_conditions', function (Blueprint $table) {
+            $table->dropColumn('can_adjust_to_trainer');
         });
 
         // インデックス削除

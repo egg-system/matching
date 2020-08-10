@@ -14,4 +14,8 @@ class Job extends Model
         'pay_max',
         'experience_years',
     ];
+
+    protected $casts = [
+        'job_content' => 'json',
+    ];
 }

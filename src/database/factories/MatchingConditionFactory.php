@@ -15,6 +15,7 @@ $factory->define(MatchingCondition::class, function (Faker $faker) {
         'can_work_weekday' => true,
         'hope_adjust_worktime' => true,
         'is_considering_change_job' => true,
+        'can_adjust_to_trainer' => true,
     ];
 });
 
