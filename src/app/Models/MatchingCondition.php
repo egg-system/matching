@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Traits\ConditionGenerator;
+use App\Traits\ArrayWherable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 class MatchingCondition extends Model
 {
-    use ConditionGenerator;
+    use ArrayWherable;
     
     protected $fillable = [
         'area_id',
