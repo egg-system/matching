@@ -17,8 +17,11 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('gym_id')->comment('ジムID');
-            $table->json('job_content')->comment('求人詳細内容（タイトル、詳細見出し、詳細画像、詳細文章、求める人物像）');
+            $table->text('bussiness_description')->nullable()->comment('担当業務');
             $table->unsignedBigInteger('requirements_number')->nullable()->comment('募集人数');
+            $table->unsignedBigInteger('pay_min')->nullable()->comment('最低希望時給');
+            $table->unsignedBigInteger('pay_max')->nullable()->comment('最高希望時給');
+            $table->unsignedBigInteger('experience_years')->nullable()->comment('経験年数');
             $table->timestamps();
         });
     }

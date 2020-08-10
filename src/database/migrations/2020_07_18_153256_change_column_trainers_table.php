@@ -23,11 +23,6 @@ class ChangeColumnTrainersTable extends Migration
         Schema::table('trainers', function (Blueprint $table) {
             $table->json('carrer')->nullable()->comment('経歴');
         });
-
-        // カラム削除
-        Schema::table('trainers', function (Blueprint $table) {
-            $table->dropColumn('pr_comment');
-        });
     }
 
     /**
@@ -47,10 +42,5 @@ class ChangeColumnTrainersTable extends Migration
         Schema::table('trainers', function (Blueprint $table) {
             $table->dropColumn('carrer');
         });
-
-        // カラム追加
-        Schema::table('trainers', function (Blueprint $table) {
-            $table->text('pr_comment')->nullable()->comment('PRのコメント');
-        });        
     }
 }
