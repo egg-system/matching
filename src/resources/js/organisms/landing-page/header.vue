@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="nav-menu-wrapper">
-      <nav-menu :menus="menus" class="mx-14 my-16" />
+      <nav-menu :menus="menus" class="mx-7 my-8" />
     </div>
   </header>
 </template>

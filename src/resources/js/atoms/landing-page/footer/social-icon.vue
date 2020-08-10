@@ -7,7 +7,7 @@
     color="white"
     outlined
   >
-    <v-icon color="#333" size="150">
+    <v-icon color="#333" size="5rem">
       {{ icon }}
     </v-icon>
   </v-btn>
