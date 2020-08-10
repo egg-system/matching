@@ -101,6 +101,7 @@ export default {
     font-size: 1.2em;
     padding-bottom: 5px;
     margin-right: -15px;
+    cursor: pointer;
   }
 }
 .next-btn {

@@ -83,6 +83,7 @@ export default {
 <style lang="scss" scoped>
 .form-wrapper {
   display: flex;
+  justify-content: center;
   text-align: center;
   margin-top: 45px;
   padding: 0 10%;
@@ -91,6 +92,7 @@ export default {
       max-width: 50%;
       margin: auto;
       border: solid 2px lightgrey;
+      cursor: pointer;
     }
     &--selected .occupation-form__img {
       border: solid 2px red;

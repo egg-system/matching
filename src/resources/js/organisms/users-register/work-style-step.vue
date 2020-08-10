@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <main-btn class="next-btn" label="次へ" @click="moveNext" />
+    <main-btn class="next-btn" label="次へ" :disabled="isDisabledBtn" @click="moveNext" />
 
     <div class="skip-link">
       <a href="javascript:void(0)" @click.prevent="skip">スキップ</a>
@@ -89,6 +89,16 @@ export default {
       checkedCanWorkWeekday: false,
       checkedHopeAdjustWorktime: false,
       checkedIsConsideringChangeJob: false
+    }
+  },
+  computed: {
+    isDisabledBtn () {
+      return !this.selectedWeeklyWorkTimeValue
+        && !this.selectedAreaValue
+        && !this.checkedCanWorkHoliday
+        && !this.checkedCanWorkWeekday
+        && !this.checkedHopeAdjustWorktime
+        && !this.checkedIsConsideringChangeJob
     }
   },
   methods: {
@@ -143,6 +153,7 @@ export default {
       font-size: 1.2em;
       padding-bottom: 5px;
       margin-right: -14px;
+      cursor: pointer;
     }
     &::after {
       content: "";
@@ -172,6 +183,7 @@ export default {
       font-size: 1.2em;
       padding-bottom: 5px;
       margin-right: -14px;
+      cursor: pointer;
     }
     &::after {
       content: "";

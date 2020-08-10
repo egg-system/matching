@@ -83,7 +83,7 @@
       class="next-btn"
       label="次へ"
       @click="moveNext"
-      :disabled="isError"
+      :disabled="isDisabledBtn || isError"
     ></main-btn>
 
     <div class="skip-link">
@@ -133,6 +133,9 @@ export default {
         }
       })
       return JSON.stringify(formatted)
+    },
+    isDisabledBtn () {
+      return this.careerValues.some(value => JSON.stringify(value) === JSON.stringify(CAREER_DEFAULT_VALUE))
     }
   },
   methods: {

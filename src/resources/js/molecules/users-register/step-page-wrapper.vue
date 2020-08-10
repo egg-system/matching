@@ -1,5 +1,5 @@
 <template>
-  <div class="step-page-wrapper">
+  <div class="step-page-wrapper" ref="stepPageWrapper">
     <div class="symbol-header-wrapper">
       <symbol-header @back="back" />
 
@@ -35,12 +35,16 @@ export default {
     back () {
       this.$emit('back')
     }
+  },
+  mounted () {
+    this.$refs.stepPageWrapper.style.width = `${document.body.clientWidth}px`
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .step-page-wrapper {
+  max-width: 1000px;
   .symbol-header__text {
     margin-top: 47px;
     text-align: center;
@@ -58,7 +62,7 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: white;
+    max-width: 1000px;
   }
 }
 </style>

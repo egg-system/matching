@@ -82,7 +82,7 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: white;
+    max-width: 1000px;
   }
 }
 </style>

@@ -64,6 +64,7 @@ export default {
 <style lang="scss" scoped>
 .form-wrapper {
   display: flex;
+  justify-content: center;
   text-align: center;
   margin-top: 65px;
   padding: 0 10%;
@@ -76,6 +77,7 @@ export default {
       margin: auto;
       border: solid 2px lightgrey;
       padding: 10px;
+      cursor: pointer;
     }
     &__text {
       font-size: 0.8rem;
