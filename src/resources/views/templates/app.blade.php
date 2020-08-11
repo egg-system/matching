@@ -6,10 +6,11 @@
 
 @section('body')
     <div class="app-page">
-        @include('components.layouts.app.header')
+        @include('components.layouts.common.header')
 
         <v-main>
             @yield('content')
+            @include('components.layouts.common.footer')
         </v-main>
     </div>
 @endsection
