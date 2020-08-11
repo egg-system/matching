@@ -3,6 +3,6 @@
     alt="トレーナーのための副業プラットフォーム"
     src="/images/main-image.png"
     contain
-    width="45%"
+    width="60%"
   />
 </template>

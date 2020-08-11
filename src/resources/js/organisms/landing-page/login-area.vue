@@ -27,12 +27,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'resources/scss/_variables.scss';
+
 .login-area-wrapper {
-  margin-top: 130px;
+  margin-top: $sectionMarginSize;
 
   p {
-    margin: 60px 0 30px;
-    font-size: 35px;
+    margin: 2rem 0 1rem;
+    font-size: 0.8rem;
   }
 }
 </style>

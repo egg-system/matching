@@ -1,7 +1,7 @@
 <template>
   <v-btn    
-    width="800px"
-    height="130px"
+    width="18rem"
+    height="3rem"
     :href="href"
     :class="outlined ? 'outlined-btn' : 'main-btn'"
     class="rounded-btn"
@@ -35,21 +35,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$mainBtnColor: #FF6666;
+@import 'resources/scss/_variables.scss';
 
 @mixin mainBtnPhrase($color) {
   color: $color;
-  letter-spacing: 0px;
-  font-size: 45px;
+  letter-spacing: 0;
+  font-size: $mainBtnFontSize;
   font-weight: bold;
 }
 
 .rounded-btn {
-  border-radius: 75px;
+  border-radius: 1.5rem;
 }
 
 .main-btn {
-  background: linear-gradient(to left, #FF9966, $mainBtnColor);
+  background: linear-gradient(to left, $mainBtnLightColor, $mainBtnColor);
   span.main-btn-phrase {
     @include mainBtnPhrase(white)
   }
@@ -57,7 +57,7 @@ $mainBtnColor: #FF6666;
 
 .outlined-btn {
   color: $mainBtnColor;
-  border-width: 4px;
+  border-width: 0.2rem;
   span.main-btn-phrase {
     @include mainBtnPhrase($mainBtnColor)
   }
