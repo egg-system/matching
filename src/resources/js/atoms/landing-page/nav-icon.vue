@@ -1,6 +1,6 @@
 <template>
   <v-img
-    width="60px"
+    width="2rem"
     src="/images/landing-page/icon-menu.png"
   />
 </template>

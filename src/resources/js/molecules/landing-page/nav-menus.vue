@@ -3,13 +3,13 @@
     <div @click="open">
       <nav-icon v-if="isEnabledLogin" />
     </div>
-    <v-navigation-drawer v-model="isShown" width="500px" right app temporary>
+    <v-navigation-drawer v-model="isShown" width="15rem" right app temporary>
       <v-list nav class="landig-page-menu">
         <v-list-item
           v-for="menu in menus"
           :key="menu.url"
           :href="menu.url"
-          class="my-10 mx-5"
+          class="my-3 mx-2"
         >
           <v-list-item-content>
             <v-list-item-title v-text="menu.name" />
@@ -48,7 +48,7 @@ export default {
 <style lang="scss" scoped>
 .landig-page-menu {
   .v-list-item__title {
-    font-size: 40px;
+    font-size: 1.2rem;
   }
 }
 </style>

@@ -45,7 +45,7 @@ class ViewServiceProvider extends ServiceProvider
         );
 
         \View::composer(
-            'pages.gyms.trainerList',
+            'pages.trainers.index',
             function ($view) {
                 $viewData = array_merge($this->getMasterData(), [
                     'offers' => optional(\Auth::user()->fromOffers),

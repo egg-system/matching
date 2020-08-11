@@ -24,15 +24,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'resources/scss/_variables.scss';
+
 .quesionns-wrapper {
-  margin: 200px 0;
+  margin: $sectionMarginSize 0;
 
   h2 {
-    margin-bottom: 100px;
+    margin-bottom: 3rem;
   }
 
   ul {
-    list-style-type: none; 
+    list-style-type: none;
+    padding: 0;
   }
 }
 </style>

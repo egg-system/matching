@@ -14,8 +14,9 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        // ジムオーナーか、トレーナーか判別できないので、topにリダイレクト
         if (!$request->expectsJson()) {
-            return route('trainer.login.view');
+            return route('top');
         }
     }
 }

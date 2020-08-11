@@ -1,3 +1,3 @@
 @extends('components.layouts.common.head')
 
-<link href="{{ asset('/css/pages/users/register.css') }}" rel="stylesheet">
+<link href="{{ mix('/css/pages/users/register.css') }}" rel="stylesheet">

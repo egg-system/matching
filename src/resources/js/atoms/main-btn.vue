@@ -1,12 +1,16 @@
 <template>
-  <v-btn
-    :type="type"
-    class="main-btn" 
-    width="700px"
-    height="130px"
+  <v-btn    
+    width="18rem"
+    height="3rem"
     :href="href"
+    :class="outlined ? 'outlined-btn' : 'main-btn'"
+    class="rounded-btn"
+    color="#FF9966"
+    :outlined="outlined"
+    :type="type"
     :disabled="disabled"
     rounded
+    shaped
     @click="$emit('click')"
   >
     <span class="main-btn-phrase">{{ label }}</span>
@@ -24,6 +28,10 @@ export default {
       type: String,
       default: ''
     },
+    outlined: {
+      type: Boolean,
+      default: false
+    },
     type: {
       type: String,
       default: undefined
@@ -37,14 +45,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-btn {
-  color: white;
-  background: linear-gradient(to right, #FF9966, #FF6666);
+@import 'resources/scss/_variables.scss';
+
+@mixin mainBtnPhrase($color) {
+  color: $color;
+  letter-spacing: 0;
+  font-size: $mainBtnFontSize;
+  font-weight: bold;
 }
 
-span.main-btn-phrase {
-  letter-spacing: 0px;
-  font-size: 45px;
-  font-weight: bold;
+.rounded-btn {
+  border-radius: 1.5rem;
+}
+
+.main-btn {
+  background: linear-gradient(to left, $mainBtnLightColor, $mainBtnColor);
+  span.main-btn-phrase {
+    @include mainBtnPhrase(white)
+  }
+}
+
+.outlined-btn {
+  color: $mainBtnColor;
+  border-width: 0.2rem;
+  span.main-btn-phrase {
+    @include mainBtnPhrase($mainBtnColor)
+  }
 }
 </style>

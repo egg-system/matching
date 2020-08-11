@@ -107,8 +107,18 @@ class Login extends Authenticatable implements MustVerifyEmail
     /**
      * 本登録済み
      */
-    public function isRegisteredDefinitive()
+    public function getIsRegisteredDefinitiveAttribute()
     {
         return $this->email_verified_at !== null;
+    }
+
+    public function getIsGymAttribute()
+    {
+        return $this->user_type === Gym::class;
+    }
+
+    public function getHomeRouteNameAttribute()
+    {
+        return $this->isGym ? 'trainers.index' : 'gyms.index';
     }
 }
