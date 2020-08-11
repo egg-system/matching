@@ -41,18 +41,6 @@ class Offer extends Model
     }
 
     /**
-     * オファーのステータス絞り込み
-     *
-     * @param Illuminate\Database\Eloquent\Builder
-     * @param int $offerState
-     * @return Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeWhereState(Builder $query, int $offerState)
-    {
-        return $query->where('offer_state_id', $offerState);
-    }
-
-    /**
      * @param Builder $query
      * @param Login $user
      * @return Builder
