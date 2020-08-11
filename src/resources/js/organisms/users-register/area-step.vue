@@ -5,7 +5,7 @@
     :progress="40"
     @back="back"
   >
-    <div class="now-work-area-form">
+    <div class="now-work-area-form" ref="nowWorkAreaForm">
       <div class="now-work-area-form__heading">勤務地</div>
       <select
         v-model="selectValue"
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import ResizeObserver from 'resize-observer-polyfill'
 import stepPageWrapper from '../../molecules/users-register/step-page-wrapper'
 import mainBtn from '../../atoms/main-btn'
 
@@ -40,12 +41,12 @@ export default {
     mainBtn
   },
   props: {
-    isShown: { type: Boolean, default: false },
     areas: { type: Array, required: true }
   },
   data () {
     return {
-      selectValue: ''
+      selectValue: '',
+      observer: null
     }
   },
   methods: {
@@ -60,15 +61,22 @@ export default {
       this.$emit('moveNext')
     }
   },
-  watch: {
-    isShown (newValue) {
-      if (newValue) {
-        const smallTextOffsetTop = this.$refs.smallText.offsetTop
-        this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
-      } else {
-        this.$refs.smallText.style['margin-top'] = 'auto'
-      }
-    }
+  mounted () {
+    this.observer = new ResizeObserver(entries => {
+      entries.forEach(({ contentRect }) => {
+        const { width } = contentRect
+        if (width > 0) {
+          const smallTextOffsetTop = this.$refs.smallText.offsetTop
+          this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
+        } else {
+          this.$refs.smallText.style['margin-top'] = 'auto'
+        }
+      })
+    })
+    this.observer.observe(this.$refs.nowWorkAreaForm)
+  },
+  beforeDestroy () {
+    this.observer.disconnect(this.$refs.nowWorkAreaForm)
   }
 }
 </script>

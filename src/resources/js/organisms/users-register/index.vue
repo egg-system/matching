@@ -4,9 +4,9 @@
     <name-step v-show="stepState === 1" @moveNext="moveNextStep" />
     <password-step v-show="stepState === 2" @moveNext="moveNextStep" @back="movePrevStep" />
     <now-work-style-step v-show="stepState === 3" @moveNext="moveNextStep" @back="movePrevStep" />
-    <occupation-step v-show="stepState === 4" :isShown="stepState === 4" :occupations="occupations" @moveNext="moveNextStep" @back="movePrevStep" />
-    <area-step v-show="stepState === 5" :isShown="stepState === 5" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
-    <work-style-step v-show="stepState === 6" :isShown="stepState === 6" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
+    <occupation-step v-show="stepState === 4" :occupations="occupations" @moveNext="moveNextStep" @back="movePrevStep" />
+    <area-step v-show="stepState === 5" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
+    <work-style-step v-show="stepState === 6" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
     <career-step v-show="stepState === 7" @moveNext="moveNextStep" @back="movePrevStep" />
     <thanks-page v-show="stepState === 8" @entry="entry" />
   </div>

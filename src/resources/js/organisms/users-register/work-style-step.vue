@@ -5,7 +5,7 @@
     :progress="50"
     @back="back"
   >
-    <div class="form-wrapper">
+    <div class="form-wrapper" ref="formWrapper">
       <div class="weekly-worktime-form">
         <div class="weekly-worktime-form__heading">１週間あたり</div>
         <select
@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import ResizeObserver from 'resize-observer-polyfill'
 import stepPageWrapper from '../../molecules/users-register/step-page-wrapper'
 import mainBtn from '../../atoms/main-btn'
 
@@ -78,7 +79,6 @@ export default {
     mainBtn
   },
   props: {
-    isShown: { type: Boolean, default: false },
     areas: { type: Array, required: true }
   },
   data () {
@@ -88,7 +88,8 @@ export default {
       checkedCanWorkHoliday: false,
       checkedCanWorkWeekday: false,
       checkedHopeAdjustWorktime: false,
-      checkedIsConsideringChangeJob: false
+      checkedIsConsideringChangeJob: false,
+      observer: null
     }
   },
   computed: {
@@ -121,15 +122,22 @@ export default {
       this.checkedIsConsideringChangeJob = false
     }
   },
-  watch: {
-    isShown (newValue) {
-      if (newValue) {
-        const smallTextOffsetTop = this.$refs.smallText.offsetTop
-        this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
-      } else {
-        this.$refs.smallText.style['margin-top'] = 'auto'
-      }
-    }
+  mounted () {
+    this.observer = new ResizeObserver(entries => {
+      entries.forEach(({ contentRect }) => {
+        const { width } = contentRect
+        if (width > 0) {
+          const smallTextOffsetTop = this.$refs.smallText.offsetTop
+          this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
+        } else {
+          this.$refs.smallText.style['margin-top'] = 'auto'
+        }
+      })
+    })
+    this.observer.observe(this.$refs.formWrapper)
+  },
+  beforeDestroy () {
+    this.observer.disconnect(this.$refs.formWrapper)
   }
 }
 </script>
