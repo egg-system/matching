@@ -54,10 +54,7 @@ class OfferStateSeeder extends Seeder
     {
         $datas = self::DATA;
         foreach ($datas as $data) {
-            if (OfferState::where('name', $data['name'])->exists()) {
-                continue;
-            }
-            OfferState::firstOrCreate($data);
+            OfferState::firstOrCreate(['name' => $data['name']], $data);
         }
     }
 }
