@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Requests\User\UpdateRequest;
+use App\Models\Area;
 use App\Models\Gym;
+use App\Models\Occupation;
 use App\Models\User;
 use App\Repositories\UserRepository;
 
@@ -23,7 +25,23 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.users.register');
+        $occupations = Occupation::all()->map(function ($occupation) {
+            $img = '';
+            if ($occupation->name === 'フィットネス') {
+                $img = '/images/users-register/fitness_icon.jpg';
+            } elseif ($occupation->name === 'ジム') {
+                $img = '/images/users-register/gym_icon2.jpg';
+            } elseif ($occupation->name === 'パーソナル') {
+                $img = '/images/users-register/personal_trainer_icon.jpg';
+            }
+            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $img ]);
+        });
+        $areas = Area::all()->map(function ($area) {
+            return collect([ 'name' => $area->name, 'value' => $area->id ]);
+        });
+        $areas->prepend(collect([ 'name' => '', 'value' => '' ]));
+
+        return view('pages.users.register', compact('occupations', 'areas'));
     }
 
     /**
