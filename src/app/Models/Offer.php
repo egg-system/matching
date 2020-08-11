@@ -79,4 +79,20 @@ class Offer extends Model
     {
         return $this->update(['offer_state' => $state]);
     }
+
+    /**
+     * 現在のオファー状態を元にメール送信先を取得
+     * @return array
+     */
+    public function getSendMailAddresses()
+    {
+        $result = [];
+        if ($this->state->should_notice_trainer) {
+            $result[] = $this->trainer->email;
+        }
+        if ($this->state->should_notice_gym) {
+            $result[] = $this->gym->email;
+        }
+        return $result;
+    }
 }

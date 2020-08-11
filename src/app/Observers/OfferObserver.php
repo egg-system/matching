@@ -17,23 +17,12 @@ class OfferObserver
      */
     public function created(Offer $offer)
     {
-        // トレーナーに受信メール送信
-        $trainer = $offer->toUser->email;
-        $mail = new OfferRecieve($offer);
-        $offer->notify(new OfferNotify($mail, $trainer));
-    }
+        // ユーザーに受信メール送信
+        // 登録後のOfferStateを取得するためにfreshを行う
+        $stored_offer = $offer->fresh();
+        $send_address = $stored_offer->getSendMailAddress();
 
-    /**
-     * Handle the offer "updated" event.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return void
-     */
-    public function updated(Offer $offer)
-    {
-        // オーナーに返答メール送信
-        $owner = $offer->fromUser->email;
-        $mail = new OfferUpdate();
-        $offer->notify(new OfferNotify($mail, $owner));
+        $mail = app(OfferRecieve::class, ['offer' => $stored_offer]);
+        $offer->notify(app(OfferNotify::class, ['mail' => $mail, 'to' => $send_address]));
     }
 }
