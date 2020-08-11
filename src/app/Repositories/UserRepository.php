@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\Area;
 use App\Models\Login;
 use App\Models\MatchingCondition;
+use App\Models\Occupation;
 use App\Models\Trainer;
 use App\Models\User;
 use App\Models\UserOccupation;
@@ -61,5 +63,29 @@ class UserRepository
                 'name' => $request->name
             ]);
         });
+    }
+
+    public function getOccupations()
+    {
+        return Occupation::all()->map(function ($occupation) {
+            $img = '';
+            if ($occupation->name === 'フィットネス') {
+                $img = '/images/users-register/fitness_icon.jpg';
+            } elseif ($occupation->name === 'ジム') {
+                $img = '/images/users-register/gym_icon2.jpg';
+            } elseif ($occupation->name === 'パーソナル') {
+                $img = '/images/users-register/personal_trainer_icon.jpg';
+            }
+            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $img ]);
+        });
+    }
+
+    public function getAreas()
+    {
+        $areas = Area::all()->map(function ($area) {
+            return collect([ 'name' => $area->name, 'value' => $area->id ]);
+        });
+        $areas->prepend(collect([ 'name' => '', 'value' => '' ]));
+        return $areas;
     }
 }
