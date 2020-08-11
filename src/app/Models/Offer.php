@@ -83,7 +83,7 @@ class Offer extends Model
      * 現在のオファー状態を元にメール送信先を取得
      * @return array
      */
-    public function getSendMailAddress()
+    public function getSendMailAddresses()
     {
         $result = [];
         if ($this->state->should_notice_trainer) {
