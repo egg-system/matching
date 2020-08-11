@@ -97,7 +97,7 @@
 
 <script>
 import stepPageWrapper from '../../molecules/users-register/step-page-wrapper'
-import mainBtn from '../../atoms/users-register/main-btn'
+import mainBtn from '../../atoms/main-btn'
 
 const CAREER_DEFAULT_VALUE = {
   gymName: '',

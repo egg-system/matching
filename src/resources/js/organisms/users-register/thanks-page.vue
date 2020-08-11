@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import mainBtn from '../../atoms/users-register/main-btn'
+import mainBtn from '../../atoms/main-btn'
 
 export default {
   components: { mainBtn }

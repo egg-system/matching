@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import mainBtn from '../../atoms/users-register/main-btn'
+import mainBtn from '../../atoms/main-btn'
 import stepsFooter from '../../molecules/users-register/steps-footer'
 
 export default {
