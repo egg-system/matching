@@ -9,14 +9,40 @@ class OfferStateSeeder extends Seeder
 {
     private const DATA = [
         [
-            'name' => '未返答'
+            'name' => 'エントリー',
+            'should_notice_trainer' => true,
+            'should_notice_gym' => true,
+            "transition_state" => null,
+            "transition_user_type" => 'App\Models\Trainer',
         ],
         [
-            'name' => '承諾'
+            'name' => 'オファー',
+            'should_notice_trainer' => true,
+            'should_notice_gym' => true,
+            "transition_state" => null,
+            "transition_user_type" => 'App\Models\Gym',
         ],
         [
-            'name' => '辞退'
-        ]
+            'name' => '内定',
+            'should_notice_trainer' => true,
+            'should_notice_gym' => false,
+            "transition_state" => '[1,2]',
+            "transition_user_type" => 'App\Models\Gym',
+        ],
+        [
+            'name' => '内定承諾',
+            'should_notice_trainer' => true,
+            'should_notice_gym' => true,
+            "transition_state" => '[3]',
+            "transition_user_type" => 'App\Models\Trainer',
+        ],
+        [
+            'name' => '内定辞退',
+            'should_notice_trainer' => false,
+            'should_notice_gym' => true,
+            "transition_state" => '[3]',
+            "transition_user_type" => 'App\Models\Trainer',
+        ],
     ];
 
     /**
