@@ -16,8 +16,6 @@ $factory->define(MatchingCondition::class, function (Faker $faker) {
         'hope_adjust_worktime' => true,
         'is_considering_change_job' => true,
         'can_adjust_to_trainer' => true,
-        'tel' => $faker->phoneNumber,
-        'name' => $faker->name,
     ];
 });
 

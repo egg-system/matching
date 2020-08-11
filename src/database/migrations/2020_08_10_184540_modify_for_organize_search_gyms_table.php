@@ -15,7 +15,7 @@ class ModifyForOrganizeSearchGymsTable extends Migration
     {
         // コメントの変更
         Schema::table('gyms', function (Blueprint $table) {
-            $table->json('profiles')->nullable()->comment('基本情報（ジム名、従業員数、住所-市区町村、住所-丁・番地以下）')->change();
+            $table->json('profiles')->nullable()->comment('基本情報（ジム名、代表者名、従業員数、住所-市区町村、住所-丁・番地以下）')->change();
         });
 
         // 不要なカラム削除

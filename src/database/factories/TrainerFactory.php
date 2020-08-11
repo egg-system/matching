@@ -25,6 +25,7 @@ $factory->define(Trainer::class, function (Faker $faker) {
                 'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2)
             ]
         ],
+        'display_name' => $faker->name,
     ];
 });
 
