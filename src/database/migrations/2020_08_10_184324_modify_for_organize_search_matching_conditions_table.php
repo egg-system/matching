@@ -17,6 +17,13 @@ class ModifyForOrganizeSearchMatchingConditionsTable extends Migration
         Schema::table('matching_conditions', function (Blueprint $table) {
             $table->boolean("can_adjust_to_trainer")->nullable()->comment('トレーナーに合わせて調整可');
         });
+        Schema::table('matching_conditions', function (Blueprint $table) {
+            $table->string('tel')->nullable()->comment('電話番号');
+        });
+        Schema::table('matching_conditions', function (Blueprint $table) {
+            $table->string('name')->nullable()->comment('トレーナー:表示名／ジム:代表者名');
+        });
+
     }
 
     /**
@@ -28,7 +35,7 @@ class ModifyForOrganizeSearchMatchingConditionsTable extends Migration
     {
         // 不要なカラム削除
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropColumn('can_adjust_to_trainer');
+            $table->dropColumn(['can_adjust_to_trainer', 'tel', 'name']);
         });
     }
 }

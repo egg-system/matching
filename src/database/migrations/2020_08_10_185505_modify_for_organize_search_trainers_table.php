@@ -15,7 +15,7 @@ class ModifyForOrganizeSearchTrainersTable extends Migration
     {
         // 不要なカラム削除
         Schema::table('trainers', function (Blueprint $table) {
-            $table->dropColumn('pr_comment');
+            $table->dropColumn(['pr_comment', 'tel']);
         });
     }
 
@@ -30,5 +30,8 @@ class ModifyForOrganizeSearchTrainersTable extends Migration
         Schema::table('trainers', function (Blueprint $table) {
             $table->text('pr_comment')->nullable()->comment('PRのコメント');
         });
+        Schema::table('trainers', function (Blueprint $table) {
+            $table->string('tel')->nullable()->comment('電話番号');
+        });        
     }
 }
