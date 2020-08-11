@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Services\Search\SearchInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrainerSearchRequest extends FormRequest
+class TrainerSearchRequest extends FormRequest implements SearchInterface
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +25,7 @@ class TrainerSearchRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_type' => 'required|in:App\Models\Gym,App\Models\Trainer',
             'occupation_id' => 'nullable|integer',
             'area_id' => 'nullable|integer',
             'price' => 'nullable|array',
@@ -43,5 +45,12 @@ class TrainerSearchRequest extends FormRequest
             'price' => '支払い単価',
             'work_time' => '希望する曜日や時間帯',
         ];
+    }
+
+    /**
+     * 検証済みの検索項目を返却.
+     */
+    public function searchParameters() {
+        return $this->validated();
     }
 }

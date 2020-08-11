@@ -26,7 +26,7 @@ class MatchingService
         $user = $request->user();
 
         // 各マッチングの最新状態のみを取得
-        $targetIds = Offer::whereUserId($user)
+        $targetIds = Offer::whereUser($user)
             ->getMatchingLatestIds()
             ->get()
             ->pluck('id');
@@ -48,15 +48,12 @@ class MatchingService
 
     /**
      * 指定したマッチングの直近オファー情報を取得
-     * @param int $gym
-     * @param int $trainer
+     * @param int $gymLoginId
+     * @param int $trainerLoginId
      * @return mixed
      */
-    public function getMostRecentOffer(int $gym, int $trainer)
+    public function getMostRecentOffer(int $gymLoginId, int $trainerLoginId)
     {
-        return Offer::where('gym_login_id', $gym)
-            ->where('trainer_login_id', $trainer)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        return Offer::getMostRecentOffer($gymLoginId, $trainerLoginId);
     }
 }

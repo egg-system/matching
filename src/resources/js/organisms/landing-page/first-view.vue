@@ -16,6 +16,6 @@ export default {
 
 <style lang="scss" scoped>
 .first-view-wrapper {
-  margin-top: 50px;
+  margin-top: 1.5rem;
 }
 </style>

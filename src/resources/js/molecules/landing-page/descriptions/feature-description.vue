@@ -1,7 +1,7 @@
 <template>
   <section class="feature-section center-align-wrapper">
     <span class="feauture">feature {{ index }}</span>
-    <v-img :alt="name" :src="imageUrl" width="350px" class="mb-10" />
+    <v-img :alt="name" :src="imageUrl" width="6rem" class="mb-4" />
     <h3>{{ name }}</h3>
     <p>{{ description }}</p>
   </section>
@@ -34,12 +34,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'resources/scss/_variables.scss';
+
 .feature-section {
-  padding-bottom: 50px;
-  margin: 50px 0;
+  margin: 2.5rem 0 1rem;
 
   span {
-    font-size: 60px;
+    font-size: $h2FontSize;
   }
 }
 </style>

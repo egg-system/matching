@@ -6,15 +6,20 @@ use App\Http\Requests\Gym\TrainerSearchRequest;
 use App\Models\Gym;
 use App\Models\MatchingCondition;
 use App\Repositories\UserRepository;
+use App\Services\Search\UserSearchService;
 
 class GymsController extends Controller
 {
     /** @var UserRepository  */
     protected $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    /** @var UserSearchService  */
+    protected $userSearchService;
+
+    public function __construct(UserRepository $userRepository, UserSearchService $userSearchService)
     {
         $this->userRepository = $userRepository;
+        $this->userSearchService = $userSearchService;
 
         $this->authorizeResource(Gym::class);
     }
