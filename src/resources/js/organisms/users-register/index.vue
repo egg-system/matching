@@ -8,7 +8,7 @@
     <area-step v-show="stepState === 5" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
     <work-style-step v-show="stepState === 6" :areas="areas" @moveNext="moveNextStep" @back="movePrevStep" />
     <career-step v-show="stepState === 7" @moveNext="moveNextStep" @back="movePrevStep" />
-    <thanks-page v-show="stepState === 8" @entry="entry" />
+    <thanks-page v-show="stepState === 8" />
   </div>
 </template>
 
@@ -50,9 +50,6 @@ export default {
     },
     movePrevStep () {
       this.stepState--
-    },
-    entry () {
-      this.$emit('submit')
     }
   }
 }
