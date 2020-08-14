@@ -49,6 +49,28 @@ Route::group([
         ->name('view');
     Route::post('', 'Auth\LoginController@login')
         ->name('post');
+
+    // パスワードのリセット
+    Route::get(
+        'password/{userType}/reset',
+        'Auth\ForgotPasswordController@showLinkRequestForm'
+    )->where('userType', '(gym|trainer)')
+    ->name('password.request');
+    Route::post(
+        'password/email',
+        'Auth\ForgotPasswordController@sendResetLinkEmail'
+    )->name('password.email');
+
+    // パスワードの更新
+    Route::get(
+        'password/{userType}/reset/{token}',
+        'Auth\ResetPasswordController@showResetForm'
+    )->where('userType', '(gym|trainer)')
+    ->name('password.reset');
+    Route::post(
+        'password/reset',
+        'Auth\ResetPasswordController@reset'
+    )->name('password.update');
 });
 
 // トレーナーのみがアクセル可能なルート
