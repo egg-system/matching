@@ -5,7 +5,7 @@
  */
 return [
     'register' => [
-        'is_enabled' => env('IS_RELEASE_REGISTER', true)
+        'is_enabled' => env('IS_RELEASE_REGISTER', false)
     ],
     'login' => [
         'is_enabled' => env('IS_RELEASE_LOGIN', false)
