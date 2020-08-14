@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-// TopのLP
-Route::view('/', 'pages.landing')->name('top');
+// TopのLP ※ ログイン後は遷移できないようにする
+Route::view('/', 'pages.landing')
+    ->name('top')
+    ->middleware('guest');
 
 // 利用規約
 Route::view('/service-term', 'pages.terms.service-term')

@@ -16,7 +16,7 @@ class AddColumnOfferStates extends Migration
         Schema::table('offer_states', function (Blueprint $table) {
             $table->boolean('should_notice_trainer')->nullable()->after('name')->comment('トレーナーへの通知フラグ');
             $table->boolean('should_notice_gym')->nullable()->after('should_notice_trainer')->comment('ジムへの通知フラグ');
-            $table->string('transition_state')->nullable()->after('should_notice_gym')->comment('遷移可能状態');
+            $table->json('transition_state')->nullable()->after('should_notice_gym')->comment('遷移可能状態');
             $table->string('transition_user_type')->nullable()->after('transition_state')->comment('遷移可能なユーザー種別');
         });
     }

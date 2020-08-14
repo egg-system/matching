@@ -4,6 +4,8 @@
 <head>
     @env('production')
         @include('components.gtm.head')
+    @else
+        @include('components.layouts.common.no-index')
     @endenv
 
     @yield('head')

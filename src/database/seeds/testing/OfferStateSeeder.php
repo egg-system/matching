@@ -10,37 +10,37 @@ class OfferStateSeeder extends Seeder
     private const DATA = [
         [
             'name' => 'エントリー',
-            'should_notice_trainer' => 1,
-            'should_notice_gym' => 1,
+            'should_notice_trainer' => true,
+            'should_notice_gym' => true,
             "transition_state" => null,
             "transition_user_type" => 'App\Models\Trainer',
         ],
         [
             'name' => 'オファー',
-            'should_notice_trainer' => 1,
-            'should_notice_gym' => 1,
+            'should_notice_trainer' => true,
+            'should_notice_gym' => true,
             "transition_state" => null,
             "transition_user_type" => 'App\Models\Gym',
         ],
         [
             'name' => '内定',
-            'should_notice_trainer' => 1,
-            'should_notice_gym' => 0,
-            "transition_state" => '1,2',
+            'should_notice_trainer' => true,
+            'should_notice_gym' => false,
+            "transition_state" => '[1,2]',
             "transition_user_type" => 'App\Models\Gym',
         ],
         [
             'name' => '内定承諾',
-            'should_notice_trainer' => 1,
-            'should_notice_gym' => 1,
-            "transition_state" => '3',
+            'should_notice_trainer' => true,
+            'should_notice_gym' => true,
+            "transition_state" => '[3]',
             "transition_user_type" => 'App\Models\Trainer',
         ],
         [
             'name' => '内定辞退',
-            'should_notice_trainer' => 0,
-            'should_notice_gym' => 1,
-            "transition_state" => '3',
+            'should_notice_trainer' => false,
+            'should_notice_gym' => true,
+            "transition_state" => '[3]',
             "transition_user_type" => 'App\Models\Trainer',
         ],
     ];
@@ -54,7 +54,7 @@ class OfferStateSeeder extends Seeder
     {
         $datas = self::DATA;
         foreach ($datas as $data) {
-            OfferState::firstOrCreate($data);
+            OfferState::firstOrCreate(['name' => $data['name']], $data);
         }
     }
 }
