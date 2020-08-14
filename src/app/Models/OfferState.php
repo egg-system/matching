@@ -16,10 +16,10 @@ class OfferState extends Model
 
     /** @var int 内定 */
     public const JOB_OFFER = 3;
-    
+
     /** @var int 成約 */
     public const ACCEPT = 4;
-    
+
     /** @var int 辞退 */
     public const REFUSE = 5;
 
@@ -41,7 +41,7 @@ class OfferState extends Model
     {
         return $this->id === self::ENTRY || $this->id === self::OFFER;
     }
-    
+
     /**
      * 直近のオファー状態と比較し、遷移可能な状態か判定
      * @param int $recentState
@@ -50,6 +50,6 @@ class OfferState extends Model
     public function canTransitionState(int $recentState): bool
     {
         return empty($this->transition_state) ||
-            in_array($recentState, explode(',', $this->transition_state));
+            in_array($recentState, json_decode($this->transition_state));
     }
 }

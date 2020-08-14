@@ -83,15 +83,48 @@ class Offer extends Model
      * 現在のオファー状態を元にメール送信先を取得
      * @return array
      */
-    public function getSendMailAddresses()
+    public function getSendMailUsers()
     {
         $result = [];
         if ($this->state->should_notice_trainer) {
-            $result[] = $this->trainer->email;
+            $result[] = $this->trainer;
         }
         if ($this->state->should_notice_gym) {
-            $result[] = $this->gym->email;
+            $result[] = $this->gym;
         }
         return $result;
+    }
+
+    /**
+     * メールタイトル取得
+     * @param Login $type
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    public function getMailSubjectByUser(Login $type)
+    {
+        switch ($this->offer_state_id) {
+            case OfferState::ENTRY:
+                return config('mail.subject.offers.entry.' . $type->user_type);
+            case OfferState::OFFER:
+                return config('mail.subject.offers.offer.' . $type->user_type);
+            default:
+                throw app(\Exception::class, ['message' => 'invalid offer state']);
+        }
+    }
+
+    /**
+     * メールテンプレート取得
+     * @return string
+     */
+    public function getMailTemplate()
+    {
+        switch ($this->offer_state_id) {
+            case OfferState::ENTRY:
+                return 'mails.offers.entry';
+            case OfferState::OFFER:
+                return 'mails.offers.offer';
+            default:
+                throw app(\Exception::class, ['message' => 'invalid offer state']);
+        }
     }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Models\Area;
 use App\Models\Login;
 use App\Models\MatchingCondition;
+use App\Models\Occupation;
 use App\Models\Trainer;
 use App\Models\User;
+use App\Models\UserOccupation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +27,16 @@ class UserRepository
             // トレーナー登録
             $registered_trainer = Trainer::create($validated);
             // matchingConditionと紐付け
-            $registered_trainer->matchingCondition()->create($validated);
+            $registeredMatchingCongition = $registered_trainer->matchingCondition()->create($validated);
+            // userOccupationsの作成
+            $occupationIdCollection = collect(explode(',', $request->occupation_ids));
+            foreach ($occupationIdCollection as $occupationId) {
+                $data = [
+                    'occupation_id' => $occupationId,
+                    'user_id' => $registeredMatchingCongition->id
+                ];
+                UserOccupation::create($data);
+            };
             // トレーナーとログインの紐付けて、カラムの更新
             return $registered_trainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
@@ -51,5 +63,21 @@ class UserRepository
                 'name' => $request->name
             ]);
         });
+    }
+
+    public function getOccupations()
+    {
+        return Occupation::all()->map(function ($occupation) {
+            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $occupation->image ]);
+        });
+    }
+
+    public function getAreas()
+    {
+        $areas = Area::all()->map(function ($area) {
+            return collect([ 'name' => $area->name, 'value' => $area->id ]);
+        });
+        $areas->prepend(collect([ 'name' => '', 'value' => '' ]));
+        return $areas;
     }
 }

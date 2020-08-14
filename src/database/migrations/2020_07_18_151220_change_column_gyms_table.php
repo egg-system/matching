@@ -55,7 +55,7 @@ class ChangeColumnGymsTable extends Migration
         });
 
         // カラム削除
-        Schema::table('gyms', function (Blueprint $table) {            
+        Schema::table('gyms', function (Blueprint $table) {
             $table->dropColumn(['profiles', 'prefecture_id', 'gym_url', 'description']);
         });
     }
