@@ -12,7 +12,7 @@ trait ArrayWherable
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function whereFromArray(Builder $query, array $attributes)
+    public static function whereFromArray(Builder $query, array $attributes)
     {
         collect($attributes)->each(function ($value, $column) use ($query) {
             $query->where($column, $value);

@@ -29,7 +29,7 @@ class GymsController extends Controller
      */
     public function index(GymSearchRequest $request)
     {
-        $conditions = $this->userSearchService->execute($request);
-        return view('pages.gyms.index', compact('conditions'));
+        $gymSearchResult = $this->userSearchService->execute($request);
+        return view('pages.gyms.index', compact('gymSearchResult'));
     }
 }

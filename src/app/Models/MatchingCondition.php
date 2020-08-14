@@ -22,6 +22,11 @@ class MatchingCondition extends Model
 
     protected $with = ['user', 'area', 'occupation'];
 
+    public static function query()
+    {
+        return (new static)->newQuery();
+    }
+    
     public function user()
     {
         return $this->morphTo('user');
