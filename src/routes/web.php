@@ -41,7 +41,8 @@ Route::group(['middleware' => 'released:register'], function () {
 
 // ログイン
 Route::group([
-    'prefix' => 'login', 'as' => 'login.',
+    'prefix' => 'login',
+    'as' => 'login.',
     'middleware' => ['guest', 'released:login'],
 ], function () {
     Route::view('/{userType}', 'pages.users.login')
@@ -73,30 +74,6 @@ Route::group([
     )->name('password.update');
 });
 
-// トレーナーのみがアクセル可能なルート
-// 　TODO: #166 プロフィール編集のルートをまとめる
-Route::group([
-    'prefix' => 'trainers',
-    'as' => 'trainers.',
-    'middleware' => ['auth', 'can:trainer']
-], function () {
-    Route::resource('', 'UsersController', ['parameters' => ['' => 'trainer']])
-        ->only(['edit', 'update'])
-        ->middleware(['can:update,trainer']);
-});
-
-// ジムオーナーのみがアクセス可能なルート
-// 　TODO: #166 プロフィール編集のルートをまとめる
-Route::group([
-    'prefix' => 'gyms',
-    'as' => 'gyms.',
-    'middleware' => ['auth', 'can:gym']
-], function () {
-    Route::resource('', 'UsersController', ['parameters' => ['' => 'gym']])
-        ->only(['edit', 'update'])
-        ->middleware(['can:update,gym']);
-});
-
 // ログイン時のみアクセス可能
 Route::group(['middleware' => ['auth']], function () {
     // トレーナー一覧 ※ 個人情報のため、ジムのみ閲覧可能
@@ -114,6 +91,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('offers', 'OffersController')
         ->only(['store'])
         ->middleware('can:gym');
+
+    // プロフィールの更新
+    Route::get('profile', 'UsersController@edit')
+        ->name('profile.edit');
+    Route::put('profile', 'UsersController@update')
+        ->name('profile.update');
 
     // ログアウト
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');

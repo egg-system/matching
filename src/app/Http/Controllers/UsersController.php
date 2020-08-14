@@ -53,8 +53,9 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user)
+    public function edit()
     {
+        $user = \Auth::user()->user;
         $matchingCondition = $user->matchingCondition;
         return view('pages.users.edit', compact('user', 'matchingCondition'));
     }
@@ -64,13 +65,10 @@ class UsersController extends Controller
      * @param User $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, User $model)
+    public function update(UpdateRequest $request)
     {
+        $model = \Auth::user()->user;
         $this->userRepository->updateUser($request, $model);
-
-        if (get_class($model) === Gym::class) {
-            return redirect()->route('gyms.edit', $model->id);
-        }
-        return redirect()->route('top');
+        return redirect()->route('profile.update');
     }
 }
