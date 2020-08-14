@@ -2,9 +2,9 @@
 
 namespace App\Mail;
 
+use App\Models\Login;
 use App\Models\Offer;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -13,14 +13,18 @@ class OfferRecieve extends Mailable
     use Queueable, SerializesModels;
 
     public $offer;
+    
+    private $sendToUser;
+
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * OfferRecieve constructor.
+     * @param Offer $offer
+     * @param Login $sendToUser
      */
-    public function __construct(Offer $offer)
+    public function __construct(Offer $offer, Login $sendToUser)
     {
         $this->offer = $offer;
+        $this->sendToUser = $sendToUser;
     }
 
     /**
@@ -30,10 +34,11 @@ class OfferRecieve extends Mailable
      */
     public function build()
     {
-        return $this->subject('オファー受信のお知らせ')
-            ->markdown('markdown.offers.recieve')
+        return $this->subject($this->offer->getMailSubjectByUser($this->sendToUser))
+            ->view($this->offer->getMailTemplate())
             ->with([
-                'url' => route('offers.show', $this->offer->id)
+                'offer' => $this->offer,
+                'sendToUser' => $this->sendToUser
             ]);
     }
 }
