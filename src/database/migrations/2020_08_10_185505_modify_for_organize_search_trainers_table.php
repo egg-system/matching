@@ -22,6 +22,9 @@ class ModifyForOrganizeSearchTrainersTable extends Migration
         Schema::table('trainers', function (Blueprint $table) {
             $table->string('display_name')->nullable()->comment('表示名');
         });
+        Schema::table('trainers', function (Blueprint $table) {
+            $table->boolean("is_considering_change_job")->nullable()->comment('転職も検討している');
+        });
     }
 
     /**
@@ -41,7 +44,7 @@ class ModifyForOrganizeSearchTrainersTable extends Migration
 
         // 不要なカラム削除
         Schema::table('trainers', function (Blueprint $table) {
-            $table->dropColumn('display_name');
+            $table->dropColumn(['display_name', 'is_considering_change_job']);
         });
     }
 }

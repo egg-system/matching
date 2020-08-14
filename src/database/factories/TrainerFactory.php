@@ -26,6 +26,7 @@ $factory->define(Trainer::class, function (Faker $faker) {
             ]
         ],
         'display_name' => $faker->name,
+        'is_considering_change_job' => true,
     ];
 });
 

@@ -13,9 +13,14 @@ class ModifyForOrganizeSearchMatchingConditionsTable extends Migration
      */
     public function up()
     {
+        // 不要なカラム削除
+        Schema::table('matching_conditions', function (Blueprint $table) {
+            $table->dropColumn(['hope_adjust_worktime', 'is_considering_change_job']);
+        });
+
         // カラム追加
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->boolean("can_adjust_to_trainer")->nullable()->comment('トレーナーに合わせて調整可');
+            $table->boolean("can_adjust_to_them")->nullable()->comment('先方に合わせて調整可');
         });
     }
 
@@ -26,9 +31,17 @@ class ModifyForOrganizeSearchMatchingConditionsTable extends Migration
      */
     public function down()
     {
+        // カラム追加
+        Schema::table('matching_conditions', function (Blueprint $table) {
+            $table->boolean("hope_adjust_worktime")->nullable()->comment('企業や案件に合わせて調整したい');
+        });
+        Schema::table('matching_conditions', function (Blueprint $table) {
+            $table->boolean("is_considering_change_job")->nullable()->comment('転職も検討している');
+        });
+
         // 不要なカラム削除
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropColumn('can_adjust_to_trainer');
+            $table->dropColumn('can_adjust_to_them');
         });
     }
 }
