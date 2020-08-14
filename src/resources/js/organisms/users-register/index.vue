@@ -30,7 +30,7 @@ export default {
   },
   data () {
     return {
-      stepState: 0
+      stepState: 4
     }
   },
   components: {

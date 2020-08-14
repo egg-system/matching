@@ -68,15 +68,7 @@ class UserRepository
     public function getOccupations()
     {
         return Occupation::all()->map(function ($occupation) {
-            $img = '';
-            if ($occupation->name === 'フィットネス') {
-                $img = '/images/users-register/fitness_icon.jpg';
-            } elseif ($occupation->name === 'ジム') {
-                $img = '/images/users-register/gym_icon2.jpg';
-            } elseif ($occupation->name === 'パーソナル') {
-                $img = '/images/users-register/personal_trainer_icon.jpg';
-            }
-            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $img ]);
+            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $occupation->image ]);
         });
     }
 
