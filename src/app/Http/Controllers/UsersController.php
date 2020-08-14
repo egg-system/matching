@@ -23,7 +23,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.users.register');
+        $occupations = $this->userRepository->getOccupations();
+        $areas = $this->userRepository->getAreas();
+
+        return view('pages.users.register', compact('occupations', 'areas'));
     }
 
     /**

@@ -79,8 +79,9 @@ class TrainerRegisterTest extends TestCase
             URL::signedRoute('trainers.store', ['id' => $login->id]),
             array_merge($data->toArray(), [
                 'name' => $login->name,
-                'occupation_id' => factory(Occupation::class)->create()->id,
-                'area_id' => factory(Area::class)->create()->id
+                'occupation_ids' => factory(Occupation::class)->create()->id,
+                'area_id' => factory(Area::class)->create()->id,
+                'carrer' => json_encode($data->carrer)
             ])
         );
         // 登録後リダイレクト

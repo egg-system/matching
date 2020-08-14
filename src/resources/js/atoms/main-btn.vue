@@ -7,6 +7,8 @@
     class="rounded-btn"
     color="#FF9966"
     :outlined="outlined"
+    :type="type"
+    :disabled="disabled"
     rounded
     shaped
     @click="$emit('click')"
@@ -29,6 +31,14 @@ export default {
     outlined: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: undefined
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -37,8 +47,7 @@ export default {
 <style lang="scss" scoped>
 @import 'resources/scss/_variables.scss';
 
-@mixin mainBtnPhrase($color) {
-  color: $color;
+@mixin mainBtnPhrase {
   letter-spacing: 0;
   font-size: $mainBtnFontSize;
   font-weight: bold;
@@ -49,9 +58,10 @@ export default {
 }
 
 .main-btn {
+  color: white;
   background: linear-gradient(to left, $mainBtnLightColor, $mainBtnColor);
   span.main-btn-phrase {
-    @include mainBtnPhrase(white)
+    @include mainBtnPhrase;
   }
 }
 
@@ -59,7 +69,7 @@ export default {
   color: $mainBtnColor;
   border-width: 0.2rem;
   span.main-btn-phrase {
-    @include mainBtnPhrase($mainBtnColor)
+    @include mainBtnPhrase;
   }
 }
 </style>
