@@ -27,16 +27,16 @@ class UserRepository
             // トレーナー登録
             $registeredTrainer = Trainer::create($validated);
             // matchingConditionと紐付け
-            $registeredMatchingCongition = $registeredTrainer->matchingCondition()->create($validated);
+            $registeredMatchingCondition = $registeredTrainer->matchingCondition()->create($validated);
             // userOccupationsの作成
-            $occupationIdCollection = collect(explode(',', $request->occupation_ids));
-            foreach ($occupationIdCollection as $occupationId) {
-                $data = [
+            $occupationIdsCollection = collect(explode(',', $request->occupation_ids));
+            $userOccupationsData = $occupationIdsCollection->map(function ($occupationId) use ($registeredMatchingCondition) {
+                return [
                     'occupation_id' => $occupationId,
-                    'user_id' => $registeredMatchingCongition->id
+                    'user_id' => $registeredMatchingCondition->id
                 ];
-                UserOccupation::create($data);
-            };
+            });
+            $registeredMatchingCondition->userOccupations()->createMany($userOccupationsData);
             // トレーナーとログインの紐付けて、カラムの更新
             return $registeredTrainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,

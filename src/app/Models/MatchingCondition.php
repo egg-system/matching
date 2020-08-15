@@ -42,6 +42,11 @@ class MatchingCondition extends Model
         )->withTimestamps();
     }
 
+    public function userOccupations()
+    {
+        return $this->hasMany(UserOccupation::class, 'user_id');
+    }
+
     /**
      * ユーザ検索のクエリスコープ
      *

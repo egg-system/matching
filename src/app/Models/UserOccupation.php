@@ -13,4 +13,9 @@ class UserOccupation extends Model
         'occupation_id',
         'user_id'
     ];
+
+    public function matchingCondition()
+    {
+        return $this->belongsTo(MatchingCondition::class, 'user_id');
+    }
 }
