@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Services\Search\SearchInterface;
+use App\Models\Trainer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TrainerSearchRequest extends FormRequest implements SearchInterface
@@ -25,7 +26,6 @@ class TrainerSearchRequest extends FormRequest implements SearchInterface
     public function rules()
     {
         return [
-            'user_type' => 'required|in:App\Models\Gym,App\Models\Trainer',
             'occupation_id' => 'nullable|integer',
             'area_id' => 'nullable|integer',
             'price' => 'nullable|array',
@@ -52,6 +52,8 @@ class TrainerSearchRequest extends FormRequest implements SearchInterface
      */
     public function searchParameters()
     {
-        return $this->validated();
+        return array_merge($this->validated(), [
+            'user_type' => Trainer::class
+        ]);
     }
 }
