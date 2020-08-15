@@ -13,7 +13,7 @@ $factory->define(MatchingCondition::class, function (Faker $faker) {
         'weekly_worktime' => 1,
         'can_work_holiday' => true,
         'can_work_weekday' => true,
-        'can_adjust_to_them' => true,
+        'can_adjust' => true,
     ];
 });
 

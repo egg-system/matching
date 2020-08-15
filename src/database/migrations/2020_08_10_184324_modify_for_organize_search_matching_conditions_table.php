@@ -20,7 +20,7 @@ class ModifyForOrganizeSearchMatchingConditionsTable extends Migration
 
         // カラム追加
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->boolean("can_adjust_to_them")->nullable()->comment('先方に合わせて調整可');
+            $table->boolean("can_adjust")->nullable()->comment('先方に合わせて調整可');
         });
     }
 
@@ -41,7 +41,7 @@ class ModifyForOrganizeSearchMatchingConditionsTable extends Migration
 
         // 不要なカラム削除
         Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropColumn('can_adjust_to_them');
+            $table->dropColumn('can_adjust');
         });
     }
 }
