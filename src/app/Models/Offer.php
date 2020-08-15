@@ -11,33 +11,32 @@ class Offer extends Model
     use Notifiable;
 
     protected $fillable = [
-        'offer_from_id',
-        'offer_to_id',
-        'offer_state',
-        'message',
+        'gym_login_id',
+        'trainer_login_id',
+        'offer_state_id',
     ];
 
-    protected $with = ['fromUser.user', 'toUser.user', 'state'];
+    protected $with = ['gym.user', 'trainer.user', 'state'];
 
     public function state()
     {
-        return $this->hasOne(OfferState::class, 'id', 'offer_state');
+        return $this->hasOne(OfferState::class, 'id', 'offer_state_id');
     }
 
     /**
-     * 自分が送ったオファー
+     * ジム側のユーザー情報
      */
-    public function fromUser()
+    public function gym()
     {
-        return $this->belongsTo(Login::class, 'offer_from_id', 'id');
+        return $this->belongsTo(Login::class, 'gym_login_id', 'id');
     }
 
     /**
-     * 自分に来たオファー
+     * トレーナー側のユーザー情報
      */
-    public function toUser()
+    public function trainer()
     {
-        return $this->belongsTo(Login::class, 'offer_to_id', 'id');
+        return $this->belongsTo(Login::class, 'trainer_login_id', 'id');
     }
 
     /**
@@ -77,7 +76,7 @@ class Offer extends Model
 
     public function updateState(int $state)
     {
-        return $this->update(['offer_state' => $state]);
+        return $this->update(['offer_state_id' => $state]);
     }
 
     /**

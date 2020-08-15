@@ -48,7 +48,7 @@ class ViewServiceProvider extends ServiceProvider
             'pages.trainers.index',
             function ($view) {
                 $viewData = array_merge($this->getMasterData(), [
-                    'offers' => optional(\Auth::user()->fromOffers),
+                    'offers' => optional(\Auth::user()->trainerOffers),
                 ]);
                 $view->with($viewData);
             }

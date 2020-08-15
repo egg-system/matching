@@ -87,10 +87,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // オファー
     Route::resource('offers', 'OffersController')
-        ->only(['index', 'show', 'update']);
-    Route::resource('offers', 'OffersController')
-        ->only(['store'])
-        ->middleware('can:gym');
+        ->only(['index', 'show', 'store']);
 
     // プロフィールの更新
     Route::get('profile', 'UsersController@edit')
