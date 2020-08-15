@@ -13,8 +13,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-use Illuminate\Support\Facades\Log;
-
 class UserSearchServiceTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
