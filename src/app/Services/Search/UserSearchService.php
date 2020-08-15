@@ -18,7 +18,9 @@ class UserSearchService
     {
         $validated = $request->searchParameters();
         $query = MatchingCondition::query();
-        $query = MatchingCondition::whereFromArray($query, $validated);
+        collect($validated)->each(function ($value, $column) use ($query) {
+            $query->where($column, $value);
+        });
         return $query->get();
     }
 }

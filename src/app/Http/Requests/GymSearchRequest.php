@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Services\Search\SearchInterface;
+use App\Models\Gym;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GymSearchRequest extends FormRequest implements SearchInterface
@@ -26,12 +27,11 @@ class GymSearchRequest extends FormRequest implements SearchInterface
     {
         return [
             'user_id' => 'nullable|exists:matching_conditions,user_id',
-            'user_type' => 'required|in:App\Models\Gym,App\Models\Trainer',
             'occupation_id' => 'nullable|integer|exists:occupations,id',
             'area_id' => 'nullable|integer|exists:areas,id',
             'can_work_holiday' => 'nullable|boolean',
             'can_work_weekday' => 'nullable|boolean',
-            'can_adjust_to_trainer' => 'nullable|boolean',
+            'can_adjust' => 'nullable|boolean',
         ];
     }
 
@@ -44,7 +44,7 @@ class GymSearchRequest extends FormRequest implements SearchInterface
             'area_id' => 'エリア',
             'can_work_holiday' => '平日夜勤務',
             'can_work_weekday' => '休日勤務',
-            'can_adjust_to_trainer' => 'トレーナーに合わせて調整可',
+            'can_adjust' => 'トレーナーに合わせて調整可',
         ];
     }
 
@@ -52,6 +52,8 @@ class GymSearchRequest extends FormRequest implements SearchInterface
      * 検証済みの検索項目を返却.
      */
     public function searchParameters() {
-        return $this->validated();
+        return array_merge($this->validated(), [
+            'user_type' => Gym::class
+        ]);
     }
 }
