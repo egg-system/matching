@@ -25,9 +25,9 @@ class UserRepository
         return DB::transaction(function () use ($request) {
             $validated = $request->validated();
             // トレーナー登録
-            $registered_trainer = Trainer::create($validated);
+            $registeredTrainer = Trainer::create($validated);
             // matchingConditionと紐付け
-            $registeredMatchingCongition = $registered_trainer->matchingCondition()->create($validated);
+            $registeredMatchingCongition = $registeredTrainer->matchingCondition()->create($validated);
             // userOccupationsの作成
             $occupationIdCollection = collect(explode(',', $request->occupation_ids));
             foreach ($occupationIdCollection as $occupationId) {
@@ -38,7 +38,7 @@ class UserRepository
                 UserOccupation::create($data);
             };
             // トレーナーとログインの紐付けて、カラムの更新
-            return $registered_trainer->associateToLogin(Login::find($request->id), [
+            return $registeredTrainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
                 'email_verified_at' => now(),
                 'password' => $request->password
