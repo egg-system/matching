@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait ArrayWherable 
+trait ArrayWherable
 {
     /**
      * where句の生成

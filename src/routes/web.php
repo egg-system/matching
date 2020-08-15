@@ -41,7 +41,8 @@ Route::group(['middleware' => 'released:register'], function () {
 
 // ログイン
 Route::group([
-    'prefix' => 'login', 'as' => 'login.',
+    'prefix' => 'login',
+    'as' => 'login.',
     'middleware' => ['guest', 'released:login'],
 ], function () {
     Route::view('/{userType}', 'pages.users.login')
@@ -49,30 +50,28 @@ Route::group([
         ->name('view');
     Route::post('', 'Auth\LoginController@login')
         ->name('post');
-});
 
-// トレーナーのみがアクセル可能なルート
-// 　TODO: #166 プロフィール編集のルートをまとめる
-Route::group([
-    'prefix' => 'trainers',
-    'as' => 'trainers.',
-    'middleware' => ['auth', 'can:trainer']
-], function () {
-    Route::resource('', 'UsersController', ['parameters' => ['' => 'trainer']])
-        ->only(['edit', 'update'])
-        ->middleware(['can:update,trainer']);
-});
+    // パスワードのリセット
+    Route::get(
+        'password/{userType}/reset',
+        'Auth\ForgotPasswordController@showLinkRequestForm'
+    )->where('userType', '(gym|trainer)')
+    ->name('password.request');
+    Route::post(
+        'password/email',
+        'Auth\ForgotPasswordController@sendResetLinkEmail'
+    )->name('password.email');
 
-// ジムオーナーのみがアクセス可能なルート
-// 　TODO: #166 プロフィール編集のルートをまとめる
-Route::group([
-    'prefix' => 'gyms',
-    'as' => 'gyms.',
-    'middleware' => ['auth', 'can:gym']
-], function () {
-    Route::resource('', 'UsersController', ['parameters' => ['' => 'gym']])
-        ->only(['edit', 'update'])
-        ->middleware(['can:update,gym']);
+    // パスワードの更新
+    Route::get(
+        'password/{userType}/reset/{token}',
+        'Auth\ResetPasswordController@showResetForm'
+    )->where('userType', '(gym|trainer)')
+    ->name('password.reset');
+    Route::post(
+        'password/reset',
+        'Auth\ResetPasswordController@reset'
+    )->name('password.update');
 });
 
 // ログイン時のみアクセス可能
@@ -92,6 +91,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('offers', 'OffersController')
         ->only(['store'])
         ->middleware('can:gym');
+
+    // プロフィールの更新
+    Route::get('profile', 'UsersController@edit')
+        ->name('profile.edit');
+    Route::put('profile', 'UsersController@update')
+        ->name('profile.update');
 
     // ログアウト
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');

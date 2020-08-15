@@ -5,21 +5,11 @@
 
 @section('content')
 <div class="users-edit-page">
-    @can('trainer')
     <div class="header">
-        <h1>トレーナー編集</h1>
+        <h1>{{ $user->isGym ? 'ジムオーナー編集' : 'トレーナー編集' }}</h1>
     </div>
-    @elsecan('gym')
-    <div class="header">
-        <h1>ジムオーナー編集</h1>
-    </div>
-    @endcan
     
-    @can('trainer')
-    <form method="POST" action="{{ route('trainers.update', [$user->id]) }}">
-    @elsecan('gym')
-    <form method="POST" action="{{ route('gyms.update', $user->id) }}">
-    @endcan
+    <form method="POST" action="{{ route('profile.update') }}">
 
         <div class="header__aside">
             <button type="submit">保存</button>
@@ -34,7 +24,7 @@
                 name="name"
                 id="name"
                 type="text"
-                value="{{ optional(Auth::user())->name ?? old('name') }}"
+                value="{{ $user->login->name ?? old('name') }}"
                 autocomplete="name"
                 autofocus
                 error="{{ $errors->first('name') }}"
@@ -89,7 +79,7 @@
                 label="自己紹介"
                 name="pr_comment"
                 id="pr_comment"
-                value="{{ $user->pr_comment ?? old('pr_comment') }}"
+                value="{{ old('pr_comment', $user->pr_comment) }}"
                 placeholder="自己紹介を入れて企業にアピールしよう"
                 error="{{ $errors->first('pr_comment') }}"
             ></text-area-form>
@@ -100,7 +90,7 @@
                 name="president_name"
                 id="president_name"
                 type="text"
-                value="{{ old('president_name',$user->president_name) }}"
+                value="{{ old('president_name', $user->president_name) }}"
                 error="{{ $errors->first('president_name') }}"
             ></input-form>
 

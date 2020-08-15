@@ -66,7 +66,7 @@ class ChangeColumnMatchingConditionsTable extends Migration
         });
 
         // カラム削除
-        Schema::table('matching_conditions', function (Blueprint $table) {            
+        Schema::table('matching_conditions', function (Blueprint $table) {
             $table->dropColumn('weekly_worktime');
         });
         Schema::table('matching_conditions', function (Blueprint $table) {

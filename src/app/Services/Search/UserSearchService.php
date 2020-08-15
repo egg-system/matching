@@ -11,7 +11,7 @@ class UserSearchService
 {
     /**
      * ユーザ検索処理実行
-     * 
+     *
      * @param App\Services\Search\SearchInterface $request
      */
     public function execute(SearchInterface $request)
