@@ -73,8 +73,11 @@ class TrainerRegisterTest extends TestCase
         $this->get($url)->assertStatus(200);
         // 登録データ作成
         $data = factory(Trainer::class)->make([
-            'password' => 'password', 'password_confirmation' => 'password', 'agree' => 1
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'agree' => true
         ]);
+
         $response = $this->post(
             URL::signedRoute('trainers.store', ['id' => $login->id]),
             array_merge($data->toArray(), [
@@ -84,6 +87,7 @@ class TrainerRegisterTest extends TestCase
                 'carrer' => json_encode($data->carrer)
             ])
         );
+
         // 登録後リダイレクト
         $response->assertSessionHasNoErrors()->assertStatus(302);
         // トレーナー登録
