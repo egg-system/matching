@@ -1,0 +1,71 @@
+.statusButton {
+  appearance: none;
+  border: none;
+  color: #fff;
+  padding: 0.3em 1.2em;
+  border-radius: 30px;
+  font-size: 1.2em;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.offers-index-page {
+  .bg {
+    background-color: #fbf7f4;
+    margin-bottom: 1em;
+    height: 100vh;
+    h2 {
+      margin: 0;
+      padding: 0.5em 1em;
+    }
+    .status {
+      display: -webkit-flex;
+      display: -ms-flex;
+      display: flex;
+      justify-content: center;
+      margin: 1.5em 0;
+      .active {
+        @extend .statusButton;
+        background-color: #027450;
+        margin-right: 2em;
+        padding: 0.3em 2em;
+      }
+      .archive {
+        @extend .statusButton;
+        background-color: #9c4141;
+        padding: 0.3em 2em;
+      }
+    }
+    .historyBox {
+      border: 1px solid #aaa;
+      background-color: #fff;
+      margin: 1em;
+      padding: 1em;
+      border-radius: 20px;
+      box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.3);
+      .historyItem {
+        align-items: center;
+        .icon {
+          margin: 0 1.5em 0 0;
+          display: inline-block;
+          vertical-align: middle;
+          img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+          }
+        }
+        .name {
+          font-size: 1.5em;
+          font-weight: bold;
+          display: inline-block;
+        }
+      }
+      .comment {
+        margin-left: 6em;
+      }
+    }
+  }
+}
