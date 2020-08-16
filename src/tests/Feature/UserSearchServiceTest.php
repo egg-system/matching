@@ -43,7 +43,7 @@ class UserSearchServiceTest extends TestCase
 
         // ジム全検索用リクエスト
         $this->requestGym = GymSearchRequest::create(
-            route('gyms.index'),
+            route('home.gyms.index'),
             'GET',
             [],
             [],
@@ -60,7 +60,7 @@ class UserSearchServiceTest extends TestCase
 
         // トレーナー全検索用リクエスト
         $this->requestTrainer = TrainerSearchRequest::create(
-            route('trainers.index'),
+            route('home.trainers.index'),
             'GET',
             $param,
             [],
