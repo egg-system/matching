@@ -17,7 +17,7 @@
                     </p>
                     <div class="d-flex flex-row-reverse">
                         @if($offer->offer_to_id === Auth::id() && $offer->offer_state ===
-                        App\Models\OfferState::UNREPLY)
+                        App\Models\OfferState::ENTRY)
                         <form action="{{ route('offers.update', $offer->id) }}" method="POST">
                             @method('PATCH')
                             @csrf

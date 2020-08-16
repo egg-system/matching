@@ -24,10 +24,10 @@ class UserRepository
     {
         return DB::transaction(function () use ($request) {
             $validated = $request->validated();
-            // トレーナー登録
-            $registered_trainer = Trainer::create($validated);
-            // matchingConditionと紐付け
-            $registeredMatchingCongition = $registered_trainer->matchingCondition()->create($validated);
+
+            $registeredTrainer = Trainer::create($validated);
+            $registeredMatchingCongition = $registeredTrainer->matchingCondition()->create($validated);
+
             // userOccupationsの作成
             $occupationIdCollection = collect(explode(',', $request->occupation_ids));
             foreach ($occupationIdCollection as $occupationId) {
@@ -37,8 +37,9 @@ class UserRepository
                 ];
                 UserOccupation::create($data);
             };
+
             // トレーナーとログインの紐付けて、カラムの更新
-            return $registered_trainer->associateToLogin(Login::find($request->id), [
+            return $registeredTrainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
                 'email_verified_at' => now(),
                 'password' => $request->password
@@ -56,8 +57,11 @@ class UserRepository
         DB::transaction(function () use ($request, $user) {
             // トレーナー更新
             $user->update($request->only($user->getFillable()));
+            
             // matchingCondition更新
-            $user->matchingCondition->update($request->only(MatchingCondition::make()->getFillable()));
+            $user->matchingCondition->update(
+                $request->only(MatchingCondition::make()->getFillable())
+            );
             // ログインと紐付けて、カラムの更新
             return $user->associateToLogin(Auth::user(), [
                 'name' => $request->name
@@ -68,16 +72,23 @@ class UserRepository
     public function getOccupations()
     {
         return Occupation::all()->map(function ($occupation) {
-            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $occupation->image ]);
+            return collect([
+                'name' => $occupation->name,
+                'value' => $occupation->id,
+                'img' => $occupation->image
+            ]);
         });
     }
 
     public function getAreas()
     {
         $areas = Area::all()->map(function ($area) {
-            return collect([ 'name' => $area->name, 'value' => $area->id ]);
+            return collect([
+                'name' => $area->name,
+                'value' => $area->id
+            ]);
         });
-        $areas->prepend(collect([ 'name' => '', 'value' => '' ]));
+        $areas->prepend(collect(['name' => '', 'value' => '']));
         return $areas;
     }
 }

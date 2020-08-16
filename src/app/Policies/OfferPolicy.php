@@ -35,19 +35,6 @@ class OfferPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\Login  $user
-     * @param  \App\Models\Offer  $offer
-     * @return mixed
-     */
-    public function update(Login $user, Offer $offer)
-    {
-        // 受信者のみ更新可能
-        return $offer->offer_to_id === $user->id;
-    }
-
-    /**
      * Determine whether the user can create the model.
      *
      * @param  \App\Models\Login  $user

@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Mail\OfferRecieve;
-use App\Mail\OfferUpdate;
 use App\Models\Offer;
 use App\Notifications\OfferNotify;
 

@@ -11,8 +11,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Trainer::class, function (Faker $faker) {
     return [
-        'tel' => $faker->phoneNumber,
-        'pr_comment' => $faker->text,
         'now_work_area_id' => 1,
         'now_work_style' => 1,
         'carrer' => [
@@ -27,6 +25,8 @@ $factory->define(Trainer::class, function (Faker $faker) {
                 'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2)
             ]
         ],
+        'display_name' => $faker->name,
+        'is_considering_change_job' => true,
     ];
 });
 

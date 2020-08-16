@@ -14,5 +14,6 @@ $factory->define(Login::class, function (Faker $faker) {
         'email_verified_at' => Carbon::now(),
         'password' => config('test.seeds.default.password', Str::random(10)),
         'remember_token' => Str::random(10),
+        'tel' => $faker->phoneNumber,
     ];
 });
