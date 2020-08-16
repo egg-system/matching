@@ -9,7 +9,7 @@
         <h1>{{ $user->isGym ? 'ジムオーナー編集' : 'トレーナー編集' }}</h1>
     </div>
     
-    <form method="POST" action="{{ route('profile.update') }}">
+    <form method="POST" action="{{ route('settings.profile.update') }}">
 
         <div class="header__aside">
             <button type="submit">保存</button>

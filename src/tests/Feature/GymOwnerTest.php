@@ -42,7 +42,7 @@ class GymOwnerTest extends TestCase
 
         $searchResponse = $this
             ->actingAs($this->owner->login)
-            ->get(route('trainers.index', [
+            ->get(route('home.trainers.index', [
                 'user_type' => 'App\Models\Gym'
             ]));
 
