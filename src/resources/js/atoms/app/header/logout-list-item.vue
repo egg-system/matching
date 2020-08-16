@@ -1,7 +1,7 @@
 <template>
-  <v-list-item link selectable>
+  <v-list-item link selectable @click="submit">
     <v-list-item-title>
-      <form method="post" :action="logoutUrl">
+      <form ref="logout" method="post" :action="logoutUrl">
         <input type="hidden" name="_token" :value="token">
         <input type="submit" value="ログアウト">
       </form>
@@ -20,6 +20,11 @@ export default {
   computed: {
     token() {
       return this.$root.$data.token
+    }
+  },
+  methods: {
+    submit() {
+      this.$refs.logout.submit()
     }
   }
 }
