@@ -23,18 +23,13 @@ class UserRepository
     public function create(Request $request)
     {
         return DB::transaction(function () use ($request) {
-            $validated = $request->validated();
-
-            $registeredTrainer = Trainer::create($validated);
-            $registeredMatchingCondition = $registeredTrainer->matchingCondition()->create($validated);
+            $registeredTrainer = Trainer::create($request->only(Trainer::make()->getFillable()));
+            $registeredMatchingCondition = $registeredTrainer->matchingCondition()->create($request->only(MatchingCondition::make()->getFillable()));
 
             // userOccupationsの作成
             $occupationIdsCollection = collect(explode(',', $request->occupation_ids));
             $userOccupationsData = $occupationIdsCollection->map(function ($occupationId) use ($registeredMatchingCondition) {
-                return [
-                    'occupation_id' => $occupationId,
-                    'user_id' => $registeredMatchingCondition->id
-                ];
+                return [ 'occupation_id' => $occupationId ];
             });
             $registeredMatchingCondition->userOccupations()->createMany($userOccupationsData);
             // トレーナーとログインの紐付けて、カラムの更新
