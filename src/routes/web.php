@@ -75,7 +75,10 @@ Route::group([
 });
 
 // ログイン時のみアクセス可能
-Route::group(['middleware' => ['auth']], function () {
+Route::group([
+    'middleware' => ['auth'],
+    'as' => 'home.',
+], function () {
     // トレーナー一覧 ※ 個人情報のため、ジムのみ閲覧可能
     Route::resource('trainers', 'TrainersController')
         ->only(['index'])
@@ -84,14 +87,19 @@ Route::group(['middleware' => ['auth']], function () {
     // ジム一覧 ※ 公開情報がほとんどのため、制限しない
     Route::resource('gyms', 'GymsController')
         ->only(['index']);
+});
 
+Route::group(['middleware' => ['auth']], function () {
     // オファー
     Route::resource('offers', 'OffersController')
-        ->only(['index', 'show', 'update']);
-    Route::resource('offers', 'OffersController')
-        ->only(['store'])
-        ->middleware('can:gym');
+        ->only(['index', 'show', 'store']);
+});
 
+Route::group([
+    'middleware' => ['auth'],
+    'prefix' => 'settings',
+    'as' => 'settings.'
+], function () {
     // プロフィールの更新
     Route::get('profile', 'UsersController@edit')
         ->name('profile.edit');

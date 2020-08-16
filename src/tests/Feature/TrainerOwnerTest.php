@@ -5,14 +5,11 @@ namespace Tests\Feature;
 use App\Models\Area;
 use App\Models\Gym;
 use App\Models\Login;
-use App\Models\MatchingCondition;
-use App\Models\Occupation;
-use App\Models\Trainer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class GymOwnerTest extends TestCase
+class TrainerOwnerTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -24,26 +21,34 @@ class GymOwnerTest extends TestCase
     }
 
     /**
-     *  トレーナー一覧
+     *  ジム一覧
      *  @test
      */
-    public function traienrList()
+    public function gymList()
     {
         $this->withExceptionHandling();
 
-        $trainers = factory(Trainer::class, 10)->create()->each(function ($trainer) {
+        $gyms = factory(Gym::class, 10)->create()->each(function ($gyms) {
             $areaId = (Area::inRandomOrder()->first())->id ?? factory(Area::class)->create()->id;
-            $trainer->matchingCondition()->create(
+            $gyms->matchingCondition()->create(
                 [
                     'area_id' => $areaId
                 ]
             );
         });
 
+        // 全検索
         $searchResponse = $this
             ->actingAs($this->owner->login)
-            ->get(route('home.trainers.index', [
-                'user_type' => 'App\Models\Gym'
+            ->get(route('gyms.index'));
+
+        $searchResponse->assertStatus(200);
+
+        // 絞り込み検索
+        $searchResponse = $this
+            ->actingAs($this->owner->login)
+            ->get(route('gyms.index', [
+                'user_id' => '1'
             ]));
 
         $searchResponse->assertStatus(200);

@@ -1,44 +1,40 @@
 @php
 $user = \Auth::user();
+
+// TODO: #117 変数の注入方法を検討する
 $headerMenu = [
     [
-        'icon' => 'mdi-home',
+        'image' => '/images/app/home-icon',
         'url' => route($user->homeRouteName),
+        'isActive' => \Route::is('home.*'),
     ],
     [
-        'icon' => 'mdi-chat-processing',
+        'image' => '/images/app/message-icon',
         'url' => route('offers.index'),
-    ],
-    // [
-    //     'icon' => 'mdi-bell',
-    //     'url' => '',
-    // ]
+        'isActive' => \Route::is('offers.*'),
+    ]
 ];
 
-$profileMenu = [
+$profileMenus = [
     [
         'name' =>  $user->isGym ? '基本情報編集' : 'プロフィール編集',
-        'url' => route('profile.edit'),
+        'url' => route('settings.profile.edit'),
     ],
     [
         'name' =>  '求人情報編集',
         'url' => '',
         'isShown' => $user->isGym,
     ],
-    // [
-    //     'icon' => 'cards-heart',
-    //     'name' => '「いいね」一覧',
-    //     'url' => '',
-    // ]
     [
         'name' => 'パスワード変更',
         'url' => '',
     ]
-];
+]
 @endphp
 
 <app-header
     :header-menus='@json($headerMenu)'
-    :profile-menus='@json($profileMenu)'
-    :logout-url='@json(route('logout'))'
+    :profile-menus='@json($profileMenus)'
+    :logout-url='@json(route('settings.logout'))'
+    profile-image="/images/app/setting-icon"
 ></app-header>

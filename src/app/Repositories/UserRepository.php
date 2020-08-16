@@ -24,10 +24,10 @@ class UserRepository
     {
         return DB::transaction(function () use ($request) {
             $validated = $request->validated();
-            // トレーナー登録
+
             $registeredTrainer = Trainer::create($validated);
-            // matchingConditionと紐付け
             $registeredMatchingCondition = $registeredTrainer->matchingCondition()->create($validated);
+
             // userOccupationsの作成
             $occupationIdsCollection = collect(explode(',', $request->occupation_ids));
             $userOccupationsData = $occupationIdsCollection->map(function ($occupationId) use ($registeredMatchingCondition) {
@@ -56,8 +56,11 @@ class UserRepository
         DB::transaction(function () use ($request, $user) {
             // トレーナー更新
             $user->update($request->only($user->getFillable()));
+            
             // matchingCondition更新
-            $user->matchingCondition->update($request->only(MatchingCondition::make()->getFillable()));
+            $user->matchingCondition->update(
+                $request->only(MatchingCondition::make()->getFillable())
+            );
             // ログインと紐付けて、カラムの更新
             return $user->associateToLogin(Auth::user(), [
                 'name' => $request->name
@@ -68,16 +71,23 @@ class UserRepository
     public function getOccupations()
     {
         return Occupation::all()->map(function ($occupation) {
-            return collect([ 'name' => $occupation->name, 'value' => $occupation->id, 'img' => $occupation->image ]);
+            return collect([
+                'name' => $occupation->name,
+                'value' => $occupation->id,
+                'img' => $occupation->image
+            ]);
         });
     }
 
     public function getAreas()
     {
         $areas = Area::all()->map(function ($area) {
-            return collect([ 'name' => $area->name, 'value' => $area->id ]);
+            return collect([
+                'name' => $area->name,
+                'value' => $area->id
+            ]);
         });
-        $areas->prepend(collect([ 'name' => '', 'value' => '' ]));
+        $areas->prepend(collect(['name' => '', 'value' => '']));
         return $areas;
     }
 }

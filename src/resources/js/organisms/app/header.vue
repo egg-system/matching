@@ -1,25 +1,35 @@
 <template>
   <v-app-bar app flat color="white">
-    <header-menus :menus="headerMenus" />
+    <header-menu
+      v-for="menu in headerMenus"
+      :key="menu.url"
+      :menu="menu"
+    />
     <profile-menus
+      :image="profileImage"
       :menus="profileMenus"
       :logout-url="logoutUrl"
+      :is-active="isProfileActive"
     />
   </v-app-bar>
 </template>
 
 <script>
-import headerMenus from '../../molecules/app/header/header-menus'
 import profileMenus from '../../molecules/app/header/profile-menus'
+import headerMenu from '../../atoms/app/header/header-menu'
 
 export default {
   components: {
-    headerMenus,
+    headerMenu,
     profileMenus
   },
   props: {
     headerMenus: {
       type: Array,
+      required: true
+    },
+    profileImage: {
+      type: String,
       required: true
     },
     profileMenus: {
@@ -29,6 +39,11 @@ export default {
     logoutUrl: {
       type: String,
       required: true
+    }
+  },
+  computed: {
+    isProfileActive() {
+      return this.headerMenus.every(menu => !menu.isActive)
     }
   }
 }

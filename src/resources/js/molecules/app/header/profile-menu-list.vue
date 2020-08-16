@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import logoutListItem from '../../../atoms/app/logout-list-item'
+import logoutListItem from '../../../atoms/app/header/logout-list-item'
 
 export default {
   components: { logoutListItem },

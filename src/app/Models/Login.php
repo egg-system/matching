@@ -78,19 +78,19 @@ class Login extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * 自分が送ったオファー
+     * ジムとしてマッチングしたオファー
      */
-    public function fromOffers()
+    public function gymOffers()
     {
-        return $this->hasMany(Offer::class, 'offer_from_id', 'id');
+        return $this->hasMany(Offer::class, 'gym_login_id', 'id');
     }
 
     /**
-     * 自分に来たオファー
+     * トレーナーとしてマッチングしたオファー
      */
-    public function toOffers()
+    public function trainerOffers()
     {
-        return $this->hasMany(Offer::class, 'offer_to_id', 'id');
+        return $this->hasMany(Offer::class, 'trainer_login_id', 'id');
     }
 
     /**
@@ -112,6 +112,24 @@ class Login extends Authenticatable implements MustVerifyEmail
         return $this->email_verified_at !== null;
     }
 
+    /**
+     * トレーナー判定
+     * @return bool
+     */
+    public function isTrainer()
+    {
+        return $this->user_type === Trainer::class;
+    }
+
+    /**
+     * ジムオーナー判定
+     * @return bool
+     */
+    public function isGym()
+    {
+        return $this->user_type === Gym::class;
+    }
+
     public function getIsGymAttribute()
     {
         return $this->user_type === Gym::class;
@@ -119,6 +137,6 @@ class Login extends Authenticatable implements MustVerifyEmail
 
     public function getHomeRouteNameAttribute()
     {
-        return $this->isGym ? 'trainers.index' : 'gyms.index';
+        return $this->isGym ? 'home.trainers.index' : 'home.gyms.index';
     }
 }

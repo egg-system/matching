@@ -17,7 +17,7 @@ class OfferNotify extends Notification
      *
      * @return void
      */
-    public function __construct(Mailable $mail, string $to)
+    public function __construct(Mailable $mail, array $to)
     {
         $this->mail = $mail;
         $this->to = $to;
