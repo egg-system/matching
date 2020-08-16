@@ -25,8 +25,8 @@ class ForgotPasswordController extends Controller
     public function showLinkRequestForm($userType)
     {
         $userModel = \Str::studly($userType);
-        return view('auth.passwords.email', [
-            'userType' => "App\\Models\\$userModel",
+        return view('passwords.email', [
+            'userModel' => "App\\Models\\$userModel"
         ]);
     }
 
@@ -43,8 +43,10 @@ class ForgotPasswordController extends Controller
         return $request->only(['email', 'user_type']);
     }
 
-    public function sendResetLinkResponse()
+    public function sendResetLinkResponse(Request $request, $response)
     {
-        return view('auth.passwords.email-sent');
+        $isGym = $request->user_type === \App\Models\Gym::class;
+        $userType = $isGym ? 'gym' : 'trainer';
+        return view('passwords.email-sent')->with(compact('userType'));
     }
 }

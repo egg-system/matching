@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
 
         // ジムとトレイナーでメールアドレスは重複可能なため、userTypeで切り分ける
         ResetPassword::$createUrlCallback = function ($notifiable, $token) {
-            return url(route('login.password.reset', [
+            return url(route('password.reset', [
                 'userType' => $notifiable->isGym ? 'gym' : 'trainer',
                 'token' => $token,
                 'email' => $notifiable->getEmailForPasswordReset(),
