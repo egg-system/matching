@@ -17,7 +17,10 @@ class UserSearchService
     public function execute(SearchInterface $request)
     {
         $validated = $request->searchParameters();
-        $query = MatchingCondition::profileSearch($validated);
+        $query = MatchingCondition::query();
+        collect($validated)->each(function ($value, $column) use ($query) {
+            $query->where($column, $value);
+        });
         return $query->get();
     }
 }

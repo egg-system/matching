@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use App\Traits\ArrayWherable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 class MatchingCondition extends Model
 {
-    use ArrayWherable;
-    
     protected $fillable = [
         'area_id',
         'weekly_worktime',
@@ -20,7 +17,7 @@ class MatchingCondition extends Model
     ];
 
     protected $with = ['user', 'area', 'occupation'];
-
+    
     public function user()
     {
         return $this->morphTo('user');
@@ -39,16 +36,5 @@ class MatchingCondition extends Model
             'user_id',
             'occupation_id'
         )->withTimestamps();
-    }
-
-    /**
-     * ユーザ検索のクエリスコープ
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeProfileSearch(Builder $query, array $attributes)
-    {
-        return $this->whereFromArray($query, $attributes);
     }
 }
