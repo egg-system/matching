@@ -40,14 +40,14 @@ class TrainerOwnerTest extends TestCase
         // 全検索
         $searchResponse = $this
             ->actingAs($this->owner->login)
-            ->get(route('gyms.index'));
+            ->get(route('home.gyms.index'));
 
         $searchResponse->assertStatus(200);
 
         // 絞り込み検索
         $searchResponse = $this
             ->actingAs($this->owner->login)
-            ->get(route('gyms.index', [
+            ->get(route('home.gyms.index', [
                 'user_id' => '1'
             ]));
 
