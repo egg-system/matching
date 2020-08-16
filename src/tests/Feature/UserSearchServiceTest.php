@@ -43,7 +43,7 @@ class UserSearchServiceTest extends TestCase
 
         // ジム全検索用リクエスト
         $this->requestGym = GymSearchRequest::create(
-            route('gyms.index'), 'GET', [], [], [], []);
+            route('home.gyms.index'), 'GET', [], [], [], []);
         $validator = Validator::make($this->requestGym->all(), $this->requestGym->rules());
         $this->requestGym->setValidator($validator);
     }
@@ -54,7 +54,7 @@ class UserSearchServiceTest extends TestCase
 
         // トレーナー全検索用リクエスト
         $this->requestTrainer = TrainerSearchRequest::create(
-            route('trainers.index'), 'GET', $param, [], [], []);
+            route('home.trainers.index'), 'GET', $param, [], [], []);
         $validator = Validator::make($this->requestTrainer->all(), $this->requestTrainer->rules());
         $this->requestTrainer->setValidator($validator);
     }
