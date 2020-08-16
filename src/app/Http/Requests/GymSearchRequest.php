@@ -39,7 +39,6 @@ class GymSearchRequest extends FormRequest implements SearchInterface
     {
         return [
             'user_id' => 'ユーザID',
-            'user_type' => 'ユーザタイプ',
             'occupation_id' => '職種',
             'area_id' => 'エリア',
             'can_work_holiday' => '平日夜勤務',
