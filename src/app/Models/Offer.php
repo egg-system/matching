@@ -70,8 +70,7 @@ class Offer extends Model
     {
         return $query->where('gym_login_id', $gymLoginId)
             ->where('trainer_login_id', $trainerLoginId)
-            ->orderBy('created_at', 'desc')
-            ->first();
+            ->orderBy('created_at', 'desc');
     }
 
     public function updateState(int $state)
@@ -126,5 +125,21 @@ class Offer extends Model
             default:
                 throw app(\Exception::class, ['message' => 'invalid offer state']);
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGymNameAttribute()
+    {
+        return $this->gym->user->profiles['gym_name'];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTrainerNameAttribute()
+    {
+        return $this->trainer->user->display_name;
     }
 }
