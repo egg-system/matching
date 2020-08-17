@@ -31,16 +31,6 @@ class Gym extends User
 
     protected $with = ['job', 'login', 'prefecture'];
 
-    public function login()
-    {
-        return $this->morphOne(Login::class, 'user');
-    }
-
-    public function matchingCondition()
-    {
-        return $this->morphOne(MatchingCondition::class, 'user');
-    }
-
     public function job()
     {
         return $this->hasOne(Job::class);
