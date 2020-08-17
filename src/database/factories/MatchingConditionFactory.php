@@ -18,5 +18,5 @@ $factory->define(MatchingCondition::class, function (Faker $faker) {
 });
 
 $factory->afterCreating(MatchingCondition::class, function ($matchingCondition) {
-    $matchingCondition->occupation()->attach(2);
+    $matchingCondition->occupations()->attach(2);
 });

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\MatchingCondition;
 use Illuminate\Database\Eloquent\Model;
 
 class Occupation extends Model
@@ -10,12 +11,12 @@ class Occupation extends Model
         'name',
     ];
 
-    public function occupation()
+    public function occupations()
     {
         return $this->belongsToMany(
-            Occupation::class,
-            'user_occupations',
-            'occupation_id',
+            MatchingCondition::class,
+            'matching_condition_occupations',
+            'matching_condition_id',
             'user_id'
         )->withTimestamps();
     }
