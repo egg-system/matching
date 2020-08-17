@@ -25,10 +25,6 @@ $profileMenus = [
         'url' => '',
         'isShown' => $user->isGym,
     ],
-    [
-        'name' => 'パスワード変更',
-        'url' => '',
-    ]
 ]
 @endphp
 
