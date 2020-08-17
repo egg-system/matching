@@ -12,7 +12,6 @@ use Faker\Generator as Faker;
 $factory->define(Gym::class, function (Faker $faker) {
     return [
         'profiles' => [
-            'gym_name' => $faker->company,
             'president_name' => $faker->name,
             'staff_count' => $faker->numberBetween(),
             'cities' => $faker->city,
@@ -23,11 +22,14 @@ $factory->define(Gym::class, function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(Gym::class, function ($gym) {
+$factory->afterCreating(Gym::class, function ($gym, Faker $faker) {
     $gymMorph = [
         'user_type' => Gym::class,
         'user_id' => $gym->id,
     ];
-    factory(Login::class)->create($gymMorph);
+
+    factory(Login::class)->create(array_merge($gymMorph, [
+        'name' => $faker->company,
+    ]));
     factory(MatchingCondition::class)->create($gymMorph);
 });
