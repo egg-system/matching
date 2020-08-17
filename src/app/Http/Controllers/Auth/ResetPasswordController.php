@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
     public function showResetForm(Request $request, $userType, $token = null)
     {
         $userModel = \Str::studly($userType);
-        return view('auth.passwords.reset')->with(
+        return view('passwords.reset')->with(
             [
                 'token' => $token,
                 'email' => $request->email,

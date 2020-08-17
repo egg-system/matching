@@ -50,28 +50,34 @@ Route::group([
         ->name('view');
     Route::post('', 'Auth\LoginController@login')
         ->name('post');
+});
 
-    // パスワードのリセット
+// パスワードのリセット
+//  ※ ログイン後もパスワード変更時に遷移する
+Route::group([
+    'prefix' => 'password',
+    'as' => 'password.'
+], function () {
     Route::get(
-        'password/{userType}/reset',
+        '/{userType}/reset',
         'Auth\ForgotPasswordController@showLinkRequestForm'
     )->where('userType', '(gym|trainer)')
-    ->name('password.request');
+    ->name('request');
     Route::post(
-        'password/email',
+        '/email',
         'Auth\ForgotPasswordController@sendResetLinkEmail'
-    )->name('password.email');
+    )->name('email');
 
     // パスワードの更新
     Route::get(
-        'password/{userType}/reset/{token}',
+        '/{userType}/reset/{token}',
         'Auth\ResetPasswordController@showResetForm'
     )->where('userType', '(gym|trainer)')
-    ->name('password.reset');
+    ->name('reset');
     Route::post(
-        'password/reset',
+        '/reset',
         'Auth\ResetPasswordController@reset'
-    )->name('password.update');
+    )->name('update');
 });
 
 // ログイン時のみアクセス可能
