@@ -16,7 +16,7 @@ class Offer extends Model
         'offer_state_id',
     ];
 
-    protected $with = ['gym.user', 'trainer.user', 'state'];
+    protected $with = ['gymLogin.user', 'trainerLogin.user', 'state'];
 
     public function state()
     {
@@ -26,7 +26,7 @@ class Offer extends Model
     /**
      * ジム側のユーザー情報
      */
-    public function gym()
+    public function gymLogin()
     {
         return $this->belongsTo(Login::class, 'gym_login_id', 'id');
     }
@@ -34,7 +34,7 @@ class Offer extends Model
     /**
      * トレーナー側のユーザー情報
      */
-    public function trainer()
+    public function trainerLogin()
     {
         return $this->belongsTo(Login::class, 'trainer_login_id', 'id');
     }
@@ -46,7 +46,7 @@ class Offer extends Model
      */
     public function scopeWhereUser(Builder $query, Login $user)
     {
-        $searchColumn = $user->isGym() ? 'gym_login_id' : 'trainer_login_id';
+        $searchColumn = $user->isGym ? 'gym_login_id' : 'trainer_login_id';
         return $query->where($searchColumn, $user->id);
     }
 
@@ -56,7 +56,8 @@ class Offer extends Model
      */
     public function scopeGetMatchingLatestIds(Builder $query)
     {
-        return $query->selectRaw('max(id) as id')
+        return $query
+            ->selectRaw('max(id) as id')
             ->groupBy('gym_login_id', 'trainer_login_id');
     }
 
@@ -68,7 +69,8 @@ class Offer extends Model
      */
     public function scopeGetMostRecentOffer(Builder $query, int $gymLoginId, int $trainerLoginId)
     {
-        return $query->where('gym_login_id', $gymLoginId)
+        return $query
+            ->where('gym_login_id', $gymLoginId)
             ->where('trainer_login_id', $trainerLoginId)
             ->orderBy('created_at', 'desc');
     }
@@ -86,10 +88,10 @@ class Offer extends Model
     {
         $result = [];
         if ($this->state->should_notice_trainer) {
-            $result[] = $this->trainer;
+            $result[] = $this->trainerLogin;
         }
         if ($this->state->should_notice_gym) {
-            $result[] = $this->gym;
+            $result[] = $this->gymLogin;
         }
         return $result;
     }
@@ -132,7 +134,7 @@ class Offer extends Model
      */
     public function getGymNameAttribute()
     {
-        return $this->gym->user->profiles['gym_name'];
+        return $this->gymLogin->name;
     }
 
     /**
@@ -140,6 +142,6 @@ class Offer extends Model
      */
     public function getTrainerNameAttribute()
     {
-        return $this->trainer->user->display_name;
+        return $this->trainerLogin->user->display_name;
     }
 }
