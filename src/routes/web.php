@@ -87,12 +87,12 @@ Route::group([
 ], function () {
     // トレーナー一覧 ※ 個人情報のため、ジムのみ閲覧可能
     Route::resource('trainers', 'TrainersController')
-        ->only(['index'])
+        ->only(['index', 'show'])
         ->middleware('can:gym');
 
     // ジム一覧 ※ 公開情報がほとんどのため、制限しない
     Route::resource('gyms', 'GymsController')
-        ->only(['index']);
+        ->only(['index', 'show']);
 });
 
 Route::group(['middleware' => ['auth']], function () {
