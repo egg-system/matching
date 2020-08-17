@@ -19,11 +19,7 @@ $profileMenus = [
     [
         'name' =>  $user->isGym ? '基本情報編集' : 'プロフィール編集',
         'url' => route('settings.profile.edit'),
-    ],
-    [
-        'name' =>  '求人情報編集',
-        'url' => '',
-        'isShown' => $user->isGym,
+        'isShown' => !$user->isGym,
     ],
 ]
 @endphp
