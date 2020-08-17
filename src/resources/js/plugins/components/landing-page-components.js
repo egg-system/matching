@@ -18,9 +18,5 @@ export const landingPageComponents = [
   {
     name: 'landing-page-questions',
     object: () => import('../../organisms/landing-page/often-questions.vue')
-  },
-  {
-    name: 'landing-page-footer',
-    object: () => import('../../organisms/landing-page/footer.vue')
   }
 ]
