@@ -13,10 +13,22 @@
 <script>
 export default {
   props: {
-    transition: {String, required: true},
-    photo: {String, required: true},
-    name: {String, required: true},
-    comment: {String, required: true},
+    transition: {
+      type: String,
+      required: true
+    },
+    photo: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    comment: {
+      type: String,
+      required: true
+    },
   },
   methods: {
     transitionDetail () {
