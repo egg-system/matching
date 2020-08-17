@@ -1,0 +1,62 @@
+#trainerList {
+  .wrapper {
+    .bg {
+      background-color: #fbf7f4;
+      padding: 1rem 0;
+      h2 {
+        margin: 0;
+        padding: 0.5em 1em;
+      }
+      .trainerBox {
+        border: 1px solid #aaa;
+        background-color: #fff;
+        padding: 1em;
+        border-radius: 20px;
+        box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.3);
+        width: 80%;
+        margin: 0 auto 2rem;
+        a {
+          color: rgba(0, 0, 0, 0.87);
+          text-decoration: none;
+        }
+        .trainerProfile {
+          .trainerItem {
+            text-align: center;
+            margin-bottom: 1rem;
+            &>div {
+              margin-bottom: .5rem;
+            }
+            .icon {
+              img {
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+                display: inline-block;
+              }
+            }
+            .name {
+              font-size: 1.5em;
+              font-weight: bold;
+            }
+            .job,.workstyle {
+              font-size: .8rem;
+            }
+          }
+          h2 {
+            font-size: .9rem;
+            font-weight: normal;
+            padding: 0;
+          }
+          .trainerHistoryBOX {
+            width: 85%;
+            margin: 0 auto;
+            .trainerHistory {
+              font-size: .9rem;
+              line-height: 2;
+            }
+          }
+        }
+      }
+    }
+  }
+}

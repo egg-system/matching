@@ -28,11 +28,15 @@ class TrainerOwnerTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $gyms = factory(Gym::class, 10)->create()->each(function ($gyms) {
-            $areaId = (Area::inRandomOrder()->first())->id ?? factory(Area::class)->create()->id;
+        $gyms = factory(Gym::class, 10)->create();
+        $gyms->each(function ($gyms) {
+            if (Area::exists()) {
+                factory(Area::class)->create();
+            }
+
             $gyms->matchingCondition()->create(
                 [
-                    'area_id' => $areaId
+                    'area_id' => Area::inRandomOrder()->first()->id,
                 ]
             );
         });

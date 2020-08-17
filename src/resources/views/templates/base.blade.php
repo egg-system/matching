@@ -10,6 +10,7 @@
 
     @yield('head')
     @include('components.layouts.common.meta')
+    @stack('styles')
 </head>
 
 <body>

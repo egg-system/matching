@@ -1,0 +1,88 @@
+#trainerDetail {
+  background-color: #fef9f6;
+  padding-bottom: 1rem;
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+    margin: 0 0 1rem;
+  }
+  h3 {
+    margin: 1rem 0;
+  }
+  img {
+    width: 100%;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      font-size: 1rem;
+      margin: 0 0 1.5rem 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      dl {
+        font-size: .9rem;
+        dt {
+          display: inline-block;
+          width: 30%;
+          vertical-align: top;
+        }
+        dd {
+          display: inline-block;
+          width: 67%;
+          margin: 0;
+        }
+      }
+    }
+  }
+  dl {
+    margin: 0;
+  }
+
+  .wrapper {
+    width: 90%;
+    margin: 0 auto;
+    .trainer {
+      padding: 2em 0;
+      .job {
+        font-size: 0.8rem;
+      }
+    }
+    .career {
+      .careerDetail {
+        background-color: #fff;
+        padding: 0.5rem 2rem 1rem;
+        border-radius: 10px;
+        margin-bottom: 3rem;
+        &:nth-of-type(1) {
+          margin-bottom: 0;
+        }
+        h3 {
+          font-size: 1.1rem;
+          margin-bottom: 0;
+        }
+        .date {
+          font-size: .8rem;
+          margin: 1rem 0;
+        }
+        p {
+          font-size: .9rem;
+          line-height: 2;
+        }
+      }
+    }
+    .workStyle {
+      .workStyleDetail {
+        margin: 1rem;
+        h2 {
+          margin-bottom: 1.3rem;
+        }
+      }
+    }
+  }
+}

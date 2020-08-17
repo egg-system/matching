@@ -14,7 +14,6 @@ class TestingSeeder extends Seeder
     {
         $this->call([
             Testing\GymsTableSeeder::class,
-            Testing\JobsTableSeeder::class,
             Testing\TrainersTableSeeder::class,
             Testing\OfferStateSeeder::class,
         ]);
