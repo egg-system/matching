@@ -16,7 +16,7 @@
             <div class="item">
                 <a href="{{ route('home.gyms.show', ['gym' => $gym->id]) }}">
                     <div class="gymImage">
-                        <img src="{{ $job->imageUrl }}" alt="ジム画像">
+                        <img src="{{ $job->main_image_url }}" alt="ジム画像">
                     </div>
                     <div class="itemDetail">
                         <h2>{{ $job->title }}</h2>
