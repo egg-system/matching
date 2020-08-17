@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\VerifyEmail;
+use App\Models\Offer;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -77,31 +78,10 @@ class Login extends Authenticatable implements MustVerifyEmail
         return $this->fill($attr);
     }
 
-    /**
-     * ジムとしてマッチングしたオファー
-     */
-    public function gymOffers()
+    public function offers()
     {
-        return $this->hasMany(Offer::class, 'gym_login_id', 'id');
-    }
-
-    /**
-     * トレーナーとしてマッチングしたオファー
-     */
-    public function trainerOffers()
-    {
-        return $this->hasMany(Offer::class, 'trainer_login_id', 'id');
-    }
-
-    /**
-     * トレーナーだけに限定するクエリスコープ
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOnlyTrainer(Builder $query)
-    {
-        return $query->where('user_type', Trainer::class);
+        $loginColumn = $this->isGym ? 'gym_login_id' : 'trainer_login_id';
+        return $this->hasMany(Offer::class, $loginColumn, 'id');
     }
 
     /**
@@ -112,24 +92,6 @@ class Login extends Authenticatable implements MustVerifyEmail
         return $this->email_verified_at !== null;
     }
 
-    /**
-     * トレーナー判定
-     * @return bool
-     */
-    public function isTrainer()
-    {
-        return $this->user_type === Trainer::class;
-    }
-
-    /**
-     * ジムオーナー判定
-     * @return bool
-     */
-    public function isGym()
-    {
-        return $this->user_type === Gym::class;
-    }
-
     public function getIsGymAttribute()
     {
         return $this->user_type === Gym::class;
@@ -138,5 +100,12 @@ class Login extends Authenticatable implements MustVerifyEmail
     public function getHomeRouteNameAttribute()
     {
         return $this->isGym ? 'home.trainers.index' : 'home.gyms.index';
+    }
+
+    public function doOffered($toLoginId)
+    {
+        // 相手にオファーしているか確認するため、自分とは違うカラムにする
+        $column = $this->isGym ? 'trainer_login_id' : 'gym_login_id';
+        return $this->offers()->where($column, $toLoginId)->exists();
     }
 }
