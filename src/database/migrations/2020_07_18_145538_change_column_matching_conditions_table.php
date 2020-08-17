@@ -81,10 +81,5 @@ class ChangeColumnMatchingConditionsTable extends Migration
         Schema::table('matching_conditions', function (Blueprint $table) {
             $table->dropColumn('is_considering_change_job');
         });
-
-        // インデックス削除
-        Schema::table('matching_conditions', function (Blueprint $table) {
-            $table->dropIndex(['weekly_worktime']);
-        });
     }
 }
