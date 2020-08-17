@@ -16,7 +16,7 @@ class MatchingCondition extends Model
         'hope_adjust_worktime',
     ];
 
-    protected $with = ['user', 'area', 'occupation'];
+    protected $with = ['user', 'area', 'occupations'];
     
     public function user()
     {
@@ -28,13 +28,13 @@ class MatchingCondition extends Model
         return $this->belongsTo(Area::class);
     }
 
-    public function occupation()
+    public function occupations()
     {
         return $this->belongsToMany(
             Occupation::class,
-            'user_occupations',
-            'user_id',
+            'matching_condition_occupations',
+            'matching_condition_id',
             'occupation_id'
-        )->withTimestamps();
+        );
     }
 }
