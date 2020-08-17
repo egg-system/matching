@@ -20,10 +20,10 @@ class MatchingService
      * @param Request $request
      * @return mixed
      */
-    public function searchOffers(Request $request)
+    public function searchOffers()
     {
         /** @var Login $user */
-        $user = $request->user();
+        $user = \Auth::user();
 
         // 各マッチングの最新状態のみを取得
         $targetIds = Offer::whereUser($user)
