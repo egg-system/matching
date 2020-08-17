@@ -29,6 +29,7 @@ export default {
     margin: 1rem 0 1.5rem;
     font-size: 0.8rem;
     width: 100%;
+    text-align: center;
   }
 }
 </style>

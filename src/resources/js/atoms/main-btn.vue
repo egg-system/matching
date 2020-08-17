@@ -3,7 +3,7 @@
     width="18rem"
     height="3rem"
     :href="href"
-    :class="outlined ? 'outlined-btn' : 'main-btn'"
+    :class="mainBtnClass"
     class="rounded-btn"
     color="#FF9966"
     :outlined="outlined"
@@ -13,7 +13,8 @@
     shaped
     @click="$emit('click')"
   >
-    <span class="main-btn-phrase">{{ label }}</span>
+    <span v-if="hint">{{ hint }}</span>
+    <span v-else class="main-btn-phrase">{{ label }}</span>
   </v-btn>
 </template>
 
@@ -39,6 +40,18 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    hint: {
+      type: String,
+      default: ''
+    }
+  },
+  computed: {
+    mainBtnClass() {
+      if (this.disabled) {
+        return;
+      }
+      return this.outlined ? 'outlined-btn' : 'main-btn';
     }
   }
 }

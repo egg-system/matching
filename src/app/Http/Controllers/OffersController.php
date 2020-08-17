@@ -17,10 +17,10 @@ class OffersController extends Controller
         $this->authorizeResource(Offer::class);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
-        $offers = $this->matchingService->searchOffers($request);
+        $user = \Auth::user();
+        $offers = $this->matchingService->searchOffers();
         return view('pages.offers.index', compact('offers', 'user'));
     }
 
@@ -37,6 +37,6 @@ class OffersController extends Controller
     public function store(StoreRequest $request)
     {
         $this->matchingService->storeOffer($request);
-        return back();
+        return redirect()->route('offers.index');
     }
 }

@@ -44,16 +44,6 @@ class ViewServiceProvider extends ServiceProvider
             }
         );
 
-        \View::composer(
-            'pages.trainers.index',
-            function ($view) {
-                $viewData = array_merge($this->getMasterData(), [
-                    'offers' => optional(\Auth::user()->trainerOffers),
-                ]);
-                $view->with($viewData);
-            }
-        );
-
         // offerstate
         \View::composer(
             'pages.offers.index',
