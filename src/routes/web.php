@@ -98,7 +98,7 @@ Route::group([
 Route::group(['middleware' => ['auth']], function () {
     // オファー
     Route::resource('offers', 'OffersController')
-        ->only(['index', 'show', 'store']);
+        ->only(['index', 'store']);
 });
 
 Route::group([
