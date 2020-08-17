@@ -2,11 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Area;
 use App\Models\Gym;
+use App\Models\Job;
 use App\Models\Login;
 use App\Models\MatchingCondition;
-use App\Models\Occupation;
 use Faker\Generator as Faker;
 
 $factory->define(Gym::class, function (Faker $faker) {
@@ -33,4 +32,7 @@ $factory->afterCreating(Gym::class, function ($gym, Faker $faker) {
         'name' => $faker->company,
     ]));
     factory(MatchingCondition::class)->create($gymMorph);
+    factory(Job::class)->create([
+        'gym_id' => $gym->id,
+    ]);
 });
