@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GymSearchRequest;
 use App\Models\Gym;
-use App\Models\MatchingCondition;
 use App\Repositories\UserRepository;
 use App\Services\Search\UserSearchService;
 
@@ -20,8 +19,6 @@ class GymsController extends Controller
     {
         $this->userRepository = $userRepository;
         $this->userSearchService = $userSearchService;
-
-        $this->authorizeResource(Gym::class);
     }
 
     /**
@@ -29,7 +26,12 @@ class GymsController extends Controller
      */
     public function index(GymSearchRequest $request)
     {
-        $gymSearchResult = $this->userSearchService->execute($request);
-        return view('pages.gyms.index', compact('gymSearchResult'));
+        $matchingConditions = $this->userSearchService->execute($request);
+        return view('pages.gyms.index', compact('matchingConditions'));
+    }
+
+    public function show(Gym $gym)
+    {
+        return view('pages.gyms.show', compact('gym'));
     }
 }

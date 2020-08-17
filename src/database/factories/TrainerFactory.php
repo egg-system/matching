@@ -13,16 +13,20 @@ $factory->define(Trainer::class, function (Faker $faker) {
     return [
         'now_work_area_id' => 1,
         'now_work_style' => 1,
-        'carrer' => [
+        'carrers' => [
             [
-                'gym_name' => $faker->realText($maxNbChars = 10, $indexSize = 2),
-                'enrollment' => ['start' => '2019/01', 'end' => '2019/12', 'ongoing' => '0'],
-                'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2)
+                'gym_name' => $faker->company,
+                'start_at' => '2019/01',
+                'end_at' => '2019/12',
+                'in_office' => false,
+                'description' => $faker->realText
             ],
             [
-                'gym_name' => $faker->realText($maxNbChars = 10, $indexSize = 2),
-                'enrollment' => ['start' => '2020/01', 'end' => '', 'ongoing' => '1'],
-                'comment' => $faker->realText($maxNbChars = 50, $indexSize = 2)
+                'gym_name' => $faker->company,
+                'start_at' => '2020/01',
+                'end_at' => null,
+                'in_office' => true,
+                'description' => $faker->realText,
             ]
         ],
         'display_name' => $faker->name,

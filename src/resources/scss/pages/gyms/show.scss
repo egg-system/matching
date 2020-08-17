@@ -1,0 +1,88 @@
+#jobVacancies {
+  h1 {
+    margin: 1em 0;
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  img {
+    width: 100%;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      font-size: 1rem;
+      margin: 0 0 1.5rem 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      dt {
+        display: inline-block;
+        width: 25%;
+        vertical-align: top;
+      }
+      dd {
+        display: inline-block;
+        width: 70%;
+        margin: 0;
+      }
+    }
+  }
+  dl {
+    margin: 0;
+  }
+
+  .mv {
+    margin: 0 3px;
+    img {
+      border-radius: 20px 20px 0 0;
+    }
+  }
+  .wrapper {
+    width: 90%;
+    margin: 0 auto;
+
+    .company {
+      margin-bottom: 2em;
+      font-size: 1.2em;
+    }
+    .gymDetail {
+      h2 {
+        margin: 3rem 0 1rem 0;
+      }
+      .content {
+        font-size: 1rem;
+        line-height: 2;
+      }
+      .gym {
+        .kv {
+          margin-bottom: 1rem;
+          img {
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+    .jobDetails {
+      ul {
+        background-color: #fffcfb;
+        padding: 1rem .5rem !important;
+        border-radius: 5px;
+      }
+    }
+    .about {
+      h2 {
+        margin-bottom: 1.3rem;
+      }
+      ul {
+        li {
+          border-bottom: 1px solid #ccc;
+          padding-bottom: 1.5rem;
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,6 @@ use App\Models\MatchingCondition;
 use App\Models\Occupation;
 use App\Models\Trainer;
 use App\Models\User;
-use App\Models\UserOccupation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,21 +24,15 @@ class UserRepository
         return DB::transaction(function () use ($request) {
             $validated = $request->validated();
 
-            $registeredTrainer = Trainer::create($validated);
-            $registeredMatchingCongition = $registeredTrainer->matchingCondition()->create($validated);
+            $trainer = Trainer::create($validated);
+            $matchingCongition = $trainer->matchingCondition()->create($validated);
 
-            // userOccupationsの作成
-            $occupationIdCollection = collect(explode(',', $request->occupation_ids));
-            foreach ($occupationIdCollection as $occupationId) {
-                $data = [
-                    'occupation_id' => $occupationId,
-                    'user_id' => $registeredMatchingCongition->id
-                ];
-                UserOccupation::create($data);
-            };
+            // 職種の作成
+            $occupationIds = explode(',', $request->occupation_ids);
+            $matchingCongition->occupations()->sync($occupationIds);
 
             // トレーナーとログインの紐付けて、カラムの更新
-            return $registeredTrainer->associateToLogin(Login::find($request->id), [
+            return $trainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
                 'email_verified_at' => now(),
                 'password' => $request->password

@@ -19,16 +19,8 @@ $profileMenus = [
     [
         'name' =>  $user->isGym ? '基本情報編集' : 'プロフィール編集',
         'url' => route('settings.profile.edit'),
+        'isShown' => !$user->isGym,
     ],
-    [
-        'name' =>  '求人情報編集',
-        'url' => '',
-        'isShown' => $user->isGym,
-    ],
-    [
-        'name' => 'パスワード変更',
-        'url' => '',
-    ]
 ]
 @endphp
 

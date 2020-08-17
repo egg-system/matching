@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TrainerSearchRequest;
 use App\Models\MatchingCondition;
+use App\Models\Trainer;
+use App\Http\Requests\TrainerSearchRequest;
 use App\Services\Search\UserSearchService;
 
 class TrainersController extends Controller
@@ -21,7 +22,12 @@ class TrainersController extends Controller
      */
     public function index(TrainerSearchRequest $request)
     {
-        $conditions = $this->userSearchService->execute($request);
-        return view('pages.trainers.index', compact('conditions'));
+        $macthingConditions = $this->userSearchService->execute($request);
+        return view('pages.trainers.index', compact('macthingConditions'));
+    }
+
+    public function show(Trainer $trainer)
+    {
+        return view('pages.trainers.show', compact('trainer'));
     }
 }

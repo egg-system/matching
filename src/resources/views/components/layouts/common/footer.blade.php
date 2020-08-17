@@ -24,6 +24,6 @@ $footerMenus = [
 ];
 @endphp
 
-<landing-page-footer
+<app-footer
     :menus='@json($footerMenus)'
-></landing-page-footer>
+></app-footer>

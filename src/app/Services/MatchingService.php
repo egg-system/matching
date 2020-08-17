@@ -54,6 +54,6 @@ class MatchingService
      */
     public function getMostRecentOffer(int $gymLoginId, int $trainerLoginId)
     {
-        return Offer::getMostRecentOffer($gymLoginId, $trainerLoginId);
+        return Offer::getMostRecentOffer($gymLoginId, $trainerLoginId)->first();
     }
 }
