@@ -1,13 +1,13 @@
-<div id="pwReset" class="third">
-  <div class="wrapper">
-    <div class="logo">
-      <img src="http://ogyawan.com/wp-content/uploads/2020/08/logo_msg.png" alt="borderlessGYM">
-      <div>パスワード再設定ページ</div>
-    </div>
+@extends('templates.users.login')
 
+@section('page-title')
+    パスワード再設定ページ
+@endsection
+
+@section('content')
     <div class="userInfo">
       <form
-        action="{{ route('login.password.update') }}"
+        action="{{ route('password.update') }}"
         method="post"
         class="pw-form-container"
       >
@@ -29,10 +29,5 @@
           <input type="submit" value="パスワードの変更">
         </div>
       </form>
-    </div><!-- .userInfo -->
-  </div><!-- .wrapper -->
-</div><!-- #forgot -->
-
-<div class="footer">
-  &copy; 2020 EGG SYSTEM, Inc.
-</div><!-- .footer -->
+    </div>
+@endsection
