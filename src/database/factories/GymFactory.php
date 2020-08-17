@@ -13,9 +13,10 @@ $factory->define(Gym::class, function (Faker $faker) {
     return [
         'profiles' => [
             'president_name' => $faker->name,
-            'staff_count' => $faker->numberBetween(),
+            'staff_number' => $faker->numberBetween(),
+            'postal_code' => $faker->postcode,
             'cities' => $faker->city,
-            'street_address' => $faker->streetAddress
+            'street_address' => $faker->streetAddress,
         ],
         'prefecture_id' => $faker->numberBetween(1, 47),
         'gym_url' => $faker->url,
