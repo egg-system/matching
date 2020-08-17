@@ -19,8 +19,9 @@ class OffersController extends Controller
 
     public function index(Request $request)
     {
+        $user = $request->user();
         $offers = $this->matchingService->searchOffers($request);
-        return view('pages.offers.index', compact('offers'));
+        return view('pages.offers.index', compact('offers', 'user'));
     }
 
     public function show(Offer $offer)
