@@ -19,12 +19,21 @@ class AlterJobContentTable extends Migration
 
         // drop後でなければ、同名のカラムは追加できない
         Schema::table('jobs', function (Blueprint $table) {
-            $table->string('title')->after('gym_id')->comment('求人タイトル');
+            $table
+                ->string('title')
+                ->nullable(true)
+                ->after('gym_id')
+                ->comment('求人タイトル');
             $table
                 ->string('main_image_url')
+                ->nullable(true)
                 ->after('title')
                 ->comment('求人のメイン画像(URLが入る想定)');
-            $table->text('job_content')->after('main_image_url')->comment('業務内容');
+            $table
+                ->text('job_content')
+                ->nullable(true)
+                ->after('main_image_url')
+                ->comment('業務内容');
             $table
                 ->text('requirements')
                 ->nullable()
@@ -40,6 +49,28 @@ class AlterJobContentTable extends Migration
                 ->nullable()
                 ->after('requirements_number')
                 ->comment('その他の求人情報');
+        });
+
+        // sqliteの場合、not nullが追加できないため、後変更する
+        Schema::table('jobs', function (Blueprint $table) {
+            $table
+                ->string('title')
+                ->after('gym_id')
+                ->nullable(false)
+                ->comment('求人タイトル')
+                ->change();
+            $table
+                ->string('main_image_url')
+                ->after('title')
+                ->nullable(false)
+                ->comment('求人のメイン画像(URLが入る想定)')
+                ->change();
+            $table
+                ->text('job_content')
+                ->nullable(false)
+                ->after('main_image_url')
+                ->comment('業務内容')
+                ->change();
         });
     }
 

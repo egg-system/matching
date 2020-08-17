@@ -15,6 +15,9 @@ class AlterForeignKeyOccupationsTable extends Migration
     {
         // テーブル名が変わると、外部キーも変わるので、先に削除する
         Schema::table('user_occupations', function (Blueprint $table) {
+            if (DB::getDriverName() === 'sqlite') {
+                return;
+            }
             $table->dropForeign(['user_id']);
             $table->dropForeign(['occupation_id']);
         });
@@ -41,6 +44,11 @@ class AlterForeignKeyOccupationsTable extends Migration
     {
         // テーブル名が変わると、外部キーも変わるので、先に削除する
         Schema::table('matching_condition_occupations', function (Blueprint $table) {
+            // sqliteの場合、indexを削除できない
+            if (DB::getDriverName() === 'sqlite') {
+                return;
+            }
+
             $table->dropForeign(['matching_condition_id']);
             $table->dropForeign(['occupation_id']);
         });
