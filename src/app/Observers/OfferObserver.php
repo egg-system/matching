@@ -18,12 +18,18 @@ class OfferObserver
     {
         // ユーザーに受信メール送信
         // 登録後のOfferStateを取得するためにfreshを行う
-        $stored_offer = $offer->fresh();
+        $storedOffer = $offer->fresh();
 
-        $sendUsers = $stored_offer->getSendMailUsers();
+        $sendUsers = $storedOffer->getSendMailUsers();
         foreach ($sendUsers as $sendUser) {
-            $mail = app(OfferRecieve::class, ['offer' => $stored_offer, 'sendToUser' => $sendUser]);
-            $stored_offer->notify(app(OfferNotify::class, ['mail' => $mail, 'to' => [$sendUser->email]]));
+            $mail = app(OfferRecieve::class, [
+                'offer' => $storedOffer,
+                'sendToUser' => $sendUser,
+            ]);
+            $storedOffer->notify(app(OfferNotify::class, [
+                'mail' => $mail,
+                'to' => [$sendUser->email]
+            ]));
         }
     }
 }
