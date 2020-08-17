@@ -16,6 +16,12 @@ abstract class User extends Model
         return $this->morphOne(MatchingCondition::class, 'user');
     }
 
+    public function isSameArea(User $toUser)
+    {
+        $toAreaId = $toUser->matchingCondition->area_id;
+        return $this->matchingCondition->area_id === $toAreaId;
+    }
+
     /**
      * ログインと関連付ける
      * @param Login $login
