@@ -19,6 +19,10 @@ export const components = [
     name: 'app-footer',
     object: () => import('../organisms/landing-page/footer.vue')
   },
+  {
+    name: 'offer-btn',
+    object: () => import('../molecules/app/offers/offer-btn.vue')
+  },
   ...formComponents,
   ...landingPageComponents,
   ...usersRegisterComponents,
