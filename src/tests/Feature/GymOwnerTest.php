@@ -31,13 +31,17 @@ class GymOwnerTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $trainers = factory(Trainer::class, 10)->create()->each(function ($trainer) {
-            $areaId = (Area::inRandomOrder()->first())->id ?? factory(Area::class)->create()->id;
-            $trainer->matchingCondition()->create(
-                [
-                    'area_id' => $areaId
-                ]
-            );
+        $trainers = factory(Trainer::class, 10)->create();
+        $trainers->each(function ($trainer) {
+            if (Area::exists()) {
+                factory(Area::class)->create();
+            }
+
+            factory(MatchingCondition::class)->create([
+                'user_id' => $trainer->id,
+                'user_type' => Trainer::class,
+                'area_id' => Area::inRandomOrder()->first()->id,
+            ]);
         });
 
         $searchResponse = $this

@@ -67,7 +67,6 @@ class TrainerRegisterTest extends TestCase
         $verificationUrl->setAccessible(true);
         // 署名url取得
         $url = $verificationUrl->invoke($notification, $login);
-        // $url = str_replace(url('/'), '', $url);
 
         // 署名ルートにアクセス
         $this->get($url)->assertStatus(200);
@@ -84,7 +83,7 @@ class TrainerRegisterTest extends TestCase
                 'name' => $login->name,
                 'occupation_ids' => factory(Occupation::class)->create()->id,
                 'area_id' => factory(Area::class)->create()->id,
-                'carrer' => json_encode($data->carrer)
+                'carrers' => json_encode($data->carrer)
             ])
         );
 
