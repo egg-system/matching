@@ -83,7 +83,7 @@ class TrainerRegisterTest extends TestCase
                 'name' => $login->name,
                 'occupation_ids' => factory(Occupation::class)->create()->id,
                 'area_id' => factory(Area::class)->create()->id,
-                'carrers' => json_encode($data->carrer)
+                'careers' => json_encode($data->career)
             ])
         );
 
