@@ -87,11 +87,12 @@
     ></main-btn>
 
     <div class="skip-link">
-      <a href="javascript:void(0)" @click.prevent="skip">スキップ</a>
+      <a @click.prevent="skip">スキップ</a>
     </div>
 
-    <!-- DBのカラム名が"carrer"なので合わせる（多分typo） -->
-    <input type="hidden" name="carrer" :value="careerValuesStr">
+    <!-- Formの発火用に作成 -->
+    <input v-show="false" ref="sbmitBtn" type="submit">
+    <input type="hidden" name="careers" :value="careerValuesStr">
   </step-page-wrapper>
 </template>
 
@@ -143,11 +144,11 @@ export default {
       this.$emit('back')
     },
     moveNext () {
-      this.$emit('moveNext')
+      this.$refs.sbmitBtn.click()
     },
     skip () {
       this.careerValues = [{ ...CAREER_DEFAULT_VALUE }] // リセット
-      this.$emit('moveNext')
+      this.$refs.sbmitBtn.click()
     },
     addCareerForm () {
       this.careerValues.push({ ...CAREER_DEFAULT_VALUE })

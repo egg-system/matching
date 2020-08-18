@@ -8,7 +8,7 @@
         </div>
 
         <div class="password-form">
-          <div class="password-form__heading">パスワード</div>
+          <div class="password-form__heading">パスワード ※ 6文字以上で設定してください</div>
           <div class="password-form__input">
             <input
               v-model="inputValue"
@@ -25,7 +25,12 @@
           </div>
         </div>
 
-        <main-btn class="next-btn" label="次へ" :disabled="!inputValue" @click="moveNext" />
+        <main-btn
+          class="next-btn"
+          label="次へ"
+          :disabled="!inputValue || inputValue.length < 6"
+          @click="moveNext"
+        />
       </div>
     </v-img>
 

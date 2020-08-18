@@ -38,22 +38,49 @@
       </div>
 
       <div class="checkbox-form">
-        <input type="checkbox" id="can_work_holiday" name="can_work_holiday" v-model="checkedCanWorkHoliday" class="checkbox-form__input" value="1">
+        <input
+          v-model="checkedCanWorkHoliday"
+          type="checkbox"
+          id="can_work_holiday"
+          name="can_work_holiday"
+          class="checkbox-form__input"
+          value="1"
+        >
         <label for="can_work_holiday">休日稼働可能</label>
       </div>
 
       <div class="checkbox-form">
-        <input type="checkbox" id="can_work_weekday" name="can_work_weekday" v-model="checkedCanWorkWeekday" class="checkbox-form__input" value="1">
+        <input
+          v-model="checkedCanWorkWeekday"
+          type="checkbox"
+          id="can_work_weekday"
+          name="can_work_weekday"
+          class="checkbox-form__input" value="1"
+        >
         <label for="can_work_weekday">平日夜稼働可能</label>
       </div>
 
       <div class="checkbox-form">
-        <input type="checkbox" id="hope_adjust_worktime" name="hope_adjust_worktime" v-model="checkedHopeAdjustWorktime" class="checkbox-form__input" value="1">
+        <input
+          v-model="checkedHopeAdjustWorktime"
+          type="checkbox"
+          id="hope_adjust_worktime"
+          name="can_adjust"
+          class="checkbox-form__input"
+          value="1"
+        >
         <label for="hope_adjust_worktime">企業や案件に合わせて調整したい</label>
       </div>
       
       <div class="checkbox-form">
-        <input type="checkbox" id="is_considering_change_job" name="is_considering_change_job" v-model="checkedIsConsideringChangeJob" class="checkbox-form__input" value="1">
+        <input
+          v-model="checkedIsConsideringChangeJob"
+          type="checkbox"
+          id="is_considering_change_job"
+          name="is_considering_change_job"
+          class="checkbox-form__input"
+          value="1"
+        >
         <label for="is_considering_change_job">転職も検討している</label>
       </div>
     </div>

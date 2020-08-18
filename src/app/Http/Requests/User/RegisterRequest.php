@@ -28,6 +28,7 @@ class RegisterRequest extends FormRequest
             'id' => 'required',
             'password' => 'required|min:6|max:255',
             'name' => 'required',
+            'display_name' => 'required',
             'now_work_style' => 'required|integer',
             'occupation_ids' => 'required|exists:occupations,id',
             'now_work_area_id' => 'nullable|exists:areas,id',
@@ -35,9 +36,9 @@ class RegisterRequest extends FormRequest
             'area_id' => 'nullable|exists:areas,id',
             'can_work_holiday' => 'nullable|boolean',
             'can_work_weekday' => 'nullable|boolean',
-            'hope_adjust_worktime' => 'nullable|boolean',
+            'can_adjust' => 'nullable|boolean',
             'is_considering_change_job' => 'nullable|boolean',
-            'carrer' => 'nullable|json'
+            'career' => 'nullable|json'
         ];
     }
 
@@ -46,6 +47,7 @@ class RegisterRequest extends FormRequest
         return [
             'password' => 'パスワード',
             'name' => '氏名',
+            'display_name' => 'ニックネーム',
             'now_work_style' => '働き方',
             'occupation_ids' => '職種',
             'now_work_area_id' => '現在の勤務地',
@@ -55,7 +57,7 @@ class RegisterRequest extends FormRequest
             'can_work_weekday' => '平日夜稼働可能',
             'hope_adjust_worktime' => '条件に合わせて調整',
             'is_considering_change_job' => '転職検討中',
-            'carrer' => 'キャリア'
+            'career' => 'キャリア'
         ];
     }
 

@@ -13,7 +13,7 @@ $factory->define(Trainer::class, function (Faker $faker) {
     return [
         'now_work_area_id' => 1,
         'now_work_style' => 1,
-        'carrers' => [
+        'careers' => [
             [
                 'gym_name' => $faker->company,
                 'start_at' => '2019/01',

@@ -5,9 +5,11 @@
         <div class="name-step__header">あなたの名前を教えてください</div>
 
         <div class="name-form">
-          <div class="name-form__heading">氏名</div>
+          <div class="name-form__heading">
+            氏名 ※ ジムオーナーが見る画面には、ニックネームが表示されます
+          </div>
           <input
-            v-model="inputValue"
+            v-model="name"
             type="text"
             class="name-form__input"
             name="name"
@@ -17,7 +19,25 @@
           >
         </div>
 
-        <main-btn class="next-btn" label="次へ" :disabled="!inputValue" @click="moveNext" />
+        <div class="name-form">
+          <div class="name-form__heading">ニックネーム</div>
+          <input
+            v-model="displayName"
+            type="text"
+            class="name-form__input"
+            name="display_name"
+            autocomplete="name"
+            autofocus
+            required
+          >
+        </div>
+
+        <main-btn
+          class="next-btn"
+          label="次へ"
+          :disabled="!name || !displayName"
+          @click="moveNext"
+        />
       </div>
     </v-img>
 
@@ -36,7 +56,8 @@ export default {
   },
   data () {
     return {
-      inputValue: ''
+      name: '',
+      displayName: ''
     }
   },
   methods: {

@@ -7,11 +7,12 @@ use Carbon\Carbon;
 class Trainer extends User
 {
     protected $fillable = [
+        'display_name',
         'tel',
         'pr_comment',
         'now_work_area_id',
         'now_work_style',
-        'carrers',
+        'careers',
     ];
 
     protected $casts = [
@@ -23,28 +24,28 @@ class Trainer extends User
          *  - in_office: 在職中か
          *  - description: 詳細説明
         */
-        'carrers' => 'json',
+        'careers' => 'json',
     ];
 
     protected $with = ['login'];
 
-    public function getSortedCarrersAttribute()
+    public function getSortedCareersAttribute()
     {
         // 在職中の場合、end_at(退職年月)は空欄になるため、start_at(入社日)でソートする
-        return collect($this->carrers)->sort(function ($carrer) {
-            $startAt = Carbon::parse("{$carrer['start_at']}/00");
+        return collect($this->careers)->sort(function ($career) {
+            $startAt = Carbon::parse("{$career['start_at']}/00");
             return $startAt->getTimestamp();
 
         // sortでは、indexの値しか変わらないため、以下のメソッドが必要になる
         })->sortKeys();
     }
 
-    public function getLastCarrerNameAttribute()
+    public function getLastCareerNameAttribute()
     {
-        if ($this->sortedCarrers->isEmpty()) {
+        if ($this->sortedCareers->isEmpty()) {
             return null;
         }
-        return $this->sortedCarrers->last()['gym_name'];
+        return $this->sortedCareers->last()['gym_name'];
     }
 
     public function getFeaturesAttribute()
