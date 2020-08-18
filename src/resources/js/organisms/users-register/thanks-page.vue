@@ -14,7 +14,7 @@
           <img src="/images/users-register/finish_background.png" alt="ジムで運動する人々" />
         </div>
 
-        <main-btn type="submit" class="entry-btn" label="早速、ジムに応募する" />
+        <main-btn href='/' class="entry-btn" label="早速、ジムに応募する" />
       </div>
     </v-img>
   </div>

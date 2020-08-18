@@ -38,14 +38,16 @@ class UsersController extends Controller
     {
         // すでにLoginと紐付いていた場合
         if ($request->existsRegisteredUser()) {
-            return redirect()->route('trainers.login');
+            return redirect()->route('login.view', [
+                'userType' => 'trainer'
+            ]);
         }
 
         $login = $this->userRepository->create($request);
 
         auth()->login($login);
 
-        return redirect()->route('top');
+        return redirect()->route('trainers.registered');
     }
 
     /**
