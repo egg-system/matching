@@ -31,26 +31,25 @@ class GymOwnerTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $trainers = factory(Trainer::class, 10)->create()->each(function ($trainer) {
-            $trainer->matchingCondition()->create(
-                [
-                    'area_id' => (Area::inRandomOrder()->first())->id ?? factory(Area::class)->create()->id,
-                    'occupation_id' => (Occupation::inRandomOrder()->first())->id ?? factory(Occupation::class)->create()->id,
-                    'price' => [
-                        'min' => 100,
-                        'test' => 'test'
-                    ]
-                ]
-            );
+        $trainers = factory(Trainer::class, 10)->create();
+        $trainers->each(function ($trainer) {
+            if (Area::exists()) {
+                factory(Area::class)->create();
+            }
+
+            factory(MatchingCondition::class)->create([
+                'user_id' => $trainer->id,
+                'user_type' => Trainer::class,
+                'area_id' => Area::inRandomOrder()->first()->id,
+            ]);
         });
-        $response = $this->actingAs($this->owner->login)->get(route('gyms.trainerList'));
 
-        $response->assertStatus(200)->assertSee(100)->assertSee('test');
+        $searchResponse = $this
+            ->actingAs($this->owner->login)
+            ->get(route('home.trainers.index', [
+                'user_type' => 'App\Models\Gym'
+            ]));
 
-        $search_response = $this->actingAs($this->owner->login)->get(route('gyms.trainerList'), [
-            'price' => ['min' => 100]
-        ]);
-
-        $search_response->assertStatus(200)->assertSee(100)->assertSee('test');
+        $searchResponse->assertStatus(200);
     }
 }

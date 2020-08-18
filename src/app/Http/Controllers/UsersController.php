@@ -23,7 +23,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.users.register');
+        $occupations = $this->userRepository->getOccupations();
+        $areas = $this->userRepository->getAreas();
+
+        return view('pages.users.register', compact('occupations', 'areas'));
     }
 
     /**
@@ -35,14 +38,16 @@ class UsersController extends Controller
     {
         // すでにLoginと紐付いていた場合
         if ($request->existsRegisteredUser()) {
-            return redirect()->route('trainers.login');
+            return redirect()->route('login.view', [
+                'userType' => 'trainer'
+            ]);
         }
 
         $login = $this->userRepository->create($request);
 
         auth()->login($login);
 
-        return redirect()->route('top');
+        return redirect()->route('trainers.registered');
     }
 
     /**
@@ -50,8 +55,9 @@ class UsersController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user)
+    public function edit()
     {
+        $user = \Auth::user()->user;
         $matchingCondition = $user->matchingCondition;
         return view('pages.users.edit', compact('user', 'matchingCondition'));
     }
@@ -61,13 +67,10 @@ class UsersController extends Controller
      * @param User $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, User $model)
+    public function update(UpdateRequest $request)
     {
+        $model = \Auth::user()->user;
         $this->userRepository->updateUser($request, $model);
-
-        if (get_class($model) === Gym::class) {
-            return redirect()->route('gyms.edit', $model->id);
-        }
-        return redirect()->route('top');
+        return redirect()->route('profile.update');
     }
 }

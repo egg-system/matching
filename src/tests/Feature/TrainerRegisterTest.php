@@ -20,11 +20,19 @@ class TrainerRegisterTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // トレーナーの登録機能を有効にする
+        config(['release.register.is_enabled' => true]);
+    }
+
     /**
      * email登録できること
      * @test
      */
-    public function can_register_email()
+    public function canRegisterEmail()
     {
         $this->withoutMiddleware([VerifyCsrfToken::class]);
 
@@ -32,7 +40,7 @@ class TrainerRegisterTest extends TestCase
 
         $email = $this->faker->email;
         // email登録
-        $response = $this->post(route('register'), compact('email'));
+        $response = $this->post(route('trainers.register'), compact('email'));
         // 送信完了画面へ
         Mail::fake();
         $response->assertStatus(302);
@@ -46,7 +54,7 @@ class TrainerRegisterTest extends TestCase
      * トレーナー登録できること
      * @test
      */
-    public function can_register_trainer_info()
+    public function canRegisterTrainerInfo()
     {
         $this->withoutMiddleware([VerifyCsrfToken::class]);
         $this->withExceptionHandling();
@@ -59,22 +67,26 @@ class TrainerRegisterTest extends TestCase
         $verificationUrl->setAccessible(true);
         // 署名url取得
         $url = $verificationUrl->invoke($notification, $login);
-        // $url = str_replace(url('/'), '', $url);
 
         // 署名ルートにアクセス
         $this->get($url)->assertStatus(200);
         // 登録データ作成
         $data = factory(Trainer::class)->make([
-            'password' => 'password', 'password_confirmation' => 'password', 'agree' => 1
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'agree' => true
         ]);
+
         $response = $this->post(
             URL::signedRoute('trainers.store', ['id' => $login->id]),
             array_merge($data->toArray(), [
                 'name' => $login->name,
-                'occupation_id' => factory(Occupation::class)->create()->id,
-                'area_id' => factory(Area::class)->create()->id
+                'occupation_ids' => factory(Occupation::class)->create()->id,
+                'area_id' => factory(Area::class)->create()->id,
+                'careers' => json_encode($data->career)
             ])
         );
+
         // 登録後リダイレクト
         $response->assertSessionHasNoErrors()->assertStatus(302);
         // トレーナー登録

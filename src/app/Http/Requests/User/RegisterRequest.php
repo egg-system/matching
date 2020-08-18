@@ -24,14 +24,21 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        $day_of_week_role = join(',', trans('search.day_of_week'));
-
         return [
             'id' => 'required',
-            'password' => 'required|min:6|max:255|confirmed',
+            'password' => 'required|min:6|max:255',
             'name' => 'required',
-            'occupation_id' => 'required|exists:occupations,id',
-            'agree' => 'accepted'
+            'display_name' => 'required',
+            'now_work_style' => 'required|integer',
+            'occupation_ids' => 'required|exists:occupations,id',
+            'now_work_area_id' => 'nullable|exists:areas,id',
+            'weekly_worktime' => 'nullable|integer',
+            'area_id' => 'nullable|exists:areas,id',
+            'can_work_holiday' => 'nullable|boolean',
+            'can_work_weekday' => 'nullable|boolean',
+            'can_adjust' => 'nullable|boolean',
+            'is_considering_change_job' => 'nullable|boolean',
+            'career' => 'nullable|json'
         ];
     }
 
@@ -40,8 +47,17 @@ class RegisterRequest extends FormRequest
         return [
             'password' => 'パスワード',
             'name' => '氏名',
-            'occupation_id' => '種類',
-            'agree' => '利用規約'
+            'display_name' => 'ニックネーム',
+            'now_work_style' => '働き方',
+            'occupation_ids' => '職種',
+            'now_work_area_id' => '現在の勤務地',
+            'weekly_worktime' => '1週間の稼働時間',
+            'area_id' => '希望エリア',
+            'can_work_holiday' => '休日稼働可能',
+            'can_work_weekday' => '平日夜稼働可能',
+            'hope_adjust_worktime' => '条件に合わせて調整',
+            'is_considering_change_job' => '転職検討中',
+            'career' => 'キャリア'
         ];
     }
 

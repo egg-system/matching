@@ -6,6 +6,7 @@ use App\Events\TrainerRegistered;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Login;
+use App\Models\Trainer;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
@@ -32,7 +33,7 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        return route('sendVerifyEmail');
+        return route('sentEmail');
     }
 
     /**
@@ -41,7 +42,9 @@ class RegisterController extends Controller
      */
     public function register(RegisterRequest $request)
     {
-        event(new TrainerRegistered($user = $this->create($request->all())));
+        // 同じメールアドレスのログインが複数できないように、firstOrCreateを実行
+        $user = $this->firstOrCreate($request->all());;
+        event(new TrainerRegistered($user));
 
         $response = $this->registered($request, $user);
         if (isset($response)) {
@@ -60,10 +63,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\Login
      */
-    protected function create(array $data)
+    protected function firstOrCreate(array $data)
     {
-        return Login::create([
+        // trainerの登録時は、emailとuser_typeで一意にする
+        return Login::firstOrCreate([
+            'user_type' => Trainer::class,
             'email' => $data['email'],
+        ], [
             'password' => Str::random(50),
         ]);
     }

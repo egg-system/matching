@@ -20,10 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
-        Trainer::class => TrainerPolicy::class,
         Offer::class => OfferPolicy::class,
-        Gym::class => GymPolicy::class,
     ];
 
     /**
@@ -39,6 +36,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('trainer', function ($login) {
             return optional($login)->user_type === Trainer::class;
         });
+
         // ジムオーナーのみ許可
         Gate::define('gym', function ($login) {
             return optional($login)->user_type === Gym::class;

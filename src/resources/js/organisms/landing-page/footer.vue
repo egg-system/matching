@@ -26,9 +26,10 @@ export default {
 <style lang="scss" scoped>
 .footer-wrapper {
   p {
-    margin: 35px 0 60px;
-    font-size: 30px;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.8rem;
     width: 100%;
+    text-align: center;
   }
 }
 </style>

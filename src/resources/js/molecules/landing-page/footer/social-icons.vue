@@ -22,6 +22,6 @@ export default {
 
 <style lang="scss" scoped>
 .social-icon {
-  margin: 150px 100px 100px;
+  margin: 3rem 2rem 2rem;
 }
 </style>

@@ -30,19 +30,17 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer(
-            ['pages.users.edit', 'components.common._form'],
+            'components.layouts.common.composer',
             function ($view) {
-                $view->with($this->getMasterData());
+                $view->with(['releaseConfigs' => config('release')]);
             }
         );
 
+        // TODO: ViewComposerの整理
         \View::composer(
-            'pages.gyms.trainerList',
+            ['pages.users.edit', 'components.common._form'],
             function ($view) {
-                $viewData = array_merge($this->getMasterData(), [
-                    'offers' => optional(\Auth::user()->fromOffers),
-                ]);
-                $view->with($viewData);
+                $view->with($this->getMasterData());
             }
         );
 

@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\Area;
 use App\Models\Login;
 use App\Models\MatchingCondition;
+use App\Models\Occupation;
 use App\Models\Trainer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,12 +23,16 @@ class UserRepository
     {
         return DB::transaction(function () use ($request) {
             $validated = $request->validated();
-            // トレーナー登録
-            $registered_trainer = Trainer::create($validated);
-            // matchingConditionと紐付け
-            $registered_trainer->matchingCondition()->create($validated);
+
+            $trainer = Trainer::create($validated);
+            $matchingCongition = $trainer->matchingCondition()->create($validated);
+
+            // 職種の作成
+            $occupationIds = explode(',', $request->occupation_ids);
+            $matchingCongition->occupations()->sync($occupationIds);
+
             // トレーナーとログインの紐付けて、カラムの更新
-            return $registered_trainer->associateToLogin(Login::find($request->id), [
+            return $trainer->associateToLogin(Login::find($request->id), [
                 'name' => $request->name,
                 'email_verified_at' => now(),
                 'password' => $request->password
@@ -44,18 +50,39 @@ class UserRepository
         DB::transaction(function () use ($request, $user) {
             // トレーナー更新
             $user->update($request->only($user->getFillable()));
+            
             // matchingCondition更新
-            if (!isset($request['is_available_holiday'])) {
-                $request['is_available_holiday'] = false;
-            }
-            if (!isset($request['is_available_weekday'])) {
-                $request['is_available_weekday'] = false;
-            }
-            $user->matchingCondition->update($request->only(MatchingCondition::make()->getFillable()));
+            $user->matchingCondition->update(
+                $request->only(MatchingCondition::make()->getFillable())
+            );
+
             // ログインと紐付けて、カラムの更新
             return $user->associateToLogin(Auth::user(), [
                 'name' => $request->name
             ]);
         });
+    }
+
+    public function getOccupations()
+    {
+        return Occupation::all()->map(function ($occupation) {
+            return collect([
+                'name' => $occupation->name,
+                'value' => $occupation->id,
+                'img' => $occupation->image
+            ]);
+        });
+    }
+
+    public function getAreas()
+    {
+        $areas = Area::all()->map(function ($area) {
+            return collect([
+                'name' => $area->name,
+                'value' => $area->id
+            ]);
+        });
+        $areas->prepend(collect(['name' => '', 'value' => '']));
+        return $areas;
     }
 }

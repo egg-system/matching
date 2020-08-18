@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\VerifyEmail;
+use App\Models\Offer;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,6 +27,7 @@ class Login extends Authenticatable implements MustVerifyEmail
         'password',
         'email_verified_at',
         'name',
+        'user_type',
     ];
 
     /**
@@ -34,7 +36,8 @@ class Login extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -76,38 +79,34 @@ class Login extends Authenticatable implements MustVerifyEmail
         return $this->fill($attr);
     }
 
-    /**
-     * 自分が送ったオファー
-     */
-    public function fromOffers()
+    public function offers()
     {
-        return $this->hasMany(Offer::class, 'offer_from_id', 'id');
-    }
-
-    /**
-     * 自分に来たオファー
-     */
-    public function toOffers()
-    {
-        return $this->hasMany(Offer::class, 'offer_to_id', 'id');
-    }
-
-    /**
-     * トレーナーだけに限定するクエリスコープ
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOnlyTrainer(Builder $query)
-    {
-        return $query->where('user_type', Trainer::class);
+        $loginColumn = $this->isGym ? 'gym_login_id' : 'trainer_login_id';
+        return $this->hasMany(Offer::class, $loginColumn, 'id');
     }
 
     /**
      * 本登録済み
      */
-    public function isRegisteredDefinitive()
+    public function getIsRegisteredDefinitiveAttribute()
     {
         return $this->email_verified_at !== null;
+    }
+
+    public function getIsGymAttribute()
+    {
+        return $this->user_type === Gym::class;
+    }
+
+    public function getHomeRouteNameAttribute()
+    {
+        return $this->isGym ? 'home.trainers.index' : 'home.gyms.index';
+    }
+
+    public function doOffered($toLoginId)
+    {
+        // 相手にオファーしているか確認するため、自分とは違うカラムにする
+        $column = $this->isGym ? 'trainer_login_id' : 'gym_login_id';
+        return $this->offers()->where($column, $toLoginId)->exists();
     }
 }

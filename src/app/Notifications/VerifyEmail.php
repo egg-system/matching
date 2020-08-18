@@ -41,8 +41,8 @@ class VerifyEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(__('email.verify.subject')) // メールのタイトル
-            ->markdown('mails.verify', ['url' => $this->verificationUrl($notifiable)]);
+            ->subject('【BorderlessGYM（ボーダーレスジム）】本登録のご案内') // メールのタイトル
+            ->view('mails.verify', ['url' => $this->verificationUrl($notifiable)]);
     }
 
     /**

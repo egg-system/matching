@@ -111,4 +111,16 @@ return [
         ],
     ],
 
+    'subject' => [
+        'offers' => [
+            'entry' => [
+                App\Models\Trainer::class => '【BorderlessGYM（ボーダーレスジム）】ジムへのエントリーを受け付けました',
+                App\Models\Gym::class => '【BorderlessGYM（ボーダーレスジム）】トレーナーからエントリーが届きました！'
+            ],
+            'offer' => [
+                App\Models\Trainer::class => '【BorderlessGYM（ボーダーレスジム）】ジムからオファーが届きました！',
+                App\Models\Gym::class => '【BorderlessGYM（ボーダーレスジム）】トレーナーへのオファーを受け付けました'
+            ],
+        ],
+    ],
 ];

@@ -2,39 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Gym\TrainerSearchRequest;
+use App\Http\Requests\GymSearchRequest;
 use App\Models\Gym;
-use App\Models\MatchingCondition;
 use App\Repositories\UserRepository;
+use App\Services\Search\UserSearchService;
 
 class GymsController extends Controller
 {
     /** @var UserRepository  */
     protected $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    /** @var UserSearchService  */
+    protected $userSearchService;
+
+    public function __construct(UserRepository $userRepository, UserSearchService $userSearchService)
     {
         $this->userRepository = $userRepository;
-
-        $this->authorizeResource(Gym::class);
-    }
-
-    public function index()
-    {
-        return view('pages.gyms.index');
+        $this->userSearchService = $userSearchService;
     }
 
     /**
-     * トレーナの一覧表示画面(検索付)
+     * ジム一覧画面表示(検索付)
      */
-    public function trainerList(TrainerSearchRequest $request)
+    public function index(GymSearchRequest $request)
     {
-        $validated = $request->validated();
-        $matchingCondition = MatchingCondition::with(['user', 'area', 'occupation'])->onlyTrainer();
-        if ($request->anyFilled(array_keys($validated))) {
-            $matchingCondition = $matchingCondition->search($validated);
-        }
-        $conditions = $matchingCondition->get();
-        return view('pages.gyms.trainerList', compact('conditions'));
+        $matchingConditions = $this->userSearchService->execute($request);
+        return view('pages.gyms.index', compact('matchingConditions'));
+    }
+
+    public function show(Gym $gym)
+    {
+        return view('pages.gyms.show', compact('gym'));
     }
 }

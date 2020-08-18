@@ -1,1 +1,10 @@
-@import './base.scss'
+@import './base.scss';
+
+.nav-menu-items {
+  width: 33%;
+  text-align: center;
+}
+
+.active-nav-menu-item {
+ border-bottom: 2px solid #d8737d;
+}

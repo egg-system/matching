@@ -4,10 +4,13 @@
 <head>
     @env('production')
         @include('components.gtm.head')
+    @else
+        @include('components.layouts.common.no-index')
     @endenv
 
     @yield('head')
     @include('components.layouts.common.meta')
+    @stack('styles')
 </head>
 
 <body>
@@ -16,6 +19,7 @@
     @endenv
 
     <div id="app">
+        @include('components.layouts.common.composer')
         <v-app>
             @yield('body')
         </v-app>

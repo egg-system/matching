@@ -1,25 +1,38 @@
 @extends('templates.app')
+@push('script')
+    <link href="{{ asset('/css/pages/offers/index.css') }}" rel="stylesheet">
+@endpush
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-10"></div>
-        <div class="col-2">
-            <form method="GET" action="#">
-                <select class="form-control" class="w-100" name="offer_state" onchange="submit(this.form)">
-                    @foreach ($states as $state)
-                    <option {{ old('offer_state',request('offer_state')) == $state->id ? 'selected' : '' }}
-                        value="{{ $state->id }}">{{ $state->name }}</option>
-                    @endforeach
-                </select>
-                <select class="form-control" class="w-100" name="type" onchange="submit(this.form)">
-                    <option value="0">送信したオファー</option>
-                    <option value="1">受信したオファー</option>
-                </select>
-            </form>
+    <div class="offers-index-page">
+        <div class="bg">
+            <h2>エントリー／オファー一覧</h2>
+            @forelse($offers as $offer)
+                @php
+
+                    $trainsition = $user->isGym ? "/trainers/{$offer->trainerLogin->user_id}"
+                        : "/gyms/{$offer->gymLogin->user_id}";
+                    $photo = $user->isGym ? '/images/trainers/trainer-icon.png'
+                        : $offer->gymLogin->user->job->main_image_url;
+
+                    $comment = $offer->created_at->format('Y/m/d');
+                    $comment = "{$comment}に{$offer->state->name}";
+
+                    $trainsionUserType = $offer->state->transition_user_type;
+                    $doesLoginUserOffer = $user->user_type === $trainsionUserType;
+                    $comment = $doesLoginUserOffer ? "{$comment}しました" : "{$comment}が届きました";
+
+
+                @endphp
+                <history-item
+                    transition='{{ $trainsition }}'
+                    photo="{{ $photo }}"
+                    name="{{ $user->isGym ? $offer->trainerName : $offer->gymName }}"
+                    comment='{{ $comment }}'
+                ></history-item>
+            @empty
+                <p>オファーはまだありません。</p>
+            @endforelse
         </div>
     </div>
-
-    @include('components.offers.listTable')
-</div>
 @endsection

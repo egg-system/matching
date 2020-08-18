@@ -9,18 +9,14 @@ use Illuminate\Support\Str;
 
 $factory->define(MatchingCondition::class, function (Faker $faker) {
     return [
-        'occupation_id' => 1,
         'area_id' => 1,
-        'price' => [
-            'max' => "{$faker->numberBetween(6, 10)}0000",
-            'min' => "{$faker->numberBetween(1, 5)}0000"
-        ],
-        'work_time' => [
-            'time' => $faker->time('H:00'),
-            'week' => $faker->randomElement(['月', '火', '水', '木', '金', '土', '日'])
-        ],
-        'preferred_area_id' => 2,
-        'is_available_holiday' => $faker->boolean,
-        'is_available_weekday' => $faker->boolean
+        'weekly_worktime' => 1,
+        'can_work_holiday' => true,
+        'can_work_weekday' => true,
+        'can_adjust' => true,
     ];
+});
+
+$factory->afterCreating(MatchingCondition::class, function ($matchingCondition) {
+    $matchingCondition->occupations()->attach(2);
 });

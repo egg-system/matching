@@ -11,7 +11,7 @@
 
 <script>
 import contentLine from '../../atoms/landing-page/content-line'
-import featureDescription from '../../atoms/landing-page/descriptions/feature-description'
+import featureDescription from './descriptions/feature-description'
 import { features } from './features-constants'
 
 export default {
@@ -22,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 .feature-wrapper {
-  margin: 150px 0;
+  margin: 4rem 0;
   padding: 0;
 }
 </style>

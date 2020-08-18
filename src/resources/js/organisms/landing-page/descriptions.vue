@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import serviceDescription from '../../atoms/landing-page/descriptions/service-description'
-import sideJobDescription from '../../atoms/landing-page/descriptions/side-job-description'
+import serviceDescription from '../../molecules/landing-page/descriptions/service-description'
+import sideJobDescription from '../../molecules/landing-page/descriptions/side-job-description'
 import featureDescriptions from '../../molecules/landing-page/feature-descriptions'
 
 export default {
@@ -22,6 +22,6 @@ export default {
 
 <style lang="scss" scoped>
 .description-wrapper {
-  margin-top: 150px;
+  margin-top: 8rem;
 }
 </style>

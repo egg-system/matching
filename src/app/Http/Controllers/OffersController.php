@@ -3,28 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Offer\StoreRequest;
-use App\Http\Requests\Offer\UpdateRequest;
 use App\Models\Offer;
-use App\Models\OfferState;
+use App\Services\MatchingService;
 use Illuminate\Http\Request;
 
 class OffersController extends Controller
 {
-    public function __construct()
+    private $matchingService;
+
+    public function __construct(MatchingService $matchingService)
     {
+        $this->matchingService = $matchingService;
         $this->authorizeResource(Offer::class);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $user = auth()->user();
-        // 絞り込み条件取得
-        $stateId = $request->query('offer_state', OfferState::UNREPLY);
-        // デフォルトで送信したオファー取得、指定がある場合受信取得
-        $type = $request->type;
-        $query = !$type ? $user->fromOffers() : $user->toOffers();
-        $offers = $query->whereState($stateId)->get();
-        return view('pages.offers.index', compact('offers'));
+        $user = \Auth::user();
+        $offers = $this->matchingService->searchOffers();
+        return view('pages.offers.index', compact('offers', 'user'));
     }
 
     public function show(Offer $offer)
@@ -32,25 +29,14 @@ class OffersController extends Controller
         return view('pages.offers.show', compact('offer'));
     }
 
-    public function update(Offer $offer, UpdateRequest $request)
-    {
-        $offer->updateState($request->offer_state);
-        return back();
-    }
-
     /**
-     * オファー作成処理
+     * オファー情報登録
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreRequest $request)
     {
-        $id = auth()->id();
-        Offer::create([
-            'offer_from_id' => $id,
-            'offer_to_id' => $request->to,
-            'offer_state' => OfferState::UNREPLY,
-            'message' => $request->message
-        ]);
-
-        return back();
+        $this->matchingService->storeOffer($request);
+        return redirect()->route('offers.index');
     }
 }
