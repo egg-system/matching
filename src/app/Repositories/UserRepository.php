@@ -22,10 +22,14 @@ class UserRepository
     public function create(Request $request)
     {
         return DB::transaction(function () use ($request) {
-            $validated = $request->validated();
+            $trainerRequest = $this->getTrainerParams($request);
+            $trainer = Trainer::create($trainerRequest);
 
-            $trainer = Trainer::create($validated);
-            $matchingCongition = $trainer->matchingCondition()->create($validated);
+            $matchingConditionRequest = $this
+                ->getMatchingConditionParams($request);
+            $matchingCongition = $trainer
+                ->matchingCondition()
+                ->create($matchingConditionRequest);
 
             // 職種の作成
             $occupationIds = explode(',', $request->occupation_ids);
@@ -49,7 +53,7 @@ class UserRepository
     {
         DB::transaction(function () use ($request, $user) {
             // トレーナー更新
-            $trainerRequest = $request->only($user->getFillable());
+            $trainerRequest = $this->getTrainerParams($request);
             $user->update(
                 array_merge([
                     'is_considering_change_job' => false,
@@ -57,9 +61,8 @@ class UserRepository
             );
 
             // matchingCondition更新
-            $matchingConditionRequest = $request->only(
-                MatchingCondition::make()->getFillable()
-            );
+            $matchingConditionRequest = $this
+                ->getMatchingConditionParams($request);
             $user->matchingCondition->update(
                 array_merge([
                     'can_work_holiday' => false,
@@ -79,6 +82,23 @@ class UserRepository
                 'name' => $request->name
             ]);
         });
+    }
+
+    protected function getTrainerParams(Request $request)
+    {
+        $trainer = Trainer::make();
+        $parameters = $request->only($trainer->getFillable());
+
+        $parameters['careers'] = json_decode($parameters['careers']);
+        return $parameters;
+    }
+
+    protected function getMatchingConditionParams(Request $request)
+    {
+        $matchingCondition = MatchingCondition::make();
+        $parameters = $request->only($matchingCondition->getFillable());
+
+        return $parameters;
     }
 
     public function getOccupations()

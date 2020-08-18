@@ -65,7 +65,9 @@ class Login extends Authenticatable implements MustVerifyEmail
      */
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = Hash::needsRehash($password) ? bcrypt($password) : $password;
+        $this->attributes['password'] = Hash::needsRehash($password)
+            ? bcrypt($password)
+            : $password;
     }
 
     /**

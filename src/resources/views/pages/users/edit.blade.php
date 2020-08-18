@@ -167,7 +167,7 @@
 
         {{-- 文字列の状態で渡す ※ inputの値は文字列になるため --}}
         <careers-editor
-            :careers="{{ $user->careers }}"
+            :careers='@json($user->careers)'
         ></careers-editor>
     </form>
 </div>
