@@ -38,7 +38,7 @@ class RegisterRequest extends FormRequest
             'can_work_weekday' => 'nullable|boolean',
             'can_adjust' => 'nullable|boolean',
             'is_considering_change_job' => 'nullable|boolean',
-            'career' => 'nullable|json'
+            'careers' => 'nullable|json'
         ];
     }
 
@@ -55,9 +55,9 @@ class RegisterRequest extends FormRequest
             'area_id' => '希望エリア',
             'can_work_holiday' => '休日稼働可能',
             'can_work_weekday' => '平日夜稼働可能',
-            'hope_adjust_worktime' => '条件に合わせて調整',
+            'can_adjust' => '条件に合わせて調整',
             'is_considering_change_job' => '転職検討中',
-            'career' => 'キャリア'
+            'careers' => 'キャリア',
         ];
     }
 

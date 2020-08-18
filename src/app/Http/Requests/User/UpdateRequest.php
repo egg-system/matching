@@ -23,27 +23,18 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $day_of_week_role = join(',', trans('search.day_of_week'));
-
         return [
             'name' => 'required',
-            'tel' => 'nullable',
-            'occupation_id' => 'required|exists:occupations,id',
+            'display_name' => 'required',
+            'occupation_ids' => 'required|exists:occupations,id',
+            'now_work_area_id' => 'nullable|exists:areas,id',
+            'weekly_worktime' => 'nullable|integer',
             'area_id' => 'nullable|exists:areas,id',
-            'pr_comment' => 'nullable|string',
-            'staff_count' => 'nullable|integer',
-            'customer_count' => 'nullable|integer',
-            'requirements' => 'nullable|array',
-            'requirements.number' => 'nullable|integer',
-            'price' => 'nullable|array',
-            'price.min' => 'nullable|integer|lt:price.max',
-            'price.max' => 'nullable|integer',
-            'work_time' => 'nullable|array',
-            'work_time.week' => "nullable|in:{$day_of_week_role}",
-            'work_time.time' => 'nullable|date_format:H:i',
-            'preferred_area_id' => 'nullable|exists:areas,id',
-            'is_available_holiday' => 'boolean',
-            'is_available_weekday' => 'boolean',
+            'can_work_holiday' => 'nullable|boolean',
+            'can_work_weekday' => 'nullable|boolean',
+            'can_adjust' => 'nullable|boolean',
+            'is_considering_change_job' => 'nullable|boolean',
+            'career' => 'nullable|json'
         ];
     }
 
@@ -51,18 +42,16 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => '氏名',
-            'tel' => '電話番号',
-            'occupation_id' => '種類',
-            'area_id' => '場所／エリア',
-            'pr_comment' => 'PRのコメント',
-            'staff_count' => 'スタッフ数',
-            'customer_count' => '顧客数',
-            'requirements.*' => '募集要項',
-            'price' => '支払い単価',
-            'work_time' => '希望する曜日や時間帯',
-            'preferred_area_id' => '希望エリア',
-            'is_available_holiday' => '休日勤務可能',
-            'is_available_weekday' => '平日勤務可能',
+            'display_name' => 'ニックネーム',
+            'occupation_ids' => '職種',
+            'now_work_area_id' => '現在の勤務地',
+            'weekly_worktime' => '1週間の稼働時間',
+            'area_id' => '希望エリア',
+            'can_work_holiday' => '休日稼働可能',
+            'can_work_weekday' => '平日夜稼働可能',
+            'can_adjust' => '条件に合わせて調整',
+            'is_considering_change_job' => '転職検討中',
+            'career' => 'キャリア',
         ];
     }
 }
