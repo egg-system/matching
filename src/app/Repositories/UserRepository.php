@@ -49,12 +49,30 @@ class UserRepository
     {
         DB::transaction(function () use ($request, $user) {
             // トレーナー更新
-            $user->update($request->only($user->getFillable()));
-            
-            // matchingCondition更新
-            $user->matchingCondition->update(
-                $request->only(MatchingCondition::make()->getFillable())
+            $trainerRequest = $request->only($user->getFillable());
+            $user->update(
+                array_merge([
+                    'is_considering_change_job' => false,
+                ], $trainerRequest)
             );
+
+            // matchingCondition更新
+            $matchingConditionRequest = $request->only(
+                MatchingCondition::make()->getFillable()
+            );
+            $user->matchingCondition->update(
+                array_merge([
+                    'can_work_holiday' => false,
+                    'can_work_weekday' => false,
+                    'can_adjust' => false,
+                ], $matchingConditionRequest)
+            );
+
+            // 職種の更新
+            $user
+                ->matchingCondition
+                ->occupations()
+                ->sync($request->occupation_ids);
 
             // ログインと紐付けて、カラムの更新
             return $user->associateToLogin(Auth::user(), [
