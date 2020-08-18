@@ -25,9 +25,15 @@
     }
   }
   .checkbox-form-container {
-    display: flex;
     &__form {
       flex-basis: 50%;
     }
+  }
+
+  .form-label {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 30px;
   }
 }
