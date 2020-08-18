@@ -27,16 +27,20 @@ Route::group(['middleware' => 'released:register'], function () {
 
     // メールアドレスの登録処理
     Route::post('register', 'Auth\RegisterController@register')
-        ->name('register');
+        ->name('trainers.register');
 
     // メールアドレス入力後のサンクスページ
-    Route::view('/send-email', 'pages.email.send-email')
-        ->name('sendEmail');
+    Route::view('/sent-email', 'pages.email.sent-email')
+        ->name('sentEmail');
 
     // 会員登録画面
     Route::resource('trainers', 'UsersController')
         ->only(['create', 'store'])
         ->middleware('signed');
+
+    // 登録後のサンクスページ
+    Route::view('trainers/registered', 'pages.users.registered')
+        ->name('trainers.registered');
 });
 
 // ログイン
