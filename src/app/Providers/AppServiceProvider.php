@@ -39,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (\App::isProduction() || \App::environment('staging')) {
+            \URL::forceScheme('https');
+        }
+
         Offer::observe(OfferObserver::class);
 
         // ジムとトレイナーでメールアドレスは重複可能なため、userTypeで切り分ける
