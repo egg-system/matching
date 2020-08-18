@@ -10,11 +10,6 @@
     </div>
     
     <form method="POST" action="{{ route('settings.profile.update') }}">
-
-        <div class="header__aside">
-            <button type="submit">保存</button>
-        </div>
-
         <div class="body">
             @method('PUT')
             @csrf
@@ -24,193 +19,156 @@
                 name="name"
                 id="name"
                 type="text"
-                value="{{ $user->login->name ?? old('name') }}"
+                value="{{ $user->login->name }}"
                 autocomplete="name"
                 autofocus
                 error="{{ $errors->first('name') }}"
             ></input-form>
 
-            <?php
-                // componentのpropsに合わせて変換
-                $formattedOccupations = collect($occupations)->map(function ($occupation) {
-                    return collect([ 'name' => $occupation->name, 'value' => $occupation->id ]);
-                });
-                $formattedOccupations->prepend(collect([ 'name' => '-- 選択してください --', 'value' => '' ]));
-            ?>
-            <select-form
-                label="業種"
-                sublabel="業種"
-                name="occupation_id"
-                id="occupation"
-                :options="{{ json_encode($formattedOccupations) }}"
-                selected="{{ isset($matchingCondition->occupation_id) ? (string)$matchingCondition->occupation_id : old('occupation_id') }}"
-                error="{{ $errors->first('occupation_id') }}"
-            ></select-form>
+            <input-form
+                label="ニックネーム"
+                name="display_name"
+                id="name"
+                type="text"
+                value="{{ $user->display_name }}"
+                autocomplete="name"
+                autofocus
+                error="{{ $errors->first('display_name') }}"
+            ></input-form>
+
+            @php
+                $selectedIds = $matchingCondition->occupations->pluck('id');
+            @endphp
+            <div class="checkbox-form-container">
+                <label class="form-label">職種</label>
+                <div class="checkbox-form-container__form">
+                    <checkbox-form
+                        label="パーソナル"
+                        id="occupations.personal"
+                        name="occupation_ids[]"
+                        value="{{ \App\Models\Occupation::PERSONAL }}"
+                        checked="{{ $selectedIds->contains(\App\Models\Occupation::PERSONAL) }}"
+                    ></checkbox-form>
+                </div>
+
+                <div class="checkbox-form-container__form">
+                    <checkbox-form
+                        label="ジム"
+                        id="occupations.gym"
+                        name="occupation_ids[]"
+                        value="{{ \App\Models\Occupation::GYM }}"
+                        checked="{{ $selectedIds->contains(\App\Models\Occupation::GYM) }}"
+                    ></checkbox-form>
+                </div>
+
+                <div class="checkbox-form-container__form">
+                    <checkbox-form
+                        label="フィットネス"
+                        id="occupations.fitness"
+                        name="occupation_ids[]"
+                        value="{{ \App\Models\Occupation::FITNESS }}"
+                        checked="{{ $selectedIds->contains(\App\Models\Occupation::FITNESS) }}"
+                    ></checkbox-form>
+                </div>
+            </div>
 
             <?php
                 // componentのpropsに合わせて変換
                 $formattedAreas = collect($areas)->map(function ($area) {
-                    return collect([ 'name' => $area->name, 'value' => $area->id ]);
+                    return collect([
+                        'name' => $area->name,
+                        'value' => $area->id,
+                    ]);
                 });
-                $formattedAreas->prepend(collect([ 'name' => '', 'value' => '' ]));
+                $formattedAreas->prepend(collect([
+                    'name' => '',
+                    'value' => '',
+                ]));
             ?>
             <select-form
                 label="現在の勤務地エリア"
                 sublabel="エリア"
-                name="area_id"
-                id="area"
+                name="now_work_area_id"
+                id="now_work_area_id"
                 :options="{{ json_encode($formattedAreas) }}"
-                selected="{{ isset($matchingCondition->area_id) ? (string)$matchingCondition->area_id : old('area_id') }}"
-                error="{{ $errors->first('area_id') }}"
+                selected="{{ $user->now_work_area_id }}"
+                error="{{ $errors->first('now_work_area_id') }}"
             ></select-form>
 
-            @can('trainer')
-            <input-form
-                label="電話番号"
-                name="tel"
-                id="tel"
-                type="tel"
-                value="{{ $user->tel ?? old('tel') }}"
-                autocomplete="tel"
-                error="{{ $errors->first('tel') }}"
-            ></input-form>
-            
-            <text-area-form
-                label="自己紹介"
-                name="pr_comment"
-                id="pr_comment"
-                value="{{ old('pr_comment', $user->pr_comment) }}"
-                placeholder="自己紹介を入れて企業にアピールしよう"
-                error="{{ $errors->first('pr_comment') }}"
-            ></text-area-form>
-
-            @elsecan('gym')
-            <input-form
-                label="代表者名"
-                name="president_name"
-                id="president_name"
-                type="text"
-                value="{{ old('president_name', $user->president_name) }}"
-                error="{{ $errors->first('president_name') }}"
-            ></input-form>
-
-            <input-form
-                label="電話番号"
-                name="tel"
-                id="tel"
-                type="tel"
-                value="{{ old('tel', $user->tel) }}"
-                autocomplete="tel"
-                error="{{ $errors->first('tel') }}"
-            ></input-form>
-
-            <input-form
-                label="スタッフ数"
-                name="staff_count"
-                id="staff_count"
-                type="number"
-                value="{{ old('staff_count', $user->staff_count) }}"
-                error="{{ $errors->first('staff_count') }}"
-            ></input-form>
-
-            <input-form
-                label="顧客数"
-                name="customer_count"
-                id="customer_count"
-                type="number"
-                value="{{ old('customer_count',$user->customer_count) }}"
-                error="{{ $errors->first('customer_count') }}"
-            ></input-form>
-
-            <input-form
-                label="募集人数"
-                name="requirements[number]"
-                id="requirements"
-                type="number"
-                value="{{ old('requirements.number',$user->requirements['number'] ?? '') }}"
-                error="{{ $errors->first('requirements.number') }}"
-            ></input-form>
-
-            <input-form
-                label="募集スキル"
-                name="requirements[skill]"
-                id="requirements"
-                type="text"
-                value="{{ old('requirements.skill',$user->requirements['skill'] ?? '') }}"
-                error="{{ $errors->first('requirements.skill') }}"
-            ></input-form>
-            @endcan
-
-            <range-input-form
-                label="希望単価"
-                from-id="price_min"
-                from-name="price[min]"
-                from-type="number"
-                from-value="{{ isset($matchingCondition->price['min']) ? $matchingCondition->price['min'] : old('price.min') }}"
-                from-error="{{ $errors->first('price.min') }}"
-                to-name="price[max]"
-                to-id="price_max"
-                to-type="number"
-                to-value="{{ isset($matchingCondition->price['max']) ? $matchingCondition->price['max'] : old('price.max') }}"
-                to-error="{{ $errors->first('price.max') }}"
-            ></range-input-form>
-
-            <?php
-                // componentのpropsに合わせて変換
-                $dayOfWeek = trans('search.day_of_week');
-                $formattedDayOfWeek = collect($dayOfWeek)->map(function ($item) {
-                    return collect([ 'name' => $item, 'value' => $item ]);
+            @php
+                // 1日から7日までの稼働を並べる
+                $workTimeOptions = collect(range(1, 7))->map(function ($workTimeOption) {
+                    return [
+                        'name' => "1週間辺り {$workTimeOption} 日の稼働",
+                        'value' => $workTimeOption,
+                    ];
                 });
-                $formattedDayOfWeek->prepend(collect([ 'name' => '', 'value' => '' ]));
-            ?>
+                $workTimeOptions->prepend(collect([ 'name' => '', 'value' => '' ]));
+            @endphp
             <select-form
-                label="希望曜日"
-                name="work_time[week]"
+                label="1週間辺りの稼働"
+                name="weekly_worktime"
                 id="work_time_week"
-                :options="{{ json_encode($formattedDayOfWeek) }}"
-                selected="{{ isset($matchingCondition->work_time['week']) ? $matchingCondition->work_time['week'] : old('work_time.week') }}"
-                error="{{ $errors->first('work_time.week') }}"
+                :options="{{ json_encode($workTimeOptions) }}"
+                selected="{{ $matchingCondition->weekly_worktime }}"
+                error="{{ $errors->first('weekly_worktime') }}"
             ></select-form>
-
-            <input-form
-                label="希望時間帯"
-                name="work_time[time]"
-                id="work_time_time"
-                type="time"
-                value="{{ isset($matchingCondition->work_time['time']) ? $matchingCondition->work_time['time'] : old('work_time.time') }}"
-                error="{{ $errors->first('work_time.time') }}"
-            ></input-form>
 
             <select-form
                 label="希望エリア"
                 sublabel="希望エリア"
-                name="preferred_area_id"
-                id="preferred_area"
+                id="area_id"
+                name="area_id"
                 :options="{{ json_encode($formattedAreas) }}"
-                selected="{{ isset($matchingCondition->preferred_area_id) ? (string)$matchingCondition->preferred_area_id : old('preferred_area_id') }}"
-                error="{{ $errors->first('preferred_area_id') }}"
+                selected="{{ $matchingCondition->area_id }}"
+                error="{{ $errors->first('area_id') }}"
             ></select-form>
 
             <div class="checkbox-form-container">
                 <div class="checkbox-form-container__form">
                     <checkbox-form
-                        label="休日勤務可能"
-                        name="is_available_holiday"
-                        id="is_available_holiday"
-                        checked="{{ isset($matchingCondition->is_available_holiday) ? $matchingCondition->is_available_holiday : old('is_available_holiday') }}"
+                        label="平日勤務可能"
+                        id="can_work_weekday"
+                        name="can_work_weekday"
+                        checked="{{ $matchingCondition->can_work_weekday }}"
                     ></checkbox-form>
                 </div>
 
                 <div class="checkbox-form-container__form">
                     <checkbox-form
-                        label="平日勤務可能"
-                        name="is_available_weekday"
-                        id="is_available_weekday"
-                        checked="{{ isset($matchingCondition->is_available_weekday) ? $matchingCondition->is_available_weekday : old('is_available_weekday') }}"
+                        label="休日勤務可能"
+                        id="can_work_holiday"
+                        name="can_work_holiday"
+                        checked="{{ $matchingCondition->can_work_holiday }}"
+                    ></checkbox-form>
+                </div>
+
+                <div class="checkbox-form-container__form">
+                    <checkbox-form
+                        label="ジムや案件に合わせて調整可"
+                        id="can_adjust"
+                        name="can_adjust"
+                        checked="{{ $matchingCondition->can_adjust }}"
+                    ></checkbox-form>
+                </div>
+
+                <div class="checkbox-form-container__form">
+                    <checkbox-form
+                        label="転職を検討中"
+                        id="is_considering_change_job"
+                        name="is_considering_change_job"
+                        checked="{{ $user->is_considering_change_job }}"
                     ></checkbox-form>
                 </div>
             </div>
         </div>
+
+        <label class="form-label">経歴</label>
+
+        {{-- 文字列の状態で渡す ※ inputの値は文字列になるため --}}
+        <careers-editor
+            :careers="{{ $user->careers }}"
+        ></careers-editor>
     </form>
 </div>
 @endsection
