@@ -40,7 +40,7 @@ class TrainerRegisterTest extends TestCase
 
         $email = $this->faker->email;
         // email登録
-        $response = $this->post(route('register'), compact('email'));
+        $response = $this->post(route('trainers.register'), compact('email'));
         // 送信完了画面へ
         Mail::fake();
         $response->assertStatus(302);
