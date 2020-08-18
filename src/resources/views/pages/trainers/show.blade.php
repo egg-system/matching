@@ -11,28 +11,28 @@
                 <h1>{{ $trainer->display_name }}</h1>
                 <div class="job">
                     {{ $trainer->matchingCondition->occupations->first()->name }}
-                    @if(isset($trainer->carrers))
-                        / {{ $trainer->lastCarrerName }}
+                    @if(isset($trainer->careers))
+                        / {{ $trainer->lastCareerName }}
                     @endif
                 </div>
             </div>
 
-            @if($trainer->sortedCarrers->isNotEmpty())
+            @if($trainer->sortedCareers->isNotEmpty())
                 <div class="career">
                     <h2>経歴</h2>
-                    @foreach ($trainer->sortedCarrers as $carrer)
+                    @foreach ($trainer->sortedCareers as $career)
                         <div class="careerDetail">
-                            <h3>{{ $carrer['gym_name'] }}</h3>
-                            @if($carrer['in_office'])
+                            <h3>{{ $career['gym_name'] }}</h3>
+                            @if($career['in_office'])
                                 <div class="date">
-                                    {{ $carrer['start_at'] }} - 在職中
+                                    {{ $career['start_at'] }} - 在職中
                                 </div>
                             @else
                                 <div class="date">
-                                    {{ $carrer['start_at'] }} - {{ $carrer['end_at'] }}
+                                    {{ $career['start_at'] }} - {{ $career['end_at'] }}
                                 </div>
                             @endif
-                            <p>{{ $carrer['description'] }}</p>
+                            <p>{{ $career['description'] }}</p>
                         </div>
                     @endforeach
                 </div>

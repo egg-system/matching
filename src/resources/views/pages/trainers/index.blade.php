@@ -26,8 +26,8 @@
                                 </div>
                                 <div class="job">
                                     {{ $matchingCondition->occupations->first()->name }}
-                                    @if(isset($trainer->carrers))
-                                        / {{ $trainer->lastCarrerName }}
+                                    @if(isset($trainer->careers))
+                                        / {{ $trainer->lastCareerName }}
                                     @endif
                                 </div>
                                 <div class="workstyle">
@@ -39,12 +39,12 @@
                                 <h2>経歴</h2>
                                 <div class="trainerHistory">
                                     @php
-                                        $carrers = $trainer->sortedCarrers
+                                        $careers = $trainer->sortedCareers
                                     @endphp
-                                    @foreach ($carrers as $carrer)
-                                        {{ $carrer['gym_name'] }}<br>
-                                        @if($loop->index === 2 && $carrers->count() > 3)
-                                            他{{ $carrers->count() }}社
+                                    @foreach ($careers as $career)
+                                        {{ $career['gym_name'] }}<br>
+                                        @if($loop->index === 2 && $careers->count() > 3)
+                                            他{{ $careers->count() }}社
                                             @break
                                         @endif
                                     @endforeach
