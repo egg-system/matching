@@ -1,127 +1,126 @@
 @import '../.././base.scss';
 
 #userLogin {
-    img {
-      width: 100%;
+  img {
+    width: 100%;
+  }
+  .wrapper {
+    width: 90%;
+    margin: 0 auto 3rem;
+    padding-top: 1rem;
+    .logo {
+      text-align: center;
+      margin: 2rem 0;
+      img {
+        display: inline-block;
+        width: 60%;
+      }
+      div {
+        margin: 1rem 0;
+        font-weight: bold;
+      }
     }
-    .wrapper {
-      width: 90%;
-      margin: 0 auto 3rem;
-      padding-top: 1rem;
-      .logo {
-        text-align: center;
-        margin: 2rem 0;
-        img {
-          display: inline-block;
-          width: 60%;
+    .userInfo {
+      form {
+        &>div {
+          margin-bottom: 2rem;
+          &:last-child {
+            margin-bottom: 1rem;
+          }
         }
-        div {
-          margin: 1rem 0;
+        .passwordParent {
+          position: relative;
+        }
+        label {
+          display: block;
+          color: #999;
           font-weight: bold;
         }
-      }
-      .userInfo {
-        form {
-          &>div {
-            margin-bottom: 2rem;
-            &:last-child {
-              margin-bottom: 1rem;
-            }
+        input {
+          border: none;
+          border-bottom: 1.5px solid #000;
+          padding: 0.5rem 0;
+          width: 100%;
+          font-size: 1.2rem;
+          &:focus {
+            outline: none;
           }
-          .passwordParent {
-            position: relative;
+          &[type="password"] {
+            font-family: Verdana, sans-serif;
           }
-          label {
-            display: block;
-            color: #999;
-            font-weight: bold;
-          }
-          input {
+          &[type="submit"] {
             border: none;
-            border-bottom: 1.5px solid #000;
-            padding: 0.5rem 0;
-            width: 100%;
-            font-size: 1.2rem;
-            &:focus {
-              outline: none;
-            }
-            &[type="password"] {
-              font-family: Verdana, sans-serif;
-            }
-            &[type="submit"] {
-              border: none;
-              color: #fff;
-              font-size: 0.9rem;
-              padding: 0.9rem 0;
-              border-radius: 2rem;
-              background: linear-gradient(to left, #FF9966, #FF6666);
-            }
-          }
-          span {
-            &.field-icon {
-              position: absolute;
-              right: 1%;
-              font-size: 1rem;
-              top: 50%;
-              transform: translateY(-50%);
-              -webkit-transform: translateY(-50%);
-              -ms-transform: translateY(-50%);
-            }
-          }
-        }
-        .sentEmailAgainBtn {
-          a {
-            display: block;
             color: #fff;
-            text-align: center;
-            text-decoration: none;
             font-size: 0.9rem;
             padding: 0.9rem 0;
             border-radius: 2rem;
             background: linear-gradient(to left, #FF9966, #FF6666);
-            margin-bottom: 2rem;
-            &.bgGray {
-              background: #e6e6e6;
-              color: #555;
-            }
+          }
+        }
+        span {
+          &.field-icon {
+            position: absolute;
+            right: 1%;
+            font-size: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
           }
         }
       }
-      .forgot {
-        text-align: right;
+      .sentEmailAgainBtn {
         a {
-          color: #000;
-        }
-      }
-    }
-  }
-  .footer {
-    .terms {
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 1rem;
-      ul {
-        list-style-type:none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        li {
-          margin-right: 1rem;
-          a {
-            text-decoration: none;
-            color: #000;
-            font-size: .8rem;
+          display: block;
+          color: #fff;
+          text-align: center;
+          text-decoration: none;
+          font-size: 0.9rem;
+          padding: 0.9rem 0;
+          border-radius: 2rem;
+          background: linear-gradient(to left, #FF9966, #FF6666);
+          margin-bottom: 2rem;
+          &.bgGray {
+            background: #e6e6e6;
+            color: #555;
           }
         }
       }
     }
-    width: 90%;
-    text-align: center;
-    padding: 1rem 0;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    .forgot {
+      text-align: right;
+      a {
+        color: #000;
+      }
+    }
   }
-  
+}
+.footer {
+  .terms {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+    ul {
+      list-style-type:none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      li {
+        margin-right: 1rem;
+        a {
+          text-decoration: none;
+          color: #000;
+          font-size: .8rem;
+        }
+      }
+    }
+  }
+  width: 90%;
+  text-align: center;
+  padding: 1rem 0;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
