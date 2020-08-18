@@ -13,7 +13,7 @@ class MatchingCondition extends Model
         'weekly_worktime',
         'can_work_holiday',
         'can_work_weekday',
-        'hope_adjust_worktime',
+        'can_adjust',
     ];
 
     protected $with = ['user', 'area', 'occupations'];

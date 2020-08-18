@@ -17,7 +17,7 @@ class Job extends Model
     ];
 
     protected $casts = [
-        /** 
+        /**
          * 以下のObjectの配列が入る
          *  - title: 詳細見出し
          *  - image: 詳細画像
