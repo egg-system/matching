@@ -22,5 +22,9 @@ export const formComponents = [
   {
     name: 'text-area-form',
     object: () => import('../../../molecules/form/text-area-form.vue')
+  },
+  {
+    name: 'careers-editor',
+    object: () => import('../../../organisms/users/careers-editor.vue')
   }
 ]
