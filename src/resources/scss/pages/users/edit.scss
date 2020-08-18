@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .users-edit-page {
   max-width: 1000px;
   margin: 20px 5% 0 5%;
@@ -8,7 +10,7 @@
       top: 105px;
       button {
         color: white;
-        background-color: #147454;
+        background: $main-btn-bg;
         font-weight: bold;
         border-radius: 20px;
         padding: 10px 15px;
@@ -21,5 +23,17 @@
       font-weight: bold;
       margin-bottom: 30px;
     }
+  }
+  .checkbox-form-container {
+    &__form {
+      flex-basis: 50%;
+    }
+  }
+
+  .form-label {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 30px;
   }
 }

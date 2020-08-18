@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Occupation extends Model
 {
+    const PERSONAL = 1;
+    const GYM = 2;
+    const FITNESS = 3;
+
     protected $fillable = [
         'name',
     ];

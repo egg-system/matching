@@ -71,6 +71,6 @@ class UsersController extends Controller
     {
         $model = \Auth::user()->user;
         $this->userRepository->updateUser($request, $model);
-        return redirect()->route('profile.update');
+        return redirect()->route('settings.profile.update');
     }
 }
