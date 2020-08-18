@@ -27,7 +27,7 @@ class Occupation extends Model
         if ($this->name === 'フィットネス') {
             $image = '/images/users-register/fitness_icon.jpg';
         } elseif ($this->name === 'ジム') {
-            $image = '/images/users-register/gym_icon2.jpg';
+            $image = '/images/users-register/gym_trainer_icon.jpg';
         } elseif ($this->name === 'パーソナル') {
             $image = '/images/users-register/personal_trainer_icon.jpg';
         }

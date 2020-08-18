@@ -13,6 +13,7 @@ class Trainer extends User
         'now_work_area_id',
         'now_work_style',
         'careers',
+        'is_considering_change_job',
     ];
 
     protected $casts = [
