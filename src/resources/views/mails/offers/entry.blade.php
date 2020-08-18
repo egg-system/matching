@@ -26,8 +26,8 @@
 ◆こちらから編集できます<br />
 https://〜〜〜　　　　←プロフィール編集画面へのリンク<br />
 @endif
-<br>
-気になる点やご要望などありましたら、お気軽に borderless-gym@eggsystem.co.jp までお知らせください。<br
-<br>
-今後ともBorderlessGYMをよろしくお願いいたします。<br>
+<br />
+気になる点やご要望などありましたら、お気軽に borderless-gym@eggsystem.co.jp までお知らせください。<br />
+<br />
+今後ともBorderlessGYMをよろしくお願いいたします。<br />
 @include('mails/footer')
