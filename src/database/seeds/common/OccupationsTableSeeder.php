@@ -9,12 +9,15 @@ class OccupationsTableSeeder extends Seeder
 {
     private const DATA = [
         [
-            'name' => 'パーソナル'
+            'id' => Occupation::PERSONAL,
+            'name' => 'パーソナル',
         ],
         [
-            'name' => 'ボクシング'
+            'id' => Occupation::GYM,
+            'name' => 'ジム'
         ],
         [
+            'id' => Occupation::FITNESS,
             'name' => 'フィットネス'
         ]
     ];
@@ -23,7 +26,11 @@ class OccupationsTableSeeder extends Seeder
     {
         $datas = self::DATA;
         foreach ($datas as $data) {
-            Occupation::firstOrCreate($data);
+            Occupation::updateOrCreate([
+                'id' => $data['id']
+            ], [
+                'name' => $data['name']
+            ]);
         }
     }
 }
