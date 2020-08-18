@@ -6,7 +6,7 @@
 
         <div class="name-form">
           <div class="name-form__heading">
-            氏名 ※ ジムオーナーが見る画面には、ニックネームが表示されます
+            氏名 ※ 本名は本人確認のために使用します。当サービス内では表示されません。
           </div>
           <input
             v-model="name"
