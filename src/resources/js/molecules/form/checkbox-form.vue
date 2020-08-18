@@ -6,7 +6,7 @@
       :id="id"
       class="checkbox-form"
       :name="name"
-      value="1"
+      :value="value"
     >
     <label class="form-label" :for="id">{{ label }}</label>
   </div>
@@ -23,7 +23,8 @@ export default {
     label: { type: String, required: true },
     name: { type: String, required: true },
     id: { type: String, required: true },
-    checked: { type: String, default: '0' }
+    checked: { type: String, default: '0' },
+    value: { type: String, default: '1' }
   },
   computed: {
     inputChecked: {
@@ -41,9 +42,6 @@ export default {
 <style scoped lang="scss">
 $black: rgba(0, 0, 0, 0.87);
 
-.form-wrapper {
-  margin-bottom: 50px;
-}
 .checkbox-form {
   display: none;
   &+label {
