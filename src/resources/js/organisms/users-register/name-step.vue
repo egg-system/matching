@@ -5,21 +5,6 @@
         <div class="name-step__header">あなたの名前を教えてください</div>
 
         <div class="name-form">
-          <div class="name-form__heading">
-            氏名 ※ 本名は本人確認のために使用します。当サービス内では表示されません。
-          </div>
-          <input
-            v-model="name"
-            type="text"
-            class="name-form__input"
-            name="name"
-            autocomplete="name"
-            autofocus
-            required
-          >
-        </div>
-
-        <div class="name-form">
           <div class="name-form__heading">ニックネーム</div>
           <input
             v-model="displayName"
@@ -30,6 +15,23 @@
             autofocus
             required
           >
+          <span>ジムへの表示名として使用されます。</span>
+        </div>
+
+        <div class="name-form">
+          <div class="name-form__heading">
+            氏名
+          </div>
+          <input
+            v-model="name"
+            type="text"
+            class="name-form__input"
+            name="name"
+            autocomplete="name"
+            autofocus
+            required
+          >
+          <span>本名は本人確認のために使用します。当サービス内では表示されません。</span>
         </div>
 
         <main-btn
@@ -93,6 +95,11 @@ export default {
         font-size: 1.1rem;
         font-weight: bold;
         padding: 3px 0 7px 0;
+      }
+      span {
+        margin-top: 1rem;
+        display: block;
+        font-size: 0.1rem;
       }
     }
     .next-btn {
