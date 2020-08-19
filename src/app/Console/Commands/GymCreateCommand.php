@@ -99,6 +99,7 @@ class GymCreateCommand extends Command
         ]);
 
         $this->info('登録が完了しました');
+        $this->info("ID：$gym->id");
         $this->info("パスワード：$password");
     }
 }
