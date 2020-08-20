@@ -16,6 +16,7 @@ class CommonSeeder extends Seeder
             Common\AreasTableSeeder::class,
             Common\OccupationsTableSeeder::class,
             Common\PrefecturesTableSeeder::class,
+            Common\OfferStateSeeder::class,
         ]);
     }
 }

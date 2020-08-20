@@ -39,10 +39,10 @@ class AreasTableSeeder extends Seeder
     public function run()
     {
         collect(self::AREA_DATA)->each(function ($areas, $prefecture) {
-            $area = Area::create(['name' => $prefecture]);
+            $area = Area::firstOrCreate(['name' => $prefecture]);
 
             collect($areas)->each(function ($areaData) use ($area) {
-                $area->children()->create(['name' => $areaData]);
+                $area->children()->firstOrCreate(['name' => $areaData]);
             });
         });
     }
