@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeds\Testing;
+namespace Database\Seeds\Common;
 
 use App\Models\OfferState;
 use Illuminate\Database\Seeder;
