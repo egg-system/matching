@@ -31,6 +31,8 @@ export default {
 
 .login-area-wrapper {
   margin-top: $sectionMarginSize;
+  margin-left: 0;
+  margin-right: 0;
 
   p {
     margin: 2rem 0 1rem;

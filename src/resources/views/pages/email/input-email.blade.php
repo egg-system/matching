@@ -16,7 +16,7 @@
                 <label for="email_address">
                     メールアドレス
                 </label>
-                <input id="email_address" type="email" name='email'>
+                <input id="email_address" type="email" name='email' required>
             </div>
             <div>
               <input type="submit" value="次へ">

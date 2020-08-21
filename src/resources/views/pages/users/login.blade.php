@@ -24,12 +24,12 @@
             >
             <div>
                 <label for='email_address'>メールアドレス</label>
-                <input id='email_address' type='email' name='email'>
+                <input id='email_address' type='email' name='email' required>
             </div>
             <div>
                 <label for='password'>パスワード</label>
                 <div class='passwordParent'>
-                    <input type='password' name='password'>
+                    <input type='password' name='password' required>
                 </div>
             </div>
             <div>

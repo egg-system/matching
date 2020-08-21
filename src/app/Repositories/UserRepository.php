@@ -117,7 +117,8 @@ class UserRepository
         $areas = Area::all()->map(function ($area) {
             return collect([
                 'name' => $area->name,
-                'value' => $area->id
+                'value' => $area->id,
+                'disabled' => $area->parent_id === null,
             ]);
         });
         $areas->prepend(collect(['name' => '', 'value' => '']));
