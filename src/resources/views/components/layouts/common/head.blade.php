@@ -3,3 +3,6 @@
 
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
+<!-- iphoneの場合、-のあるテキストはリンクになるため、以下を追加 -->
+<meta name="format-detection" content="telephone=no">
