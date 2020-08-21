@@ -16,6 +16,7 @@
           v-for="(area, i) in areas"
           :value="area.value"
           :key="`now-work-area-form__select_${i}`"
+          :disabled="area.disabled"
         >{{ area.name }}</option>
       </select>
     </div>
