@@ -71,7 +71,7 @@
         <div class="seek">
             <h2>求める人物像</h2>
             <div class="content">
-            <p>{{ nl2br($gym->job->requirements) }}</p>
+            <p>{!! nl2br(e($gym->job->requirements)) !!}</p>
             </div>
         </div>
 
