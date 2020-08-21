@@ -28,7 +28,6 @@
             class="name-form__input"
             name="name"
             autocomplete="name"
-            autofocus
             required
           >
           <span>本名は本人確認のために使用します。当サービス内では表示されません。</span>
@@ -83,10 +82,10 @@ export default {
       font-size: 0.9rem;
     }
     .name-form {
-      margin-top: 135px;
+      margin-top: 5rem;
       width: 75%;
       &__heading {
-        font-size: 0.5rem;
+        font-size: 1rem;
         color: grey;
       }
       &__input {
@@ -105,12 +104,6 @@ export default {
     .next-btn {
       margin-top: 60px;
     }
-  }
-  .steps-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 1000px;
   }
 }
 </style>

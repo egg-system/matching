@@ -8,7 +8,7 @@
         </div>
 
         <div class="password-form">
-          <div class="password-form__heading">パスワード ※ 6文字以上で設定してください</div>
+          <div class="password-form__heading">パスワード</div>
           <div class="password-form__input">
             <input
               v-model="inputValue"
@@ -16,13 +16,15 @@
               class="password-form__input"
               name="password"
               autocomplete="password"
+              minlength="6"
               autofocus
               required
             >
-            <a href="javascript:void(0)" @click.prevent="toggleIsShownPassword">
+            <!-- <a @click.prevent="toggleIsShownPassword">
               <v-icon size="20">{{ isShownPassword ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
-            </a>
+            </a> -->
           </div>
+          <span>6文字以上で設定してください</span>
         </div>
 
         <main-btn
@@ -101,7 +103,7 @@ export default {
       margin-top: 125px;
       width: 75%;
       &__heading {
-        font-size: 0.5rem;
+        font-size: 1rem;
         color: grey;
       }
       &__input {
@@ -118,6 +120,11 @@ export default {
         a {
           text-decoration: unset;
         }
+      }
+      span {
+        margin-top: 1rem;
+        display: block;
+        font-size: 0.1rem;
       }
     }
     .next-btn {
