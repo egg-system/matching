@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row justify="center" class="social-icons-wrapper">
     <social-icon
       v-for="socialIcon in socialIcons"
       :key="socialIcon.url"
@@ -21,7 +21,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.social-icon {
-  margin: 3rem 2rem 2rem;
+.social-icons-wrapper {
+  margin: auto 0;
+  .social-icon {
+    margin: 3rem 2rem 2rem;
+  }
 }
 </style>
