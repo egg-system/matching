@@ -21,14 +21,31 @@
             'career-form-enrollment__input--danger': !!startAtError
           }"
         >
-          <input
-            v-model="startAt"
-            type="text"
-            placeholder="開始日"
-          >
-          <span v-if="!!startAtError">
-            {{ startAtError }}
-          </span>
+          <v-menu>
+            <template v-slot:activator="{ on }">
+              <input
+                v-model="startAt"
+                type="text"
+                placeholder="開始日"
+                v-on="on"
+              >
+              <span v-if="!!startAtError">
+                {{ startAtError }}
+              </span>
+            </template>
+            <v-date-picker
+              v-model="startAtDate"
+              type="month"
+              no-title
+              scrollable
+              locale="ja"
+            >
+              <v-spacer />
+              <v-btn text color="primary" class="mx-4" @click="startAtDate = null">
+                クリア
+              </v-btn>
+            </v-date-picker>
+          </v-menu>
         </div>
         <div class="career-form-enrollment__tilda">〜</div>
         <div
@@ -37,14 +54,31 @@
             'career-form-enrollment__input--danger': !!endAtError
           }"
         >
-          <input
-            v-model="endAt"
-            type="text"
-            placeholder="完了日"
-          >
-          <span v-if="!!endAtError">
-            {{ endAtError }}
-          </span>
+          <v-menu>
+            <template v-slot:activator="{ on }">
+              <input
+                v-model="endAt"
+                type="text"
+                placeholder="完了日"
+                v-on="on"
+              >
+              <span v-if="!!endAtError">
+                {{ endAtError }}
+              </span>
+            </template>
+            <v-date-picker
+              v-model="endAtDate"
+              type="month"
+              no-title
+              scrollable
+              locale="ja"
+            >
+              <v-spacer />
+              <v-btn text color="primary" class="mx-4" @click="endAtDate = null">
+                クリア
+              </v-btn>
+            </v-date-picker>
+          </v-menu>
         </div>
       </div>
       <div class="career-form-enrollment-checkbox-wrapper">
@@ -112,6 +146,14 @@ export default {
         this.career = career
       }
     },
+    startAtDate: {
+      get() {
+        return this.startAt ? this.startAt.replace('/', '-') : null
+      },
+      set(date) {
+        this.startAt = date ? date.replace('-', '/') : null
+      }
+    },
     startAt: {
       get() {
         return this.career.startAt
@@ -130,6 +172,14 @@ export default {
         const career = { ...this.career }
         career.endAt = endAt
         this.career = career
+      }
+    },
+    endAtDate: {
+      get() {
+        return this.endAt ? this.endAt.replace('/', '-') : null
+      },
+      set(date) {
+        this.endAt = date ? date.replace('-', '/') : null
       }
     },
     description: {
