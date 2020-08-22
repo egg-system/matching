@@ -30,7 +30,6 @@ export default {
 
 <style lang="scss" scoped>
 .steps-footer {
-  padding: 10px 0;
   background: white;
   .v-progress-linear__determinate {
     border-radius: 20px;
