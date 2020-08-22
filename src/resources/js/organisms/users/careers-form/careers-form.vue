@@ -16,11 +16,14 @@
       />
       <v-btn
         fab
+        x-small
         dark
         color="black"
         class="career-form-remove-btn"
         @click="removeCareerForm(index)"
-      >×</v-btn>
+      >
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </div>
     <v-btn
       depressed
