@@ -2,6 +2,11 @@
 @import '~@mdi/font/css/materialdesignicons.css';
 @import '~vuetify/dist/vuetify.min.css';
 
+// inputの枠線を一旦なくす
+input:focus {
+  outline: none;
+}
+
 // reset css
 /* Box sizing rules */
 *,
