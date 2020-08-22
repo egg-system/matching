@@ -124,7 +124,7 @@ export default {
       span {
         margin-top: 1rem;
         display: block;
-        font-size: 0.1rem;
+        font-size: 0.8rem;
       }
     }
     .next-btn {
