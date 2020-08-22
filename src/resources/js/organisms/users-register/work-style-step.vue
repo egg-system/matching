@@ -155,7 +155,8 @@ export default {
         const { width } = contentRect
         if (width > 0) {
           const smallTextOffsetTop = this.$refs.smallText.offsetTop
-          this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - 115px)`
+          const margin = window.innerHeight > 800 ? '230px' : '115px'
+          this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - ${margin})`
         } else {
           this.$refs.smallText.style['margin-top'] = 'auto'
         }
