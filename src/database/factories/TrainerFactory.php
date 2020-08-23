@@ -11,7 +11,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Trainer::class, function (Faker $faker) {
     return [
-        'now_work_area_id' => 1,
+        // area_idの1は選択できないようにしている
+        'now_work_area_id' => 2,
         'now_work_style' => 1,
         'careers' => [
             [
