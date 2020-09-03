@@ -1,6 +1,11 @@
 <template>
   <div class="offer-btn">
-    <main-btn :label="label" :disabled="disabled" :hint="hint" @click="doOffer" />
+    <main-btn
+      :label="label"
+      :disabled="submitting || disabled"
+      :hint="hint"
+      @click="doOffer"
+    />
     <form ref="offerForm" :action="route" method="post">
       <input type='hidden' name='_token' :value="token" />
       <input type='hidden' name='trainer_login_id' :value="trainerId" />
@@ -44,6 +49,9 @@ export default {
       default: ''
     }
   },
+  data: () => ({
+    submitting: false
+  }),
   computed: {
     token() {
       return this.$root.$data.token
@@ -51,7 +59,7 @@ export default {
   },
   methods: {
     doOffer() {
-      this.disabled = true
+      this.submitting = true
       this.$refs.offerForm.submit()
     }
   }

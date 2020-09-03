@@ -32,7 +32,6 @@
                 type="text"
                 value="{{ $user->display_name }}"
                 autocomplete="name"
-                autofocus
                 error="{{ $errors->first('display_name') }}"
             ></input-form>
 

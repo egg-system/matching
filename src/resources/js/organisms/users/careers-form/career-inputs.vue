@@ -21,7 +21,7 @@
             'career-form-enrollment__input--danger': !!startAtError
           }"
         >
-          <v-menu>
+          <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <input
                 v-model="startAt"
@@ -54,7 +54,7 @@
             'career-form-enrollment__input--danger': !!endAtError
           }"
         >
-          <v-menu>
+          <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <input
                 v-model="endAt"

@@ -34,7 +34,8 @@ class OfferRecieve extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->offer->getMailSubjectByUser($this->sendToUser))
+        return $this
+            ->subject($this->offer->getMailSubjectByUser($this->sendToUser))
             ->view($this->offer->getMailTemplate())
             ->with([
                 'offer' => $this->offer,
