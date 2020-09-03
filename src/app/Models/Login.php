@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\PasswordReset;
 use App\Notifications\VerifyEmail;
 use App\Models\Offer;
 
@@ -110,5 +111,10 @@ class Login extends Authenticatable implements MustVerifyEmail
         // 相手にオファーしているか確認するため、自分とは違うカラムにする
         $column = $this->isGym ? 'trainer_login_id' : 'gym_login_id';
         return $this->offers()->where($column, $toLoginId)->exists();
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordReset($token));
     }
 }
