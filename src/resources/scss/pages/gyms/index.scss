@@ -1,16 +1,19 @@
 #gymList {
   background-color: #fef9f6;
-  padding-bottom: 2rem;
+  padding: 2rem 0;
+
   h2 {
     font-size: 1.2rem;
   }
+
   img {
     width: 100%;
   }
+
   .wrapper {
     width: 90%;
     margin: 0 auto;
-    padding-top: 1rem;
+
     .item {
       background-color: #fff;
       a {
