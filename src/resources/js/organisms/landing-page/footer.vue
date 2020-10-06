@@ -1,8 +1,8 @@
 <template>
   <footer class="footer-wrapper">
     <hr />
-    <social-icons />
     <footer-menus :menus="menus" />
+    <social-icons />
     <hr />
     <p>© EGG SYSTEM Inc. All Right Reserved.</p>
   </footer>

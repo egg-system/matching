@@ -24,7 +24,7 @@ export default {
 .social-icons-wrapper {
   margin: auto 0;
   .social-icon {
-    margin: 3rem 2rem 2rem;
+    margin: 0 1rem 1rem;
   }
 }
 </style>
