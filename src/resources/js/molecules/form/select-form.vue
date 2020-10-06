@@ -22,6 +22,7 @@
             v-for="(option, i) in options"
             :value="option.value"
             :key="`select_${i}`"
+            :disabled="'disabled' in option ? option.disabled : false"
           >{{ option.name }}</option>
         </select>
       </div>

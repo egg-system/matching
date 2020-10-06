@@ -9,20 +9,19 @@
             <h2>エントリー／オファー一覧</h2>
             @forelse($offers as $offer)
                 @php
-
-                    $trainsition = $user->isGym ? "/trainers/{$offer->trainerLogin->user_id}"
+                    $trainsition = $user->isGym
+                        ? "/trainers/{$offer->trainerLogin->user_id}"
                         : "/gyms/{$offer->gymLogin->user_id}";
-                    $photo = $user->isGym ? '/images/trainers/trainer-icon.png'
+                    $photo = $user->isGym
+                        ? '/images/app/default-login-icon.png'
                         : $offer->gymLogin->user->job->main_image_url;
 
-                    $comment = $offer->created_at->format('Y/m/d');
-                    $comment = "{$comment}に{$offer->state->name}";
+                    $commentCreatedAt = $offer->created_at->format('Y/m/d');
+                    $comment = "{$commentCreatedAt}に{$offer->state->name}";
 
                     $trainsionUserType = $offer->state->transition_user_type;
                     $doesLoginUserOffer = $user->user_type === $trainsionUserType;
                     $comment = $doesLoginUserOffer ? "{$comment}しました" : "{$comment}が届きました";
-
-
                 @endphp
                 <history-item
                     transition='{{ $trainsition }}'

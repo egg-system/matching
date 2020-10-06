@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
 
 $factory->define(MatchingCondition::class, function (Faker $faker) {
     return [
-        'area_id' => 1,
+        // area_idの1は選択できないようにしている
+        'area_id' => 2,
         'weekly_worktime' => 1,
         'can_work_holiday' => true,
         'can_work_weekday' => true,

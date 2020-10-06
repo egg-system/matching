@@ -32,7 +32,6 @@
                 type="text"
                 value="{{ $user->display_name }}"
                 autocomplete="name"
-                autofocus
                 error="{{ $errors->first('display_name') }}"
             ></input-form>
 
@@ -78,11 +77,13 @@
                     return collect([
                         'name' => $area->name,
                         'value' => $area->id,
+                        'disabled' => $area->parent_id === null
                     ]);
                 });
                 $formattedAreas->prepend(collect([
                     'name' => '',
                     'value' => '',
+                    'disabled' => false,
                 ]));
             ?>
             <select-form

@@ -2,9 +2,13 @@
 
 namespace App\Observers;
 
-use App\Mail\OfferRecieve;
 use App\Models\Offer;
+
+use App\Mail\OfferRecieve;
+use App\Mail\OfferSystemNotification;
+
 use App\Notifications\OfferNotify;
+use App\Notifications\SystemNotify;
 
 class OfferObserver
 {
@@ -28,8 +32,16 @@ class OfferObserver
             ]);
             $storedOffer->notify(app(OfferNotify::class, [
                 'mail' => $mail,
-                'to' => [$sendUser->email]
+                'to' => [$sendUser->email],
             ]));
         }
+
+        // システム管理者に通知する
+        $systemMail = app(OfferSystemNotification::class, [
+            'offer' => $storedOffer,
+        ]);
+        $storedOffer->notify(app(SystemNotify::class, [
+            'mail' => $systemMail,
+        ]));
     }
 }
