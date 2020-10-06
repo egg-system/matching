@@ -68,6 +68,10 @@
             -ms-transform: translateY(-50%);
           }
         }
+        .login-error {
+          font-size: 0.8rem;
+          color: red;
+        }
       }
       .sentEmailAgainBtn {
         a {

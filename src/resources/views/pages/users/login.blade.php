@@ -30,6 +30,11 @@
                 <label for='password'>パスワード</label>
                 <div class='passwordParent'>
                     <input type='password' name='password' required>
+                    @if ($errors->any)
+                        @foreach ($errors->all() as $error)
+                            <div class="login-error">{{ $error }}</div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <div>
