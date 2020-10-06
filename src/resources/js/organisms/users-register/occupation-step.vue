@@ -68,21 +68,6 @@ export default {
       this.$emit('moveNext')
     }
   },
-  mounted () {
-    this.observer = new ResizeObserver(entries => {
-      entries.forEach(({ contentRect }) => {
-        const { width } = contentRect
-        if (width > 0) {
-          const smallTextOffsetTop = this.$refs.smallText.offsetTop
-          const margin = window.innerHeight > 800 ? '230px' : '115px'
-          this.$refs.smallText.style['margin-top'] = `calc(100vh - ${smallTextOffsetTop}px - ${margin})`
-        } else {
-          this.$refs.smallText.style['margin-top'] = 'auto'
-        }
-      })
-    })
-    this.observer.observe(this.$refs.formWrapper)
-  },
   beforeDestroy () {
     this.observer.disconnect(this.$refs.formWrapper)
   }
@@ -118,6 +103,7 @@ export default {
 }
 .small-text {
   font-size: 0.8rem;
+  margin-top: 3rem;
   text-align: center;
 }
 </style>

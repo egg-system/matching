@@ -24,12 +24,17 @@
             >
             <div>
                 <label for='email_address'>メールアドレス</label>
-                <input id='email_address' type='email' name='email' required>
+                <input id='email_address' type='email' name='email'>
             </div>
             <div>
                 <label for='password'>パスワード</label>
                 <div class='passwordParent'>
-                    <input type='password' name='password' required>
+                    <input type='password' name='password'>
+                    @if ($errors->any)
+                        @foreach ($errors->all() as $error)
+                            <div class="login-error">{{ $error }}</div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <div>

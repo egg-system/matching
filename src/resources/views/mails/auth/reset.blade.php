@@ -7,6 +7,7 @@
 $resetUrl = route('password.reset', [
     'userType' => $login->isGym ? 'gym' : 'trainer',
     'token' => $token,
+    'email' => $login->email,
 ])
 @endphp
 

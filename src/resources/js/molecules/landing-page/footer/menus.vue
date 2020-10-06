@@ -28,8 +28,6 @@ export default {
 
 <style lang="scss" scoped>
 .footer-menu-wrapper {
-  margin-bottom: 1rem;
-
   .v-list-item__content {
     justify-content: center;
     font-size: 1rem;
