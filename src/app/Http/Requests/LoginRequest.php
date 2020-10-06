@@ -16,6 +16,14 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+    public function attributes()
+    {
+        return [
+            'email' => 'メールアドレス',
+            'password' => 'パスワード',
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
