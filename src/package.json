@@ -14,7 +14,7 @@
     "devDependencies": {
         "@mdi/font": "^5.3.45",
         "@storybook/vue": "^5.3.19",
-        "axios": "^0.19",
+        "axios": "^0.21",
         "babel-preset-vue": "^2.0.2",
         "browser-sync": "^2.26.10",
         "browser-sync-webpack-plugin": "^2.2.2",
